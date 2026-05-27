@@ -9,16 +9,33 @@ h1 {
 }
 
 table {
+    width: 60%;
     border-collapse: collapse;
-    width: 50%;
     background-color: white;
 }
 
 th, td {
-    padding: 10px;
     border: 1px solid black;
+    padding: 10px;
+}
+
+th {
+    background-color: lightgray;
 }
 
 a {
     text-decoration: none;
+    margin-right: 10px;
+}
+
+input {
+    padding: 8px;
+    width: 250px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: darkblue;
+    color: white;
+    border: none;
 }
