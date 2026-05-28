@@ -1,41 +1,43 @@
-body {
-    font-family: Arial;
-    background-color: #f4f4f4;
-    padding: 20px;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-h1 {
-    color: darkblue;
+body{
+    background-color: #f1f5f9;
+    font-family: Arial, sans-serif;
 }
 
-table {
-    width: 60%;
-    border-collapse: collapse;
-    background-color: white;
+.container{
+    display: grid;
+    grid-template-columns: 14rem auto 14rem;
+    gap: 1rem;
+    min-height: 100vh;
+    padding: 1rem;
 }
 
-th, td {
-    border: 1px solid black;
-    padding: 10px;
-}
+/* Left */
 
-th {
-    background-color: lightgray;
-}
-
-a {
-    text-decoration: none;
-    margin-right: 10px;
-}
-
-input {
-    padding: 8px;
-    width: 250px;
-}
-
-button {
-    padding: 8px 15px;
-    background-color: darkblue;
+aside{
+    background: #0f172a;
     color: white;
-    border: none;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+/* Main */
+
+main{
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+/* Right */
+
+.right{
+    background: #cbd5e1;
+    padding: 1rem;
+    border-radius: 10px;
 }
