@@ -20,6 +20,10 @@
 
 <body>
 
+    <button id="menu-btn">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+
     <div class="container">
 
         <!-- SIDEBAR START -->
@@ -31,7 +35,7 @@
                     <h2>Transport<span class="danger">ERP</span></h2>
                 </div>
 
-                <div class="close">
+                <div class="close" id ="close-btn">
                     <span class="material-symbols-outlined">close</span>
                 </div>
 
@@ -146,44 +150,46 @@
             <div class="recent-orders">
 
                 <h2>Recent Shipments</h2>
-
-                <table>
-
-                    <thead>
-                        <tr>
-                            <th>Shipment ID</th>
-                            <th>Driver</th>
-                            <th>Status</th>
-                            <th>Destination</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-                            <td>#TR1021</td>
-                            <td>John</td>
-                            <td class="success">Delivered</td>
-                            <td>New York</td>
-                        </tr>
-
-                        <tr>
-                            <td>#TR1022</td>
-                            <td>Alex</td>
-                            <td class="warning">Pending</td>
-                            <td>Chicago</td>
-                        </tr>
-
-                        <tr>
-                            <td>#TR1023</td>
-                            <td>David</td>
-                            <td class="danger-text">Delayed</td>
-                            <td>California</td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
+                
+                <div class="table-responsive">
+                    <table>
+                
+                        <thead>
+                            <tr>
+                                <th>Shipment ID</th>
+                                <th>Driver</th>
+                                <th>Status</th>
+                                <th>Destination</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody>
+                
+                            <tr>
+                                <td>#TR1021</td>
+                                <td>John</td>
+                                <td class="success">Delivered</td>
+                                <td>New York</td>
+                            </tr>
+                
+                            <tr>
+                                <td>#TR1022</td>
+                                <td>Alex</td>
+                                <td class="warning">Pending</td>
+                                <td>Chicago</td>
+                            </tr>
+                
+                            <tr>
+                                <td>#TR1023</td>
+                                <td>David</td>
+                                <td class="danger-text">Delayed</td>
+                                <td>California</td>
+                            </tr>
+                
+                        </tbody>
+                
+                    </table>
+                </div>
 
             </div>
 
@@ -219,6 +225,7 @@
 
                     <div class="update">
                         <span class="material-symbols-outlined">notifications</span>
+                        <div class="update-content">
 
                         <div class="message">
                             <p><b>Truck #21</b> reached destination.</p>
@@ -242,6 +249,24 @@
         </div>
 
     </div>
+
+    <!-- JavaScript Start-->
+    <script>
+
+        const menuBtn = document.getElementById("menu-btn");
+        const closeBtn = document.getElementById("close-btn");
+        const sidebar = document.querySelector("aside");
+
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.add("active");
+        });
+
+        closeBtn.addEventListener("click", () => {
+            sidebar.classList.remove("active");
+        });
+
+    </script>
+    <!-- JavaScript End-->
 
 </body>
 </html>
