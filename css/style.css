@@ -193,6 +193,15 @@ main {
     text-align: center;
 }
 
+.recent-orders table :hover{
+    transform: translateY(-5px);
+}
+
+tbody tr:hover {
+    background: var(--color-light);
+    cursor: pointer;
+}
+
 table th,
 table td {
     padding: 1rem;
