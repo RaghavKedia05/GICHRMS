@@ -5,11 +5,9 @@ use CodeIgniter\Router\RouteCollection;
 /** @var RouteCollection $routes */
 
 $routes->get('/', 'Auth::login');
+$routes->post('/login', 'Auth::authenticate');
 
-$routes->post('/authenticate', 'Auth::authenticate');
-
-$routes->get('/dashboard', 'Admin::dashboard');
-
-$routes->get('/transporters', 'Admin::transporters');
-$routes->get('/vehicles', 'Admin::vehicles');
-$routes->get('/drivers', 'Admin::drivers');
+$routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/transporters', 'Dashboard::transporters');
+$routes->get('/drivers', 'Dashboard::drivers');
+$routes->get('/vehicles', 'Dashboard::vehicles');

@@ -16,7 +16,7 @@
                 <p class="text-gray-500 mt-2">Sign in to your account</p>
             </div>
 
-            <form class="space-y-5">
+            <form action="<?= base_url('login') ?>" method="post" class="space-y-5">
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -24,6 +24,7 @@
                     </label>
                     <input
                         type="email"
+                        name="email"
                         placeholder="Enter your email"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                     />
@@ -41,6 +42,7 @@
 
                     <input
                         type="password"
+                        name="password"
                         placeholder="Enter your password"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                     />
@@ -73,19 +75,12 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="flex justify-center">
                     <button
-                        type="button"
-                        class="flex justify-center items-center py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                     type="button"
+                     class="flex justify-center items-center py-3 px-6 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
                     >
-                        Google
-                    </button>
-
-                    <button
-                        type="button"
-                        class="flex justify-center items-center py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
-                    >
-                        GitHub
+                     Google
                     </button>
                 </div>
 
