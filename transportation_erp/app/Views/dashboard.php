@@ -20,6 +20,8 @@
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Graph JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -298,7 +300,7 @@
 
                                     <!-- Title & Number -->
                                     <div>
-                                        <p class="text-slate-500 text-sm">
+                                        <p class="text-black-500 text-sm">
                                             Resigned Employees
                                         </p>
 
@@ -357,12 +359,12 @@
 
                                     <!-- Icon -->
                                     <div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center">
-                                        <i data-lucide="badge-alert" class="w-5 h-5 text-white"></i>
+                                        <i data-lucide="contact-round" class="w-5 h-5 text-white"></i>
                                     </div>
 
                                     <!-- Title & Number -->
                                     <div>
-                                        <p class="text-slate-500 text-sm">
+                                        <p class="text-black-500 text-sm">
                                             Employees On Leave
                                         </p>
 
@@ -389,9 +391,9 @@
                             </div>
 
                             <!-- Progress Circle -->
-                            <div class="relative w-[72px] h-[72px] flex-shrink-0">
+                            <div class="relative w-16 h-16 flex-shrink-0">
 
-                                <div class="w-[72px] h-[72px] rounded-full"
+                                <div class="w-16 h-16 rounded-full"
                                     style="background: conic-gradient(#2196f3 60%, #dbeafe 60%);">
                                 </div>
 
@@ -410,6 +412,38 @@
                     </div>
 
 
+                </div>
+
+                <!-- Attendance,Upcoming Events,Emplyee work piechart Card -->
+                <div class="grid grid-cols-12 gap-6 mt-6">
+
+                    <!-- Attendance Card -->
+                    <div class="col-span-6 bg-white rounded-sm shadow-sm">
+                        <div class="p-5 border-b border-slate-100">
+                            <h3 class="text-md font-sm">
+                                Attendance Overview
+                            </h3>
+                        </div>
+
+                        <div class="p-6">
+                            <canvas id="attendanceChart" height="150"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events Card -->
+                    <div class="col-span-3 bg-white rounded-sm shadow-sm">
+
+                    </div>
+
+                    <!-- Employee Work Pie Chart Card -->
+                    <div class="col-span-3 bg-white rounded-sm shadow-sm">
+
+                    </div>
+
+                </div>
+
+
+
 
             </main>
 
@@ -419,6 +453,60 @@
 
     <script>
         lucide.createIcons();
+    </script>
+
+
+    <!-- Attendance Chart Data -->
+    <script>
+        new Chart(document.getElementById('attendanceChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Job Views',
+                    data: [20, 30, 25, 50, 25, 30, 20, 35, 20, 30, 25, 50],
+                    backgroundColor: '#6C63FF',
+                    borderRadius: 10,
+                    barThickness: 10
+                }, {
+                    label: 'Job Applied',
+                    data: [13, 23, 20, 25, 20, 23, 13, 15, 13, 23, 20, 25],
+                    backgroundColor: '#FF6B3D',
+                    borderRadius: 10,
+                    barThickness: 10
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 50,
+                        ticks: { stepSize: 5 },
+                        border: { display: false },
+                        grid: {
+                            color: '#edf2f7'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'black',
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            boxWidth: 6,
+                            boxHeight: 6,
+                            padding: 10
+                        }
+                    }
+                }
+            }
+        });
     </script>
 
 
