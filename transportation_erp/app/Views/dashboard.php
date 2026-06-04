@@ -46,6 +46,8 @@
                 <!-- Dashboard -->
                 <a href="#" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4            
                     text-slate-500
+                    bg-indigo-500
+                    text-white
                     hover:bg-indigo-500
                     hover:text-white">
                     <div class="flex items-center gap-2.5">
@@ -122,22 +124,22 @@
 
                     <!-- Search -->
                     <button class="text-slate-600 hover:text-indigo-600 transition">
-                        <i data-lucide="search"></i>
+                        <i data-lucide="search" class="w-4 h-4"></i>
                     </button>
 
                     <!-- Notification -->
                     <button class="text-slate-600 hover:text-indigo-600 transition">
-                        <i data-lucide="bell"></i>
+                        <i data-lucide="bell" class="w-4 h-4"></i>
                     </button>
 
                     <!-- Profile -->
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center">
+                        <div class="w-7 h-7 rounded-full bg-indigo-500 text-white flex items-center justify-center">
                             RK
                         </div>
 
                         <div class="text-right">
-                            <p class="font-small text-slate-800">
+                            <p class="font-sm text-slate-800">
                                 Mr. Kedia
                             </p>
                         </div>
@@ -146,7 +148,7 @@
 
                     <!-- Settings -->
                     <button class="text-slate-600 hover:text-indigo-600 transition">
-                        <i data-lucide="settings"></i>
+                        <i data-lucide="settings" class="w-4 h-4"></i>
                     </button>
 
                 </div>
@@ -155,58 +157,259 @@
 
             <!-- Main Content -->
             <main class="p-6">
+                <div class="grid gap-6" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))">
 
-                <div class="grid grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-sm p-6 shadow-sm">
 
-                    <!-- LEFT SIDE -->
-                    <div class="col-span-2">
+                        <div class="flex items-start justify-between">
 
-                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Left Side -->
+                            <div>
 
-                            <!-- Card 1 -->
-                            <div class="bg-white rounded-md border border-slate-100 p-6 relative h-[120px]">
-                                <p class="text-slate-500">Total Sales</p>
-                                <h2 class="text-3xl font-bold mt-2">$24.5K</h2>
+                                <div class="flex items-start gap-4">
+
+                                    <!-- Icon -->
+                                    <div class="w-12 h-12 rounded-lg bg-violet-500 flex items-center justify-center">
+                                        <i data-lucide="users" class="w-5 h-5 text-white"></i>
+                                    </div>
+
+                                    <!-- Title & Number -->
+                                    <div>
+                                        <p class="text-black-500 text-sm font-sm">
+                                            Total Employees
+                                        </p>
+
+                                        <h2 class="text-4xl font-semibold mt-1">
+                                            12,116
+                                        </h2>
+                                    </div>
+
+                                </div>
+
+                                <!-- Growth Text -->
+                                <div class="flex items-center gap-2 mt-4 ml-16">
+                                    <span class="text-green-500 text-xs font-medium">
+                                        ↑ 2.45%
+                                    </span>
+                                    <span class="text-slate-400 text-sm">
+                                        Increased this year
+                                    </span>
+                                </div>
+
                             </div>
 
-                            <!-- Card 2 -->
-                            <div class="bg-white rounded-md border border-slate-100 p-6 relative h-[120px]">
-                                <p class="text-slate-500">Orders</p>
-                                <h2 class="text-3xl font-bold mt-2">145</h2>
-                            </div>
+                            <!-- Progress Circle -->
+                            <div class="relative w-16 h-16">
 
-                            <!-- Card 3 -->
-                            <div class="bg-white rounded-md border border-slate-100 p-6 relative h-[120px]">
-                                <p class="text-slate-500">Drivers</p>
-                                <h2 class="text-3xl font-bold mt-2">52</h2>
-                            </div>
+                                <div class="w-16 h-16 rounded-full"
+                                    style="background: conic-gradient(#7c3aed 40%, #ede9fe 40%);">
+                                </div>
 
-                            <!-- Card 4 -->
-                            <div class="bg-white rounded-md border border-slate-100 p-6 relative h-[120px]">
-                                <p class="text-slate-500">Vehicles</p>
-                                <h2 class="text-3xl font-bold mt-2">128</h2>
+                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+
+                                    <span class="text-sm font-semibold text-violet-500">
+                                        40%
+                                    </span>
+
+                                </div>
+
                             </div>
 
                         </div>
 
                     </div>
 
-                    <!-- RIGHT SIDE -->
-                    <div class="bg-white rounded-md border border-slate-100 p-6 relative h-[120px]">
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-sm p-6 shadow-sm">
 
-                        <h3 class="text-lg font-semibold mb-4">
-                            Fleet Distribution
-                        </h3>
+                        <div class="flex items-start justify-between">
 
-                        <div class="h-64 flex items-center justify-center text-slate-400">
+                            <!-- Left Side -->
+                            <div>
 
-                            Pie Chart Here
+                                <div class="flex items-start gap-4">
+
+                                    <!-- Icon -->
+                                    <div class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center">
+                                        <i data-lucide="user-plus" class="w-5 h-5 text-white"></i>
+                                    </div>
+
+                                    <!-- Title & Number -->
+                                    <div>
+                                        <p class="text-black-500 text-sm font-sm">
+                                            New Employees
+                                        </p>
+
+                                        <h2 class="text-4xl font-semibold mt-1">
+                                            1,116
+                                        </h2>
+                                    </div>
+
+                                </div>
+
+                                <!-- Growth Text -->
+                                <div class="flex items-center gap-2 mt-4 ml-16">
+                                    <span class="text-red-500 text-xs font-medium">
+                                        ↓ 1.95%
+                                    </span>
+                                    <span class="text-slate-400 text-sm">
+                                        Decreased this year
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <!-- Progress Circle -->
+                            <div class="relative w-16 h-16">
+
+                                <div class="w-16 h-16 rounded-full"
+                                    style="background: conic-gradient(#f97316 20%, #fde7df 20%);">
+                                </div>
+
+                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+
+                                    <span class="text-sm font-semibold text-orange-500">
+                                        20%
+                                    </span>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-sm p-6 shadow-sm min-h-[135px]">
+
+                        <div class="flex items-start justify-between gap-4">
+
+                            <!-- Left Side -->
+                            <div>
+
+                                <div class="flex items-start gap-4">
+
+                                    <!-- Icon -->
+                                    <div class="w-12 h-12 rounded-lg bg-green-500 flex items-center justify-center">
+                                        <i data-lucide="user-minus" class="w-5 h-5 text-white"></i>
+                                    </div>
+
+                                    <!-- Title & Number -->
+                                    <div>
+                                        <p class="text-slate-500 text-sm">
+                                            Resigned Employees
+                                        </p>
+
+                                        <h2 class="text-4xl font-semibold mt-1">
+                                            102
+                                        </h2>
+                                    </div>
+
+                                </div>
+
+                                <!-- Growth Text -->
+                                <div class="flex items-center gap-2 mt-4 ml-16">
+
+                                    <span class="text-red-500 text-xs font-medium">
+                                        ↓ 2.5%
+                                    </span>
+
+                                    <span class="text-slate-400 text-sm">
+                                        Decreased this year
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Progress Circle -->
+                            <div class="relative w-16 h-16 flex-shrink-0">
+
+                                <div class="w-16 h-16 rounded-full"
+                                    style="background: conic-gradient(#22c55e 50%, #dcfce7 50%);">
+                                </div>
+
+                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+
+                                    <span class="text-lg font-semibold text-green-500">
+                                        50%
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm min-h-[135px]">
+
+                        <div class="flex items-start justify-between gap-4">
+
+                            <!-- Left Side -->
+                            <div>
+
+                                <div class="flex items-start gap-4">
+
+                                    <!-- Icon -->
+                                    <div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center">
+                                        <i data-lucide="badge-alert" class="w-5 h-5 text-white"></i>
+                                    </div>
+
+                                    <!-- Title & Number -->
+                                    <div>
+                                        <p class="text-slate-500 text-sm">
+                                            Employees On Leave
+                                        </p>
+
+                                        <h2 class="text-4xl font-semibold mt-1">
+                                            212
+                                        </h2>
+                                    </div>
+
+                                </div>
+
+                                <!-- Growth Text -->
+                                <div class="flex items-center gap-2 mt-4 ml-16">
+
+                                    <span class="text-green-500 text-xs font-medium">
+                                        ↑ 1.32%
+                                    </span>
+
+                                    <span class="text-slate-400 text-sm">
+                                        Increased this year
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Progress Circle -->
+                            <div class="relative w-[72px] h-[72px] flex-shrink-0">
+
+                                <div class="w-[72px] h-[72px] rounded-full"
+                                    style="background: conic-gradient(#2196f3 60%, #dbeafe 60%);">
+                                </div>
+
+                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+
+                                    <span class="text-lg font-semibold text-blue-500">
+                                        60%
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
 
             </main>
 
