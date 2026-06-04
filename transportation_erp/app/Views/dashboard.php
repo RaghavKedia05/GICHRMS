@@ -28,42 +28,46 @@
     <div class="flex h-screen">
 
         <!-- Sidebar -->
-        <aside class="w-[240px] bg-white border-r border-slate-200 overflow-y-auto">
-            <div class="px-3 py-6 h-[72px] flex items-center border-b border-slate-100">
-                <h2 class="text-[20px] font-semibold text-slate-900 whitespace-nowrap">
+        <aside class="w-[240px] bg-white border-r border-slate-200 ">
+
+            <a href="#" onclick="location.reload()" class="h-[72px] flex items-center px-4 border-b border-slate-200">
+                <h2 class="text-xl font-semibold text-slate-900">
                     SuperAdmin HRMS
                 </h2>
-            </div>
+            </a>
 
-            <nav class="px-3 py-3">
 
-                <h6 class="px-1 mt-2 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
+            <nav class="px-3 py-3 overflow-y-auto h-[calc(100vh-72px)]">
+
+                <h6 class="px-1 mt-4 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
                     Dashboard
                 </h6>
 
                 <!-- Dashboard -->
-                <a href="#" class="group flex items-center gap-12 px-4 py-2 rounded-md mt-4                    
+                <a href="#" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4            
                     text-slate-500
                     hover:bg-indigo-500
                     hover:text-white">
                     <div class="flex items-center gap-2.5">
                         <i data-lucide="home" class="w-3.5 h-3.5"></i>
-                        <span class="text-[13px] ">Dashboards</span>
+                        <span class="text-[13px]">Dashboards</span>
                     </div>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </a>
 
-                <h6 class="px-1 mt-5 mb-4 text-[11px] font-medium tracking-wider uppercase text-slate-400">
+                <h6 class="px-1 mt-6 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
                     COMPANIES
                 </h6>
 
                 <!-- Companies -->
-                <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md mt-4
+                <a href="#" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
                     text-slate-500
                     hover:bg-indigo-500
                     hover:text-white">
-                    <i data-lucide="building-2" class="w-4 h-4"></i>
-                    <span>Companies</span>
+                    <div class="flex items-center gap-2.5">
+                        <i data-lucide="building-2" class="w-3.5 h-3.5"></i>
+                        <span class="text-[13px]">Companies</span>
+                    </div>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </a>
 
@@ -72,27 +76,31 @@
                 </h6>
 
                 <!-- Subscriptions -->
-                <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md mt-2
+                <a href="#" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
                    text-slate-500
                     hover:bg-indigo-500
                     hover:text-white">
-                    <i data-lucide="crown" class="w-4 h-4"></i>
-                    <span>Subscriptions</span>
+                    <div class="flex items-center gap-2.5">
+                        <i data-lucide="crown" class="w-4 h-4"></i>
+                        <span class="text-[13px]">Subscriptions</span>
+                    </div>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </a>
 
-                
+
 
                 <!-- Purchased -->
-                <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md mt-2
+                <a href="#" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
                     text-slate-500
                     hover:bg-indigo-500
                     hover:text-white">
-                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                    <span>Purchased</span>
+                    <div class="flex items-center gap-2.5">
+                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                        <span class="text-[13px]">Purchased</span>
+                    </div>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                </a>               
-                
+                </a>
+
             </nav>
 
         </aside>
