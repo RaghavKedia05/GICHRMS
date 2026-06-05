@@ -113,11 +113,11 @@
         <div class="flex-1 flex flex-col">
 
             <!-- Navbar -->
-            <nav class="h-[72px] bg-white border-b border-slate-200 flex items-center justify-between px-8">
+            <nav class="min-h-[72px] bg-white border-b border-slate-200 flex items-center justify-between px-8">
 
                 <div>
                     <h1 class="text-[20px] font-semibold text-black">
-                        Dashboard
+                        !
                     </h1>
                 </div>
 
@@ -158,289 +158,231 @@
             </nav>
 
             <!-- Main Content -->
-            <main class="p-6">
-                <div class="grid gap-6" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))">
+            <main>
+                <!-- Header -->
+                <div class="flex items-start justify-between mt-6 mb-6 m-6">
+                    <!-- Left -->
+                    <div>
+
+                        <h1 class="text-sm font-bold text-slate-800 ">
+                            Dashboard
+                        </h1>
+
+                        <!-- Breadcrumb -->
+                        <div class="flex items-center gap-2 mt-2 text-sm text-gray-500">
+                            <i data-lucide="house" class="w-4 h-4"></i>
+                            <span>Home</span>
+
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            <span>Super Admin</span>
+
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+
+                            <span class="font-medium text-slate-700">
+                                Dashboard
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Right -->
+                    <div class="flex items-center gap-2">
+                        <!-- Date Range -->
+                        <button
+                            class="bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm flex items-center gap-2">
+
+                            <i data-lucide="calendar-days" class="w-4 h-4"></i>
+
+                            <span>
+                                05/06/2026 - 05/06/2026
+                            </span>
+
+                        </button>
+
+                        <!-- Collapse -->
+                        <button
+                            class="bg-white border border-gray-200 rounded-lg w-10 h-10 flex items-center justify-center shadow-sm">
+
+                            <i data-lucide="chevrons-up" class="w-4 h-4"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Welcome Banner -->
+                <div class="relative overflow-hidden rounded-2xl bg-orange-500 p-8 mb-6 m-6">
+
+                    <!-- Decorative circles -->
+                    <div class="absolute -top-8 -left-8 h-20 w-20 rounded-full bg-orange-400 opacity-40"></div>
+                    <div class="absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-orange-300 opacity-40"></div>
+
+                    <div class="flex items-center justify-between relative z-10">
+
+                        <!-- Left -->
+                        <div>
+                            <h2 class="text-4xl font-bold text-white">
+                                Welcome Back, User
+                            </h2>
+
+                            <p class="mt-2 text-orange-100">
+                                14 New Companies Subscribed Today !!!
+                            </p>
+                        </div>
+
+                        <!-- Right Buttons -->
+                        <div class="flex gap-3">
+
+                            <button class="bg-slate-900 text-white px-5 py-2 rounded-lg font-medium">
+                                Companies
+                            </button>
+
+                            <button class="bg-white text-slate-800 px-5 py-2 rounded-lg font-medium">
+                                All Packages
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Stats Cards Section-->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 m-6">
 
                     <!-- Card 1 -->
-                    <div class="bg-white rounded-sm p-6 shadow-sm">
+                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
 
-                        <div class="flex items-start justify-between">
+                        <div class="flex justify-between items-start">
 
-                            <!-- Left Side -->
-                            <div>
+                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
 
-                                <div class="flex items-start gap-4">
-
-                                    <!-- Icon -->
-                                    <div class="w-12 h-12 rounded-lg bg-violet-500 flex items-center justify-center">
-                                        <i data-lucide="users" class="w-5 h-5 text-white"></i>
-                                    </div>
-
-                                    <!-- Title & Number -->
-                                    <div>
-                                        <p class="text-black-500 text-sm font-sm">
-                                            Total Employees
-                                        </p>
-
-                                        <h2 class="text-4xl font-semibold mt-1">
-                                            12,116
-                                        </h2>
-                                    </div>
-
-                                </div>
-
-                                <!-- Growth Text -->
-                                <div class="flex items-center gap-2 mt-4 ml-16">
-                                    <span class="text-green-500 text-xs font-medium">
-                                        ↑ 2.45%
-                                    </span>
-                                    <span class="text-slate-400 text-sm">
-                                        Increased this year
-                                    </span>
-                                </div>
+                                <i data-lucide="building-2" class="w-5 h-5 text-white">
+                                </i>
 
                             </div>
 
-                            <!-- Progress Circle -->
-                            <div class="relative w-16 h-16">
+                            <span class="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                                +19.01%
+                            </span>
 
-                                <div class="w-16 h-16 rounded-full"
-                                    style="background: conic-gradient(#7c3aed 40%, #ede9fe 40%);">
-                                </div>
+                        </div>
 
-                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                            5468
+                        </h3>
 
-                                    <span class="text-sm font-semibold text-violet-500">
-                                        40%
-                                    </span>
+                        <p class="text-gray-500 mt-1">
+                            Total Companies
+                        </p>
 
-                                </div>
-
-                            </div>
-
+                        <div class="flex justify-end mt-4">
+                            <canvas id="miniChart1" width="70" height="40"></canvas>
                         </div>
 
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="bg-white rounded-sm p-6 shadow-sm">
+                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
 
-                        <div class="flex items-start justify-between">
+                        <div class="flex justify-between items-start">
 
-                            <!-- Left Side -->
-                            <div>
+                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
 
-                                <div class="flex items-start gap-4">
-
-                                    <!-- Icon -->
-                                    <div class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center">
-                                        <i data-lucide="user-plus" class="w-5 h-5 text-white"></i>
-                                    </div>
-
-                                    <!-- Title & Number -->
-                                    <div>
-                                        <p class="text-black-500 text-sm font-sm">
-                                            New Employees
-                                        </p>
-
-                                        <h2 class="text-4xl font-semibold mt-1">
-                                            1,116
-                                        </h2>
-                                    </div>
-
-                                </div>
-
-                                <!-- Growth Text -->
-                                <div class="flex items-center gap-2 mt-4 ml-16">
-                                    <span class="text-red-500 text-xs font-medium">
-                                        ↓ 1.95%
-                                    </span>
-                                    <span class="text-slate-400 text-sm">
-                                        Decreased this year
-                                    </span>
-                                </div>
+                                <i data-lucide="briefcase-business" class="w-5 h-5 text-white">
+                                </i>
 
                             </div>
 
-                            <!-- Progress Circle -->
-                            <div class="relative w-16 h-16">
+                            <span class="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                                -12%
+                            </span>
 
-                                <div class="w-16 h-16 rounded-full"
-                                    style="background: conic-gradient(#f97316 20%, #fde7df 20%);">
-                                </div>
+                        </div>
 
-                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                            4598
+                        </h3>
 
-                                    <span class="text-sm font-semibold text-orange-500">
-                                        20%
-                                    </span>
+                        <p class="text-gray-500 mt-1">
+                            Active Companies
+                        </p>
 
-                                </div>
-
-                            </div>
-
+                        <div class="flex justify-end mt-4">
+                            <canvas id="miniChart2" width="70" height="40"></canvas>
                         </div>
 
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="bg-white rounded-sm p-6 shadow-sm min-h-[135px]">
+                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
+                        <div class="flex justify-between items-start">
+                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
 
-                        <div class="flex items-start justify-between gap-4">
-
-                            <!-- Left Side -->
-                            <div>
-
-                                <div class="flex items-start gap-4">
-
-                                    <!-- Icon -->
-                                    <div class="w-12 h-12 rounded-lg bg-green-500 flex items-center justify-center">
-                                        <i data-lucide="user-minus" class="w-5 h-5 text-white"></i>
-                                    </div>
-
-                                    <!-- Title & Number -->
-                                    <div>
-                                        <p class="text-black-500 text-sm">
-                                            Resigned Employees
-                                        </p>
-
-                                        <h2 class="text-4xl font-semibold mt-1">
-                                            102
-                                        </h2>
-                                    </div>
-
-                                </div>
-
-                                <!-- Growth Text -->
-                                <div class="flex items-center gap-2 mt-4 ml-16">
-
-                                    <span class="text-red-500 text-xs font-medium">
-                                        ↓ 2.5%
-                                    </span>
-
-                                    <span class="text-slate-400 text-sm">
-                                        Decreased this year
-                                    </span>
-
-                                </div>
+                                <i data-lucide="users" class="w-5 h-5 text-white">
+                                </i>
 
                             </div>
 
-                            <!-- Progress Circle -->
-                            <div class="relative w-16 h-16 flex-shrink-0">
+                            <span class="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                                +6%
+                            </span>
 
-                                <div class="w-16 h-16 rounded-full"
-                                    style="background: conic-gradient(#22c55e 50%, #dcfce7 50%);">
-                                </div>
+                        </div>
 
-                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
+                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                            3698
+                        </h3>
 
-                                    <span class="text-lg font-semibold text-green-500">
-                                        50%
-                                    </span>
+                        <p class="text-gray-500 mt-1">
+                            Total Subscribers
+                        </p>
 
-                                </div>
-
-                            </div>
-
+                        <div class="flex justify-end mt-4">
+                            <canvas id="miniChart3" width="70" height="40"></canvas>
                         </div>
 
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="bg-white rounded-xl p-6 shadow-sm min-h-[135px]">
+                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
 
-                        <div class="flex items-start justify-between gap-4">
+                        <div class="flex justify-between items-start">
 
-                            <!-- Left Side -->
-                            <div>
+                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
 
-                                <div class="flex items-start gap-4">
-
-                                    <!-- Icon -->
-                                    <div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center">
-                                        <i data-lucide="contact-round" class="w-5 h-5 text-white"></i>
-                                    </div>
-
-                                    <!-- Title & Number -->
-                                    <div>
-                                        <p class="text-black-500 text-sm">
-                                            Employees On Leave
-                                        </p>
-
-                                        <h2 class="text-4xl font-semibold mt-1">
-                                            212
-                                        </h2>
-                                    </div>
-
-                                </div>
-
-                                <!-- Growth Text -->
-                                <div class="flex items-center gap-2 mt-4 ml-16">
-
-                                    <span class="text-green-500 text-xs font-medium">
-                                        ↑ 1.32%
-                                    </span>
-
-                                    <span class="text-slate-400 text-sm">
-                                        Increased this year
-                                    </span>
-
-                                </div>
+                                <i data-lucide="wallet" class="w-5 h-5 text-white">
+                                </i>
 
                             </div>
 
-                            <!-- Progress Circle -->
-                            <div class="relative w-16 h-16 flex-shrink-0">
-
-                                <div class="w-16 h-16 rounded-full"
-                                    style="background: conic-gradient(#2196f3 60%, #dbeafe 60%);">
-                                </div>
-
-                                <div class="absolute inset-1 bg-white rounded-full flex items-center justify-center">
-
-                                    <span class="text-lg font-semibold text-blue-500">
-                                        60%
-                                    </span>
-
-                                </div>
-
-                            </div>
+                            <span class="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                                -16%
+                            </span>
 
                         </div>
 
+                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                            $89,878.58
+                        </h3>
+
+                        <p class="text-gray-500 mt-1">
+                            Total Earnings
+                        </p>
+
+                        <div class="flex justify-end mt-4">
+                            <canvas id="miniChart4" width="70" height="40"></canvas>
+                        </div>
+
                     </div>
+
+
 
 
                 </div>
 
-                <!-- Attendance,Upcoming Events,Emplyee work piechart Card -->
-                <div class="grid grid-cols-12 gap-6 mt-6">
-
-                    <!-- Attendance Card -->
-                    <div class="col-span-6 bg-white rounded-sm shadow-sm">
-                        <div class="p-5 border-b border-slate-100">
-                            <h3 class="text-md font-sm">
-                                Attendance Overview
-                            </h3>
-                        </div>
-
-                        <div class="p-6">
-                            <canvas id="attendanceChart" height="150"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Upcoming Events Card -->
-                    <div class="col-span-3 bg-white rounded-sm shadow-sm">
-
-                    </div>
-
-                    <!-- Employee Work Pie Chart Card -->
-                    <div class="col-span-3 bg-white rounded-sm shadow-sm">
-
-                    </div>
-
-                </div>
 
 
 
@@ -455,59 +397,13 @@
         lucide.createIcons();
     </script>
 
+    
 
-    <!-- Attendance Chart Data -->
-    <script>
-        new Chart(document.getElementById('attendanceChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Job Views',
-                    data: [20, 30, 25, 50, 25, 30, 20, 35, 20, 30, 25, 50],
-                    backgroundColor: '#6C63FF',
-                    borderRadius: 10,
-                    barThickness: 10
-                }, {
-                    label: 'Job Applied',
-                    data: [13, 23, 20, 25, 20, 23, 13, 15, 13, 23, 20, 25],
-                    backgroundColor: '#FF6B3D',
-                    borderRadius: 10,
-                    barThickness: 10
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        border: { display: false }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        max: 50,
-                        ticks: { stepSize: 5 },
-                        border: { display: false },
-                        grid: {
-                            color: '#edf2f7'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            color: 'black',
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            boxWidth: 6,
-                            boxHeight: 6,
-                            padding: 10
-                        }
-                    }
-                }
-            }
-        });
-    </script>
+
+
+
+
+
 
 
 </body>
