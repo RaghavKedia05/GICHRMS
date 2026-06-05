@@ -543,9 +543,329 @@
 
                 </div>
 
+                <!-- Recent Activities Section -->
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 m-6">
+                    <!-- Recent Transactions -->
+                    <div class="bg-white rounded-2xl border border-gray-200">
 
+                        <div class="flex items-center justify-between p-6 border-b">
 
+                            <h3 class="font-semibold text-slate-800">
+                                Recent Transactions
+                            </h3>
 
+                            <button class="flex items-center gap-2 text-sm border rounded-lg px-3 py-2">
+
+                                View All
+
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+
+                            </button>
+
+                        </div>
+
+                        <div class="divide-y">
+
+                            <!-- Item -->
+                            <div class="p-5 flex justify-between items-center">
+
+                                <div>
+
+                                    <h4 class="font-medium text-slate-800">
+                                        Stellar Dynamics
+                                    </h4>
+
+                                    <p class="text-sm text-gray-500">
+                                        #12457 • 14 Jan 2025
+                                    </p>
+
+                                </div>
+
+                                <div class="text-right">
+
+                                    <p class="font-semibold text-green-600">
+                                        +$245
+                                    </p>
+
+                                    <p class="text-sm text-gray-500">
+                                        Basic Monthly
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="p-5 flex justify-between items-center">
+
+                                <div>
+
+                                    <h4 class="font-medium text-slate-800">
+                                        Nova Industries
+                                    </h4>
+
+                                    <p class="text-sm text-gray-500">
+                                        #12458 • 15 Jan 2025
+                                    </p>
+
+                                </div>
+
+                                <div class="text-right">
+
+                                    <p class="font-semibold text-green-600">
+                                        +$560
+                                    </p>
+
+                                    <p class="text-sm text-gray-500">
+                                        Premium
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="p-5 flex justify-between items-center">
+
+                                <div>
+
+                                    <h4 class="font-medium text-slate-800">
+                                        Apex Solutions
+                                    </h4>
+
+                                    <p class="text-sm text-gray-500">
+                                        #12459 • 16 Jan 2025
+                                    </p>
+
+                                </div>
+
+                                <div class="text-right">
+
+                                    <p class="font-semibold text-green-600">
+                                        +$890
+                                    </p>
+
+                                    <p class="text-sm text-gray-500">
+                                        Enterprise
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Recent Registered -->
+                    <div class="bg-white rounded-2xl border border-gray-200">
+
+                        <div class="flex items-center justify-between p-6 border-b">
+
+                            <h3 class="font-semibold text-slate-800">
+                                Recently Registered
+                            </h3>
+
+                            <button class="flex items-center gap-2 text-sm border rounded-lg px-3 py-2">
+
+                                View All
+
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+
+                            </button>
+
+                        </div>
+
+                        <div class="divide-y">
+
+                            <div class="p-5 flex items-center justify-between">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+
+                                        <i data-lucide="building-2" class="w-5 h-5 text-orange-500"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h4 class="font-medium">
+                                            TechVerse Ltd
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            Registered Today
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
+                                    Active
+                                </span>
+
+                            </div>
+
+                            <div class="p-5 flex items-center justify-between">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+
+                                        <i data-lucide="building-2" class="w-5 h-5 text-blue-500"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h4 class="font-medium">
+                                            Core Systems
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            Yesterday
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
+                                    Active
+                                </span>
+
+                            </div>
+
+                            <div class="p-5 flex items-center justify-between">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+
+                                        <i data-lucide="building-2" class="w-5 h-5 text-purple-500"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h4 class="font-medium">
+                                            Quantum Labs
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            2 Days Ago
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
+                                    Active
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Recent Plans Expired -->
+                    <div class="bg-white rounded-2xl border border-gray-200">
+                        <div class="flex items-center justify-between p-6 border-b">
+
+                            <h3 class="font-semibold text-slate-800">
+                                Recent Plan Expired
+                            </h3>
+
+                            <button class="flex items-center gap-2 text-sm border rounded-lg px-3 py-2">
+                                View All
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+
+                        </div>
+
+                        <div class="divide-y">
+                            <div class="p-5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i data-lucide="clock-3" class="w-5 h-5 text-red-500"></i>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="font-medium">
+                                            Nexa Technologies
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            Expired Today
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded">
+                                    Expired
+                                </span>
+
+                            </div>
+
+                            <div class="p-5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i data-lucide="clock-3" class="w-5 h-5 text-red-500"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <h4 class="font-medium">
+                                            GlobalX Corp
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            Yesterday
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded">
+                                    Expired
+                                </span>
+
+                            </div>
+
+                            <div class="p-5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                        <i data-lucide="clock-3" class="w-5 h-5 text-red-500"></i>
+
+                                    </div>
+
+                                    <div>
+                                        <h4 class="font-medium">
+                                            FutureNet
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            2 Days Ago
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded">
+                                    Expired
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </main>
 
