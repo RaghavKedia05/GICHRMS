@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="bg-[#f5f6fa]">
+<body class="bg-[#f8fafc]">
 
     <div class="flex h-screen">
 
@@ -164,7 +164,7 @@
                     <!-- Left -->
                     <div>
 
-                        <h1 class="text-sm font-bold text-slate-800 ">
+                        <h1 class="text-2xl font-bold text-slate-800 ">
                             Dashboard
                         </h1>
 
@@ -187,10 +187,10 @@
                     </div>
 
                     <!-- Right -->
-                    <div class="flex items-center gap-2">
+                    <div class="flex justify-center items-center gap-2">
                         <!-- Date Range -->
                         <button
-                            class="bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm flex items-center gap-2">
+                            class="bg-white border border-gray-200 rounded-md px-4 py-2 shadow-sm flex items-center gap-2">
 
                             <i data-lucide="calendar-days" class="w-4 h-4"></i>
 
@@ -202,7 +202,7 @@
 
                         <!-- Collapse -->
                         <button
-                            class="bg-white border border-gray-200 rounded-lg w-10 h-10 flex items-center justify-center shadow-sm">
+                            class="bg-white border border-gray-200 rounded-md w-10 h-10 flex items-center justify-center shadow-sm">
 
                             <i data-lucide="chevrons-up" class="w-4 h-4"></i>
 
@@ -213,7 +213,7 @@
                 </div>
 
                 <!-- Welcome Banner -->
-                <div class="relative overflow-hidden rounded-2xl bg-orange-500 p-8 mb-6 m-6">
+                <div class="relative overflow-hidden rounded-md bg-orange-500 p-8 mb-6 m-6">
 
                     <!-- Decorative circles -->
                     <div class="absolute -top-8 -left-8 h-20 w-20 rounded-full bg-orange-400 opacity-40"></div>
@@ -235,11 +235,11 @@
                         <!-- Right Buttons -->
                         <div class="flex gap-3">
 
-                            <button class="bg-slate-900 text-white px-5 py-2 rounded-lg font-medium">
+                            <button class="bg-slate-900 text-white px-5 py-2 rounded-md font-medium">
                                 Companies
                             </button>
 
-                            <button class="bg-white text-slate-800 px-5 py-2 rounded-lg font-medium">
+                            <button class="bg-white text-slate-800 px-5 py-2 rounded-md font-medium">
                                 All Packages
                             </button>
 
@@ -253,28 +253,28 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 m-6">
 
                     <!-- Card 1 -->
-                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
+                    <div class="bg-white rounded-md p-6 h-[150px] border border-gray-200 shadow-md">
 
                         <div class="flex justify-between items-start">
 
-                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
+                            <div class="w-7 h-7 bg-slate-900 rounded-md flex items-center justify-center">
 
                                 <i data-lucide="building-2" class="w-5 h-5 text-white">
                                 </i>
 
                             </div>
 
-                            <span class="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded">
                                 +19.01%
                             </span>
 
                         </div>
 
-                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                        <h3 class="mt-5 text-2xl font-semibold text-slate-800">
                             5468
                         </h3>
 
-                        <p class="text-gray-500 mt-1">
+                        <p class="text-xs text-gray-500 mt-1">
                             Total Companies
                         </p>
 
@@ -285,11 +285,11 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
+                    <div class="bg-white rounded-md p-6 h-[150px] border border-gray-200 shadow-md">
 
                         <div class="flex justify-between items-start">
 
-                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
+                            <div class="w-8 h-8 bg-slate-900 rounded-md flex items-center justify-center">
 
                                 <i data-lucide="briefcase-business" class="w-5 h-5 text-white">
                                 </i>
@@ -302,11 +302,11 @@
 
                         </div>
 
-                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                        <h3 class="mt-5 text-2xl font-semibold text-slate-800">
                             4598
                         </h3>
 
-                        <p class="text-gray-500 mt-1">
+                        <p class="text-xs text-gray-500 mt-1">
                             Active Companies
                         </p>
 
@@ -317,9 +317,9 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
+                    <div class="bg-white rounded-md p-6 h-[150px] border border-gray-200 shadow-md">
                         <div class="flex justify-between items-start">
-                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
+                            <div class="w-7 h-7 bg-slate-900 rounded-md flex items-center justify-center">
 
                                 <i data-lucide="users" class="w-5 h-5 text-white">
                                 </i>
@@ -332,11 +332,11 @@
 
                         </div>
 
-                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
+                        <h3 class="mt-5 text-2xl font-semibold text-slate-800">
                             3698
                         </h3>
 
-                        <p class="text-gray-500 mt-1">
+                        <p class="text-xs text-gray-500 mt-1">
                             Total Subscribers
                         </p>
 
@@ -347,11 +347,11 @@
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="bg-white rounded-2xl p-6 border border-gray-200">
+                    <div class="bg-white rounded-md p-6 h-[150px] border border-gray-200 shadow-md">
 
                         <div class="flex justify-between items-start">
 
-                            <div class="w-11 h-11 bg-slate-900 rounded-lg flex items-center justify-center">
+                            <div class="w-7 h-7 bg-slate-900 rounded-md flex items-center justify-center">
 
                                 <i data-lucide="wallet" class="w-5 h-5 text-white">
                                 </i>
@@ -364,11 +364,11 @@
 
                         </div>
 
-                        <h3 class="mt-5 text-4xl font-bold text-slate-800">
-                            $89,878.58
+                        <h3 class="mt-5 text-2xl font-semibold text-slate-800">
+                            $89,878,58
                         </h3>
 
-                        <p class="text-gray-500 mt-1">
+                        <p class="text-xs text-gray-500 mt-1">
                             Total Earnings
                         </p>
 
@@ -389,16 +389,16 @@
 
                     <!-- Companies -->
                     <div class="xl:col-span-3">
-                        <div class="bg-white rounded-2xl border border-gray-200 h-full">
+                        <div class="bg-white rounded-md border border-gray-200 h-[390px] shadow-sm flex flex-col">
 
                             <!-- Header -->
-                            <div class="flex items-center justify-between p-6 border-b">
+                            <div class="flex items-center justify-between p-3 border-b">
 
                                 <h3 class="text-lg font-semibold text-slate-800">
                                     Companies
                                 </h3>
 
-                                <button class="flex items-center gap-2 text-sm border rounded-lg px-3 py-2">
+                                <button class="flex items-center gap-2 text-sm border rounded-md px-3 py-2">
 
                                     <i data-lucide="calendar-days" class="w-4 h-4"></i>
 
@@ -409,11 +409,12 @@
                             </div>
 
                             <!-- Chart -->
-                            <div class="p-6">
+                            <div class="p-4">
+                                <div class="h-[220px]">
+                                    <canvas id="companiesChart"></canvas>
+                                </div>
 
-                                <canvas id="companiesChart"></canvas>
-
-                                <div class="mt-6 flex items-center gap-2">
+                                <div class="mt-6 flex items-center gap-2 ">
 
                                     <span class="bg-green-500 text-white text-xs px-2 py-1 rounded font-semibold">
                                         +6%
@@ -432,9 +433,9 @@
 
                     <!-- Revenue -->
                     <div class="xl:col-span-6">
-                        <div class="bg-white rounded-2xl border border-gray-200 h-full">
+                        <div class="bg-white rounded-md border border-gray-200 h-[390px] shadow-sm flex flex-col">
 
-                            <div class="flex justify-between items-center p-6 border-b">
+                            <div class="flex justify-between items-center p-3 border-b">
 
                                 <h3 class="text-lg font-semibold text-slate-800">
                                     Revenue
@@ -450,38 +451,48 @@
 
                             </div>
 
-                            <div class="p-6">
+                            <div class="p-4">
 
-                                <h2 class="text-3xl font-bold text-slate-800">
-                                    $45,787
-                                </h2>
+                                <div class="flex justify-between items-start">
 
-                                <p class="mt-1">
-                                    <span class="text-green-500 font-semibold">
-                                        +40%
-                                    </span>
+                                    <div>
+                                        <h2 class="text-3xl font-bold text-slate-800">
+                                            $45,787
+                                        </h2>
 
-                                    <span class="text-gray-500">
-                                        increased from last year
-                                    </span>
-                                </p>
+                                        <p class="mt-1 text-sm text-gray-500">
+                                            <span class="text-green-500 font-semibold">
+                                                +40%
+                                            </span>
 
-                                <div class="mt-6">
+                                            increased from last year
+                                        </p>
+                                    </div>
+
+                                    <div class="flex items-center gap-2 mt-2">
+                                        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                                        <span class="text-sm text-slate-700">
+                                            Revenue
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="mt-4 h-[230px]">
                                     <canvas id="revenueChart"></canvas>
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
 
                     <!-- Top Plans -->
                     <div class="xl:col-span-3">
-                        <div class="bg-white rounded-2xl border border-gray-200 h-full">
+                        <div class="bg-white rounded-md border border-gray-200 h-[390px] shadow-sm flex flex-col">
 
-                            <div class="flex justify-between items-center p-6 border-b">
+                            <div class="flex justify-between items-center p-3 border-b">
 
-                                <h3 class="text-lg font-semibold text-slate-800">
+                                <h3 class="text-md font-semibold text-slate-800">
                                     Top Plans
                                 </h3>
 
@@ -495,42 +506,43 @@
 
                             </div>
 
-                            <div class="p-6">
+                            <div class="p-4 flex-1 flex flex-col">
+                                <div class="h-[180px] flex items-center justify-center">
 
-                                <canvas id="plansChart"></canvas>
-
-                                <div class="mt-8 space-y-4">
+                                    <canvas id="plansChart"></canvas>
+                                </div>
+                                <div class="mt-6 mb-2 space-y-3">
 
                                     <div class="flex justify-between">
 
-                                        <div class="flex items-center gap-2">
+                                        <div class="flex text-sm items-center gap-2">
                                             <span class="w-3 h-3 rounded-full bg-orange-500"></span>
                                             <span>Basic</span>
                                         </div>
 
-                                        <span class="font-semibold">20%</span>
+                                        <span class="text-sm font-semibold">20%</span>
 
                                     </div>
 
                                     <div class="flex justify-between">
 
-                                        <div class="flex items-center gap-2">
+                                        <div class="flex text-sm items-center gap-2">
                                             <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
                                             <span>Premium</span>
                                         </div>
 
-                                        <span class="font-semibold">20%</span>
+                                        <span class="text-sm font-semibold">20%</span>
 
                                     </div>
 
                                     <div class="flex justify-between">
 
-                                        <div class="flex items-center gap-2">
+                                        <div class="flex text-sm items-center gap-2">
                                             <span class="w-3 h-3 rounded-full bg-blue-500"></span>
                                             <span>Enterprise</span>
                                         </div>
 
-                                        <span class="font-semibold">60%</span>
+                                        <span class="text-sm font-semibold">60%</span>
 
                                     </div>
 
@@ -545,8 +557,9 @@
 
                 <!-- Recent Activities Section -->
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 m-6">
+
                     <!-- Recent Transactions -->
-                    <div class="bg-white rounded-2xl border border-gray-200">
+                    <div class="bg-white rounded-md border border-gray-200 shadow-sm flex flex-col">
 
                         <div class="flex items-center justify-between p-6 border-b">
 
@@ -569,16 +582,22 @@
                             <!-- Item -->
                             <div class="p-5 flex justify-between items-center">
 
-                                <div>
+                                <div class="flex items-center gap-4">
 
-                                    <h4 class="font-medium text-slate-800">
-                                        Stellar Dynamics
-                                    </h4>
+                                    <div class="w-10 h-10 rounded-full border border-gray-200 bg-gray-50 flex-shrink-0">
+                                    </div>
 
-                                    <p class="text-sm text-gray-500">
-                                        #12457 • 14 Jan 2025
-                                    </p>
+                                    <div>
 
+                                        <h4 class="font-medium text-slate-800">
+                                            Stellar Dynamics
+                                        </h4>
+
+                                        <p class="text-sm text-gray-500">
+                                            #12457 • 14 Jan 2025
+                                        </p>
+
+                                    </div>
                                 </div>
 
                                 <div class="text-right">
@@ -656,7 +675,7 @@
                     </div>
 
                     <!-- Recent Registered -->
-                    <div class="bg-white rounded-2xl border border-gray-200">
+                    <div class="bg-white rounded-md border border-gray-200 shadow-sm flex flex-col">
 
                         <div class="flex items-center justify-between p-6 border-b">
 
@@ -771,7 +790,7 @@
                     </div>
 
                     <!-- Recent Plans Expired -->
-                    <div class="bg-white rounded-2xl border border-gray-200">
+                    <div class="bg-white rounded-md border border-gray-200 shadow-sm flex flex-col">
                         <div class="flex items-center justify-between p-6 border-b">
 
                             <h3 class="font-semibold text-slate-800">
@@ -907,24 +926,45 @@
                 },
 
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             display: false
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 0
                         }
                     },
 
                     scales: {
                         x: {
                             grid: {
-                                display: false
+                                display: true,
+                                color: '#f3f4f6'
                             },
+
                             border: {
-                                display: false
+                                color: '#e5e7eb'
                             }
                         },
 
                         y: {
-                            display: false
+                            grid: {
+                                color: '#e5e7eb',
+                                borderDash: [4, 4]
+                            },
+
+                            ticks: {
+                                display: false
+                            },
+
+                            border: {
+                                display: false
+                            }
                         }
                     }
                 }
@@ -958,15 +998,19 @@
                 },
 
                 options: {
+                    layout: {
+                        padding: {
+                            top: 5,
+                            right: 0,
+                            bottom: 5,
+                            left: 0
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'top',
-                            align: 'end',
-
-                            labels: {
-                                usePointStyle: true,
-                                pointStyle: 'circle'
-                            }
+                            display: false
                         }
                     },
 
@@ -981,7 +1025,11 @@
                         },
 
                         y: {
+                            min: 0,
+                            max: 100,
+
                             ticks: {
+                                stepSize: 20,
                                 callback: (value) => value + 'K'
                             },
                             border: {
@@ -1010,7 +1058,7 @@
                         'Enterprise'
                     ],
                     datasets: [{
-                        data: [20, 20, 60],
+                        data: [60, 20, 20],
                         backgroundColor: [
                             '#f97316',
                             '#facc15',
@@ -1021,6 +1069,8 @@
                 },
 
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     cutout: '50%',
                     plugins: {
                         legend: {
