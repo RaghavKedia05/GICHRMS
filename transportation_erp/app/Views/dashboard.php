@@ -1159,6 +1159,11 @@
     <script>
         lucide.createIcons();
     </script>
+    
+    <!-- Card 1 Chart -->
+     
+
+
 
     <!-- Companies Chart Data -->
     <script>
@@ -1170,7 +1175,7 @@
                     labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
 
                     datasets: [{
-                        data: [6, 9, 3, 12, 9, 9, 9],
+                        data: [40, 60, 20, 80, 60, 50, 30],
                         backgroundColor: '#1f2937',
                         borderRadius: 12,
                         borderSkipped: false
