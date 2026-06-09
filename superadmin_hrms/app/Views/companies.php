@@ -278,23 +278,23 @@
                         <div class="flex items-center gap-4">
 
                             <!-- Date -->
-                            <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-sm">
+                            <button class="flex items-center gap-2 border rounded-md px-4 py-1 p-2 text-xs">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
                                 08/06/2026 - 08/06/2026
                             </button>
 
                             <!-- Plan -->
-                            <select class="border rounded-md px-4 py-2 text-sm">
+                            <select class="border rounded-md px-4 py-1 p-2 text-xs">
                                 <option>Select Plan</option>
                             </select>
 
                             <!-- Status -->
-                            <select class="border rounded-md px-4 py-2 text-sm">
+                            <select class="border rounded-md px-4 py-1 p-2 text-xs">
                                 <option>Select Status</option>
                             </select>
 
                             <!-- Sort -->
-                            <select class="border rounded-md px-4 py-2 text-sm">
+                            <select class="border rounded-md px-4 py-1 p-2 text-xs">
                                 <option>Sort By : Last 7 Days</option>
                             </select>
 
