@@ -86,7 +86,7 @@
 
                     <div>
 
-                        <h1 class="text-3xl font-semibold text-slate-800">
+                        <h1 class="text-2xl font-semibold text-slate-800">
                             Companies
                         </h1>
 
@@ -94,7 +94,7 @@
 
                             <i data-lucide="house" class="w-4 h-4"></i>
 
-                            <span>/</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
 
                             <span>Super Admin</span>
 
@@ -154,11 +154,11 @@
                                 </div>
 
                                 <div>
-                                    <p class="text-sm text-slate-500">
+                                    <p class="text-xs font-semibold text-slate-500">
                                         Total Companies
                                     </p>
 
-                                    <h3 class="text-3xl font-bold text-slate-800">
+                                    <h3 class="text-xl font-semibold text-slate-800">
                                         950
                                     </h3>
                                 </div>
@@ -184,11 +184,11 @@
                                 </div>
 
                                 <div>
-                                    <p class="text-sm text-slate-500">
+                                    <p class="text-xs font-semibold text-slate-500">
                                         Active Companies
                                     </p>
 
-                                    <h3 class="text-3xl font-bold text-slate-800">
+                                    <h3 class="text-xl font-semibold text-slate-800">
                                         920
                                     </h3>
                                 </div>
@@ -214,11 +214,11 @@
                                 </div>
 
                                 <div>
-                                    <p class="text-sm text-slate-500">
+                                    <p class="text-xs font-semibold text-slate-500">
                                         Inactive Companies
                                     </p>
 
-                                    <h3 class="text-3xl font-bold text-slate-800">
+                                    <h3 class="text-xl font-semibold text-slate-800">
                                         30
                                     </h3>
                                 </div>
@@ -244,11 +244,11 @@
                                 </div>
 
                                 <div>
-                                    <p class="text-sm text-slate-500">
+                                    <p class="text-xs font-semibold text-slate-500">
                                         Company Location
                                     </p>
 
-                                    <h3 class="text-3xl font-bold text-slate-800">
+                                    <h3 class="text-xl font-semibold text-slate-800">
                                         180
                                     </h3>
                                 </div>
@@ -271,7 +271,7 @@
                     <!-- Header -->
                     <div class="flex items-center justify-between p-5 border-b">
 
-                        <h3 class="text-xl font-semibold text-slate-800">
+                        <h3 class="text-l font-semibold text-slate-800">
                             Companies List
                         </h3>
 
@@ -311,7 +311,7 @@
                                 Row Per Page
                             </span>
 
-                            <select class="border rounded-md px-3 py-2 text-sm">
+                            <select class="border rounded-md px-3 py-1 text-sm">
                                 <option>10</option>
                             </select>
 
@@ -321,7 +321,7 @@
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border rounded-md px-4 py-2 text-sm w-[170px]">
+                        <input type="text" placeholder="Search" class="border rounded-md px-4 py-1 text-xs w-[170px]">
 
                     </div>
 
@@ -367,29 +367,29 @@
 
                             </thead>
 
-                            
+
                             <tbody class="divide-y divide-slate-200">
                                 <tr>
                                     <td class="p-4"><input type="checkbox"></td>
                                     <td class="p-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">BrightWave Innovations</span>
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">BrightWave Innovations</span>
                                         </div>
                                     </td>
-                                    <td class="p-4">michael@example.com</td>
-                                    <td class="p-4">bwi.example.com</td>
-                                    <td class="p-4 flex items-center justify-between">
+                                    <td class="p-4 text-sm text-slate-500">michael@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">bwi.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
                                         <span>Advanced (Monthly)</span>
                                         <span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
                                     </td>
-                                    <td class="p-4">12 Sep 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
+                                    <td class="p-4 text-sm text-slate-500">12 Sep 2024</td>
+                                    <td class="p-4 "><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
                                             Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4">
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4 text-sm text-slate-500">
                                             <i data-lucide="eye" class="w-4 h-4"></i>
                                             <i data-lucide="square-pen" class="w-4 h-4"></i>
                                             <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -401,148 +401,25 @@
                                     <td class="p-4"><input type="checkbox"></td>
                                     <td class="p-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">Stellar Dynamics</span>
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">Stellar Dynamics</span>
                                         </div>
                                     </td>
-                                    <td class="p-4">sophie@example.com</td>
-                                    <td class="p-4">sd.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Basic (Yearly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">24 Oct 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">Quantum Nexus</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">cameron@example.com</td>
-                                    <td class="p-4">qn.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Advanced
-                                            (Monthly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">18 Feb 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">EcoVision Enterprises</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">doris@example.com</td>
-                                    <td class="p-4">eve.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Advanced
-                                            (Monthly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">17 Oct 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">Aurora Technologies</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">thomas@example.com</td>
-                                    <td class="p-4">at.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Enterprise
-                                            (Monthly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">20 Jul 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">BlueSky Ventures</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">kathleen@example.com</td>
-                                    <td class="p-4">bsv.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Advanced
-                                            (Monthly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">10 Apr 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">TerraFusion Energy</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">bruce@example.com</td>
-                                    <td class="p-4">tfe.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Enterprise
+                                    <td class="p-4 text-sm text-slate-500">sophie@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">sd.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500"><span>Basic
                                             (Yearly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
                                     </td>
-                                    <td class="p-4">29 Aug 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
+                                    <td class="p-4 text-sm text-slate-500">24 Oct 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
                                             Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i>
+                                            <i data-lucide="square-pen" class="w-4 h-4"></i>
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
                                     </td>
                                 </tr>
 
@@ -550,68 +427,206 @@
                                     <td class="p-4"><input type="checkbox"></td>
                                     <td class="p-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">UrbanPulse Design</span>
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">Quantum Nexus</span>
                                         </div>
                                     </td>
-                                    <td class="p-4">estelle@example.com</td>
-                                    <td class="p-4">upd.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Basic (Monthly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">22 Feb 2024</td>
-                                    <td class="p-4"><span class="bg-red-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Inactive</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">Nimbus Networks</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">stephen@example.com</td>
-                                    <td class="p-4">nn.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Basic (Yearly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
-                                    </td>
-                                    <td class="p-4">03 Nov 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
-                                            Active</span></td>
-                                    <td class="p-4">
-                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
-                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
-                                                class="w-4 h-4"></i></div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="p-4"><input type="checkbox"></td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full border border-gray-200 bg-gray-50"></div>
-                                            <span class="font-medium">Epicurean Delights</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">angela@example.com</td>
-                                    <td class="p-4">ed.example.com</td>
-                                    <td class="p-4 flex items-center justify-between"><span>Advanced
+                                    <td class="p-4 text-sm text-slate-500">cameron@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">qn.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Advanced
                                             (Monthly)</span><span
-                                            class="bg-purple-500 text-white text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
                                     </td>
-                                    <td class="p-4">17 Dec 2024</td>
-                                    <td class="p-4"><span
-                                            class="bg-green-500 text-white text-[11px] px-3 py-1 rounded">•
+                                    <td class="p-4 text-sm text-slate-500">18 Feb 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
                                             Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4"><input type="checkbox"></td>
                                     <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">EcoVision Enterprises</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">doris@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">eve.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Advanced
+                                            (Monthly)</span><span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">17 Oct 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4"><input type="checkbox"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">Aurora Technologies</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">thomas@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">at.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Enterprise
+                                            (Monthly)</span><span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">20 Jul 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4"><input type="checkbox"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">BlueSky Ventures</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">kathleen@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">bsv.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Advanced
+                                            (Monthly)</span><span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">10 Apr 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4"><input type="checkbox"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">TerraFusion Energy</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">bruce@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">tfe.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Enterprise
+                                            (Yearly)</span><span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">29 Aug 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4"><input type="checkbox"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">UrbanPulse Design</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">estelle@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">upd.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Basic
+                                            (Monthly)</span>
+                                        <span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">22 Feb 2024</td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <span
+                                            class="bg-red-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Inactive</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4"><input type="checkbox"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">Nimbus Networks</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">stephen@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">nn.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500"><span>Basic
+                                            (Yearly)</span><span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">03 Nov 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
+                                        <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
+                                                data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
+                                                class="w-4 h-4"></i></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="p-4 "><input type="checkbox"></td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-7 h-7 rounded-full border border-gray-200 bg-gray-50"></div>
+                                            <span class="font-medium text-sm">Epicurean Delights</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">angela@example.com</td>
+                                    <td class="p-4 text-sm text-slate-500">ed.example.com</td>
+                                    <td class="p-4 flex items-center justify-between text-sm text-slate-500">
+                                        <span>Advanced
+                                            (Monthly)</span><span
+                                            class="bg-purple-500 text-white font-semibold text-[10px] px-2 py-1 rounded">Upgrade</span>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-500">17 Dec 2024</td>
+                                    <td class="p-4 text-sm text-slate-500"><span
+                                            class="bg-green-500 text-white font-semibold text-[11px] px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4 text-sm text-slate-500">
                                         <div class="flex gap-4"><i data-lucide="eye" class="w-4 h-4"></i><i
                                                 data-lucide="square-pen" class="w-4 h-4"></i><i data-lucide="trash-2"
                                                 class="w-4 h-4"></i></div>
