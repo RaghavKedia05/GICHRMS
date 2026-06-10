@@ -301,33 +301,33 @@
 
                             <thead>
 
-                                <tr class="bg-[#f1f5f9]">
+                                <tr class="bg-[#f1f5f9] h-10">
 
                                     <th class="w-12 text-center">
                                         <input type="checkbox" id="selectAll" class="w-4 h-4">
                                     </th>
 
-                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                    <th class="px-4 py-3 text-left text-[13px] font-semibold">
                                         Plan Name
                                     </th>
 
-                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                    <th class="px-4 py-3 text-left text-[13px] font-semibold">
                                         Plan Type
                                     </th>
 
-                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                    <th class="px-4 py-3 text-left text-[13px] font-semibold">
                                         Total Subscribers
                                     </th>
 
-                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                    <th class="px-4 py-3 text-left text-[13px] font-semibold">
                                         Price
                                     </th>
 
-                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                    <th class="px-4 py-3 text-left text-[13px] font-semibold">
                                         Created Date
                                     </th>
 
-                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                    <th class="px-4 py-3 text-left text-[13px] font-semibold">
                                         Status
                                     </th>
 
@@ -505,7 +505,7 @@
                                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                                 </button>
 
-                                <button class="w-8 h-8 rounded-full bg-orange-500 text-white text-sm">
+                                <button class="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-semibold">
                                     1
                                 </button>
 

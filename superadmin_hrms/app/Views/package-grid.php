@@ -252,7 +252,7 @@
                             <select class="border rounded-md px-4 py-1 text-[13px]">
                                 <option>Select Plan</option>
                             </select>
-                            
+
                             <select class="border rounded-md px-4 py-1 text-[13px]">
                                 <option>Sort By : Last 7 Days</option>
                             </select>
@@ -261,14 +261,328 @@
 
                     </div>
 
-                    
+
                 </div>
+
+                <!-- Pricing Section -->
+                <div class="bg-white border border-slate-200 rounded-md p-5 mt-6 shadow-md">
+
+                    <!-- Toggle -->
+                    <div class="flex justify-center items-center gap-3 mb-6">
+
+                        <span class="text-slate-600 text-xs">Monthly</span>
+
+                        <label class="relative inline-flex items-center cursor-pointer">
+
+                            <input type="checkbox" class="sr-only peer">
+
+                            <div
+                                class="w-9 h-4 bg-slate-200 rounded-full peer peer-checked:bg-orange-500 transition-all duration-300">
+                            </div>
+
+                            <div
+                                class="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full transition-all duration-300 peer-checked:translate-x-5">
+                            </div>
+
+                        </label>
+
+                        <span class="text-slate-600 text-xs">Yearly</span>
+
+                    </div>
+
+                    <!-- Pricing Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+
+                        <!-- Basic Card -->
+                        <div class="bg-white border border-slate-200 rounded-md p-5 shadow-md">
+                            
+                            <div class="border border-slate-200 rounded-md p-5 shadow-sm">
+
+                                <h3 class="text-lg font-semibold text-slate-800">
+                                    Basic
+                                </h3>
+
+                                <div class="flex items-end">
+
+                                    <span class="text-3xl font-semibold text-slate-900">
+                                        $50
+                                    </span>
+
+                                    <span class="text-xs text-xs text-slate-500 mb-1">
+                                        /monthly
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Features -->
+                            <div class="bg-slate-50 rounded-md p-4 mt-5">
+
+                                <div class="flex items-center gap-3 mb-5">
+
+                                    <h4 class="font-semibold text-xs text-slate-500">
+                                        Features Includes
+                                    </h4>
+
+                                    <div class="flex-1 h-px bg-slate-200"></div>
+
+                                </div>
+
+                                <ul class="space-y-5 text-[15px]">
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        10 Employees
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        50 Projects
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        50 Clients
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        50 GB Storage
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>
+                                        Voice & Video Chat
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>
+                                        CRM
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <!-- Button -->
+                            <button
+                                class="w-full mt-4 bg-slate-950 hover:bg-slate-900 text-white font-medium py-3 rounded-md transition">
+                                Choose Plan
+                            </button>
+
+                        </div>
+
+                        <!-- Advanced Card -->
+                        <div class="bg-white border border-slate-200 rounded-md p-5 shadow-md">
+
+                            <div class="border border-slate-200 rounded-md p-5 shadow-sm">
+                                <h3 class="text-lg font-semibold text-slate-800">
+                                    Advanced
+                                </h3>
+
+                                <div class="flex items-end">
+                                    <span class="text-3xl font-semibold text-slate-900">$200</span>
+                                    <span class="text-xs text-slate-500 mb-1">/monthly</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 rounded-md p-4 mt-5">
+
+                                <div class="flex items-center gap-3 mb-5">
+                                    <h4 class="font-semibold text-xs text-slate-500">
+                                        Features Includes
+                                    </h4>
+                                    <div class="flex-1 h-px bg-slate-200"></div>
+                                </div>
+
+                                <ul class="space-y-5 text-[15px]">
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        50 Employees
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        100 Projects
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        100 Clients
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        50 GB Storage
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Voice & Video Chat
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>
+                                        CRM
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <button
+                                class="w-full mt-4 bg-slate-950 hover:bg-slate-900 text-white font-medium py-3 rounded-md transition">
+                                Choose Plan
+                            </button>
+
+                        </div>
+
+                        <!-- Premium Card -->
+                        <div class="bg-white border border-slate-200 rounded-md p-5 shadow-md">
+
+                            <div class="border border-slate-200 ounded-md p-5 shadow-sm">
+                                <h3 class="text-lg font-semibold text-slate-800">
+                                    Premium
+                                </h3>
+
+                                <div class="flex items-end">
+                                    <span class="text-3xl font-semibold text-slate-900">$300</span>
+                                    <span class="text-xs text-slate-500 mb-1">/monthly</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 rounded-md p-4 mt-5">
+
+                                <div class="flex items-center gap-3 mb-5">
+                                    <h4 class="font-semibold text-xs text-slate-500">
+                                        Features Includes
+                                    </h4>
+                                    <div class="flex-1 h-px bg-slate-200"></div>
+                                </div>
+
+                                <ul class="space-y-5 text-[15px]">
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        100 Employees
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        200 Projects
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        100 Clients
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        100 GB Storage
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Voice & Video Chat
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>
+                                        CRM
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <button
+                                class="w-full mt-4 bg-slate-950 hover:bg-slate-900 text-white font-medium py-3 rounded-md transition">
+                                Choose Plan
+                            </button>
+
+                        </div>
+
+                        <!-- Enterprise Card -->
+                        <div class="bg-white border border-slate-200 rounded-md p-5 shadow-md">
+
+                            <div class="border border-slate-200 rounded-md p-5 shadow-sm">
+                                <h3 class="text-lg font-semibold text-slate-800">
+                                    Enterprise
+                                </h3>
+
+                                <div class="flex items-end">
+                                    <span class="text-3xl font-semibold text-slate-900">$400</span>
+                                    <span class="text-xs text-slate-500 mb-1">/monthly</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 rounded-md p-4 mt-5">
+
+                                <div class="flex items-center gap-3 mb-5">
+                                    <h4 class="font-semibold text-xs text-slate-500">
+                                        Features Includes
+                                    </h4>
+                                    <div class="flex-1 h-px bg-slate-200"></div>
+                                </div>
+
+                                <ul class="space-y-5 text-[15px]">
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Unlimited Employees
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Unlimited Clients
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Unlimited Projects
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Unlimited Storage
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        Voice & Video Chat
+                                    </li>
+
+                                    <li class="flex items-center gap-3">
+                                        <i data-lucide="badge-check" class="w-4 h-4 text-green-500"></i>
+                                        CRM
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <button
+                                class="w-full mt-4 bg-slate-950 hover:bg-slate-900 text-white font-medium py-3 rounded-md transition">
+                                Choose Plan
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <script>
+                    lucide.createIcons();
+                </script>
             </div>
-
-
-            <script>
-                lucide.createIcons();
-            </script>
         </div>
-    </div>
     </div>
