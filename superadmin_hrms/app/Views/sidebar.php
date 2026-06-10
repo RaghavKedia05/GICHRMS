@@ -116,7 +116,7 @@ if (empty($currentPage)) {
                 : 'text-slate-800 hover:bg-slate-200'; ?>">
 
             <div class="flex items-center gap-2.5">
-                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                <i data-lucide="gem" class="w-4 h-4"></i>
                 <span class="text-[13px] font-semibold">
                     Packages
                 </span>

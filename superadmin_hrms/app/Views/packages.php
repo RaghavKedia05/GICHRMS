@@ -81,445 +81,462 @@
 
 
             <!-- Page Content -->
-            <div class="flex-1 overflow-y-auto">
+            <div class="p-5">
+                <!-- Page Header -->
+                <div class="flex items-start justify-between mb-6">
 
-                <!-- Content Container -->
-                <div class="max-w-[1600px] mx-auto px-6 py-5">
-                    <!-- Page Header -->
-                    <div class="flex items-start justify-between mb-6">
+                    <div>
+                        <h1 class="text-[28px] font-semibold text-2xl text-slate-800">
+                            Packages
+                        </h1>
 
-                        <div>
-                            <h1 class="text-[28px] font-semibold text-slate-800">
-                                Packages
-                            </h1>
+                        <div class="flex items-center gap-2 mt-2 text-sm text-slate-500">
+                            <i data-lucide="house" class="w-4 h-4"></i>
 
-                            <div class="flex items-center gap-2 mt-2 text-sm text-slate-500">
-                                <i data-lucide="house" class="w-4 h-4"></i>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
 
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            <span>Super Admin</span>
 
-                                <span>Super Admin</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
 
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-
-                                <span class="text-slate-700">
-                                    Packages List
-                                </span>
-                            </div>
+                            <span class="text-slate-700">
+                                Packages List
+                            </span>
                         </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+
+                        <!-- List View -->
+                        <button class="w-7 h-7 bg-orange-500 rounded-md flex items-center justify-center text-white">
+                            <i data-lucide="list" class="w-4 h-4"></i>
+                        </button>
+
+                        <!-- Grid View -->
+                        <button
+                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
+                            <i data-lucide="grid-2x2" class="w-4 h-4"></i>
+                        </button>
+
+                        <!-- Export -->
+                        <button
+                            class="flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 rounded-md text-sm">
+                            <i data-lucide="file-down" class="w-4 h-4"></i>
+
+                            Export
+
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+
+                        <!-- Add Plan -->
+                        <button
+                            class="flex items-center gap-2 px-4 py-1.5 bg-orange-500 text-white rounded-md text-sm font-medium">
+
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+
+                            Add Plan
+                        </button>
+
+                        <!-- Scroll Top -->
+                        <button
+                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center">
+                            <i data-lucide="chevrons-up" class="w-4 h-4"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">
+
+                    <!-- Total Plans -->
+                    <div class="bg-white border border-slate-200 rounded-md p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500">
+                                    Total Plans
+                                </p>
+
+                                <h3 class="text-xl font-semibold text-slate-800">
+                                    08
+                                </h3>
+                            </div>
+
+                            <div class="w-11 h-11 bg-orange-500 rounded flex items-center justify-center">
+                                <i data-lucide="package" class="w-5 h-5 text-white"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Active Plans -->
+                    <div class="bg-white border border-slate-200 rounded-md p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500">
+                                    Active Plans
+                                </p>
+
+                                <h3 class="text-xl font-semibold text-slate-800">
+                                    08
+                                </h3>
+                            </div>
+
+                            <div class="w-11 h-11 bg-green-500 rounded flex items-center justify-center">
+                                <i data-lucide="activity" class="w-5 h-5 text-white"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Inactive Plans -->
+                    <div class="bg-white border border-slate-200 rounded-md p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500">
+                                    Inactive Plans
+                                </p>
+
+                                <h3 class="text-xl font-semibold text-slate-800">
+                                    0
+                                </h3>
+                            </div>
+
+                            <div class="w-11 h-11 bg-red-500 rounded flex items-center justify-center">
+                                <i data-lucide="pause" class="w-5 h-5 text-white"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Plan Types -->
+                    <div class="bg-white border border-slate-200 rounded-md p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500">
+                                    No of Plan Types
+                                </p>
+
+                                <h3 class="text-xl font-semibold text-slate-800">
+                                    02
+                                </h3>
+                            </div>
+
+                            <div class="w-11 h-11 bg-cyan-500 rounded flex items-center justify-center">
+                                <i data-lucide="layers-3" class="w-5 h-5 text-white"></i>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Packages List -->
+                <div class="bg-white border border-slate-200 rounded-md shadow-sm">
+
+                    <!-- Header -->
+                    <div class="flex items-center justify-between p-5 border-b">
+
+                        <h3 class="text-l font-semibold text-slate-800">
+                            Plan List
+                        </h3>
+
+                        <div class="flex items-center gap-4">
+
+                            <button class="flex items-center gap-2 border rounded-md px-4 py-1 text-[13px]">
+                                <i data-lucide="calendar-days" class="w-4 h-4"></i>
+                                09/06/2026 - 09/06/2026
+                            </button>
+
+                            <select class="border rounded-md px-4 py-1 text-[13px]">
+                                <option>Select Plan</option>
+                            </select>
+
+                            <select class="border rounded-md px-4 py-1 text-[13px]">
+                                <option>Select Status</option>
+                            </select>
+
+                            <select class="border rounded-md px-4 py-1 text-[13px]">
+                                <option>Sort By : Last 7 Days</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="flex items-center justify-between p-5">
 
                         <div class="flex items-center gap-3">
 
-                            <!-- List View -->
-                            <button
-                                class="w-10 h-10 bg-orange-500 rounded-md flex items-center justify-center text-white">
-                                <i data-lucide="list" class="w-4 h-4"></i>
-                            </button>
+                            <span class="text-sm">
+                                Row Per Page
+                            </span>
 
-                            <!-- Grid View -->
-                            <button
-                                class="w-10 h-10 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
-                                <i data-lucide="grid-2x2" class="w-4 h-4"></i>
-                            </button>
+                            <select class="border rounded-md px-3 py-1 text-sm">
+                                <option>10</option>
+                            </select>
 
-                            <!-- Export -->
-                            <button
-                                class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-md text-sm">
-                                <i data-lucide="file-down" class="w-4 h-4"></i>
-
-                                Export
-
-                                <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                            </button>
-
-                            <!-- Add Plan -->
-                            <button
-                                class="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-md text-sm font-medium">
-
-                                <i data-lucide="plus-circle" class="w-4 h-4"></i>
-
-                                Add Plan
-                            </button>
-
-                            <!-- Scroll Top -->
-                            <button
-                                class="w-10 h-10 bg-white border border-slate-200 rounded-md flex items-center justify-center">
-                                <i data-lucide="chevrons-up" class="w-4 h-4"></i>
-                            </button>
+                            <span class="text-sm">
+                                Entries
+                            </span>
 
                         </div>
+
+                        <input type="text" placeholder="Search"
+                            class="border border-slate-200 rounded-md px-4 py-1 text-[13px] w-[180px]">
 
                     </div>
 
-                    <!-- Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
 
-                        <!-- Total Plans -->
-                        <div class="bg-white border border-slate-200 rounded-md p-5">
-                            <div class="flex items-center justify-between">
+                        <table class="w-full">
 
-                                <div>
-                                    <p class="text-sm text-slate-500">
-                                        Total Plans
-                                    </p>
+                            <thead>
 
-                                    <h3 class="text-[30px] font-bold text-slate-800">
-                                        08
-                                    </h3>
-                                </div>
+                                <tr class="bg-[#f1f5f9]">
 
-                                <div class="w-11 h-11 bg-orange-500 rounded flex items-center justify-center">
-                                    <i data-lucide="package" class="w-5 h-5 text-white"></i>
-                                </div>
+                                    <th class="w-12 text-center">
+                                        <input type="checkbox" id="selectAll" class="w-4 h-4">
+                                    </th>
 
-                            </div>
-                        </div>
+                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                        Plan Name
+                                    </th>
 
-                        <!-- Active Plans -->
-                        <div class="bg-white border border-slate-200 rounded-md p-5">
-                            <div class="flex items-center justify-between">
+                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                        Plan Type
+                                    </th>
 
-                                <div>
-                                    <p class="text-sm text-slate-500">
-                                        Active Plans
-                                    </p>
+                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                        Total Subscribers
+                                    </th>
 
-                                    <h3 class="text-[30px] font-bold text-slate-800">
-                                        08
-                                    </h3>
-                                </div>
+                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                        Price
+                                    </th>
 
-                                <div class="w-11 h-11 bg-green-500 rounded flex items-center justify-center">
-                                    <i data-lucide="activity" class="w-5 h-5 text-white"></i>
-                                </div>
+                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                        Created Date
+                                    </th>
 
-                            </div>
-                        </div>
+                                    <th class="p-4 text-left text-[13px] font-semibold">
+                                        Status
+                                    </th>
 
-                        <!-- Inactive Plans -->
-                        <div class="bg-white border border-slate-200 rounded-md p-5">
-                            <div class="flex items-center justify-between">
+                                    <th class="p-4"></th>
 
-                                <div>
-                                    <p class="text-sm text-slate-500">
-                                        Inactive Plans
-                                    </p>
+                                </tr>
 
-                                    <h3 class="text-[30px] font-bold text-slate-800">
-                                        0
-                                    </h3>
-                                </div>
+                            </thead>
 
-                                <div class="w-11 h-11 bg-red-500 rounded flex items-center justify-center">
-                                    <i data-lucide="pause" class="w-5 h-5 text-white"></i>
-                                </div>
+                            <tbody class="divide-y divide-slate-200 text-[13px]">
 
-                            </div>
-                        </div>
+                                <tr>
+                                    <td class="w-12 text-center">
+                                        <input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Basic</td>
+                                    <td class="p-4 text-slate-500">Monthly</td>
+                                    <td class="p-4 text-slate-500">56</td>
+                                    <td class="p-4 text-slate-500">$50</td>
+                                    <td class="p-4 text-slate-500">14 Jan 2024</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">
+                                            • Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500">
+                                            <i data-lucide="square-pen" class="w-4 h-4"></i>
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                        <!-- Plan Types -->
-                        <div class="bg-white border border-slate-200 rounded-md p-5">
-                            <div class="flex items-center justify-between">
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Advanced</td>
+                                    <td class="p-4 text-slate-500">Monthly</td>
+                                    <td class="p-4 text-slate-500">99</td>
+                                    <td class="p-4 text-slate-500">$200</td>
+                                    <td class="p-4 text-slate-500">21 Jan 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                                <div>
-                                    <p class="text-sm text-slate-500">
-                                        No of Plan Types
-                                    </p>
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Premium</td>
+                                    <td class="p-4 text-slate-500">Monthly</td>
+                                    <td class="p-4 text-slate-500">58</td>
+                                    <td class="p-4 text-slate-500">$300</td>
+                                    <td class="p-4 text-slate-500">10 Feb 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                                    <h3 class="text-[30px] font-bold text-slate-800">
-                                        02
-                                    </h3>
-                                </div>
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Enterprise</td>
+                                    <td class="p-4 text-slate-500">Monthly</td>
+                                    <td class="p-4 text-slate-500">67</td>
+                                    <td class="p-4 text-slate-500">$400</td>
+                                    <td class="p-4 text-slate-500">18 Feb 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                                <div class="w-11 h-11 bg-cyan-500 rounded flex items-center justify-center">
-                                    <i data-lucide="layers-3" class="w-5 h-5 text-white"></i>
-                                </div>
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Basic</td>
+                                    <td class="p-4 text-slate-500">Yearly</td>
+                                    <td class="p-4 text-slate-500">78</td>
+                                    <td class="p-4 text-slate-500">$600</td>
+                                    <td class="p-4 text-slate-500">15 Mar 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                            </div>
-                        </div>
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Advanced</td>
+                                    <td class="p-4 text-slate-500">Yearly</td>
+                                    <td class="p-4 text-slate-500">99</td>
+                                    <td class="p-4 text-slate-500">$2400</td>
+                                    <td class="p-4 text-slate-500">26 Mar 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                    </div>
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Premium</td>
+                                    <td class="p-4 text-slate-500">Yearly</td>
+                                    <td class="p-4 text-slate-500">48</td>
+                                    <td class="p-4 text-slate-500">$3600</td>
+                                    <td class="p-4 text-slate-500">05 Apr 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                    <!-- Packages List -->
-                    <div class="bg-white border border-slate-200 rounded-md">
+                                <tr>
+                                    <td class="w-12 text-center"><input type="checkbox" class="rowCheckbox w-4 h-4"></td>
+                                    <td class="p-4 font-medium">Enterprise</td>
+                                    <td class="p-4 text-slate-500">Yearly</td>
+                                    <td class="p-4 text-slate-500">17</td>
+                                    <td class="p-4 text-slate-500">$4800</td>
+                                    <td class="p-4 text-slate-500">16 Apr 2024</td>
+                                    <td class="p-4"><span
+                                            class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
+                                            Active</span></td>
+                                    <td class="p-4">
+                                        <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
+                                                class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                        <!-- Header -->
-                        <div class="flex items-center justify-between p-5 border-b">
+                            </tbody>
 
-                            <h3 class="text-xl font-semibold text-slate-800">
-                                Plan List
-                            </h3>
+                        </table>
+
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between p-5 border-t">
+
+                            <p class="text-sm text-slate-600">
+                                Showing 1 - 8 of 8 entries
+                            </p>
 
                             <div class="flex items-center gap-4">
 
-                                <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
-                                    <i data-lucide="calendar-days" class="w-4 h-4"></i>
-                                    09/06/2026 - 09/06/2026
+                                <button>
+                                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
                                 </button>
 
-                                <select class="border rounded-md px-4 py-2 text-[13px]">
-                                    <option>Select Plan</option>
-                                </select>
+                                <button class="w-8 h-8 rounded-full bg-orange-500 text-white text-sm">
+                                    1
+                                </button>
 
-                                <select class="border rounded-md px-4 py-2 text-[13px]">
-                                    <option>Select Status</option>
-                                </select>
-
-                                <select class="border rounded-md px-4 py-2 text-[13px]">
-                                    <option>Sort By : Last 7 Days</option>
-                                </select>
+                                <button>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
 
                             </div>
 
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="flex items-center justify-between p-5">
-
-                            <div class="flex items-center gap-3">
-
-                                <span class="text-sm">
-                                    Row Per Page
-                                </span>
-
-                                <select class="border rounded-md px-3 py-2 text-sm">
-                                    <option>10</option>
-                                </select>
-
-                                <span class="text-sm">
-                                    Entries
-                                </span>
-
-                            </div>
-
-                            <input type="text" placeholder="Search"
-                                class="border border-slate-200 rounded-md px-4 py-2 text-[13px] w-[180px]">
-
-                        </div>
-
-                        <!-- Table -->
-                        <div class="overflow-x-auto">
-
-                            <table class="w-full">
-
-                                <thead>
-
-                                    <tr class="bg-[#f1f5f9]">
-
-                                        <th class="p-4">
-                                            <input type="checkbox">
-                                        </th>
-
-                                        <th class="p-4 text-left text-[13px] font-semibold">
-                                            Plan Name
-                                        </th>
-
-                                        <th class="p-4 text-left text-[13px] font-semibold">
-                                            Plan Type
-                                        </th>
-
-                                        <th class="p-4 text-left text-[13px] font-semibold">
-                                            Total Subscribers
-                                        </th>
-
-                                        <th class="p-4 text-left text-[13px] font-semibold">
-                                            Price
-                                        </th>
-
-                                        <th class="p-4 text-left text-[13px] font-semibold">
-                                            Created Date
-                                        </th>
-
-                                        <th class="p-4 text-left text-[13px] font-semibold">
-                                            Status
-                                        </th>
-
-                                        <th class="p-4"></th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody class="divide-y divide-slate-200 text-[13px]">
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Basic</td>
-                                        <td class="p-4 text-slate-500">Monthly</td>
-                                        <td class="p-4 text-slate-500">56</td>
-                                        <td class="p-4 text-slate-500">$50</td>
-                                        <td class="p-4 text-slate-500">14 Jan 2024</td>
-                                        <td class="p-4">
-                                            <span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">
-                                                • Active
-                                            </span>
-                                        </td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500">
-                                                <i data-lucide="square-pen" class="w-4 h-4"></i>
-                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Advanced</td>
-                                        <td class="p-4 text-slate-500">Monthly</td>
-                                        <td class="p-4 text-slate-500">99</td>
-                                        <td class="p-4 text-slate-500">$200</td>
-                                        <td class="p-4 text-slate-500">21 Jan 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Premium</td>
-                                        <td class="p-4 text-slate-500">Monthly</td>
-                                        <td class="p-4 text-slate-500">58</td>
-                                        <td class="p-4 text-slate-500">$300</td>
-                                        <td class="p-4 text-slate-500">10 Feb 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Enterprise</td>
-                                        <td class="p-4 text-slate-500">Monthly</td>
-                                        <td class="p-4 text-slate-500">67</td>
-                                        <td class="p-4 text-slate-500">$400</td>
-                                        <td class="p-4 text-slate-500">18 Feb 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Basic</td>
-                                        <td class="p-4 text-slate-500">Yearly</td>
-                                        <td class="p-4 text-slate-500">78</td>
-                                        <td class="p-4 text-slate-500">$600</td>
-                                        <td class="p-4 text-slate-500">15 Mar 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Advanced</td>
-                                        <td class="p-4 text-slate-500">Yearly</td>
-                                        <td class="p-4 text-slate-500">99</td>
-                                        <td class="p-4 text-slate-500">$2400</td>
-                                        <td class="p-4 text-slate-500">26 Mar 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Premium</td>
-                                        <td class="p-4 text-slate-500">Yearly</td>
-                                        <td class="p-4 text-slate-500">48</td>
-                                        <td class="p-4 text-slate-500">$3600</td>
-                                        <td class="p-4 text-slate-500">05 Apr 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="p-4"><input type="checkbox"></td>
-                                        <td class="p-4 font-medium">Enterprise</td>
-                                        <td class="p-4 text-slate-500">Yearly</td>
-                                        <td class="p-4 text-slate-500">17</td>
-                                        <td class="p-4 text-slate-500">$4800</td>
-                                        <td class="p-4 text-slate-500">16 Apr 2024</td>
-                                        <td class="p-4"><span
-                                                class="bg-green-500 text-white text-[11px] font-semibold px-3 py-1 rounded">•
-                                                Active</span></td>
-                                        <td class="p-4">
-                                            <div class="flex gap-4 text-slate-500"><i data-lucide="square-pen"
-                                                    class="w-4 h-4"></i><i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                            <!-- Pagination -->
-                            <div class="flex items-center justify-between p-5 border-t">
-
-                                <p class="text-sm text-slate-600">
-                                    Showing 1 - 8 of 8 entries
-                                </p>
-
-                                <div class="flex items-center gap-4">
-
-                                    <button>
-                                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                                    </button>
-
-                                    <button class="w-8 h-8 rounded-full bg-orange-500 text-white text-sm">
-                                        1
-                                    </button>
-
-                                    <button>
-                                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                                    </button>
-
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>
-
-
-                <script>
-                    lucide.createIcons();
-                </script>
             </div>
+
+
+            <script>
+                lucide.createIcons();
+            </script>
         </div>
     </div>
+    </div>
+
+    <script>
+        const selectAll = document.getElementById('selectAll');
+        const rowCheckboxes = document.querySelectorAll('.rowCheckbox');
+
+        selectAll.addEventListener('change', function () {
+            rowCheckboxes.forEach(cb => {
+                cb.checked = this.checked;
+            });
+        });
+
+        rowCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function () {
+                const allChecked =
+                    [...rowCheckboxes].every(c => c.checked);
+
+                selectAll.checked = allChecked;
+            });
+        });
+    </script>
 
 </body>
