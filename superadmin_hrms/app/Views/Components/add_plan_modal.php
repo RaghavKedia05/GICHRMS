@@ -172,32 +172,32 @@
                         </h3>
 
                         <label class="flex items-center gap-2 font-bold text-sm text-slate-700">
-                            <input type="checkbox">
+                            <input type="checkbox" class="w-3 h-3 border-slate-300 rounded">
                             <span>Select All</span>
                         </label>
                     </div>
 
                     <div class="grid grid-cols-4 gap-y-4 font-semibold text-sm text-slate-700 p-1">
 
-                        <label><input type="checkbox"> Employees</label>
-                        <label><input type="checkbox"> Invoices</label>
-                        <label><input type="checkbox"> Reports</label>
-                        <label><input type="checkbox"> Contacts</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Employees</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Invoices</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Reports</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Contacts</label>
 
-                        <label><input type="checkbox"> Clients</label>
-                        <label><input type="checkbox"> Estimates</label>
-                        <label><input type="checkbox"> Goals</label>
-                        <label><input type="checkbox"> Deals</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Clients</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Estimates</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Goals</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Deals</label>
 
-                        <label><input type="checkbox"> Projects</label>
-                        <label><input type="checkbox"> Payments</label>
-                        <label><input type="checkbox"> Assets</label>
-                        <label><input type="checkbox"> Leads</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Projects</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Payments</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Assets</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Leads</label>
 
-                        <label><input type="checkbox"> Tickets</label>
-                        <label><input type="checkbox"> Taxes</label>
-                        <label><input type="checkbox"> Activities</label>
-                        <label><input type="checkbox"> Pipelines</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Tickets</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Taxes</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Activities</label>
+                        <label><input type="checkbox" class="w-3 h-3 border-slate-300 rounded"> Pipelines</label>
 
                     </div>
 
@@ -212,7 +212,7 @@
                             Access Trial
                         </span>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer">
+                            <input type="checkbox" class="w-3 h-3 sr-only peer text-orange-500 border-slate-300 rounded">
 
                             <div
                                 class="w-10 h-5 bg-gray-300 rounded-full transition-colors duration-200 peer-checked:bg-orange-400">
@@ -242,7 +242,7 @@
                             </label>
 
                             <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" class="sr-only peer">
+                                <input type="checkbox" class="w-3 h-3 sr-only peer text-orange-500 border-slate-300 rounded">
 
                                 <div
                                     class="w-10 h-5 bg-gray-300 rounded-full transition-colors duration-200 peer-checked:bg-orange-400">

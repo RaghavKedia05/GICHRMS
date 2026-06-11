@@ -14,3 +14,4 @@ $routes->get('/subscriptions', 'DashboardController::subscriptions');
 $routes->get('/purchase_transaction', 'DashboardController::purchase_transaction');
 $routes->get('/packages', 'DashboardController::packages');
 $routes->get('/package-grid', 'PackageController::grid');
+$routes->get('/support_ticket', 'DashboardController::support_ticket');

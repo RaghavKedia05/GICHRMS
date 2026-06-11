@@ -28,4 +28,9 @@ class DashboardController extends BaseController
     {
         return view('packages');
     }
+
+    public function support_ticket()
+    {
+        return view('support_ticket');
+    }
 }
