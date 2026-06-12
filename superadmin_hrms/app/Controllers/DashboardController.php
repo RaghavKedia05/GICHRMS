@@ -33,4 +33,5 @@ class DashboardController extends BaseController
     {
         return view('support_ticket');
     }
+
 }
