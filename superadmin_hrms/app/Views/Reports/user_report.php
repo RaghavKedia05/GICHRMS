@@ -114,7 +114,7 @@
 
                                     <div
                                         class="w-9 h-9 rounded-xl border border-orange-500 bg-orange-50 flex items-center justify-center text-orange-500">
-                                        <i data-lucide="user" class="w-4 h-4"></i>
+                                        <i data-lucide="user-round" class="w-4 h-4"></i>
                                     </div>
 
                                 </div>

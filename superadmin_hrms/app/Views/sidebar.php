@@ -148,8 +148,9 @@ if (empty($currentPage)) {
             $isReportPage =
                 $currentPage == 'expense_report' ||
                 $currentPage == 'invoice_report' ||
-                $currentPage == 'payment_report' ||
-                $currentPage == 'project_report';
+                $currentPage == 'user_report' ||
+                $currentPage == 'employee_report' ||
+                $currentPage == 'payslip_report';
             ?>
 
             <!-- Parent Menu -->

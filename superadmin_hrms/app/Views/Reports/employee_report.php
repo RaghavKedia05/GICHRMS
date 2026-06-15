@@ -114,7 +114,7 @@
 
                                     <div
                                         class="w-9 h-9 rounded-xl border border-orange-500 bg-orange-50 flex items-center justify-center text-orange-500">
-                                        <i data-lucide="user" class="w-4 h-4"></i>
+                                        <i data-lucide="users" class="w-4 h-4"></i>
                                     </div>
 
                                 </div>
@@ -145,7 +145,7 @@
 
                                     <div
                                         class="w-9 h-9 rounded-xl border border-green-500 bg-green-50 flex items-center justify-center text-green-500 text-xs">
-                                        <i data-lucide="user-round-check" class="w-4 h-4"></i>
+                                        <i data-lucide="user-check" class="w-4 h-4"></i>
                                     </div>
 
                                 </div>
@@ -176,7 +176,7 @@
 
                                     <div
                                         class="w-9 h-9 rounded-xl border border-cyan-500 bg-cyan-50 flex items-center justify-center text-cyan-500">
-                                        <i data-lucide="user-round-plus" class="w-4 h-4"></i>
+                                        <i data-lucide="user-plus" class="w-4 h-4"></i>
                                     </div>
 
                                 </div>
@@ -207,7 +207,7 @@
 
                                     <div
                                         class="w-9 h-9 rounded-xl border border-red-500 bg-red-50 flex items-center justify-center text-red-500">
-                                        <i data-lucide="user-round-x" class="w-4 h-4"></i>
+                                        <i data-lucide="user-x" class="w-4 h-4"></i>
                                     </div>
 
                                 </div>
