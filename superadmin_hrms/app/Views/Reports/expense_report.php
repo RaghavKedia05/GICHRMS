@@ -406,7 +406,7 @@
                         <div class="flex items-center gap-3">
 
                             <button>
-                                <i data-lucide="chevron-left"></i>
+                                <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
                             </button>
 
                             <button class="w-6 h-6 text-xs rounded-full bg-orange-500 text-white">
@@ -414,7 +414,7 @@
                             </button>
 
                             <button class="text-3xl">
-                                <i data-lucide="chevron-right"></i>
+                                <i data-lucide="chevron-right" class="text-slate-500 w-4 h-4"></i>
                             </button>
 
                         </div>

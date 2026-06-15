@@ -461,15 +461,15 @@
                             <div class="flex items-center gap-4">
 
                                 <button>
-                                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                    <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
                                 </button>
 
-                                <button class="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-semibold">
+                                <button class="w-6 h-6 rounded-full bg-orange-500 text-white text-xs">
                                     1
                                 </button>
 
                                 <button>
-                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                    <i data-lucide="chevron-right" class="text-slate-500 w-4 h-4"></i>
                                 </button>
 
                             </div>
