@@ -14,13 +14,16 @@ class ReportController extends BaseController
         return view('Reports/invoice_report');
     }
 
-    public function paymentReport()
+    public function userReport()
     {
-        return view('Reports/payment_report');
+        return view('Reports/user_report');
     }
-
-    public function projectReport()
+    public function employeeReport()
     {
-        return view('Reports/project_report');
+        return view('Reports/employee_report');
+    }
+    public function payslipReport()
+    {
+        return view('Reports/payslip_report');
     }
 }

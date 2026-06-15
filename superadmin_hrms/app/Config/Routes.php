@@ -18,5 +18,6 @@ $routes->get('/support_ticket', 'DashboardController::support_ticket');
 
 $routes->get('/Reports/expense_report', 'ReportController::expenseReport');
 $routes->get('/Reports/invoice_report', 'ReportController::invoiceReport');
-$routes->get('/Reports/payment_report', 'ReportController::paymentReport');
-$routes->get('/Reports/project_report', 'ReportController::projectReport');
+$routes->get('/Reports/user_report', 'ReportController::userReport');
+$routes->get('/Reports/employeee_report', 'ReportController::employeeReport');
+$routes->get('/Reports/payslip_report', 'ReportController::payslipReport');

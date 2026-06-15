@@ -189,18 +189,25 @@ if (empty($currentPage)) {
                     Invoice Report
                 </a>
 
-                <a href="/Reports/payment_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'payment_report')
+                <a href="/Reports/user_report" class="block pl-4 py-2 text-xs
+            <?= ($currentPage == 'user_report')
                 ? 'text-orange-500 font-medium'
                 : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Payment Report
+                    User Report
                 </a>
 
-                <a href="/Reports/project_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'project_report')
+                <a href="/Reports/employee_report" class="block pl-4 py-2 text-xs
+            <?= ($currentPage == 'employee_report')
                 ? 'text-orange-500 font-medium'
                 : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Project Report
+                    Employee Report
+                </a>
+
+                <a href="/Reports/payslip_report" class="block pl-4 py-2 text-xs
+            <?= ($currentPage == 'payslip_report')
+                ? 'text-orange-500 font-medium'
+                : 'text-slate-600 hover:text-orange-500'; ?>">
+                    Payslip Report
                 </a>
 
             </div>
