@@ -27,9 +27,7 @@
 
 <body class="bg-[#f8fafc]">
 
-    <div
-        id="sidebarOverlay"
-        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
 
     <div class="flex h-screen overflow-hidden">
@@ -43,12 +41,12 @@
             <!-- Navbar -->
             <?php include __DIR__ . '/../navbar.php'; ?>
 
-            <div class="flex-1 overflow-y-auto p-5">
+            <div class="flex-1 overflow-y-auto p-3 sm:p-5">
                 <!-- Header -->
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
 
                     <div>
-                        <h1 class="text-[28px] font-semibold text-2xl text-slate-800">
+                        <h1 class="text-2xl md:text-[28px] font-semibold text-slate-800">
                             Attendance Report
                         </h1>
 
@@ -67,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
 
                         <button
                             class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
@@ -88,14 +86,14 @@
                 </div>
 
                 <!-- Top Section -->
-                <div class="grid grid-cols-12 gap-6 mb-6 items-stretch">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6 items-stretch">
 
                     <!-- Attendance Stats -->
-                    <div class="col-span-6">
-                        <div class="grid grid-cols-2 gap-6 h-full">
+                    <div class="xl:col-span-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
 
                             <!-- Card 1 -->
-                            <div class="bg-white border rounded-md p-5 shadow-sm">
+                            <div class="bg-white border rounded-md p-4 md:p-5 shadow-sm">
                                 <div class="flex items-center gap-3 mb-3">
                                     <div
                                         class="w-10 h-10 rounded-md border border-orange-500 text-orange-500 flex items-center justify-center">
@@ -123,7 +121,7 @@
                             </div>
 
                             <!-- Card 2 -->
-                            <div class="bg-white border rounded-md p-5 shadow-sm">
+                            <div class="bg-white border rounded-md p-4 md:p-5 shadow-sm">
                                 <div class="flex items-center gap-3 mb-3">
                                     <div
                                         class="w-10 h-10 rounded-md border border-blue-500 text-blue-500 flex items-center justify-center">
@@ -151,7 +149,7 @@
                             </div>
 
                             <!-- Card 3 -->
-                            <div class="bg-white border rounded-md p-5 shadow-sm">
+                            <div class="bg-white border rounded-md p-4 md:p-5 shadow-sm">
                                 <div class="flex items-center gap-3 mb-3">
                                     <div
                                         class="w-10 h-10 rounded-md border border-pink-500 text-pink-500 flex items-center justify-center">
@@ -179,7 +177,7 @@
                             </div>
 
                             <!-- Card 4 -->
-                            <div class="bg-white border rounded-md p-5 shadow-sm">
+                            <div class="bg-white border rounded-md p-4 md:p-5 shadow-sm">
                                 <div class="flex items-center gap-3 mb-3">
                                     <div
                                         class="w-10 h-10 rounded-md border border-yellow-500 text-yellow-500 flex items-center justify-center">
@@ -210,7 +208,7 @@
                     </div>
 
                     <!-- Attendance Chart -->
-                    <div class="col-span-6">
+                    <div class="xl:col-span-6">
                         <div class="bg-white border rounded-md shadow-sm p-6 h-full">
 
                             <!-- Header -->
@@ -219,7 +217,7 @@
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="activity" class="w-4 h-4 text-red-500"></i>
 
-                                    <h3 class="text-2xl font-semibold text-slate-800">
+                                    <h3 class="text-lg md:text-2xl font-semibold text-slate-800">
                                         Attendance
                                     </h3>
                                 </div>
@@ -245,13 +243,13 @@
                 <div class="bg-white border rounded-md shadow">
 
                     <!-- Header -->
-                    <div class="flex justify-between items-center p-4 border-b">
+                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
                         <h2 class="text-md font-semibold">
                             Employees Attendance
                         </h2>
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
 
                             <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
@@ -277,7 +275,7 @@
                     </div>
 
                     <!-- Controls -->
-                    <div class="flex justify-between items-center p-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 p-4">
 
                         <div class="flex items-center gap-2 text-sm">
 
@@ -291,427 +289,430 @@
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border text-xs rounded-md px-4 py-2 w-40">
+                        <input type="text" placeholder="Search"
+                            class="border text-xs rounded-md px-4 py-2 w-full md:w-40">
 
                     </div>
 
                     <!-- Table -->
-                    <table class="w-full">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[1200px]">
 
-                        <thead class="bg-slate-100 h-12">
+                            <thead class="bg-slate-100 h-12">
 
-                            <tr class="text-left">
+                                <tr class="text-left">
 
-                                <th class="px-4 text-sm">Name</th>
-                                <th class="px-4 text-sm">Date</th>
-                                <th class="px-4 text-sm">Check In</th>
-                                <th class="px-4 text-sm">Status</th>
-                                <th class="px-4 text-sm">Check Out</th>
-                                <th class="px-4 text-sm">Break</th>
-                                <th class="px-4 text-sm">Late</th>
-                                <th class="px-4 text-sm">Overtime</th>
-                                <th class="px-4 text-sm">Production Hours</th>
+                                    <th class="px-4 text-sm">Name</th>
+                                    <th class="px-4 text-sm">Date</th>
+                                    <th class="px-4 text-sm">Check In</th>
+                                    <th class="px-4 text-sm">Status</th>
+                                    <th class="px-4 text-sm">Check Out</th>
+                                    <th class="px-4 text-sm">Break</th>
+                                    <th class="px-4 text-sm">Late</th>
+                                    <th class="px-4 text-sm">Overtime</th>
+                                    <th class="px-4 text-sm">Production Hours</th>
 
-                            </tr>
+                                </tr>
 
-                        </thead>
+                            </thead>
 
-                        <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200">
 
-                            <!-- Row 1 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/men/1.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/men/1.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm leading-5">
-                                                Anthony Lewis
-                                            </h4>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm leading-5">
+                                                    Anthony Lewis
+                                                </h4>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:32 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:32 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">06:45 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">30 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">32 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">20 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">06:45 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">30 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">32 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">20 Min</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        8.55 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            8.55 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 2 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/men/2.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/men/2.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Brian Villalobos</h4>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Brian Villalobos</h4>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">06:12 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">20 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">45 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">06:12 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">20 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">45 Min</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        7.54 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            7.54 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 3 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/women/22.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/women/22.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Connie Waters</h4>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Connie Waters</h4>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">08:15 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">12 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">08:15 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">12 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        8.35 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            8.35 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 4 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 4 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/men/45.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Doglas Martini</h4>
-                                            <p class="text-xs text-slate-500">Manager</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Doglas Martini</h4>
+                                                <p class="text-xs text-slate-500">Manager</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">06:43 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">23 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">10 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">06:43 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">23 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">10 Min</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        8.22 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            8.22 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 5 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/women/31.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 5 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/women/31.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Elliot Murray</h4>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Elliot Murray</h4>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">07:13 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">32 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">07:13 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">32 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        9.15 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            9.15 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 6 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/men/55.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 6 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/men/55.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Harvey Smith</h4>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Harvey Smith</h4>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">06:13 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">50 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">33 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">06:13 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">50 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">33 Min</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        8.45 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            8.45 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 7 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/women/60.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 7 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/women/60.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Linda Ray</h4>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Linda Ray</h4>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">07:15 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">03 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">07:15 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">03 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        8.32 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            8.32 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 8 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/women/70.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 8 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/women/70.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Lori Broaddus</h4>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Lori Broaddus</h4>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-50 text-red-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                                        Absent
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-50 text-red-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            Absent
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        0.00 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            0.00 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 9 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/women/18.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 9 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/women/18.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Rebecca Smith</h4>
-                                            <p class="text-xs text-slate-500">Executive</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Rebecca Smith</h4>
+                                                <p class="text-xs text-slate-500">Executive</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">09:17 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">12 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:17 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">12 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        9.25 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            9.25 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <!-- Row 10 -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center gap-4">
-                                        <img src="https://randomuser.me/api/portraits/men/68.jpg"
-                                            class="w-10 h-10 rounded-full object-cover">
+                                <!-- Row 10 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-4 px-4">
+                                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                                            <img src="https://randomuser.me/api/portraits/men/68.jpg"
+                                                class="w-10 h-10 rounded-full object-cover">
 
-                                        <div>
-                                            <h4 class="font-medium text-slate-800 text-sm">Stephan Peralt</h4>
-                                            <p class="text-xs text-slate-500">Executive Officer</p>
+                                            <div>
+                                                <h4 class="font-medium text-slate-800 text-sm">Stephan Peralt</h4>
+                                                <p class="text-xs text-slate-500">Executive Officer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">09:00 AM</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        Present
-                                    </span>
-                                </td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-[13px] font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            Present
+                                        </span>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">06:23 PM</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">41 Min</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">-</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">50 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">06:23 PM</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">41 Min</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">-</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">50 Min</td>
 
-                                <td class="py-4 px-4">
-                                    <span
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
-                                        <i data-lucide="clock-3" class="w-3 h-3"></i>
-                                        8.55 Hrs
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-500 text-white text-[13px] font-semibold">
+                                            <i data-lucide="clock-3" class="w-3 h-3"></i>
+                                            8.55 Hrs
+                                        </span>
+                                    </td>
+                                </tr>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Footer -->
                     <div class="flex justify-between items-center p-5 border-t">
@@ -720,7 +721,7 @@
                             Showing 1 - 8 of 8 entries
                         </span>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-wrap items-center gap-3">
 
                             <button>
                                 <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>

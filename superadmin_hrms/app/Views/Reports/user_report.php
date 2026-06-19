@@ -27,9 +27,7 @@
 
 <body class="bg-[#f8fafc]">
 
-    <div
-        id="sidebarOverlay"
-        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
 
     <div class="flex h-screen overflow-hidden">
@@ -67,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
 
                         <button
                             class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
@@ -88,15 +86,16 @@
                 </div>
 
                 <!-- Top Section -->
-                <div class="grid grid-cols-12 gap-6 mb-6">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6 items-stretch">
 
                     <!-- Stats Cards -->
-                    <div class="col-span-6">
+                    <div class="xl:col-span-6 flex">
 
-                        <div class="grid grid-cols-2 gap-6 w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full">
 
                             <!-- Card 1 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[140px]">
 
                                 <div class="flex justify-between">
 
@@ -127,7 +126,8 @@
                             </div>
 
                             <!-- Card 2 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[140px]">
 
                                 <div class="flex justify-between">
 
@@ -158,7 +158,8 @@
                             </div>
 
                             <!-- Card 3 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[140px]">
 
                                 <div class="flex justify-between">
 
@@ -189,7 +190,8 @@
                             </div>
 
                             <!-- Card 4 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[140px]">
 
                                 <div class="flex justify-between">
 
@@ -224,11 +226,11 @@
                     </div>
 
                     <!-- Users Chart -->
-                    <div class="col-span-6">
-                        <div class="bg-white border rounded-md shadow-sm p-6 h-[304px]">
+                    <div class="xl:col-span-6 flex">
+                        <div class="bg-white border rounded-md shadow-sm p-6 flex flex-col w-full h-full">
 
                             <!-- Header -->
-                            <div class="flex justify-between items-center mb-6">
+                            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 mb-6">
 
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="bar-chart-3" class="w-4 h-4 text-red-500"></i>
@@ -237,7 +239,7 @@
                                     </h3>
                                 </div>
 
-                                <div class="flex items-center gap-6">
+                                <div class="flex flex-wrap items-center gap-4">
 
                                     <div class="flex items-center gap-2">
                                         <span class="w-3 h-3 bg-green-500 rounded-sm"></span>
@@ -262,7 +264,7 @@
                             </div>
 
                             <!-- Chart -->
-                            <div class="h-[180px]">
+                            <div class="flex justify-between items-start mb-6">
                                 <canvas id="usersChart"></canvas>
                             </div>
 
@@ -277,30 +279,30 @@
                 <div class="bg-white border rounded-md shadow">
 
                     <!-- Header -->
-                    <div class="flex justify-between items-center p-4 border-b">
+                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
                         <h2 class="text-md font-semibold">
                             User List
                         </h2>
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex flex-col sm:flex-row flex-wrap gap-3 w-full lg:w-auto">
 
                             <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
                                 09/06/2026 - 09/06/2026
                             </button>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>Employee</option>
                                 <option>Client</option>
                             </select>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>Cheque</option>
                                 <option>Cash</option>
                             </select>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>Sort By : Last 7 Days</option>
                             </select>
 
@@ -309,7 +311,7 @@
                     </div>
 
                     <!-- Controls -->
-                    <div class="flex justify-between items-center p-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 p-4">
 
                         <div class="flex items-center gap-2 text-sm">
 
@@ -323,238 +325,251 @@
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border text-xs rounded-md px-4 py-2 w-40">
+                        <input type="text" placeholder="Search"
+                            class="border text-xs rounded-md px-4 py-2 w-full md:w-40">
 
                     </div>
 
-                    <!-- Table -->
-                    <table class="w-full">
+                    <div class="overflow-x-auto">
+                        <!-- Table -->
+                        <table class="w-full min-w-[850px]">
 
-                        <thead class="bg-slate-100">
+                            <thead class="bg-slate-100">
 
-                            <tr class="text-left">
+                                <tr class="text-left">
 
-                                <th class="py-3 px-4">
-                                    <input type="checkbox">
-                                </th>
+                                    <th class="py-3 px-4">
+                                        <input type="checkbox">
+                                    </th>
 
-                                <th class="px-4 text-sm">Name</th>
-                                <th class="px-4 text-sm">Email</th>
-                                <th class="px-4 text-sm">Created Date</th>
-                                <th class="px-4 text-sm">Role</th>
-                                <th class="px-4 text-sm">Status</th>
+                                    <th class="px-4 text-sm">Name</th>
+                                    <th class="px-4 text-sm">Email</th>
+                                    <th class="px-4 text-sm">Created Date</th>
+                                    <th class="px-4 text-sm">Role</th>
+                                    <th class="px-4 text-sm">Status</th>
 
-                            </tr>
+                                </tr>
 
-                        </thead>
+                            </thead>
 
-                        <tbody>
+                            <tbody>
 
-                        <tbody>
+                            <tbody>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=11" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Anthony Lewis</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=11" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Anthony Lewis</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">anthony@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">12 Sep 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">12 Sep 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=12" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Brian Villalobos</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=12" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Brian Villalobos</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">brian@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">24 Oct 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">24 Oct 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=5" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Sophie Headrick</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=5" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Sophie Headrick</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">sophie@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">18 Feb 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">18 Feb 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=14" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Stephan Peralt</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=14" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Stephan Peralt</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">peral@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">17 Oct 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">17 Oct 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=31" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Thomas Bordelon</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=31" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Thomas Bordelon</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">thomas@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">20 Jul 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">20 Jul 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=25" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Doglas Martini</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=25" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Doglas Martini</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">martiniwr@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">10 Apr 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">10 Apr 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=12" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Cameron Drake</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=12" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Cameron Drake</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">cameron@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">29 Aug 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">29 Aug 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=18" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Harvey Smith</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=18" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Harvey Smith</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">harvey@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">22 Feb 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-red-500 text-white">● Inactive</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">22 Feb 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-pink-100 text-pink-500">Employee</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-red-500 text-white">●
+                                            Inactive</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=1" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Michael Walker</p>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=1" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Michael Walker</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">michael@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">03 Nov 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">03 Nov 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-5 py-4"><input type="checkbox"></td>
-                                <td class="px-5 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=23" class="w-7 h-7 rounded-full">
-                                        <p class="font-medium text-slate-800 text-sm"">Doris Crowley</p>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-5 py-4"><input type="checkbox"></td>
+                                    <td class="px-5 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=23" class="w-7 h-7 rounded-full">
+                                            <p class="font-medium text-slate-800 text-sm"">Doris Crowley</p>
                                     </div>
                                 </td>
                                 <td class=" px-5 py-4 text-sm text-slate-500">doris@example.com
-                                </td>
-                                <td class="px-5 py-4 text-sm text-slate-500">17 Dec 2024</td>
-                                <td class="px-5 py-4">
-                                    <span
-                                        class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
-                                </td>
-                                <td class="px-5 py-4">
-                                    <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">● Active</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-5 py-4 text-sm text-slate-500">17 Dec 2024</td>
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="px-2 py-1 text-[11px] rounded bg-purple-100 text-purple-500">Client</span>
+                                    </td>
+                                    <td class="px-5 py-4">
+                                        <span class="px-3 py-1 text-[11px] rounded bg-green-500 text-white">●
+                                            Active</span>
+                                    </td>
+                                </tr>
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
 
                     <!-- Footer -->
                     <div class="flex justify-between items-center p-5 border-t">
@@ -563,7 +578,7 @@
                             Showing 1 - 9 of 9 entries
                         </span>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-wrap items-center gap-3">
 
                             <button>
                                 <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>

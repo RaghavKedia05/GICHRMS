@@ -27,9 +27,7 @@
 
 <body class="bg-[#f8fafc]">
 
-    <div
-        id="sidebarOverlay"
-        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
 
     <div class="flex h-screen overflow-hidden">
@@ -45,7 +43,7 @@
 
             <div class="flex-1 overflow-y-auto p-5">
                 <!-- Header -->
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-6">
 
                     <div>
                         <h1 class="text-[28px] font-semibold text-2xl text-slate-800">
@@ -67,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
 
                         <button
                             class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
@@ -88,15 +86,16 @@
                 </div>
 
                 <!-- Top Section -->
-                <div class="grid grid-cols-12 gap-6 mb-6">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6 items-stretch">
 
                     <!-- Stats Cards -->
-                    <div class="col-span-6">
+                    <div class="xl:col-span-6 flex">
 
-                        <div class="grid grid-cols-2 gap-6 w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full h-full">
 
                             <!-- Card 1 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[120px]">
 
                                 <div class="flex justify-between">
 
@@ -127,7 +126,8 @@
                             </div>
 
                             <!-- Card 2 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[120px]">
 
                                 <div class="flex justify-between">
 
@@ -158,7 +158,8 @@
                             </div>
 
                             <!-- Card 3 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[120px]">
 
                                 <div class="flex justify-between">
 
@@ -189,7 +190,8 @@
                             </div>
 
                             <!-- Card 4 -->
-                            <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
+                            <div
+                                class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm min-h-[120px]">
 
                                 <div class="flex justify-between">
 
@@ -224,11 +226,11 @@
                     </div>
 
                     <!-- Chart -->
-                    <div class="col-span-6">
-                        <div class="bg-white border rounded-md shadow-sm p-6 h-[304px]">
+                    <div class="xl:col-span-6 flex">
+                        <div class="bg-white border rounded-md shadow-sm p-4 md:p-6 flex flex-col w-full h-full">
 
                             <!-- Header -->
-                            <div class="flex justify-between items-center mb-6">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="badge-dollar-sign" class="w-4 h-4 text-red-500"></i>
 
@@ -243,7 +245,7 @@
                             </div>
 
                             <!-- Chart -->
-                            <div class="h-[200px]">
+                            <div class="flex-1 min-h-[250px]">
                                 <canvas id="payrollChart"></canvas>
                             </div>
 
@@ -257,30 +259,31 @@
                 <div class="bg-white border rounded-md shadow">
 
                     <!-- Header -->
-                    <div class="flex justify-between items-center p-4 border-b">
+                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
                         <h2 class="text-md font-semibold">
                             Payslip List
                         </h2>
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
-                            <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
+                            <button
+                                class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
                                 09/06/2026 - 09/06/2026
                             </button>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>$0.00 - $00</option>
                                 <option>$3800</option>
                             </select>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>Cash</option>
                                 <option>Cheque</option>
                             </select>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>Sort By : Last 7 Days</option>
                                 <option>Recently Added</option>
                                 <option>Ascending</option>
@@ -294,7 +297,7 @@
                     </div>
 
                     <!-- Controls -->
-                    <div class="flex justify-between items-center p-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 p-4">
 
                         <div class="flex items-center gap-2 text-sm">
 
@@ -308,179 +311,183 @@
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border text-xs rounded-md px-4 py-2 w-40">
+                        <input type="text" placeholder="Search"
+                            class="border text-xs rounded-md px-4 py-2 w-full md:w-40">
 
                     </div>
 
-                    <!-- Table -->
-                    <table class="w-full">
+                    <div class="overflow-x-auto">
+                        <!-- Table -->
+                        <table class="w-full min-w-[700px]">
 
-                        <thead class="bg-slate-100 h-12">
+                            <thead class="bg-slate-100 h-12">
 
-                            <tr class="text-left">
+                                <tr class="text-left">
 
-                                <th class="py-3 px-4">
-                                    <input type="checkbox">
-                                </th>
+                                    <th class="py-3 px-4">
+                                        <input type="checkbox">
+                                    </th>
 
-                                <th class="px-4 text-sm">Name</th>
-                                <th class="px-4 text-sm">Paid Amount</th>
-                                <th class="px-4 text-sm">Paid Month</th>
-                                <th class="px-4 text-sm">Paid Year</th>
+                                    <th class="px-4 text-sm">Name</th>
+                                    <th class="px-4 text-sm">Paid Amount</th>
+                                    <th class="px-4 text-sm">Paid Month</th>
+                                    <th class="px-4 text-sm">Paid Year</th>
 
-                            </tr>
+                                </tr>
 
-                        </thead>
+                            </thead>
 
-                        <tbody>
+                            <tbody>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=1" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Anthony Lewis</p>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=1" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Anthony Lewis</p>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3000</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3000</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3000</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3000</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3000</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3000</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=5" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm text-sm">Brian Villalobos</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=5" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm text-sm">Brian Villalobos
+                                                </p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2500</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2500</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2500</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2500</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2500</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2500</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=33" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Connie Waters</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=33" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Connie Waters</p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2800</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2800</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2800</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2800</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2800</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2800</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=23" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Doglas Martini</p>
-                                            <p class="text-xs text-slate-500">Manager</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=23" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Doglas Martini</p>
+                                                <p class="text-xs text-slate-500">Manager</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3300</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3300</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3300</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3300</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3300</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3300</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=12" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Elliot Murray</p>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=12" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Elliot Murray</p>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3600</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3600</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3600</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3600</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3600</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3600</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=47" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Harvey Smith</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=47" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Harvey Smith</p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2000</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2000</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$2000</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2000</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2000</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$2000</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=31" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Linda Ray</p>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=31" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Linda Ray</p>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3400</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3400</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$3400</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3400</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3400</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$3400</td>
+                                </tr>
 
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=14" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Lori Broaddus</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=14" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Lori Broaddus</p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$4000</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$4000</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$4000</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$4000</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$4000</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$4000</td>
+                                </tr>
 
-                            <tr class="hover:bg-slate-50">
-                                <td class="py-3 px-4"><input type="checkbox"></td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=9" class="w-8 h-8 rounded-full">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Rebecca Smith</p>
-                                            <p class="text-xs text-slate-500">Executive</p>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="py-3 px-4"><input type="checkbox"></td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=9" class="w-8 h-8 rounded-full">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Rebecca Smith</p>
+                                                <p class="text-xs text-slate-500">Executive</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$4500</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$4500</td>
-                                <td class="py-3 px-4 text-slate-600 text-sm">$4500</td>
-                            </tr>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$4500</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$4500</td>
+                                    <td class="py-3 px-4 text-slate-600 text-sm">$4500</td>
+                                </tr>
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
 
                     <!-- Footer -->
                     <div class="flex justify-between items-center p-5 border-t">
@@ -489,7 +496,7 @@
                             Showing 1 - 9 of 9 entries
                         </span>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-wrap items-center gap-3">
 
                             <button>
                                 <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
@@ -546,10 +553,7 @@
         }
     </script>
 
-    <div class="h-[220px]">
-        <canvas id="payrollChart"></canvas>
-    </div>
-
+   
     <script>
         const ctx = document.getElementById('payrollChart');
 

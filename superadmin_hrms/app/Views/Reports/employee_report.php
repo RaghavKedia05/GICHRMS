@@ -27,9 +27,7 @@
 
 <body class="bg-[#f8fafc]">
 
-    <div
-        id="sidebarOverlay"
-        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
 
     <div class="flex h-screen overflow-hidden">
@@ -43,12 +41,12 @@
             <!-- Navbar -->
             <?php include __DIR__ . '/../navbar.php'; ?>
 
-            <div class="flex-1 overflow-y-auto p-5">
+            <div class="flex-1 overflow-y-auto p-4 sm:p-5">
                 <!-- Header -->
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
 
                     <div>
-                        <h1 class="text-[28px] font-semibold text-2xl text-slate-800">
+                        <h1 class="text-2xl md:text-[28px] font-semibold text-slate-800">
                             Employee Report
                         </h1>
 
@@ -67,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
 
                         <button
                             class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
@@ -91,9 +89,9 @@
                 <div class="grid grid-cols-12 gap-6 mb-6">
 
                     <!-- Stats Cards -->
-                    <div class="col-span-6">
+                    <div class="col-span-12 xl:col-span-6">
 
-                        <div class="grid grid-cols-2 gap-6 w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
 
                             <!-- Card 1 -->
                             <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
@@ -223,11 +221,11 @@
 
                     </div>
 
-                    <div class="col-span-6">
-                        <div class="bg-white border rounded-md shadow-sm p-6 h-[304px]">
+                    <div class="col-span-12 xl:col-span-6">
+                        <div class="bg-white border rounded-md shadow-sm p-4 sm:p-6 min-h-[420px] sm:min-h-[304px]">
 
                             <!-- Header -->
-                            <div class="flex justify-between items-center mb-6">
+                            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 mb-6">
 
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="bar-chart-3" class="w-4 h-4 text-red-500"></i>
@@ -236,7 +234,7 @@
                                     </h3>
                                 </div>
 
-                                <div class="flex items-center gap-6">
+                                <div class="flex flex-wrap items-center gap-4">
                                     <div class="flex items-center gap-2">
                                         <span class="w-3 h-3 bg-green-500 rounded-sm"></span>
                                         <span class="text-sm text-slate-500">
@@ -259,7 +257,7 @@
                             </div>
 
                             <!-- Chart -->
-                            <div class="h-[150px]">
+                            <div class="h-[220px] sm:h-[180px]">
                                 <canvas id="employeeChart"></canvas>
                             </div>
 
@@ -274,30 +272,31 @@
                 <div class="bg-white border rounded-md shadow">
 
                     <!-- Header -->
-                    <div class="flex justify-between items-center p-4 border-b">
+                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
                         <h2 class="text-md font-semibold">
                             Employees List
                         </h2>
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
 
-                            <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
+                            <button
+                                class="w-full sm:w-auto flex items-center justify-center gap-2 border rounded-md px-4 py-2 text-[13px]">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
                                 09/06/2026 - 09/06/2026
                             </button>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="w-full sm:w-auto border rounded-md px-4 py-2 text-[13px]">
                                 <option>Present</option>
                                 <option>Absent</option>
                             </select>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="w-full sm:w-auto border rounded-md px-4 py-2 text-[13px]">
                                 <option>Active</option>
                                 <option>Inactive</option>
                             </select>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px]">
+                            <select class="w-full sm:w-auto border rounded-md px-4 py-2 text-[13px]">
                                 <option>Sort By : Last 7 Days</option>
                                 <option>Recently Added</option>
                                 <option>Ascending</option>
@@ -311,9 +310,9 @@
                     </div>
 
                     <!-- Controls -->
-                    <div class="flex justify-between items-center p-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 p-4">
 
-                        <div class="flex items-center gap-2 text-sm">
+                        <div class="flex flex-wrap items-center gap-2 text-sm">
 
                             <span>Row Per Page</span>
 
@@ -325,241 +324,244 @@
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border text-xs rounded-md px-4 py-2 w-40">
+                        <input type="text" placeholder="Search"
+                            class="border text-xs rounded-md px-4 py-2 w-full md:w-40">
 
                     </div>
 
-                    <!-- Table -->
-                    <table class="w-full">
+                    <div class="overflow-x-auto">
+                        <!-- Table -->
+                        <table class="w-full min-w-[1100px]">
 
-                        <thead class="bg-slate-100 h-12">
+                            <thead class="bg-slate-100 h-12">
 
-                            <tr class="text-left">
-                                <th class="px-4 text-sm">Emp ID</th>
-                                <th class="px-4 text-sm">Name</th>
-                                <th class="px-4 text-sm">Email</th>
-                                <th class="px-4 text-sm">Department</th>
-                                <th class="px-4 text-sm">Phone</th>
-                                <th class="px-4 text-sm">Joining Date</th>
-                                <th class="px-4 text-sm">Status</th>
+                                <tr class="text-left">
+                                    <th class="px-4 text-sm">Emp ID</th>
+                                    <th class="px-4 text-sm">Name</th>
+                                    <th class="px-4 text-sm">Email</th>
+                                    <th class="px-4 text-sm">Department</th>
+                                    <th class="px-4 text-sm">Phone</th>
+                                    <th class="px-4 text-sm">Joining Date</th>
+                                    <th class="px-4 text-sm">Status</th>
 
-                            </tr>
+                                </tr>
 
-                        </thead>
+                            </thead>
 
-                        <tbody>
+                            <tbody>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-007</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-007</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=32"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm text-sm">Elliot Murray</p>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=32"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm text-sm">Elliot Murray</p>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">murray@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Account Management</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(102) 8480 832</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">29 Aug 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">murray@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Account Management</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(102) 8480 832</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">29 Aug 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-002</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-002</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=12"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Brian Villalobos</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=12"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Brian Villalobos</p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">brian@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Application Development</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(179) 7382 829</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">24 Oct 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">brian@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Application Development</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(179) 7382 829</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">24 Oct 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-008</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-008</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=47"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Rebecca Smith</p>
-                                            <p class="text-xs text-slate-500">Executive</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=47"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Rebecca Smith</p>
+                                                <p class="text-xs text-slate-500">Executive</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">smith@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Marketing</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(162) 8920 713</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">22 Feb 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">smith@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Marketing</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(162) 8920 713</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">22 Feb 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-red-500 text-white">
-                                        Inactive
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-red-500 text-white">
+                                            Inactive
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-005</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-005</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=15"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Doglas Martini</p>
-                                            <p class="text-xs text-slate-500">Manager</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=15"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Doglas Martini</p>
+                                                <p class="text-xs text-slate-500">Manager</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">martiniwr@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Sales</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(183) 9302 890</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">20 Jul 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">martiniwr@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Sales</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(183) 9302 890</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">20 Jul 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-003</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-003</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=24"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Harvey Smith</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=24"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Harvey Smith</p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">harvey@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">IT Management</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(184) 2719 738</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">18 Feb 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">harvey@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">IT Management</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(184) 2719 738</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">18 Feb 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-004</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-004</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=25"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Stephan Peralt</p>
-                                            <p class="text-xs text-slate-500">Executive Officer</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=25"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Stephan Peralt</p>
+                                                <p class="text-xs text-slate-500">Executive Officer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">peral@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Web Development</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(193) 7839 748</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">17 Oct 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">peral@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Web Development</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(193) 7839 748</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">17 Oct 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-010</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-010</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=5"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Lori Broaddus</p>
-                                            <p class="text-xs text-slate-500">Developer</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=5"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Lori Broaddus</p>
+                                                <p class="text-xs text-slate-500">Developer</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">broaddus@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Business Development</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(168) 8392 823</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">17 Dec 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">broaddus@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Business Development</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(168) 8392 823</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">17 Dec 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                            <tr class="border-b border-slate-200 hover:bg-slate-50">
-                                <td class="px-4 py-4 text-sm text-slate-600">Emp-001</td>
+                                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                                    <td class="px-4 py-4 text-sm text-slate-600">Emp-001</td>
 
-                                <td class="px-4 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://i.pravatar.cc/40?img=1"
-                                            class="w-8 h-8 rounded-full object-cover">
-                                        <div>
-                                            <p class="font-medium text-slate-800 text-sm">Anthony Lewis</p>
-                                            <p class="text-xs text-slate-500">Finance</p>
+                                    <td class="px-4 py-4">
+                                        <div class="flex flex-wrap items-center gap-3">
+                                            <img src="https://i.pravatar.cc/40?img=1"
+                                                class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-slate-800 text-sm">Anthony Lewis</p>
+                                                <p class="text-xs text-slate-500">Finance</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-4 py-4 text-sm text-slate-500">anthony@example.com</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">Finance</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">(123) 4567 890</td>
-                                <td class="px-4 py-4 text-sm text-slate-500">12 Sep 2024</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">anthony@example.com</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">Finance</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">(123) 4567 890</td>
+                                    <td class="px-4 py-4 text-sm text-slate-500">12 Sep 2024</td>
 
-                                <td class="px-4 py-4">
-                                    <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
-                                        Active
-                                    </span>
-                                </td>
-                            </tr>
+                                    <td class="px-4 py-4">
+                                        <span class="px-3 py-1 text-[11px] font-medium rounded bg-green-500 text-white">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
 
                     <!-- Footer -->
                     <div class="flex justify-between items-center p-5 border-t">
@@ -568,7 +570,7 @@
                             Showing 1 - 8 of 8 entries
                         </span>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-wrap items-center gap-3">
 
                             <button>
                                 <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
@@ -583,18 +585,8 @@
                             </button>
 
                         </div>
-
                     </div>
-
                 </div>
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>

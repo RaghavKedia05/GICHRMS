@@ -27,9 +27,7 @@
 
 <body class="bg-[#f8fafc]">
 
-    <div
-        id="sidebarOverlay"
-        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
 
     <div class="flex h-screen overflow-hidden">
@@ -43,9 +41,9 @@
             <!-- Navbar -->
             <?php include __DIR__ . '/../navbar.php'; ?>
 
-            <div class="flex-1 overflow-y-auto p-5">
+            <div class="flex-1 overflow-y-auto p-4 md:p-5">
                 <!-- Header -->
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-6">
 
                     <div>
                         <h1 class="text-[28px] font-semibold text-2xl text-slate-800">
@@ -67,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
 
                         <button
                             class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
@@ -88,12 +86,12 @@
                 </div>
 
                 <!-- Top Section -->
-                <div class="grid grid-cols-12 gap-6 mb-6">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6">
 
                     <!-- Stats Cards -->
-                    <div class="col-span-6">
+                    <div class="xl:col-span-6">
 
-                        <div class="grid grid-cols-2 gap-6 w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full">
 
                             <!-- Card 1 -->
                             <div class="bg-white border rounded-md p-5 relative overflow-hidden shadow-sm h-[120px]">
@@ -224,9 +222,9 @@
                     </div>
 
                     <!-- Users Chart -->
-                    <div class="col-span-6">
-                        <div class="bg-white border rounded-md shadow-sm p-6">
-                            <div class="flex justify-between items-center mb-4">
+                    <div class="xl:col-span-6">
+                        <div class="bg-white border rounded-md shadow-sm p-4 md:p-6">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="activity" class="w-5 h-5 text-red-500"></i>
                                     <h3 class="text-2xl font-semibold text-slate-800">
@@ -239,7 +237,7 @@
                                 </select>
                             </div>
 
-                            <div class="h-[162px]">
+                            <div class="h-[220px] sm:h-[180px]">
                                 <canvas id="attendanceChart"></canvas>
                             </div>
                         </div>
@@ -247,31 +245,33 @@
 
 
                     </div>
-                    <div class="col-span-12">
+                    <div class="xl:col-span-12">
 
                         <!-- Leave List -->
                         <div class="bg-white border rounded-md shadow">
 
                             <!-- Header -->
-                            <div class="flex justify-between items-center p-4 border-b">
+                            <div
+                                class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
                                 <h2 class="text-md font-semibold">
                                     Daily Attendance List
                                 </h2>
 
-                                <div class="flex items-center gap-4">
+                                <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
 
-                                    <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
+                                    <button
+                                        class="flex items-center justify-center gap-2 border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                         <i data-lucide="calendar-days" class="w-4 h-4"></i>
                                         09/06/2026 - 09/06/2026
                                     </button>
 
-                                    <select class="border rounded-md px-4 py-2 text-[13px]">
+                                    <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                         <option>Present</option>
                                         <option>Absent</option>
                                     </select>
 
-                                    <select class="border rounded-md px-4 py-2 text-[13px]">
+                                    <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                         <option>Sort By : Last 7 Days</option>
                                     </select>
 
@@ -280,7 +280,7 @@
                             </div>
 
                             <!-- Controls -->
-                            <div class="flex justify-between items-center p-4">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 p-4">
 
                                 <div class="flex items-center gap-2 text-sm">
 
@@ -295,376 +295,378 @@
                                 </div>
 
                                 <input type="text" placeholder="Search"
-                                    class="border text-xs rounded-md px-4 py-2 w-40">
+                                    class="border text-xs rounded-md px-4 py-2 w-full md:w-52">
 
                             </div>
 
-                            <!-- Table -->
-                            <table class="w-full">
+                            <div class="overflow-x-auto">
+                                <!-- Table -->
+                                <table class="w-full min-w-[700px]">
 
-                                <thead class="bg-slate-100 h-12">
-                                    <tr class="text-left">
-                                        <th class="px-4 text-sm font-semibold">Employee</th>
-                                        <th class="px-4 text-sm font-semibold">Date</th>
-                                        <th class="px-4 text-sm font-semibold">Department</th>
-                                        <th class="px-4 text-sm font-semibold">Status</th>
-                                    </tr>
-                                </thead>
+                                    <thead class="bg-slate-100 h-12">
+                                        <tr class="text-left">
+                                            <th class="px-4 text-sm font-semibold">Employee</th>
+                                            <th class="px-4 text-sm font-semibold">Date</th>
+                                            <th class="px-4 text-sm font-semibold">Department</th>
+                                            <th class="px-4 text-sm font-semibold">Status</th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody class="divide-y divide-gray-200">
+                                    <tbody class="divide-y divide-gray-200">
 
-                                    <!-- Row 1 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 1 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Brian Villalobos
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Developer
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Brian Villalobos
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Developer
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Application Development
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Application Development
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 2 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/women/22.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 2 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/women/22.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Connie Waters
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Developer
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Connie Waters
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Developer
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Administration
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Administration
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 3 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 3 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/men/45.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Doglas Martini
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Manager
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Doglas Martini
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Manager
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Sales
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Sales
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 4 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/women/31.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 4 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/women/31.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Elliot Murray
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Finance
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Elliot Murray
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Finance
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Account Management
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Account Management
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 5 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/men/55.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 5 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/men/55.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Harvey Smith
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Developer
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Harvey Smith
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Developer
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            IT Management
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                IT Management
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 6 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/women/60.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 6 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/women/60.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Linda Ray
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Finance
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Linda Ray
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Finance
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            UI / UX
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                UI / UX
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 7 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/women/70.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 7 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/women/70.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Lori Broaddus
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Developer
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Lori Broaddus
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Developer
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Business Development
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Business Development
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-50 text-red-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                                                Absent
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-50 text-red-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                                    Absent
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 8 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/women/18.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 8 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/women/18.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Rebecca Smith
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Executive
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Rebecca Smith
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Executive
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Marketing
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Marketing
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 9 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/men/68.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 9 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/men/68.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Stephan Peralt
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Executive Officer
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Stephan Peralt
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Executive Officer
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Web Development
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Web Development
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Row 10 -->
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <img src="https://randomuser.me/api/portraits/men/1.jpg"
-                                                    class="w-10 h-10 rounded-full object-cover">
+                                        <!-- Row 10 -->
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-4">
+                                                <div class="flex flex-wrap items-center gap-3">
+                                                    <img src="https://randomuser.me/api/portraits/men/1.jpg"
+                                                        class="w-10 h-10 rounded-full object-cover">
 
-                                                <div>
-                                                    <h4 class="text-sm font-medium text-slate-800">
-                                                        Anthony Lewis
-                                                    </h4>
-                                                    <p class="text-xs text-slate-500">
-                                                        Finance
-                                                    </p>
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-slate-800">
+                                                            Anthony Lewis
+                                                        </h4>
+                                                        <p class="text-xs text-slate-500">
+                                                            Finance
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            14 Jan 2024
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                14 Jan 2024
+                                            </td>
 
-                                        <td class="px-4 py-4 text-sm text-slate-500">
-                                            Finance
-                                        </td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">
+                                                Finance
+                                            </td>
 
-                                        <td class="px-4 py-4">
-                                            <span
-                                                class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                            <td class="px-4 py-4">
+                                                <span
+                                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-green-50 text-green-600 text-xs font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <!-- Footer -->
                             <div class="flex justify-between items-center p-5 border-t">
@@ -673,7 +675,7 @@
                                     Showing 1 - 10 of 10 entries
                                 </span>
 
-                                <div class="flex items-center gap-3">
+                                <div class="flex flex-wrap items-center gap-3">
 
                                     <button>
                                         <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>

@@ -27,9 +27,7 @@
 
 <body class="bg-[#f8fafc]">
 
-    <div
-        id="sidebarOverlay"
-        class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
 
     <div class="flex h-screen overflow-hidden">
@@ -43,9 +41,9 @@
             <!-- Navbar -->
             <?php include __DIR__ . '/../navbar.php'; ?>
 
-            <div class="flex-1 overflow-y-auto p-5">
+            <div class="flex-1 overflow-y-auto p-4 lg:p-5">
                 <!-- Header -->
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
 
                     <div>
                         <h1 class="text-[28px] font-semibold text-2xl text-slate-800">
@@ -67,10 +65,10 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
 
                         <button
-                            class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
+                            class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
 
                             <i data-lucide="file-down" class="w-4 h-4"></i>
                             Export
@@ -88,12 +86,12 @@
                 </div>
 
                 <!-- Top Section -->
-                <div class="grid grid-cols-12 gap-6 mb-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
 
                     <!-- Stats Cards -->
-                    <div class="col-span-6">
+                    <div class="lg:col-span-6">
 
-                        <div class="grid grid-cols-2 gap-6 w-full">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 w-full">
 
                             <!-- Card 1 -->
                             <div class="bg-white border rounded-md p-6 relative overflow-hidden shadow-sm h-[140px]">
@@ -224,11 +222,11 @@
                     </div>
 
                     <!-- Chart -->
-                    <div class="col-span-6">
+                    <div class="lg:col-span-6">
 
-                        <div class="bg-white border rounded-md p-4 shadow-sm h-[304px]">
+                        <div class="bg-white border rounded-md p-4 shadow-sm min-h-[320px] lg:h-[304px]">
 
-                            <div class="flex justify-between items-center mb-6">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
 
                                 <h3 class="font-semibold text-xl">
                                     Expense
@@ -240,7 +238,7 @@
 
                             </div>
 
-                            <div class="h-[220px]">
+                            <div class="h-[260px] sm:h-[220px]">
                                 <canvas id="expenseChart" class="mb-2"></canvas>
                             </div>
 
@@ -254,13 +252,13 @@
                 <div class="bg-white border rounded-md shadow">
 
                     <!-- Header -->
-                    <div class="flex justify-between items-center p-4 border-b">
+                    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 p-4 border-b">
 
                         <h2 class="text-md font-semibold">
                             Expense List
                         </h2>
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex flex-wrap items-center gap-3">
 
                             <button class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px]">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
@@ -285,7 +283,7 @@
                     </div>
 
                     <!-- Controls -->
-                    <div class="flex justify-between items-center p-4">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 p-4">
 
                         <div class="flex items-center gap-2 text-sm">
 
@@ -299,107 +297,110 @@
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border text-xs rounded-md px-4 py-2 w-40">
+                        <input type="text" placeholder="Search"
+                            class="border text-xs rounded-md px-4 py-2 w-full sm:w-40">
 
                     </div>
 
-                    <!-- Table -->
-                    <table class="w-full">
+                    <div class="overflow-x-auto">
+                        <!-- Table -->
+                        <table class="w-full min-w-[700px]">
 
-                        <thead class="bg-slate-100">
+                            <thead class="bg-slate-100">
 
-                            <tr class="text-left">
+                                <tr class="text-left">
 
-                                <th class="py-3 px-4">
-                                    <input type="checkbox">
-                                </th>
+                                    <th class="py-3 px-4">
+                                        <input type="checkbox">
+                                    </th>
 
-                                <th class="px-4 text-sm">Expense Name</th>
-                                <th class="px-4 text-sm">Date</th>
-                                <th class="px-4 text-sm">Payment Method</th>
-                                <th class="px-4 text-sm">Amount</th>
+                                    <th class="px-4 text-sm">Expense Name</th>
+                                    <th class="px-4 text-sm">Date</th>
+                                    <th class="px-4 text-sm">Payment Method</th>
+                                    <th class="px-4 text-sm">Amount</th>
 
-                            </tr>
+                                </tr>
 
-                        </thead>
+                            </thead>
 
-                        <tbody>
+                            <tbody>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Online Course</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">14 Jan 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$3000</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Online Course</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">14 Jan 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$3000</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Travel</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">20 Feb 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$2800</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Travel</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">20 Feb 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$2800</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Office Supplies</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">15 Mar 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$3300</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Office Supplies</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">15 Mar 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$3300</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Welcome Kit</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">12 Apr 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$3600</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Welcome Kit</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">12 Apr 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$3600</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Equipment</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">20 Apr 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$2000</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Equipment</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">20 Apr 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$2000</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Miscellaneous</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">06 Jul 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$3400</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Miscellaneous</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">06 Jul 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$3400</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Payroll</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">02 Sep 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$4000</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Payroll</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">02 Sep 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$4000</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Cafeteria</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">15 Nov 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$4500</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Cafeteria</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">15 Nov 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cash</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$4500</td>
+                                </tr>
 
-                            <tr class="border-t">
-                                <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
-                                <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Cleaning Supplies</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">10 Dec 2024</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
-                                <td class="py-3 px-4 text-sm text-slate-500">$3800</td>
-                            </tr>
+                                <tr class="border-t">
+                                    <td class="py-3 px-4 text-sm text-slate-500"><input type="checkbox"></td>
+                                    <td class="py-3 px-4 text-sm text-slate-800 font-semibold">Cleaning Supplies</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">10 Dec 2024</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">Cheque</td>
+                                    <td class="py-3 px-4 text-sm text-slate-500">$3800</td>
+                                </tr>
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
 
                     <!-- Footer -->
                     <div class="flex justify-between items-center p-5 border-t">
@@ -408,7 +409,7 @@
                             Showing 1 - 9 of 9 entries
                         </span>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
 
                             <button>
                                 <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
@@ -423,18 +424,8 @@
                             </button>
 
                         </div>
-
                     </div>
-
                 </div>
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
