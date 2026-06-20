@@ -46,12 +46,13 @@
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
 
                     <div>
-                        <h1 class="text-2xl sm:text-3xl font-semibold text-slate-800">
+                        <h1 class="text-xl sm:text-2xl font-semibold text-slate-800">
                             Employee Attendance
                         </h1>
 
                         <div class="flex items-center gap-2 mt-2 text-sm text-slate-500">
                             <i data-lucide="house" class="w-4 h-4"></i>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
                             <span>Attendance</span>
                             <i data-lucide="chevron-right" class="w-4 h-4"></i>
                             <span class="text-slate-700">Employee Attendance</span>
@@ -85,25 +86,21 @@
                 </div>
 
                 <!-- Top Section -->
-               
-                <div class="grid grid-cols-1 xl:grid-cols-5 gap-5 mb-6">
+
+                <div class="grid grid-cols-1 xl:grid-cols-6 gap-5 mb-6">
 
                     <!-- Left Profile Card -->
-                    <div class="bg-white rounded-lg border p-6">
+                    <div class="bg-white rounded-lg border p-4 xl:col-span-2">
 
                         <div class="text-center">
 
-                            <p class="text-slate-500">
+                            <p class="text-slate-500 text-xs font-semibold">
                                 Good Morning, Adrian
                             </p>
 
-                            <h3 class="text-4xl font-semibold text-slate-800 mt-2">
-                                08:35 AM
+                            <h3 class="text-lg font-semibold text-slate-800 mt-2">
+                                08:35 AM, 11 Mar 2025
                             </h3>
-
-                            <p class="text-slate-500 mt-2">
-                                11 Mar 2025
-                            </p>
 
                             <div
                                 class="w-32 h-32 rounded-full border-[5px] border-green-500 mx-auto mt-5 overflow-hidden">
@@ -113,15 +110,15 @@
                             </div>
 
                             <div
-                                class="inline-block bg-orange-500 text-white px-5 py-2 rounded-md text-sm font-medium mt-5">
+                                class="inline-block bg-orange-500 text-white px-3 py-2 rounded-md text-xs font-semibold mt-3">
                                 Production : 3.45 hrs
                             </div>
 
-                            <p class="text-slate-700 mt-5 text-lg">
+                            <p class="text-slate-800 mt-4 text-sm font-semibold">
                                 Punch In at 10.00 AM
                             </p>
 
-                            <button class="w-full mt-6 py-3 bg-slate-900 text-white rounded-md font-semibold">
+                            <button class="w-full mt-4 py-3 bg-slate-900 text-white text-sm rounded-md font-semibold">
                                 Punch Out
                             </button>
 
@@ -133,168 +130,182 @@
                     <div class="xl:col-span-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
 
                         <!-- Card 1 -->
-                        <div class="bg-white rounded-lg border p-5">
+                        <div class="bg-white rounded-lg border p-5 shadow-sm">
 
-                            <div class="w-9 h-9 rounded bg-orange-500 text-white flex items-center justify-center">
+                            <div class="w-7 h-7 rounded bg-orange-500 text-white flex items-center justify-center">
                                 <i data-lucide="clock-3" class="w-4 h-4"></i>
                             </div>
 
-                            <h2 class="text-4xl font-semibold text-slate-800 mt-5">
+                            <h2 class="text-2xl font-semibold text-slate-800 mt-3">
                                 8.36
-                                <span class="text-slate-400 text-2xl">/ 9</span>
+                                <span class="text-slate-400 text-lg">/ 9</span>
                             </h2>
 
-                            <p class="text-slate-500 mt-3">
+                            <p class="text-slate-500 text-sm font-medium mt-3">
                                 Total Hours Today
                             </p>
 
-                            <hr class="my-4">
+                            <hr class="my-2">
 
-                            <div class="flex items-center gap-2 text-green-500 text-sm">
-                                <i data-lucide="arrow-up-circle" class="w-4 h-4"></i>
-                                5% This Week
+                            <div class="flex items-center gap-2 text-sm">
+                                <i data-lucide="arrow-up-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-slate-500 text-xs">5% This Week</span>
                             </div>
 
                         </div>
 
                         <!-- Card 2 -->
-                        <div class="bg-white rounded-lg border p-5">
+                        <div class="bg-white rounded-lg border p-5 shadow-sm">
 
-                            <div class="w-9 h-9 rounded bg-slate-800 text-white flex items-center justify-center">
+                            <div class="w-7 h-7 rounded bg-slate-800 text-white flex items-center justify-center">
                                 <i data-lucide="clock-3" class="w-4 h-4"></i>
                             </div>
 
-                            <h2 class="text-4xl font-semibold text-slate-800 mt-5">
+                            <h2 class="text-2xl font-semibold text-slate-800 mt-3">
                                 10
-                                <span class="text-slate-400 text-2xl">/ 40</span>
+                                <span class="text-slate-400 text-lg">/ 40</span>
                             </h2>
 
-                            <p class="text-slate-500 mt-3">
+                            <p class="text-slate-500 text-sm font-medium mt-3">
                                 Total Hours Week
                             </p>
 
-                            <hr class="my-4">
+                            <hr class="my-2">
 
-                            <div class="flex items-center gap-2 text-green-500 text-sm">
-                                <i data-lucide="arrow-up-circle" class="w-4 h-4"></i>
-                                7% Last Week
+                            <div class="flex items-center gap-2 text-sm">
+                                <i data-lucide="arrow-up-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-slate-500 text-xs">7% This Week</span>
                             </div>
 
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="bg-white rounded-lg border p-5">
+                        <div class="bg-white rounded-lg border p-5 shadow-sm">
 
-                            <div class="w-9 h-9 rounded bg-blue-500 text-white flex items-center justify-center">
+                            <div class="w-7 h-7 rounded bg-blue-500 text-white flex items-center justify-center">
                                 <i data-lucide="calendar-days" class="w-4 h-4"></i>
                             </div>
 
-                            <h2 class="text-4xl font-semibold text-slate-800 mt-5">
+                            <h2 class="text-2xl font-semibold text-slate-800 mt-3">
                                 75
-                                <span class="text-slate-400 text-2xl">/ 98</span>
+                                <span class="text-slate-400 text-lg">/ 98</span>
                             </h2>
 
-                            <p class="text-slate-500 mt-3">
+                            <p class="text-slate-500 text-sm font-medium mt-3">
                                 Total Hours Month
                             </p>
 
-                            <hr class="my-4">
+                            <hr class="my-2">
 
-                            <div class="flex items-center gap-2 text-red-500 text-sm">
-                                <i data-lucide="arrow-down-circle" class="w-4 h-4"></i>
-                                8% Last Month
+                            <div class="flex items-center gap-2  text-sm">
+                                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-red-500"></i>
+                                <span class="text-slate-500 text-xs">8% Last Month</span>
                             </div>
 
                         </div>
 
                         <!-- Card 4 -->
-                        <div class="bg-white rounded-lg border p-5">
+                        <div class="bg-white rounded-lg border p-5 shadow-sm">
 
-                            <div class="w-9 h-9 rounded bg-pink-500 text-white flex items-center justify-center">
+                            <div class="w-7 h-7 rounded bg-pink-500 text-white flex items-center justify-center">
                                 <i data-lucide="briefcase-business" class="w-4 h-4"></i>
                             </div>
 
-                            <h2 class="text-4xl font-semibold text-slate-800 mt-5">
+                            <h2 class="text-2xl font-semibold text-slate-800 mt-3">
                                 16
-                                <span class="text-slate-400 text-2xl">/ 28</span>
+                                <span class="text-slate-400 text-lg">/ 28</span>
                             </h2>
 
-                            <p class="text-slate-500 mt-3">
+                            <p class="text-slate-500 text-sm font-medium mt-3">
                                 Overtime this Month
                             </p>
 
-                            <hr class="my-4">
+                            <hr class="my-2">
 
-                            <div class="flex items-center gap-2 text-red-500 text-sm">
-                                <i data-lucide="arrow-down-circle" class="w-4 h-4"></i>
-                                6% Last Month
+                            <div class="flex items-center gap-2  text-sm">
+                                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-red-500"></i>
+                                <span class="text-slate-500 text-xs">6% Last Month</span>
                             </div>
 
                         </div>
 
                         <!-- Timeline Card -->
-                        <div class="xl:col-span-4 bg-white border rounded-lg p-6">
+                        <div class="xl:col-span-4 bg-white border rounded-lg p-6 shadow-sm">
 
                             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
                                 <div>
-                                    <p class="text-slate-500">
-                                        Total Working hours
-                                    </p>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                                        <p class="text-slate-500 text-sm">
+                                            Total Working hours
+                                        </p>
+                                    </div>
 
-                                    <h3 class="text-4xl font-semibold mt-2">
+                                    <h3 class="text-xl font-semibold mt-1">
                                         12h 36m
                                     </h3>
                                 </div>
 
                                 <div>
-                                    <p class="text-slate-500">
-                                        Productive Hours
-                                    </p>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                        <p class="text-slate-500 text-sm">
+                                            Productive Hours
+                                        </p>
+                                    </div>
 
-                                    <h3 class="text-4xl font-semibold mt-2">
+                                    <h3 class="text-xl font-semibold mt-1">
                                         08h 36m
                                     </h3>
                                 </div>
 
                                 <div>
-                                    <p class="text-slate-500">
-                                        Break hours
-                                    </p>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                                        <p class="text-slate-500 text-sm">
+                                            Break hours
+                                        </p>
+                                    </div>
 
-                                    <h3 class="text-4xl font-semibold mt-2">
+                                    <h3 class="text-xl font-semibold mt-1">
                                         22m 15s
                                     </h3>
                                 </div>
 
                                 <div>
-                                    <p class="text-slate-500">
-                                        Overtime
-                                    </p>
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                        <p class="text-slate-500 text-sm">
+                                            Overtime
+                                        </p>
+                                    </div>
 
-                                    <h3 class="text-4xl font-semibold mt-2">
+                                    <h3 class="text-xl font-semibold mt-1">
                                         02h 15m
                                     </h3>
                                 </div>
 
                             </div>
 
-                            <div class="overflow-x-auto pb-2">
+                            <div class="overflow-x-auto lg:overflow-visible pb-2">
 
-                                <div class="flex items-center gap-2 min-w-[1100px]">
+                                <div class="w-full bg-slate-100 rounded-lg p-2">
+                                    <div class="flex items-center justify-center gap-2">
 
-                                    <div class="h-8 w-40 bg-green-500 rounded"></div>
-                                    <div class="h-8 w-16 bg-yellow-400 rounded"></div>
-                                    <div class="h-8 w-56 bg-green-500 rounded"></div>
-                                    <div class="h-8 w-32 bg-yellow-400 rounded"></div>
-                                    <div class="h-8 w-40 bg-green-500 rounded"></div>
-                                    <div class="h-8 w-12 bg-yellow-400 rounded"></div>
-                                    <div class="h-8 w-12 bg-blue-500 rounded"></div>
-                                    <div class="h-8 w-12 bg-blue-500 rounded"></div>
+                                        <div class="h-7 w-40 bg-green-500 rounded"></div>
+                                        <div class="h-7 w-16 bg-yellow-400 rounded"></div>
+                                        <div class="h-7 w-56 bg-green-500 rounded"></div>
+                                        <div class="h-7 w-32 bg-yellow-400 rounded"></div>
+                                        <div class="h-7 w-40 bg-green-500 rounded"></div>
+                                        <div class="h-7 w-12 bg-yellow-400 rounded"></div>
+                                        <div class="h-7 w-12 bg-blue-500 rounded"></div>
+                                        <div class="h-7 w-12 bg-blue-500 rounded"></div>
 
+                                    </div>
                                 </div>
 
-                                <div class="flex justify-between text-xs text-slate-500 mt-4 min-w-[1100px]">
+                                <div class="flex justify-between text-xs text-slate-500 mt-4 min-w-[1100px] mx-auto">
 
                                     <span>06:00</span>
                                     <span>07:00</span>
@@ -326,11 +337,11 @@
                 </div>
 
                 <!-- Attendance Table -->
-                <div class="bg-white border rounded-lg">
+                <div class="bg-white border rounded-lg shadow-sm">
 
-                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 p-5 border-b">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 p-4   border-b">
 
-                        <h3 class="text-xl font-semibold text-slate-800">
+                        <h3 class="text-lg font-semibold text-slate-800">
                             Employee Attendance
                         </h3>
 
@@ -352,21 +363,22 @@
 
                     </div>
 
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-3">
 
                         <div class="flex items-center gap-3">
 
-                            <span>Row Per Page</span>
+                            <span class="text-sm">Row Per Page</span>
 
-                            <select class="border rounded-md px-3 py-2">
+                            <select class="border rounded-md text-sm px-3 py-2">
                                 <option>10</option>
                             </select>
 
-                            <span>Entries</span>
+                            <span class="text-sm">Entries</span>
 
                         </div>
 
-                        <input type="text" placeholder="Search" class="border rounded-md px-4 py-2 w-full md:w-[220px]">
+                        <input type="text" placeholder="Search"
+                            class="border rounded-md px-4 py-1  w-full md:w-[220px]">
 
                     </div>
 
