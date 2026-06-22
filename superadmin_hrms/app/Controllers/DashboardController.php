@@ -57,4 +57,9 @@ class DashboardController extends BaseController
     {
         return view('employee_attendance');
     }
+
+    public function performance_review()
+    {
+        return view('performance_review');
+    }
 }

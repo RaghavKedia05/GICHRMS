@@ -314,6 +314,22 @@ if (empty($currentPage)) {
             <i data-lucide="chevron-down" class="w-4 h-4"></i>
 
         </a>
+
+        <a href="/performance_review" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            <?= ($currentPage == 'performance_review')
+                ? 'bg-slate-200 text-slate-800'
+                : 'text-slate-800 hover:bg-slate-200'; ?>">
+
+            <div class="flex items-center gap-2 lg:gap-2.5">
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+                <span class="text-xs lg:text-[13px] font-semibold">
+                    Performance Review
+                </span>
+            </div>
+
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+
+        </a>
         
 
 
