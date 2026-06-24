@@ -148,6 +148,413 @@ class PerformanceReviewController extends BaseController
                 ]);
             }
 
+            $specialSelf = $this->request->getPost('special_self') ?? [];
+            $specialRo = $this->request->getPost('special_ro') ?? [];
+            $specialHod = $this->request->getPost('special_hod') ?? [];
+
+
+            for ($i = 0; $i < count($specialSelf); $i++) {
+
+                if (
+                    empty(trim($specialSelf[$i] ?? '')) &&
+                    empty(trim($specialRo[$i] ?? '')) &&
+                    empty(trim($specialHod[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('special_initiatives')->insert([
+                    'review_id' => $reviewId,
+                    'self_text' => $specialSelf[$i],
+                    'ro_comment' => $specialRo[$i],
+                    'hod_comment' => $specialHod[$i],
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Comments On Role
+            |--------------------------------------------------------------------------
+            */
+
+            $roleStrengths = $this->request->getPost('role_strength') ?? [];
+            $roleImprovements = $this->request->getPost('role_improvement') ?? [];
+
+
+            for ($i = 0; $i < count($roleStrengths); $i++) {
+
+                if (
+                    empty(trim($roleStrengths[$i] ?? '')) &&
+                    empty(trim($roleImprovements[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('comments_on_role')->insert([
+                    'review_id' => $reviewId,
+                    'strength' => $roleStrengths[$i] ?? '',
+                    'improvement' => $roleImprovements[$i] ?? ''
+                ]);
+            }
+
+            $roStrengths = $this->request->getPost('ro_strength') ?? [];
+            $roImprovements = $this->request->getPost('ro_improvement') ?? [];
+
+            for ($i = 0; $i < count($roStrengths); $i++) {
+
+                if (
+                    empty(trim($roStrengths[$i] ?? '')) &&
+                    empty(trim($roImprovements[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('ro_strengths')->insert([
+                    'review_id' => $reviewId,
+                    'strength' => $roStrengths[$i] ?? '',
+                    'improvement' => $roImprovements[$i] ?? ''
+                ]);
+            }
+
+            $hodStrengths = $this->request->getPost('hod_strength') ?? [];
+            $hodImprovements = $this->request->getPost('hod_improvement') ?? [];
+
+
+
+            for ($i = 0; $i < count($hodStrengths); $i++) {
+
+                if (
+                    empty(trim($hodStrengths[$i] ?? '')) &&
+                    empty(trim($hodImprovements[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('hod_strengths')->insert([
+                    'review_id' => $reviewId,
+                    'strength' => $hodStrengths[$i] ?? '',
+                    'improvement' => $hodImprovements[$i] ?? ''
+                ]);
+            }
+            /*
+            |--------------------------------------------------------------------------
+            | Personal Goals
+            |--------------------------------------------------------------------------
+            */
+
+            $lastYearGoals = $this->request->getPost('last_year_goal') ?? [];
+            $currentYearGoals = $this->request->getPost('current_year_goal') ?? [];
+
+
+            for ($i = 0; $i < count($lastYearGoals); $i++) {
+
+                if (
+                    empty(trim($lastYearGoals[$i] ?? '')) &&
+                    empty(trim($currentYearGoals[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('personal_goals')->insert([
+                    'review_id' => $reviewId,
+                    'last_year_goal' => $lastYearGoals[$i] ?? '',
+                    'current_year_goal' => $currentYearGoals[$i] ?? ''
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Personal Updates
+            |--------------------------------------------------------------------------
+            */
+
+            $lastYearAnswers = $this->request->getPost('last_year_answer') ?? [];
+            $lastYearDetails = $this->request->getPost('last_year_details') ?? [];
+
+            $currentYearAnswers = $this->request->getPost('current_year_answer') ?? [];
+            $currentYearDetails = $this->request->getPost('current_year_details') ?? [];
+
+            $lastYearQuestions = [
+                'Married/Engaged?',
+                'Higher Studies/Certifications?',
+                'Health Issues?',
+                'Others'
+            ];
+
+            $currentYearQuestions = [
+                'Marriage Plans',
+                'Plans For Higher Study',
+                'Certification Plans',
+                'Others'
+            ];
+
+            for ($i = 0; $i < 4; $i++) {
+
+                $db->table('personal_updates')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'last_year_question' => $lastYearQuestions[$i],
+                    'last_year_answer' => $lastYearAnswers[$i] ?? '',
+                    'last_year_details' => $lastYearDetails[$i] ?? '',
+
+                    'current_year_question' => $currentYearQuestions[$i],
+                    'current_year_answer' => $currentYearAnswers[$i] ?? '',
+                    'current_year_details' => $currentYearDetails[$i] ?? '',
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Professional Goals Achieved for last year
+            |--------------------------------------------------------------------------
+            */
+
+            $goalLastSelf = $this->request->getPost('goal_last_self') ?? [];
+            $goalLastRo = $this->request->getPost('goal_last_ro') ?? [];
+            $goalLastHod = $this->request->getPost('goal_last_hod') ?? [];
+
+            for ($i = 0; $i < count($goalLastSelf); $i++) {
+
+                if (
+                    empty(trim($goalLastSelf[$i] ?? '')) &&
+                    empty(trim($goalLastRo[$i] ?? '')) &&
+                    empty(trim($goalLastHod[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('review_comments')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'section_name' => 'Professional Goals Achieved for last year',
+
+                    'self_text' => $goalLastSelf[$i] ?? '',
+                    'ro_comment' => $goalLastRo[$i] ?? '',
+                    'hod_comment' => $goalLastHod[$i] ?? ''
+                ]);
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Professional Goals for forthcoming year
+            |--------------------------------------------------------------------------
+            */
+
+            $goalFutureSelf = $this->request->getPost('goal_future_self') ?? [];
+            $goalFutureRo = $this->request->getPost('goal_future_ro') ?? [];
+            $goalFutureHod = $this->request->getPost('goal_future_hod') ?? [];
+
+            for ($i = 0; $i < count($goalFutureSelf); $i++) {
+
+                if (
+                    empty(trim($goalFutureSelf[$i] ?? '')) &&
+                    empty(trim($goalFutureRo[$i] ?? '')) &&
+                    empty(trim($goalFutureHod[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('review_comments')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'section_name' => 'Professional Goals for forthcoming year',
+
+                    'self_text' => $goalFutureSelf[$i] ?? '',
+                    'ro_comment' => $goalFutureRo[$i] ?? '',
+                    'hod_comment' => $goalFutureHod[$i] ?? ''
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Training Requirements
+            |--------------------------------------------------------------------------
+            */
+
+            $trainingSelf = $this->request->getPost('training_self') ?? [];
+            $trainingRo = $this->request->getPost('training_ro') ?? [];
+            $trainingHod = $this->request->getPost('training_hod') ?? [];
+
+            for ($i = 0; $i < count($trainingSelf); $i++) {
+
+                if (
+                    empty(trim($trainingSelf[$i] ?? '')) &&
+                    empty(trim($trainingRo[$i] ?? '')) &&
+                    empty(trim($trainingHod[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('review_comments')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'section_name' => 'Training Requirements',
+
+                    'self_text' => $trainingSelf[$i] ?? '',
+                    'ro_comment' => $trainingRo[$i] ?? '',
+                    'hod_comment' => $trainingHod[$i] ?? ''
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Other General Comments
+            |--------------------------------------------------------------------------
+            */
+
+            $otherSelf = $this->request->getPost('other_comment_self') ?? [];
+            $otherRo = $this->request->getPost('other_comment_ro') ?? [];
+            $otherHod = $this->request->getPost('other_comment_hod') ?? [];
+
+            for ($i = 0; $i < count($otherSelf); $i++) {
+
+                if (
+                    empty(trim($otherSelf[$i] ?? '')) &&
+                    empty(trim($otherRo[$i] ?? '')) &&
+                    empty(trim($otherHod[$i] ?? ''))
+                ) {
+                    continue;
+                }
+
+                $db->table('review_comments')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'section_name' => 'Other General Comments',
+
+                    'self_text' => $otherSelf[$i] ?? '',
+                    'ro_comment' => $otherRo[$i] ?? '',
+                    'hod_comment' => $otherHod[$i] ?? ''
+
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | RO Use Only
+            |--------------------------------------------------------------------------
+            */
+
+            $roAnswers = $this->request->getPost('ro_use_answer') ?? [];
+            $roDetails = $this->request->getPost('ro_use_details') ?? [];
+
+            $items = [
+
+                'The Team member has Work related Issues',
+                'The Team member has Leave Issues',
+                'The team member has Stability Issues',
+                'The Team member exhibits non-supportive attitude',
+                'Any other points in specific to note about the team member',
+                'Overall Comment /Performance of the team member'
+
+            ];
+
+            for ($i = 0; $i < count($items); $i++) {
+
+                $db->table('ro_use_only')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'item_name' => $items[$i],
+
+                    'answer' => $roAnswers[$i] ?? '',
+
+                    'details' => $roDetails[$i] ?? ''
+
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | HRD Scores
+            |--------------------------------------------------------------------------
+            */
+
+            $availablePoints = $this->request->getPost('available_points') ?? [];
+            $pointsScored = $this->request->getPost('points_scored') ?? [];
+            $hrdComments = $this->request->getPost('hrd_ro_comment') ?? [];
+
+            $parameters = [
+
+                'KRAs Target Achievement Points',
+                'Professional Skills Scores',
+                'Personal Skills Scores',
+                'Special Achievements Score',
+                'Overall Total Score'
+
+            ];
+
+            for ($i = 0; $i < count($parameters); $i++) {
+
+                $db->table('hrd_scores')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'parameter_name' => $parameters[$i],
+
+                    'available_points' => $availablePoints[$i] ?? 0,
+
+                    'points_scored' => $pointsScored[$i] ?? 0,
+
+                    'ro_comment' => $hrdComments[$i] ?? ''
+
+                ]);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Signatures
+            |--------------------------------------------------------------------------
+            */
+
+            $signatureData = [
+
+                [
+                    'role_name' => 'Employee',
+                    'signature' => $this->request->getPost('employee_signature'),
+                    'signed_date' => $this->request->getPost('employee_date'),
+                ],
+
+                [
+                    'role_name' => 'Reporting Officer',
+                    'signature' => $this->request->getPost('ro_signature'),
+                    'signed_date' => $this->request->getPost('ro_date'),
+                ],
+
+                [
+                    'role_name' => 'HOD',
+                    'signature' => $this->request->getPost('hod_signature'),
+                    'signed_date' => $this->request->getPost('hod_date'),
+                ],
+
+                [
+                    'role_name' => 'HRD',
+                    'signature' => $this->request->getPost('hrd_signature'),
+                    'signed_date' => $this->request->getPost('hrd_date'),
+                ]
+
+            ];
+
+            foreach ($signatureData as $row) {
+
+                $db->table('signatures')->insert([
+
+                    'review_id' => $reviewId,
+
+                    'role_name' => $row['role_name'],
+
+                    'signature' => $row['signature'],
+
+                    'signed_date' => $row['signed_date']
+
+                ]);
+            }
+
             return redirect()
                 ->to('/performance_review')
                 ->with('success', 'Performance Review Saved Successfully');

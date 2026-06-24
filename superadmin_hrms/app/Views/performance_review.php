@@ -447,46 +447,56 @@
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="2"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                                
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
+
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-2">Time Consciousness</td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="2"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
 
                                     <tr class="border-b border-gray-100">
@@ -496,46 +506,56 @@
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="2"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-2">Professionalism &amp; Responsiveness</td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="2"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
 
                                     <tr class="border-b border-gray-100">
@@ -545,23 +565,28 @@
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="2"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
 
                                     <tr class="border-b border-gray-100">
@@ -571,23 +596,28 @@
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="2"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
 
                                     <tr class="border-b border-gray-100">
@@ -598,23 +628,28 @@
                                         </td>
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_weightage[]" value="3"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_self_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_percentage[]"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" name="pe_ro_points[]" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
 
                                     <tr class="bg-gray-50 font-medium border-b border-gray-100">
@@ -624,23 +659,28 @@
 
                                         <td class="px-3 py-2">
                                             <input type="text" value="15"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
 
                                         <td class="px-3 py-2">
                                             <input type="text" value="0"
-                                                class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5">
+                                        </td>
                                     </tr>
 
                                     <tr class="border-b border-gray-100">
@@ -675,7 +715,7 @@
                                         <th class="px-3 py-3 font-semibold">RO's Comment</th>
                                         <th class="px-3 py-3 font-semibold">HOD's Comment</th>
                                         <th class="px-3 py-3 text-right">
-                                            <button onclick="addThreeColRow('tbody-special')"
+                                            <button type="button" onclick="addSpecialRow()"
                                                 class="w-7 h-7 inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white rounded">
                                                 <i data-lucide="plus" class="w-4 h-4"></i>
                                             </button>
@@ -790,96 +830,113 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600">
+
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">1</td>
                                         <td class="px-3 py-3">Married/Engaged?</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="last_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="last_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+
                                         <td class="px-3 py-3">Marriage Plans</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="current_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="current_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
+
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">2</td>
                                         <td class="px-3 py-3">Higher Studies/Certifications?</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="last_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="last_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+
                                         <td class="px-3 py-3">Plans For Higher Study</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="current_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="current_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
+
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">2</td>
                                         <td class="px-3 py-3">Health Issues?</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="last_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="last_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+
                                         <td class="px-3 py-3">Certification Plans</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="current_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="current_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+
                                     </tr>
+
                                     <tr>
                                         <td class="px-3 py-3">2</td>
                                         <td class="px-3 py-3">Others</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="last_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="last_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+
                                         <td class="px-3 py-3">Others</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="current_year_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
                                             </select>
                                         </td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="current_year_details[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                 </tbody>
@@ -1017,7 +1074,8 @@
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">The Team member has Work related Issues</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="ro_use_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -1029,7 +1087,8 @@
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">The Team member has Leave Issues</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="ro_use_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -1041,7 +1100,8 @@
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">The team member has Stability Issues</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="ro_use_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -1053,7 +1113,8 @@
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">The Team member exhibits non-supportive attitude</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="ro_use_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -1066,7 +1127,8 @@
                                         <td class="px-3 py-3">Any other points in specific to note about the team member
                                         </td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="ro_use_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -1078,7 +1140,8 @@
                                     <tr>
                                         <td class="px-3 py-3">Overall Comment /Performance of the team member</td>
                                         <td class="px-3 py-2">
-                                            <select class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
+                                            <select name="ro_use_answer[]"
+                                                class="w-full border border-gray-300 rounded px-2 py-1.5 bg-white">
                                                 <option>Select</option>
                                                 <option>Yes</option>
                                                 <option>No</option>
@@ -1113,50 +1176,76 @@
                                         <td class="px-3 py-3">KRAs Target Achievement Points (will be considered from
                                             the
                                             overall score specified in this document by the Reporting officer)</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="available_points[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="points_scored[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="hrd_ro_comment[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">Professional Skills Scores (RO's Points furnished in the
                                             skill
                                             &amp; attitude assessment sheet will be considered)</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="available_points[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="points_scored[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="hrd_ro_comment[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">Personal Skills Scores (RO's Points furnished in the skill
                                             &amp; attitude assessment sheet will be considered)</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="available_points[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="points_scored[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="hrd_ro_comment[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">Special Achievements Score (HOD to furnish)</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="available_points[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="points_scored[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="hrd_ro_comment[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                     <tr>
                                         <td class="px-3 py-3 font-medium">Overall Total Score</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="available_points[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="points_scored[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="text"
+
+                                        <td class="px-3 py-2">
+                                            <input type="text" name="hrd_ro_comment[]"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                 </tbody>
@@ -1176,30 +1265,30 @@
                                 <tbody class="text-gray-600">
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">Employee</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="employee_signature"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="date"
+                                        <td class="px-3 py-2"><input type="date" name="employee_date"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">Reporting Officer</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="ro_signature"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="date"
+                                        <td class="px-3 py-2"><input type="date" name="ro_date"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                     <tr class="border-b border-gray-100">
                                         <td class="px-3 py-3">HOD</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="hod_signature"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="date"
+                                        <td class="px-3 py-2"><input type="date" name="hod_date"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                     <tr>
                                         <td class="px-3 py-3">HRD</td>
-                                        <td class="px-3 py-2"><input type="text"
+                                        <td class="px-3 py-2"><input type="text" name="hrd_signature"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
-                                        <td class="px-3 py-2"><input type="date"
+                                        <td class="px-3 py-2"><input type="date" name="hrd_date"
                                                 class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
                                     </tr>
                                 </tbody>
@@ -1230,6 +1319,29 @@
 
 
     <script>
+        function specialRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="special_self[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="special_ro[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="special_hod[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2"></td>
+    </tr>`;
+        }
         // ---- row factories ----
         function threeColRowHTML(n) {
             return `
@@ -1242,6 +1354,29 @@
       </tr>`;
         }
 
+        function addSpecialRow() {
+            const tbody = document.getElementById('tbody-special');
+            const n = tbody.querySelectorAll('tr').length + 1;
+            tbody.insertAdjacentHTML('beforeend', specialRowHTML(n));
+        }
+
+        function commentsRoleRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="role_strength[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="role_improvement[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+    </tr>`;
+        }
+
         function twoColRowHTML(n) {
             return `
       <tr class="border-b border-gray-100">
@@ -1249,6 +1384,161 @@
         <td class="px-3 py-2"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
         <td class="px-3 py-2"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
       </tr>`;
+        }
+
+        function roStrengthRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="ro_strength[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="ro_improvement[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+    </tr>`;
+        }
+
+        function hodStrengthRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="hod_strength[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="hod_improvement[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+    </tr>`;
+        }
+
+        function personalGoalRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="last_year_goal[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="current_year_goal[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+    </tr>`;
+        }
+
+        function lastYearGoalRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="goal_last_self[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="goal_last_ro[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="goal_last_hod[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td></td>
+
+    </tr>`;
+        }
+
+        function forthcomingGoalRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="goal_future_self[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="goal_future_ro[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="goal_future_hod[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td></td>
+
+    </tr>`;
+        }
+
+        function trainingRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="training_self[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="training_ro[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="training_hod[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td></td>
+
+    </tr>`;
+        }
+
+        function otherCommentsRowHTML(n) {
+            return `
+    <tr class="border-b border-gray-100">
+
+        <td class="px-3 py-3 row-index">${n}</td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="other_comment_self[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="other_comment_ro[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td class="px-3 py-2">
+            <input type="text" name="other_comment_hod[]"
+                class="w-full border border-gray-300 rounded px-2 py-1.5">
+        </td>
+
+        <td></td>
+
+    </tr>`;
         }
 
         function addThreeColRow(tbodyId) {
@@ -1273,15 +1563,75 @@
         }
 
         // Seed initial rows to match the reference exactly
-        seedRows('tbody-special', 5, 'three');
-        seedRows('tbody-comments-role', 5, 'two');
-        seedRows('tbody-strengths-ro', 3, 'two');
-        seedRows('tbody-strengths-hod', 3, 'two');
-        seedRows('tbody-personal-goals', 3, 'two');
-        seedRows('tbody-goals-last', 5, 'three');
-        seedRows('tbody-goals-forthcoming', 5, 'three');
-        seedRows('tbody-training', 5, 'three');
-        seedRows('tbody-other-comments', 5, 'three');
+        const specialBody = document.getElementById('tbody-special');
+
+        for (let i = 1; i <= 5; i++) {
+            specialBody.insertAdjacentHTML('beforeend', specialRowHTML(i));
+        }
+        const commentsRoleBody = document.getElementById('tbody-comments-role');
+
+        for (let i = 1; i <= 5; i++) {
+            commentsRoleBody.insertAdjacentHTML(
+                'beforeend',
+                commentsRoleRowHTML(i)
+            );
+        }
+        const roBody = document.getElementById('tbody-strengths-ro');
+
+        for (let i = 1; i <= 3; i++) {
+            roBody.insertAdjacentHTML(
+                'beforeend',
+                roStrengthRowHTML(i)
+            );
+        }
+        const hodBody = document.getElementById('tbody-strengths-hod');
+
+        for (let i = 1; i <= 3; i++) {
+            hodBody.insertAdjacentHTML(
+                'beforeend',
+                hodStrengthRowHTML(i)
+            );
+        }
+        const personalGoalsBody = document.getElementById('tbody-personal-goals');
+
+        for (let i = 1; i <= 3; i++) {
+            personalGoalsBody.insertAdjacentHTML(
+                'beforeend',
+                personalGoalRowHTML(i)
+            );
+        }
+        const lastGoalBody = document.getElementById('tbody-goals-last');
+
+        for (let i = 1; i <= 5; i++) {
+            lastGoalBody.insertAdjacentHTML(
+                'beforeend',
+                lastYearGoalRowHTML(i)
+            );
+        }
+        const futureGoalBody = document.getElementById('tbody-goals-forthcoming');
+
+        for (let i = 1; i <= 5; i++) {
+            futureGoalBody.insertAdjacentHTML(
+                'beforeend',
+                forthcomingGoalRowHTML(i)
+            );
+        }
+        const trainingBody = document.getElementById('tbody-training');
+
+        for (let i = 1; i <= 5; i++) {
+            trainingBody.insertAdjacentHTML(
+                'beforeend',
+                trainingRowHTML(i)
+            );
+        }
+        const otherCommentsBody = document.getElementById('tbody-other-comments');
+
+        for (let i = 1; i <= 5; i++) {
+            otherCommentsBody.insertAdjacentHTML(
+                'beforeend',
+                otherCommentsRowHTML(i)
+            );
+        }
 
 
     </script>
