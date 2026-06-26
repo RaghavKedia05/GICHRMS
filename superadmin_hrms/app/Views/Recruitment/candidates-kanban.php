@@ -492,7 +492,7 @@
                     dragClass: 'shadow-xl',
 
                     onEnd: function () {
-                        updateKanbanCounts();
+                        updateKanbanCounts();qs
 
                     }
                 });
