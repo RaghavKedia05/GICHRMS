@@ -177,7 +177,7 @@
                             'phone' => '(146) 8964 278',
                             'date' => '12 Sep 2024',
                             'status' => 'Sent',
-                            'image' => 'assets/images/users/user-01.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=1'
                         ],
                         [
                             'id' => 'Cand-002',
@@ -187,7 +187,7 @@
                             'phone' => '(148) 9648 218',
                             'date' => '24 Oct 2024',
                             'status' => 'Scheduled',
-                            'image' => 'assets/images/users/user-02.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=2'
                         ],
                         [
                             'id' => 'Cand-003',
@@ -197,7 +197,7 @@
                             'phone' => '(196) 2348 947',
                             'date' => '18 Feb 2024',
                             'status' => 'Interviewed',
-                            'image' => 'assets/images/users/user-03.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=13'
                         ],
                         [
                             'id' => 'Cand-004',
@@ -207,7 +207,7 @@
                             'phone' => '(138) 6487 295',
                             'date' => '17 Oct 2024',
                             'status' => 'Offered',
-                            'image' => 'assets/images/users/user-04.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=4'
                         ],
                         [
                             'id' => 'Cand-005',
@@ -217,7 +217,7 @@
                             'phone' => '(154) 6485 218',
                             'date' => '20 Jul 2024',
                             'status' => 'Hired',
-                            'image' => 'assets/images/users/user-05.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=5'
                         ],
                         [
                             'id' => 'Cand-006',
@@ -227,7 +227,7 @@
                             'phone' => '(185) 5947 097',
                             'date' => '20 Jul 2024',
                             'status' => 'Rejected',
-                            'image' => 'assets/images/users/user-06.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=6'
                         ],
                         [
                             'id' => 'Cand-007',
@@ -237,7 +237,7 @@
                             'phone' => '(106) 3485 978',
                             'date' => '29 Aug 2024',
                             'status' => 'Hired',
-                            'image' => 'assets/images/users/user-07.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=7'
                         ],
                         [
                             'id' => 'Cand-008',
@@ -247,7 +247,7 @@
                             'phone' => '(174) 3795 107',
                             'date' => '22 Feb 2024',
                             'status' => 'Scheduled',
-                            'image' => 'assets/images/users/user-08.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=8'
                         ],
                         [
                             'id' => 'Cand-009',
@@ -257,7 +257,7 @@
                             'phone' => '(128) 0975 348',
                             'date' => '03 Nov 2024',
                             'status' => 'App Received',
-                            'image' => 'assets/images/users/user-09.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=9'
                         ],
                         [
                             'id' => 'Cand-010',
@@ -267,7 +267,7 @@
                             'phone' => '(132) 1876 304',
                             'date' => '17 Dec 2024',
                             'status' => 'Hired',
-                            'image' => 'assets/images/users/user-10.jpg'
+                            'image' => 'https://i.pravatar.cc/150?img=10'
                         ]
                     ];
 
@@ -344,7 +344,7 @@
 
                                                 <div class="flex items-center gap-3">
 
-                                                    <img src="<?= base_url($candidate['image']) ?>"
+                                                    <img src="<?= esc($candidate['image']) ?>"
                                                         class="w-10 h-10 rounded-full object-cover">
 
                                                     <div>

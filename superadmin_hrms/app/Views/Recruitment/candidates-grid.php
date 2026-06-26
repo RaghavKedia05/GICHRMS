@@ -158,7 +158,7 @@
                         'role' => 'Accountant',
                         'date' => '12 Sep 2024',
                         'status' => 'New',
-                        'image' => 'https://placehold.co/80x80/f1f5f9/334155?text=HG'
+                        'image' => 'https://i.pravatar.cc/150?img=1'
                     ],
 
                     [
@@ -169,7 +169,7 @@
                         'role' => 'Accountant',
                         'date' => '12 Sep 2024',
                         'status' => 'Scheduled',
-                        'image' => 'https://placehold.co/80x80/f1f5f9/334155?text=HG'
+                        'image' => 'https://i.pravatar.cc/150?img=2'
                     ],
 
                     // Add as many candidates as you want...
@@ -202,7 +202,7 @@
                             <!-- Card Header -->
                             <div class="flex items-start gap-3 p-5">
 
-                                <img src="https://ui-avatars.com/api/?name=<?= urlencode($candidate['name']) ?>&background=FF6B35&color=fff"
+                                <img src="<?= esc($candidate['image']) ?>" <?= urlencode($candidate['name']) ?>&background=FF6B35&color=fff"
                                     class="w-10 h-10 rounded object-cover border border-slate-200"
                                     alt="<?= esc($candidate['name']) ?>">
 
