@@ -351,6 +351,21 @@ if (empty($currentPage)) {
 
         </a>
         
+        <a href="/Recruitment/candidates" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            <?= ($currentPage == 'candidates')
+                ? 'bg-slate-200 text-slate-800'
+                : 'text-slate-800 hover:bg-slate-200'; ?>">
+
+            <div class="flex items-center gap-2 lg:gap-2.5">
+                <i data-lucide="user-round" class="w-4 h-4"></i>
+                <span class="text-xs lg:text-[13px] font-semibold">
+                    Candidates Info
+                </span>
+            </div>
+
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+
+        </a>
 
 
 

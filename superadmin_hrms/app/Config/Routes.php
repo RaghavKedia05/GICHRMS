@@ -39,3 +39,6 @@ $routes->post('performance_review/save', 'PerformanceReviewController::save');
 
 $routes->get('/Recruitment/jobs', 'RecruitmentController::jobs');
 $routes->get('/Recruitment/jobs-grid', 'RecruitmentController::jobsGrid');
+$routes->get('/Recruitment/candidates', 'RecruitmentController::candidates');
+$routes->get('/Recruitment/candidates-grid', 'RecruitmentController::candidatesGrid');
+$routes->get('/Recruitment/candidates-kanban', 'RecruitmentController::candidatesKanban');

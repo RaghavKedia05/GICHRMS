@@ -13,6 +13,21 @@ class RecruitmentController extends BaseController
     {
         return view('/Recruitment/jobs-grid');
     }
+
+    public function candidates()
+    {
+        return view('/Recruitment/candidates');
+    }
+
+    public function candidatesGrid()
+    {
+        return view('/Recruitment/candidates-grid');
+    }
+
+    public function candidatesKanban()
+    {
+        return view('/Recruitment/candidates-kanban');
+    }
     
 
 }
