@@ -10,8 +10,7 @@ if (empty($currentPage)) {
 }
 ?>
 
-<aside id="sidebar"
-    class="
+<aside id="sidebar" class="
     fixed lg:static
     top-0 left-0
     z-50
@@ -35,67 +34,88 @@ if (empty($currentPage)) {
     </a>
 
     <!-- Navigation -->
-    <nav class="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-2 lg:px-3 py-3">
+    <nav
+        class="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-2 lg:px-3 py-3">
 
-        <?php if(in_array(session('role'),['admin','hiring_manager','department_head','hr'])): ?>
-        <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Recruitment
-        </h6>
+        <?php if (in_array(session('role'), ['admin', 'hiring_manager', 'department_head', 'hr'])): ?>
+            <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
+                Recruitment
+            </h6>
 
-        
 
-        <a href="/Recruitment/requisitions" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+
+            <a href="/Recruitment/requisitions" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
             <?= ($currentPage == 'requisitions')
                 ? 'bg-slate-200 text-slate-800'
                 : 'text-slate-800 hover:bg-slate-200'; ?>">
 
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="user-round-plus" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                   Job Requesitions
-                </span>
-            </div>
+                <div class="flex items-center gap-2 lg:gap-2.5">
+                    <i data-lucide="user-round-plus" class="w-4 h-4"></i>
+                    <span class="text-xs lg:text-[13px] font-semibold">
+                        Job Requesitions
+                    </span>
+                </div>
 
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
 
-        </a>
-        
-        
-        
-        <a href="/Recruitment/jobs" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            </a>
+
+
+
+            <a href="/Recruitment/jobs" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
             <?= ($currentPage == 'jobs')
                 ? 'bg-slate-200 text-slate-800'
                 : 'text-slate-800 hover:bg-slate-200'; ?>">
 
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Job Openings
-                </span>
-            </div>
+                <div class="flex items-center gap-2 lg:gap-2.5">
+                    <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
+                    <span class="text-xs lg:text-[13px] font-semibold">
+                        Job Openings
+                    </span>
+                </div>
 
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
 
-        </a>
-        
-        
-        
-        <a href="/Recruitment/candidates" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            </a>
+
+
+
+            <a href="/Recruitment/candidates" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
             <?= ($currentPage == 'candidates')
+                ? 'bg-slate-200 text-slate-800'
+                : 'text-slate-800 hover:bg-slate-200'; ?>">
+
+                <div class="flex items-center gap-2 lg:gap-2.5">
+                    <i data-lucide="user-round" class="w-4 h-4"></i>
+                    <span class="text-xs lg:text-[13px] font-semibold">
+                        Candidates Info
+                    </span>
+                </div>
+
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+
+            </a>
+        <?php endif; ?>
+
+
+
+        <a href="/Recruitment/employee-jobs" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            <?= ($currentPage == 'employee-jobs')
                 ? 'bg-slate-200 text-slate-800'
                 : 'text-slate-800 hover:bg-slate-200'; ?>">
 
             <div class="flex items-center gap-2 lg:gap-2.5">
                 <i data-lucide="user-round" class="w-4 h-4"></i>
                 <span class="text-xs lg:text-[13px] font-semibold">
-                    Candidates Info
+                    Carrer Opportunities
                 </span>
             </div>
 
             <i data-lucide="chevron-down" class="w-4 h-4"></i>
 
         </a>
-        <?php endif; ?>
+
+
 
 
         <!-- Dashboard -->
@@ -392,7 +412,7 @@ if (empty($currentPage)) {
 
         </a>
 
-        
+
 
 
 

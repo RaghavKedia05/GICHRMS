@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -70,13 +70,13 @@
                     <div class="flex flex-wrap items-center gap-2">
 
                         <!-- List View -->
-                        <a href="<?= base_url('Recruitment/jobs') ?>"
+                        <a href="<?= base_url('Recruitment/employee-jobs') ?>"
                             class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
                             <i data-lucide="list" class="w-4 h-4"></i>
                         </a>
 
                         <!-- Grid View -->
-                        <a href="<?= base_url('Recruitment/jobs-grid') ?>"
+                        <a href="<?= base_url('Recruitment/employee-jobs-grid') ?>"
                             class="w-10 h-10 bg-orange-500 rounded-md flex items-center justify-center text-white">
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>

@@ -87,22 +87,6 @@
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>
 
-                        <!-- Export -->
-                        <button
-                            class="flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-md">
-                            <i data-lucide="file-down" class="w-4 h-4"></i>
-
-                            Export
-
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                        </button>
-
-                        <!-- Scroll Top -->
-                        <button
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center">
-                            <i data-lucide="chevrons-up" class="w-4 h-4"></i>
-                        </button>
-
                     </div>
 
                 </div>

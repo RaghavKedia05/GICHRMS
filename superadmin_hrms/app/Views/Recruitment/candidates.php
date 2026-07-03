@@ -87,23 +87,6 @@
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>
 
-                        <!-- Export -->
-                        <button
-                            class="flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-md">
-                            <i data-lucide="file-down" class="w-4 h-4"></i>
-
-                            Export
-
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                        </button>
-
-
-                        <!-- Scroll Top -->
-                        <button
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center">
-                            <i data-lucide="chevrons-up" class="w-4 h-4"></i>
-                        </button>
-
                     </div>
 
                 </div>
@@ -126,7 +109,7 @@
                                 09/06/2026 - 09/06/2026
                             </button>
 
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto" ">
+                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
                                 <option>Select Role</option>
                             </select>
 
@@ -168,108 +151,7 @@
 
                     <!-- Table -->
                     <?php
-                    $candidates = [
-                        [
-                            'id' => 'Cand-001',
-                            'name' => 'Harold Gaynor',
-                            'email' => 'harold@example.com',
-                            'role' => 'Accountant',
-                            'phone' => '(146) 8964 278',
-                            'date' => '12 Sep 2024',
-                            'status' => 'Sent',
-                            'image' => 'https://i.pravatar.cc/150?img=1'
-                        ],
-                        [
-                            'id' => 'Cand-002',
-                            'name' => 'Sandra Ornellas',
-                            'email' => 'sandra@example.com',
-                            'role' => 'App Developer',
-                            'phone' => '(148) 9648 218',
-                            'date' => '24 Oct 2024',
-                            'status' => 'Scheduled',
-                            'image' => 'https://i.pravatar.cc/150?img=2'
-                        ],
-                        [
-                            'id' => 'Cand-003',
-                            'name' => 'John Harris',
-                            'email' => 'john@example.com',
-                            'role' => 'Technician',
-                            'phone' => '(196) 2348 947',
-                            'date' => '18 Feb 2024',
-                            'status' => 'Interviewed',
-                            'image' => 'https://i.pravatar.cc/150?img=13'
-                        ],
-                        [
-                            'id' => 'Cand-004',
-                            'name' => 'Carole Langan',
-                            'email' => 'carole@example.com',
-                            'role' => 'Web Developer',
-                            'phone' => '(138) 6487 295',
-                            'date' => '17 Oct 2024',
-                            'status' => 'Offered',
-                            'image' => 'https://i.pravatar.cc/150?img=4'
-                        ],
-                        [
-                            'id' => 'Cand-005',
-                            'name' => 'Charles Marks',
-                            'email' => 'charles@example.com',
-                            'role' => 'Sales Executive Officer',
-                            'phone' => '(154) 6485 218',
-                            'date' => '20 Jul 2024',
-                            'status' => 'Hired',
-                            'image' => 'https://i.pravatar.cc/150?img=5'
-                        ],
-                        [
-                            'id' => 'Cand-006',
-                            'name' => 'Kerry Drake',
-                            'email' => 'kerry@example.com',
-                            'role' => 'Designer',
-                            'phone' => '(185) 5947 097',
-                            'date' => '20 Jul 2024',
-                            'status' => 'Rejected',
-                            'image' => 'https://i.pravatar.cc/150?img=6'
-                        ],
-                        [
-                            'id' => 'Cand-007',
-                            'name' => 'David Carmona',
-                            'email' => 'david@example.com',
-                            'role' => 'Account Manager',
-                            'phone' => '(106) 3485 978',
-                            'date' => '29 Aug 2024',
-                            'status' => 'Hired',
-                            'image' => 'https://i.pravatar.cc/150?img=7'
-                        ],
-                        [
-                            'id' => 'Cand-008',
-                            'name' => 'Margaret Soto',
-                            'email' => 'margaret@example.com',
-                            'role' => 'SEO Analyst',
-                            'phone' => '(174) 3795 107',
-                            'date' => '22 Feb 2024',
-                            'status' => 'Scheduled',
-                            'image' => 'https://i.pravatar.cc/150?img=8'
-                        ],
-                        [
-                            'id' => 'Cand-009',
-                            'name' => 'Jeffrey Thaler',
-                            'email' => 'jeffrey@example.com',
-                            'role' => 'Admin',
-                            'phone' => '(128) 0975 348',
-                            'date' => '03 Nov 2024',
-                            'status' => 'App Received',
-                            'image' => 'https://i.pravatar.cc/150?img=9'
-                        ],
-                        [
-                            'id' => 'Cand-010',
-                            'name' => 'Joyce Golston',
-                            'email' => 'joyce@example.com',
-                            'role' => 'Business Analyst',
-                            'phone' => '(132) 1876 304',
-                            'date' => '17 Dec 2024',
-                            'status' => 'Hired',
-                            'image' => 'https://i.pravatar.cc/150?img=10'
-                        ]
-                    ];
+                    $applications = $applications ?? [];
 
                     function statusBadge($status)
                     {
@@ -289,6 +171,31 @@
                             default:
                                 return 'bg-violet-50 text-violet-600 border border-violet-300';
                         }
+                    }
+
+                    if (empty($applications)) {
+                        $applications = [
+                            [
+                                'application_id' => 'Cand-001',
+                                'candidate_name' => 'Harold Gaynor',
+                                'candidate_email' => 'harold@example.com',
+                                'job_title' => 'Accountant',
+                                'department' => 'Finance',
+                                'location' => 'Head Office',
+                                'applied_at' => '12 Sep 2024',
+                                'application_status' => 'Sent',
+                            ],
+                            [
+                                'application_id' => 'Cand-002',
+                                'candidate_name' => 'Sandra Ornellas',
+                                'candidate_email' => 'sandra@example.com',
+                                'job_title' => 'App Developer',
+                                'department' => 'Engineering',
+                                'location' => 'Remote',
+                                'applied_at' => '24 Oct 2024',
+                                'application_status' => 'Scheduled',
+                            ],
+                        ];
                     }
                     ?>
 
@@ -312,7 +219,7 @@
 
                                         <th class="text-left font-semibold">Applied Role</th>
 
-                                        <th class="text-left font-semibold">Phone</th>
+                                        <th class="text-left font-semibold">Candidate Email</th>
 
                                         <th class="text-left font-semibold">Applied Date</th>
                                 
@@ -328,7 +235,7 @@
 
                                 <tbody class="divide-y divide-slate-200 bg-white">
 
-                                    <?php foreach ($candidates as $candidate): ?>
+                                    <?php foreach ($applications as $application): ?>
 
                                         <tr class="hover:bg-slate-50 transition">
 
@@ -337,24 +244,25 @@
                                             </td>
 
                                             <td class="font-medium text-slate-600">
-                                                <?= $candidate['id'] ?>
+                                                <?= esc($application['application_id'] ?? 'N/A') ?>
                                             </td>
 
                                             <td>
 
                                                 <div class="flex items-center gap-3">
 
-                                                    <img src="<?= esc($candidate['image']) ?>"
-                                                        class="w-10 h-10 rounded-full object-cover">
+                                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                                                        <?= esc(substr($application['candidate_name'] ?? 'N', 0, 1)) ?>
+                                                    </div>
 
                                                     <div>
 
                                                         <h4 class="font-semibold text-slate-800">
-                                                            <?= $candidate['name'] ?>
+                                                            <?= esc($application['candidate_name'] ?? 'Unknown') ?>
                                                         </h4>
 
                                                         <p class="text-slate-500">
-                                                            <?= $candidate['email'] ?>
+                                                            <?= esc($application['candidate_email'] ?? '-') ?>
                                                         </p>
 
                                                     </div>
@@ -364,26 +272,26 @@
                                             </td>
 
                                             <td class="text-slate-600">
-                                                <?= $candidate['role'] ?>
+                                                <?= esc($application['job_title'] ?? '-') ?>
                                             </td>
 
                                             <td class="text-slate-600">
-                                                <?= $candidate['phone'] ?>
+                                                <?= esc($application['candidate_email'] ?? '-') ?>
                                             </td>
 
                                             <td class="text-slate-600">
-                                                <?= $candidate['date'] ?>
+                                                <?= !empty($application['applied_at']) ? date('d M Y', strtotime($application['applied_at'])) : 'N/A' ?>
                                             </td>
 
                                             <td>
 
                                                 <div class="flex justify-center gap-3">
 
-                                                    <button class="text-slate-500 hover:text-orange-500">
+                                                    <button class="text-slate-500 hover:text-orange-500" disabled>
                                                         <i data-lucide="file-text" class="w-4 h-4"></i>
                                                     </button>
 
-                                                    <button class="text-slate-500 hover:text-blue-600">
+                                                    <button class="text-slate-500 hover:text-blue-600" disabled>
                                                         <i data-lucide="download" class="w-4 h-4"></i>
                                                     </button>
 
@@ -393,8 +301,8 @@
 
                                             <td class="px-6 py-4 w-44">
                                                 <span
-                                                    class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium <?= statusBadge($candidate['status']) ?>">
-                                                    • <?= $candidate['status'] ?>
+                                                    class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium <?= statusBadge($application['application_status'] ?? 'Applied') ?>">
+                                                    • <?= esc($application['application_status'] ?? 'Applied') ?>
                                                 </span>
                                             </td>
 
@@ -402,7 +310,7 @@
 
                                                 <div class="flex justify-center">
 
-                                                    <button class="text-slate-400 hover:text-red-500">
+                                                    <button class="text-slate-400 hover:text-red-500" disabled>
                                                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                                                     </button>
 
@@ -423,7 +331,7 @@
                         <div class="flex items-center justify-between px-6 py-4 border-t text-sm">
 
                             <p class="text-slate-500">
-                                Showing 1 - <?= count($candidates) ?> of <?= count($candidates) ?> entries
+                                Showing 1 - <?= count($applications) ?> of <?= count($applications) ?> entries
                             </p>
 
                             <div class="flex items-center gap-2">
@@ -478,25 +386,6 @@
             });
     </script>
 
-    <script>
-        const selectAll = document.getElementById('selectAll');
-        const rowCheckboxes = document.querySelectorAll('.rowCheckbox');
-
-        selectAll.addEventListener('change', function () {
-            rowCheckboxes.forEach(cb => {
-                cb.checked = this.checked;
-            });
-        });
-
-        rowCheckboxes.forEach(cb => {
-            cb.addEventListener('change', function () {
-                const allChecked =
-                    [...rowCheckboxes].every(c => c.checked);
-
-                selectAll.checked = allChecked;
-            });
-        });
-    </script>
 
 
 

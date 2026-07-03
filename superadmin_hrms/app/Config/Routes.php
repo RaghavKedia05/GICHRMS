@@ -48,11 +48,14 @@ $routes->get('/employee_attendance', 'DashboardController::employee_attendance')
 $routes->get('/performance_review', 'PerformanceReviewController::performance_review');
 $routes->post('performance_review/save', 'PerformanceReviewController::save');
 
-$routes->get('/Recruitment/jobs', 'RecruitmentController::jobs');
-$routes->get('/Recruitment/jobs-grid', 'RecruitmentController::jobsGrid');
-$routes->get('/Recruitment/candidates', 'RecruitmentController::candidates');
-$routes->get('/Recruitment/candidates-grid', 'RecruitmentController::candidatesGrid');
-$routes->get('/Recruitment/candidates-kanban', 'RecruitmentController::candidatesKanban');
+$routes->get('/Recruitment/jobs', 'Recruitment\RecruitmentController::jobs');
+$routes->get('/Recruitment/jobs-grid', 'Recruitment\RecruitmentController::jobsGrid');
+$routes->get('/Recruitment/candidates', 'Recruitment\RecruitmentController::candidates');
+$routes->get('/Recruitment/candidates-grid', 'Recruitment\RecruitmentController::candidatesGrid');
+$routes->get('/Recruitment/candidates-kanban', 'Recruitment\RecruitmentController::candidatesKanban');
+$routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1');
+$routes->get('/Recruitment/employee-jobs', 'Recruitment\EmployeeJobController::index', ['filter' => 'auth']);
+$routes->post('/Recruitment/apply-job', 'RecruitmentController::applyJob', ['filter' => 'auth']);
 
 // =========================
 // Recruitment - Requisitions
@@ -65,7 +68,7 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
     $routes->get('requisitions/create', 'Recruitment\RequisitionController::create');
 
     $routes->post('requisitions/save-draft', 'Recruitment\RequisitionController::saveDraft');
-    $routes->post('requisitions/save', 'Recruitment\RequisitionController::save'); // legacy alias for old JobRequisitionController paths
+    $routes->post('requisitions/save', 'Recruitment\RequisitionController::save'); 
 
     $routes->post('requisitions/submit', 'Recruitment\RequisitionController::submit');
 
@@ -73,7 +76,7 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
         'requisitions/get/(:num)',
         'Recruitment\RequisitionController::getRequisition/$1'
     );
-
+    $routes->get('view-job/(:num)', 'Recruitment\RecruitmentController::viewJob/$1');
     $routes->get(
         'requisitions/edit/(:num)',
         'Recruitment\RequisitionController::edit/$1'
@@ -108,6 +111,8 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
         'requisitions/hr-reject/(:num)',
         'Recruitment\RequisitionController::hrReject/$1'
     );
+
+    
 
 });
 

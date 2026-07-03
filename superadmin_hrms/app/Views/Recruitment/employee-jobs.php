@@ -49,7 +49,7 @@
 
                     <div>
                         <h1 class="text-2xl sm:text-[28px] font-semibold text-slate-800">
-                            Jobs
+                            Career Opportunities
                         </h1>
 
                         <div class="flex flex-wrap items-center gap-2 mt-2 text-sm text-slate-500">
@@ -62,7 +62,7 @@
                             <i data-lucide="chevron-right" class="w-4 h-4"></i>
 
                             <span class="text-slate-700">
-                                Jobs
+                                Career Opportunities
                             </span>
                         </div>
                     </div>
@@ -70,13 +70,13 @@
                     <div class="flex flex-wrap items-center gap-2">
 
                         <!-- List View -->
-                        <a href="<?= base_url('Recruitment/jobs') ?>"
+                        <a href="<?= base_url('Recruitment/employee-jobs') ?>"
                             class="w-10 h-10 bg-orange-500 rounded-md flex items-center justify-center text-white">
                             <i data-lucide="list" class="w-4 h-4"></i>
                         </a>
 
                         <!-- Grid View -->
-                        <a href="<?= base_url('Recruitment/jobs-grid') ?>"
+                        <a href="<?= base_url('Recruitment/employee-jobs-grid') ?>"
                             class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>
@@ -92,7 +92,7 @@
 
 
                         <h3 class="text-l font-semibold text-slate-800">
-                            Job Grid
+                            Career Opportunities
                         </h3>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-3 w-full lg:w-auto">
@@ -159,52 +159,109 @@
                             </thead>
 
                             <tbody class="divide-y divide-slate-100 text-sm text-slate-700">
-                                <?php
-                                $publishedJobs = [];
-                                foreach ($jobs as $job) {
-                                    if (
-                                        !empty($job['status']) && !empty($job['hr_status']) &&
-                                        $job['status'] === 'Published' &&
-                                        $job['hr_status'] === 'Approved'
-                                    ) {
-                                        $publishedJobs[] = $job;
-                                    }
-                                }
-                                ?>
-                                <?php if (!empty($publishedJobs)): ?>
-                                    <?php foreach ($publishedJobs as $job): ?>
-                                        <?php $salaryRange = !empty($job['salary_from']) && !empty($job['salary_to']) ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to']) : 'Not set'; ?>
+
+                                <?php if (!empty($jobs)): ?>
+
+                                    <?php foreach ($jobs as $job): ?>
+
+                                        <?php
+                                        $salaryRange = (!empty($job['salary_from']) && !empty($job['salary_to']))
+                                            ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                            : 'Not set';
+                                        ?>
+
                                         <tr class="hover:bg-slate-50">
-                                            <td class="px-4 py-4"><?= esc($job['requisition_no'] ?? 'N/A') ?></td>
+
+                                            <!-- Job ID -->
                                             <td class="px-4 py-4">
-                                                <div class="font-semibold text-slate-800"><?= esc($job['job_title']) ?>
+                                                <?= esc($job['requisition_no'] ?? 'N/A') ?>
+                                            </td>
+
+                                            <!-- Job Title -->
+                                            <td class="px-4 py-4">
+                                                <div class="font-semibold text-slate-800">
+                                                    <?= esc($job['job_title']) ?>
                                                 </div>
-                                                <div class="text-xs text-slate-500"><?= esc($job['vacancies'] ?? 1) ?>
-                                                    Openings</div>
+
+                                                <div class="text-xs text-slate-500">
+                                                    <?= esc($job['vacancies'] ?? 1) ?> Openings
+                                                </div>
                                             </td>
-                                            <td class="px-4 py-4"><?= esc($job['department']) ?></td>
-                                            <td class="px-4 py-4"><?= esc($job['location']) ?></td>
-                                            <td class="px-4 py-4"><?= esc($salaryRange) ?></td>
+
+                                            <!-- Department -->
                                             <td class="px-4 py-4">
-                                                <?= !empty($job['published_at']) ? date('d M Y', strtotime($job['published_at'])) : 'N/A' ?>
+                                                <?= esc($job['department']) ?>
                                             </td>
+
+                                            <!-- Location -->
                                             <td class="px-4 py-4">
-                                                <div class="flex gap-3">
-                                                    <a href="#" onclick="openViewModal(<?= esc($job['id']) ?>); return false;"
-                                                        class="text-slate-500 hover:text-blue-600">
-                                                        <i data-lucide="eye" class="w-4 h-4"></i>
+                                                <?= esc($job['location']) ?>
+                                            </td>
+
+                                            <!-- Salary -->
+                                            <td class="px-4 py-4">
+                                                <?= esc($salaryRange) ?>
+                                            </td>
+
+                                            <!-- Published Date -->
+                                            <td class="px-4 py-4">
+                                                <?= !empty($job['published_at'])
+                                                    ? date('d M Y', strtotime($job['published_at']))
+                                                    : 'N/A'; ?>
+                                            </td>
+
+                                            <!-- Actions -->
+                                            <td class="px-4 py-4">
+                                                <div class="flex items-center gap-3">
+
+                                                    <!-- View -->
+                                                    <a href="#" onclick="openViewModal(<?= $job['id'] ?>); return false;"
+                                                        class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition">
+
+                                                        <i data-lucide="eye" class="w-4 h-4 text-slate-600"></i>
+
                                                     </a>
+
+                                                    <!-- Apply Button -->
+                                                   
+
+                                                        <form action="<?= base_url('Recruitment/jobs/apply/' . $job['id']) ?>"
+                                                            method="post">
+
+                                                            <?= csrf_field() ?>
+
+                                                            <button type="submit"
+                                                                class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition shadow-sm">
+
+                                                                Apply
+
+                                                            </button>
+
+                                                        </form>
+
+                                                   
+
                                                 </div>
                                             </td>
+
                                         </tr>
+
                                     <?php endforeach; ?>
+
                                 <?php else: ?>
+
                                     <tr>
+
                                         <td colspan="7" class="px-4 py-8 text-center text-slate-500">
+
                                             No published jobs available yet.
+
                                         </td>
+
                                     </tr>
+
                                 <?php endif; ?>
+
                             </tbody>
 
                         </table>
@@ -277,7 +334,7 @@
 
         function openViewModal(id) {
 
-            fetch('/Recruitment/requisitions/get/' + id)
+            fetch("<?= base_url('Recruitment/requisitions/get') ?>/" + id)
                 .then(response => response.text())
                 .then(html => {
 
