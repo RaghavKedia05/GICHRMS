@@ -3,6 +3,7 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use CodeIgniter\Database\RawSql;
 
 class CreateJobApplicationsTable extends Migration
 {
@@ -33,7 +34,7 @@ class CreateJobApplicationsTable extends Migration
             'applied_at' => [
                 'type' => 'DATETIME',
                 'null' => false,
-                'default' => 'CURRENT_TIMESTAMP',
+                'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
         ]);
 
