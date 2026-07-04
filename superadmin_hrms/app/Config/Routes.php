@@ -54,7 +54,7 @@ $routes->get('/Recruitment/candidates', 'Recruitment\RecruitmentController::cand
 $routes->get('/Recruitment/candidates-grid', 'Recruitment\RecruitmentController::candidatesGrid');
 $routes->get('/Recruitment/candidates-kanban', 'Recruitment\RecruitmentController::candidatesKanban');
 $routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1');
-$routes->get('/Recruitment/employee-jobs', 'Recruitment\EmployeeJobController::index', ['filter' => 'auth']);
+$routes->get('/Recruitment/employee-jobs', 'Recruitment\RecruitmentController::employeeJobs', ['filter' => 'auth']);
 $routes->post('/Recruitment/apply-job', 'RecruitmentController::applyJob', ['filter' => 'auth']);
 
 // =========================
@@ -112,14 +112,9 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
         'Recruitment\RequisitionController::hrReject/$1'
     );
 
-
-    // Employee Job Application
-    $routes->get('Recruitment/jobs/apply/(:num)', 'Recruitment\RecruitmentController::applyForm/$1');
-
-    $routes->post('Recruitment/jobs/submit', 'Recruitment\RecruitmentController::submitApplication');
-
-    $routes->get('Recruitment/my-applications', 'Recruitment\RecruitmentController::myApplications');
-
+   //Job Application
+    $routes->get('apply-job/(:num)', 'Recruitment\JobApplicationController::applyForm/$1');
+    $routes->post('submit-application', 'Recruitment\JobApplicationController::submitApplication');
 
 
 });

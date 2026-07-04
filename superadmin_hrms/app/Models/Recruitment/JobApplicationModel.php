@@ -62,4 +62,10 @@ class JobApplicationModel extends Model
             ->where('user_id', $userId)
             ->countAllResults() > 0;
     }
+
+    public function getAppliedJobIds($userId)
+{
+    return $this->where('user_id', $userId)
+                ->findColumn('requisition_id');
+}
 }

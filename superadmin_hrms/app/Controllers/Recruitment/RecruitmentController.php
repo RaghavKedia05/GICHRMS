@@ -113,28 +113,18 @@ class RecruitmentController extends BaseController
     public function employeeJobs()
     {
         $userId = session('user_id');
-        $userRole = session('role');
 
         if (!$userId) {
             return redirect()->to('/login');
         }
 
-        if ($userRole !== 'employee') {
-            return redirect()->to('/dashboard')
-                ->with('error', 'Only employee users can view open job postings.');
-        }
-
         $jobs = $this->getPublishedJobFilters();
-        try {
-            $appliedIds = $this->jobApplicationModel
-                ->where('user_id', $userId)
-                ->findColumn('requisition_id');
-        } catch (\Throwable $e) {
-            log_message('error', 'Job application fetch failed: ' . $e->getMessage());
-            $appliedIds = [];
-        }
 
-        return view('/Recruitment/employee_jobs', [
+        $appliedIds = $this->jobApplicationModel
+            ->getAppliedJobIds($userId);
+
+        return view('Recruitment/employee-jobs', [
+
             'jobs' => $jobs['jobs'],
             'roles' => $jobs['roles'],
             'statuses' => $jobs['statuses'],
@@ -142,7 +132,9 @@ class RecruitmentController extends BaseController
             'filterStatus' => $jobs['filterStatus'],
             'filterSort' => $jobs['filterSort'],
             'searchQuery' => $jobs['searchQuery'],
-            'appliedIds' => $appliedIds,
+
+            'appliedIds' => $appliedIds ?? []
+
         ]);
     }
 
@@ -237,6 +229,6 @@ class RecruitmentController extends BaseController
     {
         return view('/Recruitment/candidates-kanban');
     }
-    
+
 
 }

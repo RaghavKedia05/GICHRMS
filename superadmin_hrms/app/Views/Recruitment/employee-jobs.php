@@ -222,24 +222,26 @@
 
                                                     </a>
 
-                                                    <!-- Apply Button -->
-                                                   
+                                                    <!-- Apply Button -->                                                    
 
-                                                        <form action="<?= base_url('Recruitment/jobs/apply/' . $job['id']) ?>"
-                                                            method="post">
+                                                    <?php if (in_array($job['id'], $appliedIds ?? [])): ?>
 
-                                                            <?= csrf_field() ?>
+                                                        <button
+                                                            class="px-4 py-2 rounded-md bg-green-600 text-white text-sm font-semibold cursor-not-allowed shadow-sm"
+                                                            disabled>
+                                                            Applied
+                                                        </button>
 
-                                                            <button type="submit"
-                                                                class="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition shadow-sm">
+                                                    <?php else: ?>
 
-                                                                Apply
+                                                        <a href="<?= base_url('Recruitment/apply-job/' . $job['id']) ?>"
+                                                            class="inline-block px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition shadow-sm">
+                                                            Apply
+                                                        </a>
 
-                                                            </button>
+                                                    <?php endif; ?>
 
-                                                        </form>
 
-                                                   
 
                                                 </div>
                                             </td>
@@ -296,6 +298,60 @@
 
         </div>
     </div>
+
+    <?php if (session()->getFlashdata('success')): ?>
+
+        <div id="successToast" class="fixed top-6 right-6 z-50
+           translate-x-[120%]
+           transition-transform duration-500 ease-in-out">
+
+            <div class="flex items-center gap-3 bg-emerald-600 text-white px-6 py-4 rounded-xl shadow-xl">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+
+                </svg>
+
+                <span class="font-medium">
+
+                    <?= session()->getFlashdata('success') ?>
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const toast = document.getElementById("successToast");
+
+                // Slide In
+                setTimeout(() => {
+                    toast.classList.remove("translate-x-[120%]");
+                    toast.classList.add("translate-x-0");
+                }, 100);
+
+                // Slide Out
+                setTimeout(() => {
+                    toast.classList.remove("translate-x-0");
+                    toast.classList.add("translate-x-[120%]");
+                }, 3000);
+
+                // Remove from DOM
+                setTimeout(() => {
+                    toast.remove();
+                }, 3500);
+
+            });
+
+        </script>
+
+    <?php endif; ?>
 
 
     <script>
