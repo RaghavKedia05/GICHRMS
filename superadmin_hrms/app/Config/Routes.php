@@ -68,7 +68,7 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
     $routes->get('requisitions/create', 'Recruitment\RequisitionController::create');
 
     $routes->post('requisitions/save-draft', 'Recruitment\RequisitionController::saveDraft');
-    $routes->post('requisitions/save', 'Recruitment\RequisitionController::save'); 
+    $routes->post('requisitions/save', 'Recruitment\RequisitionController::save');
 
     $routes->post('requisitions/submit', 'Recruitment\RequisitionController::submit');
 
@@ -112,7 +112,15 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
         'Recruitment\RequisitionController::hrReject/$1'
     );
 
-    
+
+    // Employee Job Application
+    $routes->get('Recruitment/jobs/apply/(:num)', 'Recruitment\RecruitmentController::applyForm/$1');
+
+    $routes->post('Recruitment/jobs/submit', 'Recruitment\RecruitmentController::submitApplication');
+
+    $routes->get('Recruitment/my-applications', 'Recruitment\RecruitmentController::myApplications');
+
+
 
 });
 
