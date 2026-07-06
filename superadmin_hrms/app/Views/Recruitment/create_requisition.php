@@ -12,15 +12,44 @@
         rel="stylesheet">
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
+        }
+
+        .requisition-form input:not([type="radio"]),
+        .requisition-form select,
+        .requisition-form textarea {
+            width: 100%;
+            border: 1px solid rgb(203 213 225);
+            border-radius: 0.75rem;
+            background: white;
+            color: rgb(15 23 42);
+            outline: none;
+            transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+        }
+
+        .requisition-form input:not([type="radio"]):focus,
+        .requisition-form select:focus,
+        .requisition-form textarea:focus {
+            border-color: rgb(79 70 229);
+            box-shadow: 0 0 0 4px rgb(79 70 229 / 0.12);
+        }
+
+        .requisition-form input[readonly],
+        .requisition-form select:disabled {
+            background: rgb(248 250 252);
+            color: rgb(71 85 105);
         }
     </style>
 
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="bg-slate-50">
+<body class="bg-slate-100 text-slate-900">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
@@ -33,56 +62,121 @@
 
             <?= $this->include('navbar') ?>
 
-            <div class="flex-1 overflow-y-auto p-6">
-                <div class="max-w-6xl mx-auto">
+            <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+                <div class="max-w-7xl mx-auto">
 
                     <a href="<?= base_url('/Recruitment/requisitions') ?>"
-                        class="inline-flex items-center gap-2 text-sm font-medium mb-5 hover:text-orange-500">
-                        <i data-lucide="arrow-left-circle" class="w-4 h-4"></i>
-                        Back
+                        class="inline-flex items-center gap-2 text-sm font-semibold mb-4 text-slate-600 hover:text-indigo-600">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        Requisitions
                     </a>
 
-                    <div class="bg-white rounded-xl shadow border">
-
-                        <div class="border-b p-6">
-                            <h1 class="text-2xl font-bold text-slate-800 text-left">
-                                Create Job Requisition
-                            </h1>
-                            <p class="text-slate-500 mt-1 text-left">
-                                Fill all the required details and submit the requisition for approval.
+                    <div class="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <h1 class="text-2xl sm:text-3xl font-semibold text-slate-950">
+                                    Create Job Requisition
+                                </h1>
+                                <span
+                                    class="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
+                                    <i data-lucide="clock-3" class="w-3.5 h-3.5"></i>
+                                    Draft
+                                </span>
+                            </div>
+                            <p class="mt-2 max-w-2xl text-sm text-slate-500">
+                                Capture the hiring request, budget details, and candidate profile in one structured flow.
                             </p>
                         </div>
 
-                        <form action="<?= base_url('Recruitment/requisitions/save-draft') ?>" method="POST">
+                        <div class="grid grid-cols-2 gap-3 sm:flex">
+                            <div class="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                <p class="text-xs font-medium text-slate-500">Requisition ID</p>
+                                <p class="mt-1 text-sm font-semibold text-slate-900">
+                                    <?= esc(old('requisition_no', $requisition_id)) ?>
+                                </p>
+                            </div>
+                            <div class="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                <p class="text-xs font-medium text-slate-500">Requested By</p>
+                                <p class="mt-1 max-w-36 truncate text-sm font-semibold text-slate-900">
+                                    <?= esc(session()->get('name')) ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-5">
+
+                        <div class="sticky top-0 z-20 rounded-lg border border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur sm:px-6">
+                            <nav class="flex gap-2 overflow-x-auto text-sm font-semibold">
+                                <a href="#request-details"
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    Request
+                                </a>
+                                <a href="#position"
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    <i data-lucide="briefcase-business" class="w-4 h-4"></i>
+                                    Position
+                                </a>
+                                <a href="#budget"
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    <i data-lucide="wallet" class="w-4 h-4"></i>
+                                    Budget
+                                </a>
+                                <a href="#skills"
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                                    Skills
+                                </a>
+                            </nav>
+                        </div>
+
+                        <form action="<?= base_url('Recruitment/requisitions/save-draft') ?>" method="POST"
+                            class="requisition-form">
 
                             <?= csrf_field(); ?>
 
                             <?php if (session()->getFlashdata('errors')): ?>
-                                <div
-                                    class="mx-6 mt-6 bg-red-100 border border-red-300 text-red-700 rounded-lg p-4 text-left">
-                                    <ul class="list-disc ml-5">
-                                        <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                                            <li><?= esc($error) ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
+                                <div class="mx-4 mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 sm:mx-6">
+                                    <div class="flex gap-3">
+                                        <i data-lucide="circle-alert" class="mt-0.5 h-5 w-5 shrink-0"></i>
+                                        <ul class="list-disc space-y-1 pl-4">
+                                            <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                                                <li><?= esc($error) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
                                 </div>
                             <?php endif; ?>
 
                             <?php if (session()->getFlashdata('success')): ?>
-                                <div
-                                    class="mx-6 mt-6 bg-green-100 border border-green-300 text-green-700 rounded-lg p-4 text-left">
-                                    <?= session()->getFlashdata('success') ?>
+                                <div class="mx-4 mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700 sm:mx-6">
+                                    <div class="flex items-center gap-3">
+                                        <i data-lucide="circle-check" class="h-5 w-5 shrink-0"></i>
+                                        <?= session()->getFlashdata('success') ?>
+                                    </div>
                                 </div>
                             <?php endif; ?>
 
                             <?php $selectedDepartment = old('department', $departments[0]['department_name'] ?? ''); ?>
 
-                            <div class="p-6 space-y-10">
+                            <div class="p-4 space-y-6 sm:p-6 lg:p-8">
 
-                                <div>
-                                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
-                                        1. Request Details (Auto-Populated)
-                                    </h2>
+                                <div id="request-details" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                    <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
+                                        <span
+                                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                                            <i data-lucide="file-text" class="h-5 w-5"></i>
+                                        </span>
+                                        <div>
+                                            <h2 class="text-base font-semibold text-slate-950">
+                                                Request Details
+                                            </h2>
+                                            <p class="text-sm text-slate-500">
+                                                Ownership, department, and request date.
+                                            </p>
+                                        </div>
+                                    </div>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -136,10 +230,21 @@
                                     </div>
                                 </div>
 
-                                <div>
-                                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
-                                        2. Position Requirements (The Core Data)
-                                    </h2>
+                                <div id="position" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                    <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
+                                        <span
+                                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600">
+                                            <i data-lucide="briefcase-business" class="h-5 w-5"></i>
+                                        </span>
+                                        <div>
+                                            <h2 class="text-base font-semibold text-slate-950">
+                                                Position Requirements
+                                            </h2>
+                                            <p class="text-sm text-slate-500">
+                                                Role, openings, location, and working model.
+                                            </p>
+                                        </div>
+                                    </div>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -226,10 +331,21 @@
                                     </div>
                                 </div>
 
-                                <div>
-                                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
-                                        3. Justification & Budgeting (For HR & Finance Review)
-                                    </h2>
+                                <div id="budget" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                    <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
+                                        <span
+                                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+                                            <i data-lucide="wallet" class="h-5 w-5"></i>
+                                        </span>
+                                        <div>
+                                            <h2 class="text-base font-semibold text-slate-950">
+                                                Justification & Budget
+                                            </h2>
+                                            <p class="text-sm text-slate-500">
+                                                Hiring reason, budget status, and salary range.
+                                            </p>
+                                        </div>
+                                    </div>
 
                                     <div class="space-y-6">
                                         <div>
@@ -238,18 +354,22 @@
                                             </label>
 
                                             <div class="grid gap-3 sm:grid-cols-2">
-                                                <label class="inline-flex items-center gap-3">
+                                                <label
+                                                    class="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-indigo-300 hover:bg-indigo-50/70">
                                                     <input type="radio" name="reason_for_hire" value="New Headcount"
                                                         <?= old('reason_for_hire') === 'New Headcount' ? 'checked' : '' ?>
-                                                        onclick="toggleReplacement(false)">
-                                                    New Headcount
+                                                        onclick="toggleReplacement(false)"
+                                                        class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                                                    <span class="font-medium text-slate-800">New Headcount</span>
                                                 </label>
 
-                                                <label class="inline-flex items-center gap-3">
+                                                <label
+                                                    class="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-indigo-300 hover:bg-indigo-50/70">
                                                     <input type="radio" name="reason_for_hire" value="Replacement"
                                                         <?= old('reason_for_hire') === 'Replacement' ? 'checked' : '' ?>
-                                                        onclick="toggleReplacement(true)">
-                                                    Replacement
+                                                        onclick="toggleReplacement(true)"
+                                                        class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                                                    <span class="font-medium text-slate-800">Replacement</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -283,10 +403,10 @@
                                                     Minimum Salary
                                                 </label>
                                                 <div class="relative">
-                                                    <span class="absolute left-3 top-3 text-slate-500">₹</span>
+                                                    <span class="absolute left-3 top-3 text-sm font-semibold text-slate-500">₹</span>
                                                     <input type="number" name="salary_from"
                                                         value="<?= old('salary_from') ?>"
-                                                        class="pl-8 w-full border rounded-lg px-4 py-3">
+                                                        class="pl-9 w-full border rounded-lg px-4 py-3">
                                                 </div>
                                             </div>
 
@@ -295,10 +415,10 @@
                                                     Maximum Salary
                                                 </label>
                                                 <div class="relative">
-                                                    <span class="absolute left-3 top-3 text-slate-500">₹</span>
+                                                    <span class="absolute left-3 top-3 text-sm font-semibold text-slate-500">₹</span>
                                                     <input type="number" name="salary_to"
                                                         value="<?= old('salary_to') ?>"
-                                                        class="pl-8 w-full border rounded-lg px-4 py-3">
+                                                        class="pl-9 w-full border rounded-lg px-4 py-3">
                                                 </div>
                                             </div>
                                         </div>
@@ -313,10 +433,21 @@
                                     </div>
                                 </div>
 
-                                <div>
-                                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
-                                        4. Skills & Experience Profile
-                                    </h2>
+                                <div id="skills" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                    <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
+                                        <span
+                                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
+                                            <i data-lucide="sparkles" class="h-5 w-5"></i>
+                                        </span>
+                                        <div>
+                                            <h2 class="text-base font-semibold text-slate-950">
+                                                Skills & Experience
+                                            </h2>
+                                            <p class="text-sm text-slate-500">
+                                                Experience, education, skills, and job description.
+                                            </p>
+                                        </div>
+                                    </div>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div>
@@ -388,16 +519,21 @@
                                 </div>
                             </div>
 
-                            <div class="border-t p-6 flex justify-end gap-4">
+                            <div
+                                class="sticky bottom-4 z-20 rounded-lg border border-slate-200 bg-white/95 p-4 shadow-[0_-8px_30px_rgba(15,23,42,0.10)] backdrop-blur sm:p-5">
+                                <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                                 <button type="submit"
-                                    class="bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 rounded-lg">
+                                    class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                                    <i data-lucide="save" class="h-4 w-4"></i>
                                     Save Draft
                                 </button>
 
                                 <button formaction="<?= base_url('Recruitment/requisitions/submit') ?>" type="submit"
-                                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg">
+                                    class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700">
+                                    <i data-lucide="send" class="h-4 w-4"></i>
                                     Submit For Approval
                                 </button>
+                                </div>
                             </div>
 
                         </form>

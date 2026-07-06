@@ -26,6 +26,12 @@
 </head>
 
 <body class="bg-[#f8fafc]">
+    <?php
+    $jobCount = count($jobs ?? []);
+    $appliedCount = count($appliedIds ?? []);
+    $departmentCount = count(array_unique(array_filter(array_column($jobs ?? [], 'department'))));
+    $totalOpenings = array_sum(array_map(static fn($job) => (int) ($job['vacancies'] ?? 0), $jobs ?? []));
+    ?>
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
@@ -44,6 +50,123 @@
 
             <!-- Page Content -->
             <div class="flex-1 overflow-y-auto p-4 lg:p-5">
+                <div class="mx-auto max-w-7xl space-y-6">
+                    <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <h1 class="text-2xl font-semibold text-slate-950 sm:text-3xl">Career Opportunities</h1>
+                            <p class="mt-2 max-w-2xl text-sm text-slate-500">
+                                Discover open roles and apply to opportunities that match your profile.
+                            </p>
+                        </div>
+
+                        <div class="inline-flex w-fit rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
+                            <a href="<?= base_url('Recruitment/employee-jobs') ?>"
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-md bg-indigo-600 text-white">
+                                <i data-lucide="list" class="w-4 h-4"></i>
+                            </a>
+                            <a href="<?= base_url('Recruitment/employee-jobs-grid') ?>"
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-500 hover:bg-slate-50">
+                                <i data-lucide="grid-2x2" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Open Jobs</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $jobCount ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Open Positions</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $totalOpenings ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Departments</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $departmentCount ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Applied</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $appliedCount ?></p>
+                        </div>
+                    </div>
+
+                    <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
+                        <div class="flex flex-col gap-4 border-b border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+                            <div>
+                                <h2 class="text-base font-semibold text-slate-950">Available Roles</h2>
+                                <p class="mt-1 text-sm text-slate-500">Track what you have viewed and applied for.</p>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full min-w-[940px]">
+                                <thead>
+                                    <tr class="border-b border-slate-200 bg-slate-50 text-left text-xs font-semibold uppercase text-slate-500">
+                                        <th class="px-5 py-3">Role</th>
+                                        <th class="px-5 py-3">Department</th>
+                                        <th class="px-5 py-3">Location</th>
+                                        <th class="px-5 py-3">Salary</th>
+                                        <th class="px-5 py-3">Posted</th>
+                                        <th class="px-5 py-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 text-sm text-slate-700">
+                                    <?php if (!empty($jobs)): ?>
+                                        <?php foreach ($jobs as $job): ?>
+                                            <?php
+                                            $salaryRange = (!empty($job['salary_from']) && !empty($job['salary_to']))
+                                                ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                                : 'Not set';
+                                            $hasApplied = in_array($job['id'], $appliedIds ?? []);
+                                            ?>
+                                            <tr class="hover:bg-slate-50">
+                                                <td class="px-5 py-4">
+                                                    <div class="font-semibold text-slate-950"><?= esc($job['job_title']) ?></div>
+                                                    <div class="mt-1 text-xs text-slate-500">
+                                                        <?= esc($job['requisition_no'] ?? 'N/A') ?> · <?= esc($job['vacancies'] ?? 1) ?> openings
+                                                    </div>
+                                                </td>
+                                                <td class="px-5 py-4"><?= esc($job['department']) ?></td>
+                                                <td class="px-5 py-4"><?= esc($job['location']) ?></td>
+                                                <td class="px-5 py-4"><?= esc($salaryRange) ?></td>
+                                                <td class="px-5 py-4">
+                                                    <?= !empty($job['published_at']) ? date('d M Y', strtotime($job['published_at'])) : 'N/A' ?>
+                                                </td>
+                                                <td class="px-5 py-4">
+                                                    <div class="flex justify-end gap-2">
+                                                        <a href="#" onclick="openViewModal(<?= esc($job['id']) ?>); return false;"
+                                                            class="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                                                            <i data-lucide="eye" class="w-4 h-4"></i>
+                                                            View
+                                                        </a>
+                                                        <?php if ($hasApplied): ?>
+                                                            <button class="inline-flex h-9 items-center justify-center rounded-lg bg-emerald-50 px-3 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200" disabled>
+                                                                Applied
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <a href="<?= base_url('Recruitment/apply-job/' . $job['id']) ?>"
+                                                                class="inline-flex h-9 items-center justify-center rounded-lg bg-indigo-600 px-3 text-sm font-semibold text-white hover:bg-indigo-700">
+                                                                Apply
+                                                            </a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="px-5 py-12 text-center text-slate-500">
+                                                No published jobs available yet.
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="hidden">
                 <!-- Page Header -->
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
 
@@ -271,6 +394,7 @@
 
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
 

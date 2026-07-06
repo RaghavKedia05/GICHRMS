@@ -155,7 +155,10 @@ class RecruitmentController extends BaseController
             return redirect()->to('/login');
         }
 
-        return view('Recruitment/employee-jobs-grid', $this->getPublishedJobFilters());
+        $jobs = $this->getPublishedJobFilters();
+        $jobs['appliedIds'] = $this->jobApplicationModel->getAppliedJobIds($userId) ?? [];
+
+        return view('Recruitment/employee-jobs-grid', $jobs);
     }
 
     public function applyJob()

@@ -20,310 +20,357 @@
 
             <?= $this->include('navbar') ?>
 
-            <!-- Main Content -->
-            <main class="flex-1 p-8 overflow-auto">
+            <?php
+            $role = session('role');
+            $totalRequisitions = count($requisitions ?? []);
+            $draftCount = 0;
+            $pendingCount = 0;
+            $publishedCount = 0;
+            $rejectedCount = 0;
 
-                <!-- Page Header -->
-                <div class="flex justify-between items-center mb-8">
+            foreach ($requisitions ?? [] as $item) {
+                if (($item['status'] ?? '') === 'Draft') {
+                    $draftCount++;
+                }
 
-                    <div>
-                        <h1 class="text-3xl font-bold text-slate-800">
-                            Job Requisitions
-                        </h1>
+                if (in_array(($item['status'] ?? ''), ['Pending Approval', 'Pending HOD Approval', 'Approved'], true)) {
+                    $pendingCount++;
+                }
 
-                        <p class="text-slate-500 mt-1">
-                            Manage all recruitment requisitions
-                        </p>
+                if (($item['status'] ?? '') === 'Published') {
+                    $publishedCount++;
+                }
+
+                if (($item['status'] ?? '') === 'Rejected') {
+                    $rejectedCount++;
+                }
+            }
+
+            $statusClass = static function ($status): string {
+                return match ($status) {
+                    'Draft' => 'bg-amber-50 text-amber-700 ring-amber-200',
+                    'Pending Approval', 'Pending HOD Approval' => 'bg-sky-50 text-sky-700 ring-sky-200',
+                    'Approved', 'Published' => 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+                    'Rejected' => 'bg-rose-50 text-rose-700 ring-rose-200',
+                    default => 'bg-slate-100 text-slate-700 ring-slate-200',
+                };
+            };
+            ?>
+
+            <main class="flex-1 overflow-auto bg-slate-100 p-4 sm:p-6 lg:p-8">
+                <div class="mx-auto max-w-7xl space-y-6">
+                    <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <h1 class="text-2xl font-semibold text-slate-950 sm:text-3xl">
+                                    Job Requisitions
+                                </h1>
+                                <span
+                                    class="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">
+                                    <?= esc(ucwords(str_replace('_', ' ', (string) $role))) ?>
+                                </span>
+                            </div>
+                            <p class="mt-2 max-w-2xl text-sm text-slate-500">
+                                Review hiring requests, track approval progress, and publish approved roles.
+                            </p>
+                        </div>
+
+                        <?php if (in_array($role, ['hiring_manager', 'admin', 'department_head'])): ?>
+                            <a href="<?= base_url('Recruitment/requisitions/create') ?>"
+                                class="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-indigo-600 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700">
+                                <i data-lucide="plus" class="h-4 w-4"></i>
+                                Create Requisition
+                            </a>
+                        <?php endif; ?>
                     </div>
 
-                    <?php if (in_array(session('role'), ['hiring_manager', 'admin', 'department_head'])): ?>
-                        <a href="<?= base_url('Recruitment/requisitions/create') ?>"
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg flex items-center gap-2 shadow">
-
-                            <i data-lucide="plus" class="w-5 h-5"></i>
-
-                            Create Requisition
-
-                        </a>
-
-                    <?php endif; ?>
-
-                </div>
-
-
-
-
-                <!-- Table -->
-
-                <div class="bg-white rounded-xl shadow border overflow-hidden">
-
-                    <div class="overflow-x-auto">
-
-                        <table class="w-full">
-
-                            <thead class="bg-slate-100">
-
-                                <tr class="text-left">
-
-                                    <th class="px-6 py-4">Req No</th>
-
-                                    <th class="px-6 py-4">Job Title</th>
-
-                                    <th class="px-6 py-4">Department</th>
-
-                                    <th class="px-6 py-4">Vacancies</th>
-
-                                    <th class="px-6 py-4">Employment</th>
-
-                                    <th class="px-6 py-4">Status</th>
-
-                                    <th class="px-6 py-4">Created</th>
-
-                                    <th class="px-6 py-4 text-center">Actions</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                <?php if (!empty($requisitions)): ?>
-
-                                    <?php foreach ($requisitions as $row): ?>
-
-                                        <tr class="border-t hover:bg-slate-50">
-
-                                            <td class="px-6 py-4 font-medium">
-
-                                                <?= esc($row['requisition_no']) ?>
-
-                                            </td>
-
-                                            <td class="px-6 py-4">
-
-                                                <?= esc($row['job_title']) ?>
-
-                                            </td>
-
-                                            <td class="px-6 py-4">
-
-                                                <?= esc($row['department']) ?>
-
-                                            </td>
-
-                                            <td class="px-6 py-4">
-
-                                                <?= esc($row['vacancies']) ?>
-
-                                            </td>
-
-                                            <td class="px-6 py-4">
-
-                                                <?= esc($row['employment_type']) ?>
-
-                                            </td>
-
-                                            <td class="px-6 py-4">
-
-                                                <?php
-
-                                                $status = $row['status'];
-
-                                                $class = "bg-gray-100 text-gray-700";
-
-                                                if ($status == "Draft")
-                                                    $class = "bg-yellow-100 text-yellow-700";
-
-                                                if ($status == "Pending HOD Approval")
-                                                    $class = "bg-blue-100 text-blue-700";
-
-                                                if ($status == "Approved")
-                                                    $class = "bg-green-100 text-green-700";
-
-                                                if ($status == "Published")
-                                                    $class = "bg-green-100 text-green-700";
-
-                                                if ($status == "Rejected")
-                                                    $class = "bg-red-100 text-red-700";
-
-                                                ?>
-
-                                                <span class="px-3 py-1 rounded-full text-xs font-semibold <?= $class ?>">
-
-                                                    <?= esc($status) ?>
-
-                                                </span>
-
-                                            </td>
-
-                                            <td class="px-6 py-4">
-
-                                                <?= date('d M Y', strtotime($row['created_at'])) ?>
-
-                                            </td>
-
-                                            <!-- Actions -->
-                                            <td class="px-6 py-4">
-
-                                                <div class="flex justify-center gap-3">
-
-                                                    <?php $role = session('role'); ?>
-
-                                                    <!-- Hiring Manager -->
-
-                                                    <?php if ($role == 'hiring_manager'): ?>
-
-                                                        <a href="#" onclick="openViewModal(<?= $row['id'] ?>)"
-                                                            class="text-indigo-600">
-                                                            <i data-lucide="eye"></i>
-                                                        </a>
-
-                                                        <?php if ($row['status'] == 'Draft'): ?>
-
-                                                            <a href="#" onclick="openEditModal(<?= $row['id'] ?>)"
-                                                                class="text-amber-600">
-                                                                <i data-lucide="square-pen"></i>
-                                                            </a>
-
-                                                            <a href="#" onclick="openDeleteModal(<?= $row['id'] ?>)"
-                                                                class="text-red-600">
-                                                                <i data-lucide="trash-2"></i>
-                                                            </a>
-
+                    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium text-slate-500">Total</p>
+                                <i data-lucide="files" class="h-5 w-5 text-slate-400"></i>
+                            </div>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $totalRequisitions ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium text-slate-500">Drafts</p>
+                                <i data-lucide="file-pen-line" class="h-5 w-5 text-amber-500"></i>
+                            </div>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $draftCount ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium text-slate-500">In Review</p>
+                                <i data-lucide="timer" class="h-5 w-5 text-sky-500"></i>
+                            </div>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $pendingCount ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium text-slate-500">Published</p>
+                                <i data-lucide="badge-check" class="h-5 w-5 text-emerald-500"></i>
+                            </div>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $publishedCount ?></p>
+                        </div>
+                    </div>
+
+                    <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
+                        <div class="flex flex-col gap-4 border-b border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+                            <div>
+                                <h2 class="text-base font-semibold text-slate-950">Requisition Pipeline</h2>
+                                <p class="mt-1 text-sm text-slate-500">Sorted by latest request first.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                                <span class="rounded-full bg-rose-50 px-3 py-1 text-rose-700 ring-1 ring-rose-200">
+                                    Rejected <?= $rejectedCount ?>
+                                </span>
+                                <span class="rounded-full bg-slate-100 px-3 py-1 text-slate-600 ring-1 ring-slate-200">
+                                    <?= $totalRequisitions ?> records
+                                </span>
+                            </div>
+                        </div>
+
+                        <?php if (!empty($requisitions)): ?>
+                            <div class="hidden overflow-x-auto lg:block">
+                                <table class="w-full min-w-[980px]">
+                                    <thead>
+                                        <tr class="border-b border-slate-200 bg-slate-50 text-left text-xs font-semibold uppercase text-slate-500">
+                                            <th class="px-5 py-3">Request</th>
+                                            <th class="px-5 py-3">Department</th>
+                                            <th class="px-5 py-3">Openings</th>
+                                            <th class="px-5 py-3">Employment</th>
+                                            <th class="px-5 py-3">Status</th>
+                                            <th class="px-5 py-3">Created</th>
+                                            <th class="px-5 py-3 text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <?php foreach ($requisitions as $row): ?>
+                                            <tr class="text-sm hover:bg-slate-50/80">
+                                                <td class="px-5 py-4">
+                                                    <p class="font-semibold text-slate-950"><?= esc($row['job_title']) ?></p>
+                                                    <p class="mt-1 text-xs font-medium text-slate-500"><?= esc($row['requisition_no']) ?></p>
+                                                </td>
+                                                <td class="px-5 py-4 text-slate-700"><?= esc($row['department']) ?></td>
+                                                <td class="px-5 py-4 text-slate-700"><?= esc($row['vacancies']) ?></td>
+                                                <td class="px-5 py-4 text-slate-700"><?= esc($row['employment_type']) ?></td>
+                                                <td class="px-5 py-4">
+                                                    <span
+                                                        class="inline-flex rounded-full px-3 py-1 text-xs font-semibold ring-1 <?= $statusClass($row['status']) ?>">
+                                                        <?= esc($row['status']) ?>
+                                                    </span>
+                                                </td>
+                                                <td class="px-5 py-4 text-slate-600">
+                                                    <?= date('d M Y', strtotime($row['created_at'])) ?>
+                                                </td>
+                                                <td class="px-5 py-4">
+                                                    <div class="flex justify-end gap-2">
+                                                        <?php
+                                                        $deleteReq = esc($row['requisition_no'], 'js');
+                                                        $deleteTitle = esc($row['job_title'], 'js');
+                                                        ?>
+
+                                                        <button type="button" onclick="openViewModal(<?= $row['id'] ?>)"
+                                                            class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
+                                                            title="View">
+                                                            <i data-lucide="eye" class="h-4 w-4"></i>
+                                                        </button>
+
+                                                        <?php if ($role === 'hiring_manager' && $row['status'] === 'Draft'): ?>
+                                                            <button type="button" onclick="openEditModal(<?= $row['id'] ?>)"
+                                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-amber-200 hover:bg-amber-50 hover:text-amber-600"
+                                                                title="Edit">
+                                                                <i data-lucide="square-pen" class="h-4 w-4"></i>
+                                                            </button>
+                                                            <button type="button"
+                                                                onclick="openDeleteModal(<?= $row['id'] ?>, '<?= $deleteReq ?>', '<?= $deleteTitle ?>')"
+                                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+                                                                title="Delete">
+                                                                <i data-lucide="trash-2" class="h-4 w-4"></i>
+                                                            </button>
                                                         <?php endif; ?>
 
-                                                    <?php endif; ?>
-
-
-                                                    <!-- Department Head -->
-
-                                                    <?php if ($role == 'department_head'): ?>
-
-                                                        <a href="#" onclick="openViewModal(<?= $row['id'] ?>)"
-                                                            class="text-indigo-600">
-                                                            <i data-lucide="eye"></i>
-                                                        </a>
-
-                                                        <?php if ($row['hod_status'] == 'Pending' && $row['status'] == 'Pending Approval'): ?>
-
+                                                        <?php if ($role === 'department_head' && $row['hod_status'] === 'Pending' && $row['status'] === 'Pending Approval'): ?>
                                                             <form method="post"
                                                                 action="<?= base_url('Recruitment/requisitions/hod-approve/' . $row['id']) ?>">
-
                                                                 <?= csrf_field() ?>
-
-                                                                <button class="text-green-600 hover:text-green-800">
-                                                                    <i data-lucide="check-circle"></i>
+                                                                <button
+                                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                                                                    title="Approve">
+                                                                    <i data-lucide="check-circle" class="h-4 w-4"></i>
                                                                 </button>
-
                                                             </form>
-
                                                             <form method="post"
                                                                 action="<?= base_url('Recruitment/requisitions/hod-reject/' . $row['id']) ?>">
-
                                                                 <?= csrf_field() ?>
-
-                                                                <button class="text-red-600 hover:text-red-800">
-                                                                    <i data-lucide="x-circle"></i>
+                                                                <button
+                                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50"
+                                                                    title="Reject">
+                                                                    <i data-lucide="x-circle" class="h-4 w-4"></i>
                                                                 </button>
-
                                                             </form>
-
                                                         <?php endif; ?>
 
-                                                    <?php endif; ?>
-
-
-                                                    <!-- HR -->
-
-                                                    <?php if ($role == 'hr'): ?>
-
-                                                        <a href="#" onclick="openViewModal(<?= $row['id'] ?>)"
-                                                            class="text-indigo-600">
-                                                            <i data-lucide="eye"></i>
-                                                        </a>
-
-                                                        <?php if (
-                                                            $row['hod_status'] == 'Approved' &&
-                                                            $row['hr_status'] == 'Pending'
-                                                        ): ?>
-
+                                                        <?php if ($role === 'hr' && $row['hod_status'] === 'Approved' && $row['hr_status'] === 'Pending'): ?>
                                                             <form method="post"
                                                                 action="<?= base_url('Recruitment/requisitions/hr-approve/' . $row['id']) ?>">
-
                                                                 <?= csrf_field() ?>
-
-                                                                <button class="text-green-600 hover:text-green-800">
-                                                                    <i data-lucide="badge-check"></i>
+                                                                <button
+                                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                                                                    title="Publish">
+                                                                    <i data-lucide="badge-check" class="h-4 w-4"></i>
                                                                 </button>
-
                                                             </form>
-
                                                             <form method="post"
                                                                 action="<?= base_url('Recruitment/requisitions/hr-reject/' . $row['id']) ?>">
-
                                                                 <?= csrf_field() ?>
-
-                                                                <button class="text-red-600 hover:text-red-800">
-                                                                    <i data-lucide="x-circle"></i>
+                                                                <button
+                                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50"
+                                                                    title="Reject">
+                                                                    <i data-lucide="x-circle" class="h-4 w-4"></i>
                                                                 </button>
-
                                                             </form>
-
                                                         <?php endif; ?>
 
-                                                    <?php endif; ?>
+                                                        <?php if ($role === 'admin'): ?>
+                                                            <button type="button" onclick="openEditModal(<?= $row['id'] ?>)"
+                                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-amber-200 hover:bg-amber-50 hover:text-amber-600"
+                                                                title="Edit">
+                                                                <i data-lucide="square-pen" class="h-4 w-4"></i>
+                                                            </button>
+                                                            <button type="button"
+                                                                onclick="openDeleteModal(<?= $row['id'] ?>, '<?= $deleteReq ?>', '<?= $deleteTitle ?>')"
+                                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+                                                                title="Delete">
+                                                                <i data-lucide="trash-2" class="h-4 w-4"></i>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
 
+                            <div class="grid gap-3 p-4 lg:hidden">
+                                <?php foreach ($requisitions as $row): ?>
+                                    <?php
+                                    $deleteReq = esc($row['requisition_no'], 'js');
+                                    $deleteTitle = esc($row['job_title'], 'js');
+                                    ?>
+                                    <article class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="min-w-0">
+                                                <p class="truncate text-base font-semibold text-slate-950"><?= esc($row['job_title']) ?></p>
+                                                <p class="mt-1 text-xs font-medium text-slate-500"><?= esc($row['requisition_no']) ?></p>
+                                            </div>
+                                            <span
+                                                class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold ring-1 <?= $statusClass($row['status']) ?>">
+                                                <?= esc($row['status']) ?>
+                                            </span>
+                                        </div>
 
-                                                    <!-- Admin -->
+                                        <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                                            <div>
+                                                <p class="text-xs font-medium text-slate-500">Department</p>
+                                                <p class="mt-1 font-semibold text-slate-800"><?= esc($row['department']) ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs font-medium text-slate-500">Openings</p>
+                                                <p class="mt-1 font-semibold text-slate-800"><?= esc($row['vacancies']) ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs font-medium text-slate-500">Employment</p>
+                                                <p class="mt-1 font-semibold text-slate-800"><?= esc($row['employment_type']) ?></p>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs font-medium text-slate-500">Created</p>
+                                                <p class="mt-1 font-semibold text-slate-800"><?= date('d M Y', strtotime($row['created_at'])) ?></p>
+                                            </div>
+                                        </div>
 
-                                                    <?php if ($role == 'admin'): ?>
+                                        <div class="mt-4 flex flex-wrap gap-2">
+                                            <button type="button" onclick="openViewModal(<?= $row['id'] ?>)"
+                                                class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                                                <i data-lucide="eye" class="h-4 w-4"></i>
+                                                View
+                                            </button>
 
-                                                        <a href="#" onclick="openViewModal(<?= $row['id'] ?>)"
-                                                            class="text-indigo-600">
-                                                            <i data-lucide="eye"></i>
-                                                        </a>
+                                            <?php if (($role === 'hiring_manager' && $row['status'] === 'Draft') || $role === 'admin'): ?>
+                                                <button type="button" onclick="openEditModal(<?= $row['id'] ?>)"
+                                                    class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-amber-200 px-3 text-sm font-semibold text-amber-700 hover:bg-amber-50">
+                                                    <i data-lucide="square-pen" class="h-4 w-4"></i>
+                                                    Edit
+                                                </button>
+                                                <button type="button"
+                                                    onclick="openDeleteModal(<?= $row['id'] ?>, '<?= $deleteReq ?>', '<?= $deleteTitle ?>')"
+                                                    class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-rose-200 px-3 text-sm font-semibold text-rose-700 hover:bg-rose-50">
+                                                    <i data-lucide="trash-2" class="h-4 w-4"></i>
+                                                    Delete
+                                                </button>
+                                            <?php endif; ?>
 
-                                                        <a href="#" onclick="openEditModal(<?= $row['id'] ?>)"
-                                                            class="text-amber-600">
-                                                            <i data-lucide="square-pen"></i>
-                                                        </a>
+                                            <?php if ($role === 'department_head' && $row['hod_status'] === 'Pending' && $row['status'] === 'Pending Approval'): ?>
+                                                <form method="post"
+                                                    action="<?= base_url('Recruitment/requisitions/hod-approve/' . $row['id']) ?>">
+                                                    <?= csrf_field() ?>
+                                                    <button
+                                                        class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-emerald-200 px-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">
+                                                        <i data-lucide="check-circle" class="h-4 w-4"></i>
+                                                        Approve
+                                                    </button>
+                                                </form>
+                                                <form method="post"
+                                                    action="<?= base_url('Recruitment/requisitions/hod-reject/' . $row['id']) ?>">
+                                                    <?= csrf_field() ?>
+                                                    <button
+                                                        class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-rose-200 px-3 text-sm font-semibold text-rose-700 hover:bg-rose-50">
+                                                        <i data-lucide="x-circle" class="h-4 w-4"></i>
+                                                        Reject
+                                                    </button>
+                                                </form>
+                                            <?php endif; ?>
 
-                                                        <a href="#" onclick="openDeleteModal(<?= $row['id'] ?>)"
-                                                            class="text-red-600">
-                                                            <i data-lucide="trash-2"></i>
-                                                        </a>
-
-                                                    <?php endif; ?>
-
-                                                </div>
-
-                                            </td>
-
-                                        </tr>
-
-                                    <?php endforeach; ?>
-
-                                <?php else: ?>
-
-                                    <tr>
-
-                                        <td colspan="8" class="text-center py-10 text-slate-500">
-
-                                            No Job Requisitions Found
-
-                                        </td>
-
-                                    </tr>
-
-                                <?php endif; ?>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
+                                            <?php if ($role === 'hr' && $row['hod_status'] === 'Approved' && $row['hr_status'] === 'Pending'): ?>
+                                                <form method="post"
+                                                    action="<?= base_url('Recruitment/requisitions/hr-approve/' . $row['id']) ?>">
+                                                    <?= csrf_field() ?>
+                                                    <button
+                                                        class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-emerald-200 px-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">
+                                                        <i data-lucide="badge-check" class="h-4 w-4"></i>
+                                                        Publish
+                                                    </button>
+                                                </form>
+                                                <form method="post"
+                                                    action="<?= base_url('Recruitment/requisitions/hr-reject/' . $row['id']) ?>">
+                                                    <?= csrf_field() ?>
+                                                    <button
+                                                        class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-rose-200 px-3 text-sm font-semibold text-rose-700 hover:bg-rose-50">
+                                                        <i data-lucide="x-circle" class="h-4 w-4"></i>
+                                                        Reject
+                                                    </button>
+                                                </form>
+                                            <?php endif; ?>
+                                        </div>
+                                    </article>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="flex flex-col items-center justify-center px-6 py-16 text-center">
+                                <div class="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+                                    <i data-lucide="inbox" class="h-7 w-7"></i>
+                                </div>
+                                <h2 class="mt-4 text-lg font-semibold text-slate-950">No requisitions found</h2>
+                                <p class="mt-2 max-w-md text-sm text-slate-500">
+                                    New job requisitions will appear here after they are created.
+                                </p>
+                            </div>
+                        <?php endif; ?>
+                    </section>
                 </div>
+            </main>
 
         </div>
 
@@ -350,9 +397,9 @@
     <?php endif; ?>
 
     <!-- Approval Modal -->
-    <div id="approvalModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div id="approvalModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
 
-        <div class="bg-white rounded-xl w-full max-w-3xl shadow-xl">
+        <div class="bg-white rounded-lg w-full max-w-3xl shadow-xl">
 
             <!-- Header -->
 
@@ -374,9 +421,10 @@
 
                 </div>
 
-                <button onclick="closeApprovalModal()">
+                <button onclick="closeApprovalModal()"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
 
-                    <i data-lucide="x"></i>
+                    <i data-lucide="x" class="h-5 w-5"></i>
 
                 </button>
 
@@ -452,9 +500,9 @@
 
     </script>
 
-    <div id="viewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+    <div id="viewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
 
-        <div class="bg-white rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
+        <div class="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 shadow-xl">
 
             <div class="flex justify-between items-center mb-6">
 
@@ -464,9 +512,10 @@
 
                 </h2>
 
-                <button onclick="closeViewModal()">
+                <button onclick="closeViewModal()"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
 
-                    ✕
+                    <i data-lucide="x" class="h-5 w-5"></i>
 
                 </button>
 
@@ -480,9 +529,9 @@
 
     </div>
 
-    <div id="editModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+    <div id="editModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
 
-        <div class="bg-white rounded-xl w-full max-w-5xl max-h-[90vh] overflow-y-auto p-6">
+        <div class="bg-white rounded-lg w-full max-w-5xl max-h-[90vh] overflow-y-auto p-6 shadow-xl">
 
             <div class="flex justify-between items-center mb-6">
 
@@ -492,9 +541,10 @@
 
                 </h2>
 
-                <button onclick="closeEditModal()">
+                <button onclick="closeEditModal()"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
 
-                    ✕
+                    <i data-lucide="x" class="h-5 w-5"></i>
 
                 </button>
 

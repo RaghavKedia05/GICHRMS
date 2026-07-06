@@ -26,6 +26,11 @@
 </head>
 
 <body class="bg-[#f8fafc]">
+    <?php
+    $jobCount = count($jobs ?? []);
+    $departmentCount = count(array_unique(array_filter(array_column($jobs ?? [], 'department'))));
+    $totalOpenings = array_sum(array_map(static fn($job) => (int) ($job['vacancies'] ?? 0), $jobs ?? []));
+    ?>
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
@@ -44,6 +49,102 @@
 
             <!-- Page Content -->
             <div class="flex-1 overflow-y-auto p-4 sm:p-5">
+                <div class="mx-auto max-w-7xl space-y-6">
+                    <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <h1 class="text-2xl font-semibold text-slate-950 sm:text-3xl">Job Openings</h1>
+                            <p class="mt-2 max-w-2xl text-sm text-slate-500">
+                                Browse open roles as focused cards for quick scanning.
+                            </p>
+                        </div>
+
+                        <div class="inline-flex w-fit rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
+                            <a href="<?= base_url('Recruitment/jobs') ?>"
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-500 hover:bg-slate-50">
+                                <i data-lucide="list" class="w-4 h-4"></i>
+                            </a>
+                            <a href="<?= base_url('Recruitment/jobs-grid') ?>"
+                                class="inline-flex h-9 w-9 items-center justify-center rounded-md bg-indigo-600 text-white">
+                                <i data-lucide="grid-2x2" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 sm:grid-cols-3">
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Published Jobs</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $jobCount ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Open Positions</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $totalOpenings ?></p>
+                        </div>
+                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Departments</p>
+                            <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $departmentCount ?></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        <?php if (!empty($jobs)): ?>
+                            <?php foreach ($jobs as $job): ?>
+                                <?php
+                                $salary = (!empty($job['salary_from']) && !empty($job['salary_to']))
+                                    ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                    : 'Not set';
+                                ?>
+                                <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                                    <div class="flex items-start justify-between gap-4">
+                                        <div class="flex min-w-0 gap-3">
+                                            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                                                <i data-lucide="briefcase-business" class="h-5 w-5"></i>
+                                            </div>
+                                            <div class="min-w-0">
+                                                <h2 class="truncate text-base font-semibold text-slate-950"><?= esc($job['job_title']) ?></h2>
+                                                <p class="mt-1 text-xs font-medium text-slate-500"><?= esc($job['requisition_no'] ?? 'N/A') ?></p>
+                                            </div>
+                                        </div>
+                                        <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
+                                            Open
+                                        </span>
+                                    </div>
+
+                                    <div class="mt-5 grid gap-3 text-sm text-slate-600">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="building-2" class="h-4 w-4 text-slate-400"></i>
+                                            <?= esc($job['department'] ?? 'Department') ?>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="map-pin" class="h-4 w-4 text-slate-400"></i>
+                                            <?= esc($job['location'] ?? 'Location not set') ?>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="indian-rupee" class="h-4 w-4 text-slate-400"></i>
+                                            <?= esc($salary) ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+                                        <span class="text-sm font-medium text-slate-500">
+                                            <?= esc($job['vacancies'] ?? 1) ?> openings
+                                        </span>
+                                        <button type="button" onclick="openViewModal(<?= esc($job['id']) ?>)"
+                                            class="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                                            <i data-lucide="eye" class="h-4 w-4"></i>
+                                            View
+                                        </button>
+                                    </div>
+                                </article>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="col-span-full rounded-lg border border-slate-200 bg-white p-10 text-center text-slate-500">
+                                No published jobs available yet.
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="hidden">
                 <!-- Page Header -->
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
 
@@ -208,6 +309,7 @@
                         </div>
                     <?php endif; ?>
 
+                </div>
                 </div>
 
             </div>

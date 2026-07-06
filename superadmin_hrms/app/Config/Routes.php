@@ -44,6 +44,11 @@ $routes->get('/chat', 'ChatController::index');
 $routes->get('/chat/(:num)', 'ChatController::conversation/$1');
 
 $routes->get('/employee_attendance', 'DashboardController::employee_attendance');
+$routes->get('/staff', 'Employee\EmployeeController::staff', ['filter' => 'auth']);
+$routes->get('/staff/create', 'Employee\EmployeeController::createStaff', ['filter' => 'auth']);
+$routes->post('/staff/store', 'Employee\EmployeeController::storeStaff', ['filter' => 'auth']);
+$routes->get('/staff/edit/(:num)', 'Employee\EmployeeController::editStaff/$1', ['filter' => 'auth']);
+$routes->post('/staff/update/(:num)', 'Employee\EmployeeController::updateStaff/$1', ['filter' => 'auth']);
 
 $routes->get('/performance_review', 'PerformanceReviewController::performance_review');
 $routes->post('performance_review/save', 'PerformanceReviewController::save');

@@ -1,13 +1,17 @@
 <?php
+$firstSegment = service('uri')->getSegment(1);
 $currentPage = service('uri')->getSegment(2);
 
 if (empty($currentPage)) {
-    $currentPage = service('uri')->getSegment(1);
+    $currentPage = $firstSegment;
 }
 
 if (empty($currentPage)) {
     $currentPage = 'dashboard';
 }
+
+$isStaffPage = $firstSegment === 'staff';
+$canManageStaff = in_array(session('role'), ['hr', 'admin'], true);
 ?>
 
 <aside id="sidebar" class="
@@ -160,6 +164,46 @@ if (empty($currentPage)) {
             <i data-lucide="chevron-down" class="w-4 h-4"></i>
 
         </a>
+
+
+        <!-- Staff -->
+        <h6 class="px-1 mt-6 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
+            Staff
+        </h6>
+
+        <a href="/staff" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            <?= ($isStaffPage && $currentPage != 'create')
+                ? 'bg-slate-200 text-slate-800'
+                : 'text-slate-800 hover:bg-slate-200'; ?>">
+
+            <div class="flex items-center gap-2 lg:gap-2.5">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                <span class="text-xs lg:text-[13px] font-semibold">
+                    Staff Directory
+                </span>
+            </div>
+
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+
+        </a>
+
+        <?php if ($canManageStaff): ?>
+        <a href="/staff/create" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
+            <?= ($isStaffPage && $currentPage == 'create')
+                ? 'bg-slate-200 text-slate-800'
+                : 'text-slate-800 hover:bg-slate-200'; ?>">
+
+            <div class="flex items-center gap-2 lg:gap-2.5">
+                <i data-lucide="user-plus" class="w-4 h-4"></i>
+                <span class="text-xs lg:text-[13px] font-semibold">
+                    Add Staff
+                </span>
+            </div>
+
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+
+        </a>
+        <?php endif; ?>
 
 
         <!-- Finance -->
