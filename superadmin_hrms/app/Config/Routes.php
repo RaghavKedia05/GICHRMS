@@ -55,7 +55,8 @@ $routes->get('/Recruitment/candidates-grid', 'Recruitment\RecruitmentController:
 $routes->get('/Recruitment/candidates-kanban', 'Recruitment\RecruitmentController::candidatesKanban');
 $routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1');
 $routes->get('/Recruitment/employee-jobs', 'Recruitment\RecruitmentController::employeeJobs', ['filter' => 'auth']);
-$routes->post('/Recruitment/apply-job', 'RecruitmentController::applyJob', ['filter' => 'auth']);
+$routes->get('/Recruitment/employee-jobs-grid', 'Recruitment\RecruitmentController::employeeJobsGrid', ['filter' => 'auth']);
+$routes->post('/Recruitment/apply-job', 'Recruitment\RecruitmentController::applyJob', ['filter' => 'auth']);
 
 // =========================
 // Recruitment - Requisitions

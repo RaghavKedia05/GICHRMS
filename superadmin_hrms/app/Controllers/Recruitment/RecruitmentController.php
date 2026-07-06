@@ -17,27 +17,33 @@ class RecruitmentController extends BaseController
         $this->jobApplicationModel = new JobApplicationModel();
     }
 
+    private function publishedJobsQuery(): RequisitionModel
+    {
+        return (new RequisitionModel())
+            ->where('status', 'Published')
+            ->where('hod_status', 'Approved')
+            ->where('hr_status', 'Approved');
+    }
+
     private function getPublishedJobFilters()
     {
         $role = $this->request->getGet('role');
         $status = $this->request->getGet('status');
         $sortBy = $this->request->getGet('sort_by');
-        $search = trim($this->request->getGet('search'));
+        $search = trim((string) $this->request->getGet('search'));
 
-        $builder = $this->requisitionModel
-            ->where('status', 'Published')
-            ->where('hr_status', 'Approved');
+        $jobsQuery = $this->publishedJobsQuery();
 
         if (!empty($role)) {
-            $builder->where('department', $role);
+            $jobsQuery->where('department', $role);
         }
 
         if (!empty($status)) {
-            $builder->where('employment_type', $status);
+            $jobsQuery->where('employment_type', $status);
         }
 
         if (!empty($search)) {
-            $builder->groupStart()
+            $jobsQuery->groupStart()
                 ->like('job_title', $search)
                 ->orLike('department', $search)
                 ->orLike('description', $search)
@@ -46,37 +52,35 @@ class RecruitmentController extends BaseController
 
         switch ($sortBy) {
             case 'oldest':
-                $builder->orderBy('published_at', 'ASC');
+                $jobsQuery->orderBy('published_at', 'ASC');
                 break;
             case 'title':
-                $builder->orderBy('job_title', 'ASC');
+                $jobsQuery->orderBy('job_title', 'ASC');
                 break;
             case 'department':
-                $builder->orderBy('department', 'ASC');
+                $jobsQuery->orderBy('department', 'ASC');
                 break;
             default:
-                $builder->orderBy('published_at', 'DESC');
+                $jobsQuery->orderBy('published_at', 'DESC');
                 break;
         }
 
-        $roles = array_column($this->requisitionModel
+        $jobs = $jobsQuery->findAll();
+
+        $roles = array_column($this->publishedJobsQuery()
             ->select('department')
-            ->where('status', 'Published')
-            ->where('hr_status', 'Approved')
             ->groupBy('department')
             ->orderBy('department')
             ->findAll(), 'department');
 
-        $statuses = array_column($this->requisitionModel
+        $statuses = array_column($this->publishedJobsQuery()
             ->select('employment_type')
-            ->where('status', 'Published')
-            ->where('hr_status', 'Approved')
             ->groupBy('employment_type')
             ->orderBy('employment_type')
             ->findAll(), 'employment_type');
 
         return [
-            'jobs' => $builder->findAll(),
+            'jobs' => $jobs,
             'roles' => $roles,
             'statuses' => $statuses,
             'filterRole' => $role,
@@ -98,7 +102,12 @@ class RecruitmentController extends BaseController
 
     public function viewJob($id)
     {
-        $requisition = $this->requisitionModel->find($id);
+        $requisition = $this->requisitionModel
+            ->where('id', $id)
+            ->where('status', 'Published')
+            ->where('hod_status', 'Approved')
+            ->where('hr_status', 'Approved')
+            ->first();
 
         if (!$requisition) {
             return redirect()->to('/Recruitment/jobs')
@@ -138,6 +147,17 @@ class RecruitmentController extends BaseController
         ]);
     }
 
+    public function employeeJobsGrid()
+    {
+        $userId = session('user_id');
+
+        if (!$userId) {
+            return redirect()->to('/login');
+        }
+
+        return view('Recruitment/employee-jobs-grid', $this->getPublishedJobFilters());
+    }
+
     public function applyJob()
     {
         if ($this->request->getMethod() !== 'post') {
@@ -152,7 +172,6 @@ class RecruitmentController extends BaseController
                 ->with('error', 'Only employees can submit job applications.');
         }
 
-        $userId = session('user_id');
         $requisitionId = (int) $this->request->getPost('requisition_id');
 
         if (!$userId || !$requisitionId) {
@@ -163,6 +182,7 @@ class RecruitmentController extends BaseController
         $requisition = $this->requisitionModel
             ->where('id', $requisitionId)
             ->where('status', 'Published')
+            ->where('hod_status', 'Approved')
             ->where('hr_status', 'Approved')
             ->first();
 
@@ -192,6 +212,7 @@ class RecruitmentController extends BaseController
         $requisition = $this->requisitionModel
             ->where('id', $id)
             ->where('status', 'Published')
+            ->where('hod_status', 'Approved')
             ->where('hr_status', 'Approved')
             ->first();
 
@@ -208,27 +229,33 @@ class RecruitmentController extends BaseController
 
     public function candidates()
     {
-        try {
-            $applications = $this->jobApplicationModel->getApplicationsWithDetails();
-        } catch (\Throwable $e) {
-            log_message('error', 'Failed to load job applications: ' . $e->getMessage());
-            $applications = [];
-        }
-
         return view('/Recruitment/candidates', [
-            'applications' => $applications,
+            'applications' => $this->getCandidateApplications(),
         ]);
     }
 
     public function candidatesGrid()
     {
-        return view('/Recruitment/candidates-grid');
+        return view('/Recruitment/candidates-grid', [
+            'applications' => $this->getCandidateApplications(),
+        ]);
     }
 
     public function candidatesKanban()
     {
-        return view('/Recruitment/candidates-kanban');
+        return view('/Recruitment/candidates-kanban', [
+            'applications' => $this->getCandidateApplications(),
+        ]);
     }
 
+    private function getCandidateApplications(): array
+    {
+        try {
+            return $this->jobApplicationModel->getApplicationsWithDetails();
+        } catch (\Throwable $e) {
+            log_message('error', 'Failed to load job applications: ' . $e->getMessage());
+            return [];
+        }
+    }
 
 }

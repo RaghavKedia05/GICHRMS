@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Job Requisition</title>
 
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
@@ -19,7 +17,6 @@
         }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -30,20 +27,15 @@
 
     <div class="flex h-screen overflow-hidden">
 
-        <!-- Sidebar -->
         <?= $this->include('sidebar') ?>
 
-        <!-- Main -->
         <div class="flex-1 flex flex-col overflow-hidden">
 
-            <!-- Navbar -->
             <?= $this->include('navbar') ?>
 
-            <!-- Content -->
             <div class="flex-1 overflow-y-auto p-6">
                 <div class="max-w-6xl mx-auto">
 
-                    <!-- Back -->
                     <a href="<?= base_url('/Recruitment/requisitions') ?>"
                         class="inline-flex items-center gap-2 text-sm font-medium mb-5 hover:text-orange-500">
                         <i data-lucide="arrow-left-circle" class="w-4 h-4"></i>
@@ -86,10 +78,6 @@
                             <?php $selectedDepartment = old('department', $departments[0]['department_name'] ?? ''); ?>
 
                             <div class="p-6 space-y-10">
-
-                                <!-- ================================================= -->
-                                <!-- REQUEST DETAILS -->
-                                <!-- ================================================= -->
 
                                 <div>
                                     <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
@@ -147,10 +135,6 @@
 
                                     </div>
                                 </div>
-
-                                <!-- ================================================= -->
-                                <!-- POSITION REQUIREMENTS -->
-                                <!-- ================================================= -->
 
                                 <div>
                                     <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
@@ -242,10 +226,6 @@
                                     </div>
                                 </div>
 
-                                <!-- ================================================= -->
-                                <!-- JUSTIFICATION -->
-                                <!-- ================================================= -->
-
                                 <div>
                                     <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
                                         3. Justification & Budgeting (For HR & Finance Review)
@@ -332,10 +312,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- ================================================= -->
-                                <!-- SKILLS -->
-                                <!-- ================================================= -->
 
                                 <div>
                                     <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-5">
@@ -426,7 +402,7 @@
 
                         </form>
 
-                    </div> <!-- Card -->
+                    </div>
                     <script>
                         function toggleReplacement(show) {
                             var replacementGroup = document.getElementById('replacementGroup');
@@ -443,13 +419,13 @@
                         });
                     </script>
 
-                </div> <!-- max-w-6xl -->
+                </div>
 
-            </div> <!-- Content -->
+            </div>
 
-        </div> <!-- Main -->
+        </div>
 
-    </div> <!-- Flex -->
+    </div>
 
     <script>
         lucide.createIcons();

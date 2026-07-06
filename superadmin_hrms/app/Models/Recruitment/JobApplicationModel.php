@@ -42,7 +42,9 @@ class JobApplicationModel extends Model
     public function getApplicationsWithDetails(): array
     {
         return $this->select(
-                'job_applications.*, 
+                'job_applications.*,
+                job_applications.id AS application_id,
+                job_applications.status AS application_status,
                 users.employee_id,
                 users.name,
                 users.email,
@@ -64,8 +66,8 @@ class JobApplicationModel extends Model
     }
 
     public function getAppliedJobIds($userId)
-{
-    return $this->where('user_id', $userId)
-                ->findColumn('requisition_id');
-}
+    {
+        return $this->where('user_id', $userId)
+            ->findColumn('requisition_id');
+    }
 }

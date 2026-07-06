@@ -21,7 +21,6 @@ class RequisitionController extends BaseController
         $userId = session('user_id');
 
         switch ($role) {
-
             case 'admin':
                 $data['requisitions'] = $this->requisitionModel
                     ->orderBy('id', 'DESC')
@@ -89,8 +88,6 @@ class RequisitionController extends BaseController
         $data['requisition_id'] = $this->generateRequisitionNo();
         return view('Recruitment/create_requisition', $data);
     }
-
-
 
     private function validationRules(): array
     {
@@ -269,6 +266,17 @@ class RequisitionController extends BaseController
 
     public function hrApprove($id)
     {
+        $requisition = $this->requisitionModel->find($id);
+
+        if (!$requisition) {
+            return redirect()->back()->with('error', 'Requisition not found.');
+        }
+
+        if ($requisition['hod_status'] !== 'Approved') {
+            return redirect()->back()
+                ->with('error', 'HOD approval is required before HR can publish this job.');
+        }
+
         $this->requisitionModel->update($id, [
             'hr_status' => 'Approved',
             'status' => 'Published',

@@ -13,7 +13,6 @@ class RequisitionModel extends Model
     protected $returnType = 'array';
 
     protected $allowedFields = [
-
         'requisition_no',
         'job_title',
         'department',
@@ -23,35 +22,25 @@ class RequisitionModel extends Model
         'employment_type',
         'work_mode',
         'location',
-
         'reason_for_hire',
         'previous_employee',
         'budget_status',
-
         'salary_from',
         'salary_to',
-
         'justification_notes',
-
         'experience',
         'education',
-
         'mandatory_skills',
         'preferred_skills',
-
         'description',
-
         'requested_by',
         'approved_by',
-
         'status',
         'hod_status',
         'hr_status',
-
         'submitted_at',
         'published_at',
-        'rejection_reason'
-
+        'rejection_reason',
     ];
 
     protected $useTimestamps = true;

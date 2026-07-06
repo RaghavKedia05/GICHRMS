@@ -87,22 +87,6 @@
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>
 
-                        <!-- Export -->
-                        <button
-                            class="flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-md">
-                            <i data-lucide="file-down" class="w-4 h-4"></i>
-
-                            Export
-
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                        </button>
-
-                        <!-- Scroll Top -->
-                        <button
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center">
-                            <i data-lucide="chevrons-up" class="w-4 h-4"></i>
-                        </button>
-
                     </div>
 
                 </div>
@@ -113,34 +97,12 @@
                 <div class="bg-white border border-slate-200 rounded-md shadow-sm">
 
                     <!-- Header -->
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 border-b">
+                    <div class="p-5 border-b">
 
 
                         <h3 class="text-l font-semibold text-slate-800">
                             Candidate Grid
                         </h3>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-3 w-full lg:w-auto">
-
-                            <button
-                                class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <i data-lucide="calendar-days" class="w-4 h-4"></i>
-                                09/06/2026 - 09/06/2026
-                            </button>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto" ">
-                                <option>Select Role</option>
-                            </select>
-
-                            <select class=" border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Select Status</option>
-                            </select>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Sort By : Last 7 Days</option>
-                            </select>
-
-                        </div>
 
                     </div>
 
@@ -149,37 +111,12 @@
 
                 <!-- Candidates Section -->
                 <?php
-                $candidates = [
-
-                    [
-                        'id' => 'Cand-001',
-                        'name' => 'Harold Gaynor',
-                        'email' => 'harold@example.com',
-                        'role' => 'Accountant',
-                        'date' => '12 Sep 2024',
-                        'status' => 'New',
-                        'image' => 'https://i.pravatar.cc/150?img=1'
-                    ],
-
-                    [
-
-                        'id' => 'Cand-002',
-                        'name' => 'Sandra Ornellas',
-                        'email' => 'sandra@example.com',
-                        'role' => 'Accountant',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Scheduled',
-                        'image' => 'https://i.pravatar.cc/150?img=2'
-                    ],
-
-                    // Add as many candidates as you want...
-                
-                ];
+                $applications = $applications ?? [];
 
                 function statusBadge($status)
                 {
                     return match ($status) {
-                        'New' => 'bg-purple-500 text-white font-semibold',
+                        'Applied', 'Sent' => 'bg-purple-500 text-white font-semibold',
                         'Scheduled' => 'bg-pink-500 text-white font-semibold',
                         'Interviewed' => 'bg-blue-500 text-white font-semibold',
                         'Offered' => 'bg-yellow-500 text-white font-semibold',
@@ -194,7 +131,14 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-5">
 
-                    <?php foreach ($candidates as $candidate): ?>
+                    <?php if (!empty($applications)): ?>
+                        <?php foreach ($applications as $application): ?>
+                            <?php
+                            $candidateName = !empty($application['candidate_name']) ? $application['candidate_name'] : ($application['name'] ?? 'Unknown');
+                            $candidateEmail = !empty($application['candidate_email']) ? $application['candidate_email'] : ($application['email'] ?? '-');
+                            $applicationStatus = $application['application_status'] ?? 'Applied';
+                            $appliedDate = !empty($application['applied_at']) ? date('d M Y', strtotime($application['applied_at'])) : 'N/A';
+                            ?>
 
                         <div
                             class="bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
@@ -202,27 +146,27 @@
                             <!-- Card Header -->
                             <div class="flex items-start gap-3 p-5">
 
-                                <img src="<?= esc($candidate['image']) ?>" <?= urlencode($candidate['name']) ?>&background=FF6B35&color=fff"
-                                    class="w-10 h-10 rounded object-cover border border-slate-200"
-                                    alt="<?= esc($candidate['name']) ?>">
+                                <div class="w-10 h-10 rounded bg-orange-50 text-orange-500 border border-orange-100 flex items-center justify-center font-semibold shrink-0">
+                                    <?= esc(substr($candidateName, 0, 1)) ?>
+                                </div>
 
                                 <div class="flex-1">
 
                                     <div class="flex items-center gap-2 flex-wrap">
 
                                         <h3 class="text-[16px] font-semibold text-slate-800 leading-none">
-                                            <?= esc($candidate['name']) ?>
+                                            <?= esc($candidateName) ?>
                                         </h3>
 
                                         <span
                                             class="bg-orange-50 text-orange-500 text-[10px] px-2 py-0.5 rounded font-medium">
-                                            <?= esc($candidate['id']) ?>
+                                            <?= esc($application['application_id'] ?? 'N/A') ?>
                                         </span>
 
                                     </div>
 
                                     <p class="text-[14px] text-slate-500 mt-1">
-                                        <?= esc($candidate['email']) ?>
+                                        <?= esc($candidateEmail) ?>
                                     </p>
 
                                 </div>
@@ -241,7 +185,7 @@
                                         </span>
 
                                         <span class="font-medium text-slate-800">
-                                            <?= esc($candidate['role']) ?>
+                                            <?= esc($application['job_title'] ?? '-') ?>
                                         </span>
 
                                     </div>
@@ -253,7 +197,7 @@
                                         </span>
 
                                         <span class="font-medium text-slate-800">
-                                            <?= esc($candidate['date']) ?>
+                                            <?= esc($appliedDate) ?>
                                         </span>
 
                                     </div>
@@ -265,8 +209,8 @@
                                         </span>
 
                                         <span
-                                            class="px-3 py-1 rounded text-[11px] font-medium <?= statusBadge($candidate['status']) ?>">
-                                            • <?= esc($candidate['status']) ?>
+                                            class="px-3 py-1 rounded text-[11px] font-medium <?= statusBadge($applicationStatus) ?>">
+                                            &bull; <?= esc($applicationStatus) ?>
                                         </span>
 
                                     </div>
@@ -277,25 +221,14 @@
 
                         </div>
 
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-span-1 md:col-span-2 xl:col-span-4 bg-white border border-slate-200 rounded-md p-8 text-center text-slate-500">
+                            No candidates have applied yet.
+                        </div>
+                    <?php endif; ?>
 
                 </div>
-
-                <!-- Load More Button -->
-                <div class="flex justify-center mt-6">
-
-                    <button
-                        class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md text-sm font-medium flex items-center gap-2">
-
-                        <i data-lucide="loader-circle" class="w-4 h-4"></i>
-
-                        Load More
-
-                    </button>
-
-                </div>
-
-
 
             </div>
         </div>

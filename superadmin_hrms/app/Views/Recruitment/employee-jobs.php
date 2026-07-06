@@ -88,34 +88,12 @@
                 <!-- Packages List -->
                 <div class="bg-white border border-slate-200 rounded-md shadow-sm">
                     <!-- Header -->
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 border-b">
+                    <div class="p-5 border-b">
 
 
                         <h3 class="text-l font-semibold text-slate-800">
                             Career Opportunities
                         </h3>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-3 w-full lg:w-auto">
-
-                            <button
-                                class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <i data-lucide="calendar-days" class="w-4 h-4"></i>
-                                09/06/2026 - 09/06/2026
-                            </button>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Select Role</option>
-                            </select>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Select Status</option>
-                            </select>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Sort By : Last 7 Days</option>
-                            </select>
-
-                        </div>
 
                     </div>
 
@@ -390,7 +368,7 @@
 
         function openViewModal(id) {
 
-            fetch("<?= base_url('Recruitment/requisitions/get') ?>/" + id)
+            fetch("<?= base_url('Recruitment/view-job-modal') ?>/" + id)
                 .then(response => response.text())
                 .then(html => {
 

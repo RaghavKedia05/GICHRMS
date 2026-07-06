@@ -97,34 +97,12 @@
                 <div class="bg-white border border-slate-200 rounded-md shadow-sm">
 
                     <!-- Header -->
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 border-b">
+                    <div class="p-5 border-b">
 
 
                         <h3 class="text-l font-semibold text-slate-800">
                             Candidate Kanban
                         </h3>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-3 w-full lg:w-auto">
-
-                            <button
-                                class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <i data-lucide="calendar-days" class="w-4 h-4"></i>
-                                09/06/2026 - 09/06/2026
-                            </button>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto" ">
-                                <option>Select Role</option>
-                            </select>
-
-                            <select class=" border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Select Status</option>
-                            </select>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Sort By : Last 7 Days</option>
-                            </select>
-
-                        </div>
 
                     </div>
 
@@ -133,162 +111,24 @@
 
                 <!-- Candidates Kanban -->
                 <?php
-
-
-
-                $candidates = [
-
-                    [
-                        'id' => 'Cand-001',
-                        'name' => 'Harold Gaynor',
-                        'email' => 'harold@example.com',
-                        'role' => 'Accountant',
-                        'date' => '12 Sep 2024',
-                        'status' => 'New',
-                        'image' => 'https://i.pravatar.cc/150?img=1'
-                    ],
-
-                    [
-                        'id' => 'Cand-002',
-                        'name' => 'Sandra Ornellas',
-                        'email' => 'sandra@example.com',
-                        'role' => 'Accountant',
-                        'date' => '12 Sep 2024',
-                        'status' => 'New',
-                        'image' => 'https://i.pravatar.cc/150?img=2'
-                    ],
-
-                    [
-                        'id' => 'Cand-003',
-                        'name' => 'John Harris',
-                        'email' => 'john@example.com',
-                        'role' => 'Technician',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Scheduled',
-                        'image' => 'https://i.pravatar.cc/150?img=3'
-                    ],
-
-                    [
-                        'id' => 'Cand-004',
-                        'name' => 'Carole Langan',
-                        'email' => 'carole@example.com',
-                        'role' => 'Web Developer',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Scheduled',
-                        'image' => 'https://i.pravatar.cc/150?img=4'
-                    ],
-
-                    [
-                        'id' => 'Cand-005',
-                        'name' => 'Charles Marks',
-                        'email' => 'charles@example.com',
-                        'role' => 'SEO',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Scheduled',
-                        'image' => 'https://i.pravatar.cc/150?img=5'
-                    ],
-
-                    [
-                        'id' => 'Cand-006',
-                        'name' => 'Kerry Drake',
-                        'email' => 'kerry@example.com',
-                        'role' => 'Designer',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Scheduled',
-                        'image' => 'https://i.pravatar.cc/150?img=6'
-                    ],
-
-                    [
-                        'id' => 'Cand-007',
-                        'name' => 'David Carmona',
-                        'email' => 'david@example.com',
-                        'role' => 'Manager',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Interviewed',
-                        'image' => 'https://i.pravatar.cc/150?img=7'
-                    ],
-
-                    [
-                        'id' => 'Cand-008',
-                        'name' => 'Margaret Soto',
-                        'email' => 'margaret@example.com',
-                        'role' => 'SEO Analyst',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Interviewed',
-                        'image' => 'https://i.pravatar.cc/150?img=8'
-                    ],
-
-                    [
-                        'id' => 'Cand-009',
-                        'name' => 'Jeffrey Thaler',
-                        'email' => 'jeffrey@example.com',
-                        'role' => 'Admin',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Offered',
-                        'image' => 'https://i.pravatar.cc/150?img=9'
-                    ],
-
-                    [
-                        'id' => 'Cand-010',
-                        'name' => 'Joyce Golston',
-                        'email' => 'joyce@example.com',
-                        'role' => 'Business Analyst',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Hired',
-                        'image' => 'https://i.pravatar.cc/150?img=10'
-                    ],
-
-                    [
-                        'id' => 'Cand-011',
-                        'name' => 'Cedric Rosalez',
-                        'email' => 'cedric@example.com',
-                        'role' => 'Financial Analyst',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Hired',
-                        'image' => 'https://i.pravatar.cc/150?img=11'
-                    ],
-
-                    [
-                        'id' => 'Cand-012',
-                        'name' => 'Lillie Diaz',
-                        'email' => 'lillie@example.com',
-                        'role' => 'Receptionist',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Hired',
-                        'image' => 'https://i.pravatar.cc/150?img=12'
-                    ],
-
-                    [
-                        'id' => 'Cand-013',
-                        'name' => 'Angela Thomas',
-                        'email' => 'angela@example.com',
-                        'role' => 'Consultant',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Rejected',
-                        'image' => 'https://i.pravatar.cc/150?img=13'
-                    ],
-
-                    [
-                        'id' => 'Cand-014',
-                        'name' => 'Bruce Wright',
-                        'email' => 'bruce@example.com',
-                        'role' => 'CEO',
-                        'date' => '12 Sep 2024',
-                        'status' => 'Rejected',
-                        'image' => 'https://i.pravatar.cc/150?img=14'
-                    ]
-
-                ];
-
+                $applications = $applications ?? [];
 
                 $columns = [
-                    'New' => ['color' => 'bg-pink-500', 'dot' => 'bg-pink-500'],
-                    'Scheduled' => ['color' => 'bg-pink-500', 'dot' => 'bg-pink-500'],
-                    'Interviewed' => ['color' => 'bg-blue-500', 'dot' => 'bg-blue-500'],
-                    'Offered' => ['color' => 'bg-yellow-400', 'dot' => 'bg-yellow-400'],
-                    'Hired' => ['color' => 'bg-green-500', 'dot' => 'bg-green-500'],
-                    'Rejected' => ['color' => 'bg-red-500', 'dot' => 'bg-red-500'],
+                    'Applied' => ['dot' => 'bg-purple-500'],
+                    'Sent' => ['dot' => 'bg-purple-500'],
+                    'Scheduled' => ['dot' => 'bg-pink-500'],
+                    'Interviewed' => ['dot' => 'bg-blue-500'],
+                    'Offered' => ['dot' => 'bg-yellow-400'],
+                    'Hired' => ['dot' => 'bg-green-500'],
+                    'Rejected' => ['dot' => 'bg-red-500'],
                 ];
+
+                foreach ($applications as $application) {
+                    $applicationStatus = $application['application_status'] ?? 'Applied';
+                    if (!isset($columns[$applicationStatus])) {
+                        $columns[$applicationStatus] = ['dot' => 'bg-slate-500'];
+                    }
+                }
 
                 ?>
 
@@ -299,12 +139,10 @@
                         <?php foreach ($columns as $status => $style): ?>
 
                             <?php
-                            $count = 0;
-                            foreach ($candidates as $candidate) {
-                                if ($candidate['status'] === $status) {
-                                    $count++;
-                                }
-                            }
+                            $columnApplications = array_filter($applications, static function ($application) use ($status) {
+                                return ($application['application_status'] ?? 'Applied') === $status;
+                            });
+                            $count = count($columnApplications);
                             ?>
 
                             <div class="bg-slate-100 rounded-lg p-3 min-w-0">
@@ -341,21 +179,22 @@
                                 <div id="column-<?= strtolower(str_replace(' ', '-', $status)) ?>"
                                     class="kanban-column space-y-4 min-h-[60px]" data-status="<?= $status ?>">
 
-                                    <?php foreach ($candidates as $candidate): ?>
-
-
-                                        <?php if ($candidate['status'] != $status)
-                                            continue; ?>
+                                    <?php foreach ($columnApplications as $application): ?>
+                                        <?php
+                                        $candidateName = !empty($application['candidate_name']) ? $application['candidate_name'] : ($application['name'] ?? 'Unknown');
+                                        $candidateEmail = !empty($application['candidate_email']) ? $application['candidate_email'] : ($application['email'] ?? '-');
+                                        $appliedDate = !empty($application['applied_at']) ? date('d M Y', strtotime($application['applied_at'])) : 'N/A';
+                                        ?>
 
                                         <div class="candidate-card bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-200 cursor-move p-4"
-                                            data-id="<?= esc($candidate['id']) ?>">
+                                            data-id="<?= esc($application['application_id'] ?? '') ?>">
 
                                             <!-- Header -->
                                             <div class="flex items-center justify-between">
 
                                                 <span
                                                     class="inline-flex items-center bg-orange-50 text-orange-500 text-[10px] font-medium px-2 py-1 rounded">
-                                                    <?= esc($candidate['id']) ?>
+                                                    <?= esc($application['application_id'] ?? 'N/A') ?>
                                                 </span>
 
                                                 <button type="button">
@@ -369,20 +208,21 @@
                                             <!-- Candidate -->
                                             <div class="flex items-start gap-3 min-w-0">
 
-                                                <img src="<?= esc($candidate['image']) ?>" alt="<?= esc($candidate['name']) ?>"
-                                                    class="w-10 h-10 rounded object-cover shrink-0">
+                                                <div class="w-10 h-10 rounded bg-orange-50 text-orange-500 border border-orange-100 flex items-center justify-center font-semibold shrink-0">
+                                                    <?= esc(substr($candidateName, 0, 1)) ?>
+                                                </div>
 
                                                 <div class="flex-1 min-w-0">
 
                                                     <h4 class="text-[15px] font-semibold text-slate-800 leading-tight truncate">
 
-                                                        <?= esc($candidate['name']) ?>
+                                                        <?= esc($candidateName) ?>
 
                                                     </h4>
 
                                                     <p class="text-[13px] text-slate-500 leading-tight break-words">
 
-                                                        <?= esc($candidate['email']) ?>
+                                                        <?= esc($candidateEmail) ?>
 
                                                     </p>
 
@@ -403,7 +243,7 @@
 
                                                     <p
                                                         class="text-[13px] font-semibold text-slate-800 mt-2 leading-5 whitespace-normal break-normal overflow-wrap-anywhere">
-                                                        <?= esc($candidate['role']) ?>
+                                                        <?= esc($application['job_title'] ?? '-') ?>
                                                     </p>
 
                                                 </div>
@@ -416,7 +256,7 @@
                                                     </p>
 
                                                     <p class="text-[13px] font-semibold text-slate-800 mt-2 whitespace-nowrap">
-                                                        <?= esc($candidate['date']) ?>
+                                                        <?= esc($appliedDate) ?>
                                                     </p>
 
                                                 </div>
@@ -501,7 +341,7 @@
             
 
             // Initial count on page load
-            updateCounts();
+            updateKanbanCounts();
         </script>
 
         <style>

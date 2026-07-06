@@ -95,57 +95,11 @@
                 <div class="bg-white border border-slate-200 rounded-md shadow-sm">
 
                     <!-- Header -->
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 border-b">
+                    <div class="p-5 border-b">
 
                         <h3 class="text-l font-semibold text-slate-800">
                             Candidates List
                         </h3>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-3 w-full lg:w-auto">
-
-                            <button
-                                class="flex items-center gap-2 border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <i data-lucide="calendar-days" class="w-4 h-4"></i>
-                                09/06/2026 - 09/06/2026
-                            </button>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Select Role</option>
-                            </select>
-
-                            <select class=" border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Select Status</option>
-                            </select>
-
-                            <select class="border rounded-md px-4 py-2 text-[13px] w-full sm:w-auto">
-                                <option>Sort By : Last 7 Days</option>
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Controls -->
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5">
-
-                        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
-
-                            <span class="text-sm">
-                                Row Per Page
-                            </span>
-
-                            <select class="border rounded-md px-3 py-1 text-sm">
-                                <option>10</option>
-                            </select>
-
-                            <span class="text-sm">
-                                Entries
-                            </span>
-
-                        </div>
-
-                        <input type="text" placeholder="Search"
-                            class="border border-slate-200 rounded-md px-4 py-2 text-[13px] w-full md:w-[220px]">
 
                     </div>
 
@@ -173,30 +127,6 @@
                         }
                     }
 
-                    if (empty($applications)) {
-                        $applications = [
-                            [
-                                'application_id' => 'Cand-001',
-                                'candidate_name' => 'Harold Gaynor',
-                                'candidate_email' => 'harold@example.com',
-                                'job_title' => 'Accountant',
-                                'department' => 'Finance',
-                                'location' => 'Head Office',
-                                'applied_at' => '12 Sep 2024',
-                                'application_status' => 'Sent',
-                            ],
-                            [
-                                'application_id' => 'Cand-002',
-                                'candidate_name' => 'Sandra Ornellas',
-                                'candidate_email' => 'sandra@example.com',
-                                'job_title' => 'App Developer',
-                                'department' => 'Engineering',
-                                'location' => 'Remote',
-                                'applied_at' => '24 Oct 2024',
-                                'application_status' => 'Scheduled',
-                            ],
-                        ];
-                    }
                     ?>
 
                     <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -235,7 +165,13 @@
 
                                 <tbody class="divide-y divide-slate-200 bg-white">
 
-                                    <?php foreach ($applications as $application): ?>
+                                    <?php if (!empty($applications)): ?>
+                                        <?php foreach ($applications as $application): ?>
+                                            <?php
+                                            $candidateName = !empty($application['candidate_name']) ? $application['candidate_name'] : ($application['name'] ?? 'Unknown');
+                                            $candidateEmail = !empty($application['candidate_email']) ? $application['candidate_email'] : ($application['email'] ?? '-');
+                                            $applicationStatus = $application['application_status'] ?? 'Applied';
+                                            ?>
 
                                         <tr class="hover:bg-slate-50 transition">
 
@@ -252,17 +188,17 @@
                                                 <div class="flex items-center gap-3">
 
                                                     <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
-                                                        <?= esc(substr($application['candidate_name'] ?? 'N', 0, 1)) ?>
+                                                        <?= esc(substr($candidateName, 0, 1)) ?>
                                                     </div>
 
                                                     <div>
 
                                                         <h4 class="font-semibold text-slate-800">
-                                                            <?= esc($application['candidate_name'] ?? 'Unknown') ?>
+                                                            <?= esc($candidateName) ?>
                                                         </h4>
 
                                                         <p class="text-slate-500">
-                                                            <?= esc($application['candidate_email'] ?? '-') ?>
+                                                            <?= esc($candidateEmail) ?>
                                                         </p>
 
                                                     </div>
@@ -276,7 +212,7 @@
                                             </td>
 
                                             <td class="text-slate-600">
-                                                <?= esc($application['candidate_email'] ?? '-') ?>
+                                                <?= esc($candidateEmail) ?>
                                             </td>
 
                                             <td class="text-slate-600">
@@ -301,8 +237,8 @@
 
                                             <td class="px-6 py-4 w-44">
                                                 <span
-                                                    class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium <?= statusBadge($application['application_status'] ?? 'Applied') ?>">
-                                                    • <?= esc($application['application_status'] ?? 'Applied') ?>
+                                                    class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium <?= statusBadge($applicationStatus) ?>">
+                                                    &bull; <?= esc($applicationStatus) ?>
                                                 </span>
                                             </td>
 
@@ -320,7 +256,14 @@
 
                                         </tr>
 
-                                    <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="9" class="px-5 py-8 text-center text-slate-500">
+                                                No candidates have applied yet.
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
 
                                 </tbody>
 
