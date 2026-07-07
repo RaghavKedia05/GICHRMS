@@ -40,6 +40,10 @@ class RequisitionModel extends Model
         'hr_status',
         'submitted_at',
         'published_at',
+        'publish_internal',
+        'publish_external',
+        'external_boards',
+        'posting_notes',
         'rejection_reason',
     ];
 

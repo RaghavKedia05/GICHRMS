@@ -73,6 +73,7 @@
                         <?= csrf_field() ?>
 
                         <input type="hidden" name="requisition_id" value="<?= $job['id'] ?>">
+                        <input type="hidden" name="application_source" value="Internal Career Portal">
 
 
                         <!-- JOB DETAILS -->
@@ -257,13 +258,12 @@
                             <div class="p-6">
 
                                 <label class="block text-sm font-medium mb-3">
-
-                                    Upload Cover Letter (PDF, DOC, DOCX)
-
+                                    Cover Letter
                                 </label>
 
-                                <input type="file" name="resume" accept=".pdf,.doc,.docx"
-                                    class="w-full rounded-lg border px-4 py-3">
+                                <textarea name="cover_letter" rows="5"
+                                    class="w-full rounded-lg border px-4 py-3"
+                                    placeholder="Share a short note for the hiring team."></textarea>
 
                             </div>
 
@@ -290,7 +290,7 @@
 
                                 </label>
 
-                                <input type="file" name="resume" accept=".pdf,.doc,.docx"
+                                <input type="file" name="resume" accept=".pdf,.doc,.docx" required
                                     class="w-full rounded-lg border px-4 py-3">
 
                             </div>

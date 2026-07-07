@@ -481,7 +481,7 @@
 
     <div id="viewModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
 
-        <div class="bg-white rounded-xl shadow-2xl w-[95%] max-w-6xl max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-2xl w-[95%] max-w-6xl max-h-[90vh] overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
             <div id="viewModalContent"></div>
 

@@ -70,6 +70,11 @@ class JobApplicationController extends BaseController
                 ->with('error', 'Job not available for application.');
         }
 
+        if ($this->jobApplicationModel->hasApplied($requisitionId, $userId)) {
+            return redirect()->to('/Recruitment/employee-jobs')
+                ->with('error', 'You have already applied for this job.');
+        }
+
         if (!$resume->isValid()) {
             return redirect()->back()
                 ->withInput()
@@ -77,8 +82,13 @@ class JobApplicationController extends BaseController
         }
 
         $newName = $resume->getRandomName();
+        $uploadPath = ROOTPATH . 'public/uploads/resumes';
 
-        $resume->move(ROOTPATH . 'public/uploads/resumes', $newName);
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0775, true);
+        }
+
+        $resume->move($uploadPath, $newName);
 
         $this->jobApplicationModel->insert([
             'requisition_id' => $requisitionId,
@@ -94,11 +104,45 @@ class JobApplicationController extends BaseController
             'cover_letter' => $this->request->getPost('cover_letter'),
             'resume_file' => $newName,
             'resume_original_name' => $resume->getClientName(),
+            'application_source' => $this->request->getPost('application_source') ?: 'Internal Career Portal',
             'status' => 'Applied',
             'applied_at' => date('Y-m-d H:i:s'),
         ]);
 
         return redirect()->to('/Recruitment/employee-jobs')
             ->with('success', 'Application submitted successfully.');
+    }
+
+    public function viewResume($applicationId)
+    {
+        return $this->serveResume((int) $applicationId, false);
+    }
+
+    public function downloadResume($applicationId)
+    {
+        return $this->serveResume((int) $applicationId, true);
+    }
+
+    private function serveResume(int $applicationId, bool $download)
+    {
+        $application = $this->jobApplicationModel->find($applicationId);
+
+        if (!$application || empty($application['resume_file'])) {
+            return redirect()->back()->with('error', 'Resume not found.');
+        }
+
+        $fileName = basename($application['resume_file']);
+        $path = ROOTPATH . 'public/uploads/resumes/' . $fileName;
+
+        if (!is_file($path)) {
+            return redirect()->back()->with('error', 'Resume file is missing.');
+        }
+
+        $originalName = $application['resume_original_name'] ?: $fileName;
+
+        return $this->response->download($path, null)
+            ->setFileName($originalName)
+            ->setContentType(mime_content_type($path) ?: 'application/octet-stream')
+            ->setHeader('Content-Disposition', ($download ? 'attachment' : 'inline') . '; filename="' . addslashes($originalName) . '"');
     }
 }

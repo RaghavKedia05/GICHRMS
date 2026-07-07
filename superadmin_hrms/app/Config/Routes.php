@@ -40,8 +40,10 @@ $routes->get('/invoice', 'DashboardController::invoice');
 $routes->get('/invoice-details/(:any)', 'DashboardController::invoiceDetails/$1');
 $routes->get('/invoice/add', 'DashboardController::addInvoice');
 
-$routes->get('/chat', 'ChatController::index');
-$routes->get('/chat/(:num)', 'ChatController::conversation/$1');
+$routes->get('/chat', 'ChatController::index', ['filter' => 'auth']);
+$routes->get('/chat/(:num)', 'ChatController::conversation/$1', ['filter' => 'auth']);
+$routes->post('/chat/send', 'ChatController::send', ['filter' => 'auth']);
+$routes->get('/chat/messages/(:num)', 'ChatController::messages/$1', ['filter' => 'auth']);
 
 $routes->get('/employee_attendance', 'DashboardController::employee_attendance');
 $routes->get('/staff', 'Employee\EmployeeController::staff', ['filter' => 'auth']);
@@ -121,6 +123,9 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
    //Job Application
     $routes->get('apply-job/(:num)', 'Recruitment\JobApplicationController::applyForm/$1');
     $routes->post('submit-application', 'Recruitment\JobApplicationController::submitApplication');
+    $routes->get('applications/resume/(:num)', 'Recruitment\JobApplicationController::viewResume/$1');
+    $routes->get('applications/resume-download/(:num)', 'Recruitment\JobApplicationController::downloadResume/$1');
+    $routes->post('applications/delete/(:num)', 'Recruitment\RecruitmentController::deleteCandidateApplication/$1');
 
 
 });

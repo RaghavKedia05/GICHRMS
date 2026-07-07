@@ -150,6 +150,26 @@
                     </div>
                 </section>
 
+                <?php if (($requisition['status'] ?? '') === 'Published'): ?>
+                    <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-11 h-11 rounded-2xl bg-indigo-100 flex items-center justify-center">
+                                <i data-lucide="radio-tower" class="w-5 h-5 text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm uppercase tracking-[0.25em] text-slate-400">Posting Channels</p>
+                                <h2 class="mt-2 text-xl font-semibold text-slate-900">Sourcing</h2>
+                            </div>
+                        </div>
+                        <div class="grid gap-3 text-sm text-slate-600">
+                            <p><span class="font-semibold text-slate-900">Internal:</span> <?= !empty($requisition['publish_internal']) ? 'Published' : 'Not published' ?></p>
+                            <p><span class="font-semibold text-slate-900">External:</span> <?= !empty($requisition['publish_external']) ? 'Published' : 'Not published' ?></p>
+                            <p><span class="font-semibold text-slate-900">Boards:</span> <?= esc($requisition['external_boards'] ?? '-') ?: '-' ?></p>
+                            <p><span class="font-semibold text-slate-900">Notes:</span> <?= esc($requisition['posting_notes'] ?? '-') ?: '-' ?></p>
+                        </div>
+                    </section>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

@@ -17,22 +17,32 @@ class RecruitmentController extends BaseController
         $this->jobApplicationModel = new JobApplicationModel();
     }
 
-    private function publishedJobsQuery(): RequisitionModel
+    private function publishedJobsQuery(?string $channel = null): RequisitionModel
     {
-        return (new RequisitionModel())
+        $query = (new RequisitionModel())
             ->where('status', 'Published')
             ->where('hod_status', 'Approved')
             ->where('hr_status', 'Approved');
+
+        if ($channel === 'internal') {
+            $query->where('publish_internal', 1);
+        }
+
+        if ($channel === 'external') {
+            $query->where('publish_external', 1);
+        }
+
+        return $query;
     }
 
-    private function getPublishedJobFilters()
+    private function getPublishedJobFilters(?string $channel = null)
     {
         $role = $this->request->getGet('role');
         $status = $this->request->getGet('status');
         $sortBy = $this->request->getGet('sort_by');
         $search = trim((string) $this->request->getGet('search'));
 
-        $jobsQuery = $this->publishedJobsQuery();
+        $jobsQuery = $this->publishedJobsQuery($channel);
 
         if (!empty($role)) {
             $jobsQuery->where('department', $role);
@@ -67,13 +77,13 @@ class RecruitmentController extends BaseController
 
         $jobs = $jobsQuery->findAll();
 
-        $roles = array_column($this->publishedJobsQuery()
+        $roles = array_column($this->publishedJobsQuery($channel)
             ->select('department')
             ->groupBy('department')
             ->orderBy('department')
             ->findAll(), 'department');
 
-        $statuses = array_column($this->publishedJobsQuery()
+        $statuses = array_column($this->publishedJobsQuery($channel)
             ->select('employment_type')
             ->groupBy('employment_type')
             ->orderBy('employment_type')
@@ -92,12 +102,12 @@ class RecruitmentController extends BaseController
 
     public function jobs()
     {
-        return view('/Recruitment/jobs', $this->getPublishedJobFilters());
+        return view('/Recruitment/jobs', $this->getPublishedJobFilters('external'));
     }
 
     public function jobsGrid()
     {
-        return view('/Recruitment/jobs-grid', $this->getPublishedJobFilters());
+        return view('/Recruitment/jobs-grid', $this->getPublishedJobFilters('external'));
     }
 
     public function viewJob($id)
@@ -127,7 +137,7 @@ class RecruitmentController extends BaseController
             return redirect()->to('/login');
         }
 
-        $jobs = $this->getPublishedJobFilters();
+        $jobs = $this->getPublishedJobFilters('internal');
 
         $appliedIds = $this->jobApplicationModel
             ->getAppliedJobIds($userId);
@@ -155,7 +165,7 @@ class RecruitmentController extends BaseController
             return redirect()->to('/login');
         }
 
-        $jobs = $this->getPublishedJobFilters();
+        $jobs = $this->getPublishedJobFilters('internal');
         $jobs['appliedIds'] = $this->jobApplicationModel->getAppliedJobIds($userId) ?? [];
 
         return view('Recruitment/employee-jobs-grid', $jobs);
@@ -225,7 +235,7 @@ class RecruitmentController extends BaseController
                 ->setBody('<div class="p-8 text-center text-red-600">Job details not available.</div>');
         }
 
-        return view('/Recruitment/view_requisition_modal', [
+        return view('/Recruitment/view_job', [
             'requisition' => $requisition,
         ]);
     }
@@ -249,6 +259,26 @@ class RecruitmentController extends BaseController
         return view('/Recruitment/candidates-kanban', [
             'applications' => $this->getCandidateApplications(),
         ]);
+    }
+
+    public function deleteCandidateApplication($id)
+    {
+        if (session('role') !== 'admin') {
+            return redirect()->to('/Recruitment/candidates')
+                ->with('error', 'Only admins can delete candidate applications.');
+        }
+
+        $application = $this->jobApplicationModel->find((int) $id);
+
+        if (!$application) {
+            return redirect()->to('/Recruitment/candidates')
+                ->with('error', 'Candidate application not found.');
+        }
+
+        $this->jobApplicationModel->delete((int) $id);
+
+        return redirect()->to('/Recruitment/candidates')
+            ->with('success', 'Candidate application deleted successfully.');
     }
 
     private function getCandidateApplications(): array

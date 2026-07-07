@@ -34,10 +34,10 @@ class RequisitionController extends BaseController
                     ->findAll();
                 break;
 
-            // Dormant for phase 1 (HOD step bypassed), kept for later
             case 'department_head':
                 $data['requisitions'] = $this->requisitionModel
-                    ->where('requested_by', $userId)
+                    ->where('status', 'Pending Approval')
+                    ->where('hod_status', 'Pending')
                     ->orderBy('id', 'DESC')
                     ->findAll();
                 break;
@@ -45,7 +45,6 @@ class RequisitionController extends BaseController
             case 'hr':
                 $data['requisitions'] = $this->requisitionModel
                     ->where('hod_status', 'Approved')
-                    ->where('hr_status', 'Pending')
                     ->orderBy('id', 'DESC')
                     ->findAll();
                 break;
@@ -277,10 +276,21 @@ class RequisitionController extends BaseController
                 ->with('error', 'HOD approval is required before HR can publish this job.');
         }
 
+        $publishInternal = $this->request->getPost('publish_internal') ? 1 : 0;
+        $publishExternal = $this->request->getPost('publish_external') ? 1 : 0;
+
+        if (!$publishInternal && !$publishExternal) {
+            $publishInternal = 1;
+        }
+
         $this->requisitionModel->update($id, [
             'hr_status' => 'Approved',
             'status' => 'Published',
             'published_at' => date('Y-m-d H:i:s'),
+            'publish_internal' => $publishInternal,
+            'publish_external' => $publishExternal,
+            'external_boards' => $this->request->getPost('external_boards'),
+            'posting_notes' => $this->request->getPost('posting_notes'),
         ]);
 
         return redirect()->back()->with('success', 'Job published successfully.');

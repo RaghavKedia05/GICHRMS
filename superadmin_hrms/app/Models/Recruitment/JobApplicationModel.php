@@ -26,6 +26,7 @@ class JobApplicationModel extends Model
         'cover_letter',
         'resume_file',
         'resume_original_name',
+        'application_source',
         'status',
         'applied_at',
     ];

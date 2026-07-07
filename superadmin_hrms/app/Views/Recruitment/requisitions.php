@@ -213,15 +213,12 @@
                                                         <?php endif; ?>
 
                                                         <?php if ($role === 'hr' && $row['hod_status'] === 'Approved' && $row['hr_status'] === 'Pending'): ?>
-                                                            <form method="post"
-                                                                action="<?= base_url('Recruitment/requisitions/hr-approve/' . $row['id']) ?>">
-                                                                <?= csrf_field() ?>
-                                                                <button
-                                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 text-emerald-600 hover:bg-emerald-50"
-                                                                    title="Publish">
-                                                                    <i data-lucide="badge-check" class="h-4 w-4"></i>
-                                                                </button>
-                                                            </form>
+                                                            <button type="button"
+                                                                onclick="openPublishModal(<?= $row['id'] ?>, '<?= esc($row['job_title'], 'js') ?>')"
+                                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                                                                title="Publish">
+                                                                <i data-lucide="badge-check" class="h-4 w-4"></i>
+                                                            </button>
                                                             <form method="post"
                                                                 action="<?= base_url('Recruitment/requisitions/hr-reject/' . $row['id']) ?>">
                                                                 <?= csrf_field() ?>
@@ -334,15 +331,12 @@
                                             <?php endif; ?>
 
                                             <?php if ($role === 'hr' && $row['hod_status'] === 'Approved' && $row['hr_status'] === 'Pending'): ?>
-                                                <form method="post"
-                                                    action="<?= base_url('Recruitment/requisitions/hr-approve/' . $row['id']) ?>">
-                                                    <?= csrf_field() ?>
-                                                    <button
-                                                        class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-emerald-200 px-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">
-                                                        <i data-lucide="badge-check" class="h-4 w-4"></i>
-                                                        Publish
-                                                    </button>
-                                                </form>
+                                                <button type="button"
+                                                    onclick="openPublishModal(<?= $row['id'] ?>, '<?= esc($row['job_title'], 'js') ?>')"
+                                                    class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-emerald-200 px-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">
+                                                    <i data-lucide="badge-check" class="h-4 w-4"></i>
+                                                    Publish
+                                                </button>
                                                 <form method="post"
                                                     action="<?= base_url('Recruitment/requisitions/hr-reject/' . $row['id']) ?>">
                                                     <?= csrf_field() ?>
@@ -396,73 +390,65 @@
 
     <?php endif; ?>
 
-    <!-- Approval Modal -->
-    <div id="approvalModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
-
-        <div class="bg-white rounded-lg w-full max-w-3xl shadow-xl">
-
-            <!-- Header -->
-
-            <div class="flex justify-between items-center px-6 py-5 border-b">
-
+    <div id="publishModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg w-full max-w-lg shadow-xl">
+            <div class="flex items-start justify-between border-b px-6 py-5">
                 <div>
+                    <h2 class="text-xl font-semibold text-slate-900">Publish Job Posting</h2>
+                    <p id="publishJobTitle" class="mt-1 text-sm text-slate-500"></p>
+                </div>
+                <button type="button" onclick="closePublishModal()"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
 
-                    <h2 id="approvalTitle" class="text-2xl font-bold text-slate-900">
+            <form id="publishForm" method="post">
+                <?= csrf_field() ?>
+                <div class="space-y-5 px-6 py-5">
+                    <label class="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
+                        <input type="checkbox" name="publish_internal" value="1" checked
+                            class="mt-1 rounded border-slate-300 text-indigo-600">
+                        <span>
+                            <span class="block text-sm font-semibold text-slate-900">Internal career portal</span>
+                            <span class="block text-sm text-slate-500">Visible in employee job opportunities.</span>
+                        </span>
+                    </label>
 
-                        Approve Requisition
+                    <label class="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
+                        <input type="checkbox" name="publish_external" value="1" checked
+                            class="mt-1 rounded border-slate-300 text-indigo-600">
+                        <span>
+                            <span class="block text-sm font-semibold text-slate-900">External public portal</span>
+                            <span class="block text-sm text-slate-500">Visible in the published jobs board.</span>
+                        </span>
+                    </label>
 
-                    </h2>
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">External boards</label>
+                        <input type="text" name="external_boards" placeholder="LinkedIn, Naukri, Indeed"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
 
-                    <p class="text-slate-500 text-sm mt-1">
-
-                        Please review the requisition before continuing.
-
-                    </p>
-
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Posting notes</label>
+                        <textarea name="posting_notes" rows="3"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    </div>
                 </div>
 
-                <button onclick="closeApprovalModal()"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
-
-                    <i data-lucide="x" class="h-5 w-5"></i>
-
-                </button>
-
-            </div>
-
-            <!-- Content -->
-
-            <div id="approvalContent" class="p-6">
-
-            </div>
-
-            <!-- Footer -->
-
-            <div class="border-t px-6 py-5 flex justify-end gap-3">
-
-                <button onclick="closeApprovalModal()" class="px-5 py-2.5 rounded-lg border hover:bg-slate-100">
-
-                    Cancel
-
-                </button>
-
-                <form id="approvalForm" method="POST">
-
-                    <?= csrf_field() ?>
-
-                    <button id="approvalButton"
-                        class="px-6 py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white">
-
-                        Approve
-
+                <div class="flex justify-end gap-3 border-t px-6 py-5">
+                    <button type="button" onclick="closePublishModal()"
+                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                        Cancel
                     </button>
-
-                </form>
-
-            </div>
-
+                    <button type="submit"
+                        class="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">
+                        Publish Posting
+                    </button>
+                </div>
+            </form>
         </div>
-
     </div>
 
     <?= $this->include('Recruitment/delete_requisition_modal') ?>
@@ -643,158 +629,26 @@
             modal.classList.add("hidden");
         }
 
-        function approveHOD(id) {
+        function openPublishModal(id, jobTitle) {
 
-            if (confirm("Approve this requisition?")) {
+            document.getElementById("publishJobTitle").textContent = jobTitle;
+            document.getElementById("publishForm").action =
+                "<?= base_url('Recruitment/requisitions/hr-approve/') ?>" + id;
 
-                const form = document.createElement("form");
+            const modal = document.getElementById("publishModal");
 
-                form.method = "POST";
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
 
-                form.action = "<?= base_url('Recruitment/requisitions/hod-approve/') ?>" + id;
-
-                document.body.appendChild(form);
-
-                form.submit();
-            }
+            lucide.createIcons();
         }
 
-        function rejectHOD(id) {
+        function closePublishModal() {
 
-            if (confirm("Reject this requisition?")) {
-
-                const form = document.createElement("form");
-
-                form.method = "POST";
-
-                form.action = "<?= base_url('Recruitment/requisitions/hod-reject/') ?>" + id;
-
-                document.body.appendChild(form);
-
-                form.submit();
-            }
-        }
-
-        function approveHR(id) {
-
-            if (confirm("Approve and Publish this job?")) {
-
-                const form = document.createElement("form");
-
-                form.method = "POST";
-
-                form.action = "<?= base_url('Recruitment/requisitions/hr-approve/') ?>" + id;
-
-                document.body.appendChild(form);
-
-                form.submit();
-            }
-        }
-
-        function rejectHR(id) {
-
-            if (confirm("Reject this requisition?")) {
-
-                const form = document.createElement("form");
-
-                form.method = "POST";
-
-                form.action = "<?= base_url('Recruitment/requisitions/hr-reject/') ?>" + id;
-
-                document.body.appendChild(form);
-
-                form.submit();
-            }
-        }
-
-        let approvalAction = "";
-
-        function openApprovalModal(id, type) {
-
-            approvalAction = type;
-
-            fetch("<?= base_url('Recruitment/requisitions/get/') ?>" + id)
-
-                .then(response => response.text())
-
-                .then(html => {
-
-                    document.getElementById("approvalContent").innerHTML = html;
-
-                    const form = document.getElementById("approvalForm");
-
-                    const title = document.getElementById("approvalTitle");
-
-                    const button = document.getElementById("approvalButton");
-
-                    if (type == "hodApprove") {
-
-                        title.innerText = "Approve Requisition";
-
-                        button.innerText = "Confirm Approval";
-
-                        button.className = "px-6 py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white";
-
-                        form.action = "<?= base_url('Recruitment/requisitions/hod-approve/') ?>" + id;
-
-                    }
-
-                    if (type == "hodReject") {
-
-                        title.innerText = "Reject Requisition";
-
-                        button.innerText = "Confirm Rejection";
-
-                        button.className = "px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white";
-
-                        form.action = "<?= base_url('Recruitment/requisitions/hod-reject/') ?>" + id;
-
-                    }
-
-                    if (type == "hrApprove") {
-
-                        title.innerText = "Publish Job";
-
-                        button.innerText = "Approve & Publish";
-
-                        button.className = "px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white";
-
-                        form.action = "<?= base_url('Recruitment/requisitions/hr-approve/') ?>" + id;
-
-                    }
-
-                    if (type == "hrReject") {
-
-                        title.innerText = "Reject Requisition";
-
-                        button.innerText = "Reject";
-
-                        button.className = "px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white";
-
-                        form.action = "<?= base_url('Recruitment/requisitions/hr-reject/') ?>" + id;
-
-                    }
-
-                    const modal = document.getElementById("approvalModal");
-
-                    modal.classList.remove("hidden");
-
-                    modal.classList.add("flex");
-
-                    lucide.createIcons();
-
-                });
-
-        }
-
-        function closeApprovalModal() {
-
-            const modal = document.getElementById("approvalModal");
+            const modal = document.getElementById("publishModal");
 
             modal.classList.remove("flex");
-
             modal.classList.add("hidden");
-
         }
 
     </script>

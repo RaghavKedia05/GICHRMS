@@ -26,6 +26,11 @@
 </head>
 
 <body class="bg-[#f8fafc]">
+    <?php
+    $isAdmin = session('role') === 'admin';
+    $successMessage = session()->getFlashdata('success');
+    $errorMessage = session()->getFlashdata('error');
+    ?>
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
@@ -152,6 +157,7 @@
                                         <th class="text-left font-semibold">Candidate Email</th>
 
                                         <th class="text-left font-semibold">Applied Date</th>
+                                        <th class="text-left font-semibold">Source</th>
                                 
                                         <th class="text-center font-semibold">Resume</th>
 
@@ -171,6 +177,7 @@
                                             $candidateName = !empty($application['candidate_name']) ? $application['candidate_name'] : ($application['name'] ?? 'Unknown');
                                             $candidateEmail = !empty($application['candidate_email']) ? $application['candidate_email'] : ($application['email'] ?? '-');
                                             $applicationStatus = $application['application_status'] ?? 'Applied';
+                                            $hasResume = !empty($application['resume_file']);
                                             ?>
 
                                         <tr class="hover:bg-slate-50 transition">
@@ -219,17 +226,26 @@
                                                 <?= !empty($application['applied_at']) ? date('d M Y', strtotime($application['applied_at'])) : 'N/A' ?>
                                             </td>
 
+                                            <td class="text-slate-600">
+                                                <?= esc($application['application_source'] ?? 'Internal Career Portal') ?>
+                                            </td>
+
                                             <td>
 
                                                 <div class="flex justify-center gap-3">
 
-                                                    <button class="text-slate-500 hover:text-orange-500" disabled>
+                                                    <a href="<?= $hasResume ? base_url('Recruitment/applications/resume/' . $application['application_id']) : '#' ?>"
+                                                        target="_blank"
+                                                        class="<?= $hasResume ? 'text-slate-500 hover:text-orange-500' : 'pointer-events-none text-slate-300' ?>"
+                                                        title="View resume">
                                                         <i data-lucide="file-text" class="w-4 h-4"></i>
-                                                    </button>
+                                                    </a>
 
-                                                    <button class="text-slate-500 hover:text-blue-600" disabled>
+                                                    <a href="<?= $hasResume ? base_url('Recruitment/applications/resume-download/' . $application['application_id']) : '#' ?>"
+                                                        class="<?= $hasResume ? 'text-slate-500 hover:text-blue-600' : 'pointer-events-none text-slate-300' ?>"
+                                                        title="Download resume">
                                                         <i data-lucide="download" class="w-4 h-4"></i>
-                                                    </button>
+                                                    </a>
 
                                                 </div>
 
@@ -246,9 +262,18 @@
 
                                                 <div class="flex justify-center">
 
-                                                    <button class="text-slate-400 hover:text-red-500" disabled>
-                                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                                    </button>
+                                                    <?php if ($isAdmin): ?>
+                                                        <button type="button"
+                                                            onclick="openCandidateDeleteModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>', '<?= esc($application['job_title'] ?? '-', 'js') ?>')"
+                                                            class="text-slate-400 hover:text-red-500"
+                                                            title="Delete candidate application">
+                                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <button class="text-slate-300" disabled title="Admin only">
+                                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                                        </button>
+                                                    <?php endif; ?>
 
                                                 </div>
 
@@ -259,7 +284,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="9" class="px-5 py-8 text-center text-slate-500">
+                                            <td colspan="10" class="px-5 py-8 text-center text-slate-500">
                                                 No candidates have applied yet.
                                             </td>
                                         </tr>
@@ -305,9 +330,105 @@
         </div>
     </div>
 
+    <?php if ($successMessage || $errorMessage): ?>
+        <div id="candidateToast"
+            class="fixed right-4 top-5 z-[70] w-[calc(100%-2rem)] max-w-md translate-x-[120%] opacity-0 transition-all duration-500 ease-out sm:right-6">
+            <div class="flex items-center gap-3 rounded-lg px-5 py-4 shadow-2xl <?= $successMessage ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' ?>">
+                <i data-lucide="<?= $successMessage ? 'check-circle' : 'alert-circle' ?>" class="h-5 w-5 shrink-0"></i>
+                <p class="text-sm font-semibold">
+                    <?= esc($successMessage ?: $errorMessage) ?>
+                </p>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <div id="candidateDeleteModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
+        <div class="w-full max-w-md rounded-lg bg-white shadow-2xl">
+            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-950">Delete Candidate</h2>
+                    <p class="mt-1 text-sm text-slate-500">This application row will be permanently removed.</p>
+                </div>
+                <button type="button" onclick="closeCandidateDeleteModal()"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+
+            <div class="px-6 py-5">
+                <div class="rounded-lg border border-rose-200 bg-rose-50 p-4">
+                    <div class="flex gap-3">
+                        <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-rose-600">
+                            <i data-lucide="trash-2" class="h-4 w-4"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-rose-900" id="deleteCandidateName">Candidate</p>
+                            <p class="mt-1 text-sm text-rose-700" id="deleteCandidateRole">Applied role</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
+                <button type="button" onclick="closeCandidateDeleteModal()"
+                    class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                    Cancel
+                </button>
+                <form id="candidateDeleteForm" method="post">
+                    <?= csrf_field() ?>
+                    <button type="submit"
+                        class="rounded-lg bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">
+                        Delete Permanently
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const toast = document.getElementById('candidateToast');
+
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-[120%]', 'opacity-0');
+                    toast.classList.add('translate-x-0', 'opacity-100');
+                }, 100);
+
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-0', 'opacity-100');
+                    toast.classList.add('translate-x-[120%]', 'opacity-0');
+                }, 3200);
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 3800);
+            }
+        });
+
+        function openCandidateDeleteModal(id, candidateName, roleName) {
+            document.getElementById('deleteCandidateName').textContent = candidateName;
+            document.getElementById('deleteCandidateRole').textContent = roleName;
+            document.getElementById('candidateDeleteForm').action =
+                "<?= base_url('Recruitment/applications/delete/') ?>" + id;
+
+            const modal = document.getElementById('candidateDeleteModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        function closeCandidateDeleteModal() {
+            const modal = document.getElementById('candidateDeleteModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

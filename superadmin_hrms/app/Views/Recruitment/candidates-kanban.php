@@ -184,6 +184,7 @@
                                         $candidateName = !empty($application['candidate_name']) ? $application['candidate_name'] : ($application['name'] ?? 'Unknown');
                                         $candidateEmail = !empty($application['candidate_email']) ? $application['candidate_email'] : ($application['email'] ?? '-');
                                         $appliedDate = !empty($application['applied_at']) ? date('d M Y', strtotime($application['applied_at'])) : 'N/A';
+                                        $hasResume = !empty($application['resume_file']);
                                         ?>
 
                                         <div class="candidate-card bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-200 cursor-move p-4"
@@ -261,6 +262,26 @@
 
                                                 </div>
 
+                                            </div>
+
+                                            <div class="mt-4 rounded-md bg-slate-50 p-3">
+                                                <p class="text-[12px] text-slate-500">Source</p>
+                                                <p class="mt-1 text-[13px] font-semibold text-slate-800">
+                                                    <?= esc($application['application_source'] ?? 'Internal Career Portal') ?>
+                                                </p>
+                                                <div class="mt-3 flex gap-2">
+                                                    <a href="<?= $hasResume ? base_url('Recruitment/applications/resume/' . $application['application_id']) : '#' ?>"
+                                                        target="_blank"
+                                                        class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border text-[12px] font-semibold">
+                                                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                                                        View
+                                                    </a>
+                                                    <a href="<?= $hasResume ? base_url('Recruitment/applications/resume-download/' . $application['application_id']) : '#' ?>"
+                                                        class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border text-[12px] font-semibold">
+                                                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                                        Download
+                                                    </a>
+                                                </div>
                                             </div>
 
                                         </div>
