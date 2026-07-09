@@ -281,6 +281,117 @@ class RecruitmentController extends BaseController
             ->with('success', 'Candidate application deleted successfully.');
     }
 
+    public function shortlistCandidateApplication($id)
+    {
+        if (!$this->canManageCandidates()) {
+            return $this->redirectCandidateAccessDenied();
+        }
+
+        $application = $this->jobApplicationModel->find((int) $id);
+
+        if (!$application) {
+            return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+
+        $this->jobApplicationModel->update((int) $id, [
+            'status' => 'Shortlisted',
+            'screening_decision' => 'Shortlisted',
+            'screening_notes' => $this->request->getPost('screening_notes'),
+            'shortlisted_at' => date('Y-m-d H:i:s'),
+            'rejection_reason' => null,
+        ]);
+
+        return redirect()->back()->with('success', 'Candidate shortlisted successfully.');
+    }
+
+    public function rejectCandidateApplication($id)
+    {
+        if (!$this->canManageCandidates()) {
+            return $this->redirectCandidateAccessDenied();
+        }
+
+        $application = $this->jobApplicationModel->find((int) $id);
+
+        if (!$application) {
+            return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+
+        $this->jobApplicationModel->update((int) $id, [
+            'status' => 'Rejected',
+            'screening_decision' => 'Rejected',
+            'evaluation_status' => 'Rejected',
+            'rejection_reason' => $this->request->getPost('rejection_reason'),
+            'evaluated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->back()->with('success', 'Candidate rejected and moved out of the interview flow.');
+    }
+
+    public function scheduleCandidateInterview($id)
+    {
+        if (!$this->canManageCandidates()) {
+            return $this->redirectCandidateAccessDenied();
+        }
+
+        $application = $this->jobApplicationModel->find((int) $id);
+
+        if (!$application) {
+            return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+
+        $interviewDate = $this->request->getPost('interview_date');
+        $formattedDate = !empty($interviewDate) ? date('Y-m-d H:i:s', strtotime($interviewDate)) : null;
+
+        if (!$formattedDate) {
+            return redirect()->back()->with('error', 'Please select a valid interview date and time.');
+        }
+
+        $this->jobApplicationModel->update((int) $id, [
+            'status' => 'Interview Scheduled',
+            'interview_round' => $this->request->getPost('interview_round') ?: 'Round 1 - HR Screening',
+            'interview_date' => $formattedDate,
+            'interview_mode' => $this->request->getPost('interview_mode') ?: 'Online',
+            'interviewer_name' => $this->request->getPost('interviewer_name'),
+            'interview_notes' => $this->request->getPost('interview_notes'),
+        ]);
+
+        return redirect()->back()->with('success', 'Interview scheduled successfully.');
+    }
+
+    public function evaluateCandidateApplication($id)
+    {
+        if (!$this->canManageCandidates()) {
+            return $this->redirectCandidateAccessDenied();
+        }
+
+        $application = $this->jobApplicationModel->find((int) $id);
+
+        if (!$application) {
+            return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+
+        $technicalScore = $this->boundedScore($this->request->getPost('technical_score'));
+        $communicationScore = $this->boundedScore($this->request->getPost('communication_score'));
+        $cultureScore = $this->boundedScore($this->request->getPost('culture_score'));
+        $totalScore = (int) round(($technicalScore + $communicationScore + $cultureScore) / 3);
+        $decision = $this->request->getPost('evaluation_status') === 'Selected' ? 'Selected' : 'Rejected';
+
+        $this->jobApplicationModel->update((int) $id, [
+            'status' => $decision,
+            'technical_score' => $technicalScore,
+            'communication_score' => $communicationScore,
+            'culture_score' => $cultureScore,
+            'total_score' => $totalScore,
+            'evaluation_status' => $decision,
+            'interview_notes' => $this->request->getPost('interview_notes'),
+            'rejection_reason' => $decision === 'Rejected' ? $this->request->getPost('rejection_reason') : null,
+            'evaluated_at' => date('Y-m-d H:i:s'),
+            'selected_at' => $decision === 'Selected' ? date('Y-m-d H:i:s') : null,
+        ]);
+
+        return redirect()->back()->with('success', 'Candidate evaluation saved successfully.');
+    }
+
     private function getCandidateApplications(): array
     {
         try {
@@ -289,6 +400,22 @@ class RecruitmentController extends BaseController
             log_message('error', 'Failed to load job applications: ' . $e->getMessage());
             return [];
         }
+    }
+
+    private function canManageCandidates(): bool
+    {
+        return session('role') === 'admin';
+    }
+
+    private function redirectCandidateAccessDenied()
+    {
+        return redirect()->to('/Recruitment/candidates')
+            ->with('error', 'Only admins can manage candidate evaluations.');
+    }
+
+    private function boundedScore($score): int
+    {
+        return max(0, min(100, (int) $score));
     }
 
 }

@@ -115,12 +115,17 @@
                     function statusBadge($status)
                     {
                         switch ($status) {
+                            case 'Shortlisted':
+                                return 'bg-emerald-50 text-emerald-700 border border-emerald-300';
                             case 'Sent':
                                 return 'bg-purple-50 text-purple-600 border border-purple-300';
                             case 'Scheduled':
+                            case 'Interview Scheduled':
                                 return 'bg-pink-50 text-pink-600 border border-pink-300';
                             case 'Interviewed':
                                 return 'bg-blue-50 text-blue-600 border border-blue-300';
+                            case 'Selected':
+                                return 'bg-green-50 text-green-700 border border-green-300';
                             case 'Offered':
                                 return 'bg-yellow-50 text-yellow-700 border border-yellow-300';
                             case 'Hired':
@@ -163,7 +168,7 @@
 
                                         <th class="px-6 py-4 text-left font-semibold w-44">Status</th>
 
-                                        <th class="text-center font-semibold w-16"></th>
+                                        <th class="text-center font-semibold w-44">Actions</th>
 
                                     </tr>
 
@@ -260,9 +265,33 @@
 
                                             <td>
 
-                                                <div class="flex justify-center">
+                                                <div class="flex justify-center gap-3">
 
                                                     <?php if ($isAdmin): ?>
+                                                        <button type="button"
+                                                            onclick="openShortlistModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
+                                                            class="text-slate-400 hover:text-emerald-600"
+                                                            title="Shortlist candidate">
+                                                            <i data-lucide="user-check" class="w-4 h-4"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            onclick="openScheduleModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
+                                                            class="text-slate-400 hover:text-pink-600"
+                                                            title="Schedule interview">
+                                                            <i data-lucide="calendar-clock" class="w-4 h-4"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            onclick="openEvaluateModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
+                                                            class="text-slate-400 hover:text-blue-600"
+                                                            title="Save interview evaluation">
+                                                            <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+                                                        </button>
+                                                        <button type="button"
+                                                            onclick="openRejectModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
+                                                            class="text-slate-400 hover:text-rose-600"
+                                                            title="Reject candidate">
+                                                            <i data-lucide="user-x" class="w-4 h-4"></i>
+                                                        </button>
                                                         <button type="button"
                                                             onclick="openCandidateDeleteModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>', '<?= esc($application['job_title'] ?? '-', 'js') ?>')"
                                                             class="text-slate-400 hover:text-red-500"
@@ -271,7 +300,7 @@
                                                         </button>
                                                     <?php else: ?>
                                                         <button class="text-slate-300" disabled title="Admin only">
-                                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                                            <i data-lucide="lock" class="w-4 h-4"></i>
                                                         </button>
                                                     <?php endif; ?>
 
@@ -342,6 +371,184 @@
         </div>
     <?php endif; ?>
 
+    <div id="shortlistModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
+        <div class="w-full max-w-lg rounded-lg bg-white shadow-2xl">
+            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-950">Shortlist Candidate</h2>
+                    <p class="mt-1 text-sm text-slate-500" id="shortlistCandidateName">Candidate</p>
+                </div>
+                <button type="button" onclick="closePhaseThreeModal('shortlistModal')"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <form id="shortlistForm" method="post">
+                <?= csrf_field() ?>
+                <div class="px-6 py-5">
+                    <label class="block text-sm font-semibold text-slate-700">Screening notes</label>
+                    <textarea name="screening_notes" rows="4"
+                        class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+                        placeholder="Add HR screening remarks, resume match, or shortlist reason."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
+                    <button type="button" onclick="closePhaseThreeModal('shortlistModal')"
+                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
+                    <button type="submit"
+                        class="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">Shortlist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="scheduleModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
+        <div class="w-full max-w-2xl rounded-lg bg-white shadow-2xl">
+            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-950">Schedule Interview</h2>
+                    <p class="mt-1 text-sm text-slate-500" id="scheduleCandidateName">Candidate</p>
+                </div>
+                <button type="button" onclick="closePhaseThreeModal('scheduleModal')"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <form id="scheduleForm" method="post">
+                <?= csrf_field() ?>
+                <div class="grid gap-4 px-6 py-5 sm:grid-cols-2">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Round</label>
+                        <select name="interview_round"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
+                            <option>Round 1 - HR Screening</option>
+                            <option>Round 2 - Technical Evaluation</option>
+                            <option>Round 3 - Management Round</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Date and time</label>
+                        <input type="datetime-local" name="interview_date" required
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Mode</label>
+                        <select name="interview_mode"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
+                            <option>Online</option>
+                            <option>In Person</option>
+                            <option>Phone</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Interviewer</label>
+                        <input type="text" name="interviewer_name"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700">Schedule notes</label>
+                        <textarea name="interview_notes" rows="3"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100"></textarea>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
+                    <button type="button" onclick="closePhaseThreeModal('scheduleModal')"
+                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
+                    <button type="submit"
+                        class="rounded-lg bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-pink-700">Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="evaluateModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
+        <div class="w-full max-w-2xl rounded-lg bg-white shadow-2xl">
+            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-950">Interview Evaluation</h2>
+                    <p class="mt-1 text-sm text-slate-500" id="evaluateCandidateName">Candidate</p>
+                </div>
+                <button type="button" onclick="closePhaseThreeModal('evaluateModal')"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <form id="evaluateForm" method="post">
+                <?= csrf_field() ?>
+                <div class="grid gap-4 px-6 py-5 sm:grid-cols-3">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Technical</label>
+                        <input type="number" name="technical_score" min="0" max="100" required
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Communication</label>
+                        <input type="number" name="communication_score" min="0" max="100" required
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700">Culture</label>
+                        <input type="number" name="culture_score" min="0" max="100" required
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-sm font-semibold text-slate-700">Decision</label>
+                        <select name="evaluation_status"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                            <option>Selected</option>
+                            <option>Rejected</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-sm font-semibold text-slate-700">Evaluation notes</label>
+                        <textarea name="interview_notes" rows="3"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"></textarea>
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-sm font-semibold text-slate-700">Rejection reason</label>
+                        <textarea name="rejection_reason" rows="2"
+                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"></textarea>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
+                    <button type="button" onclick="closePhaseThreeModal('evaluateModal')"
+                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
+                    <button type="submit"
+                        class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">Save Evaluation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="rejectModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
+        <div class="w-full max-w-lg rounded-lg bg-white shadow-2xl">
+            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-950">Reject Candidate</h2>
+                    <p class="mt-1 text-sm text-slate-500" id="rejectCandidateName">Candidate</p>
+                </div>
+                <button type="button" onclick="closePhaseThreeModal('rejectModal')"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <form id="rejectForm" method="post">
+                <?= csrf_field() ?>
+                <div class="px-6 py-5">
+                    <label class="block text-sm font-semibold text-slate-700">Rejection reason</label>
+                    <textarea name="rejection_reason" rows="4"
+                        class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-100"
+                        placeholder="Add a concise reason for the rejection email/log."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
+                    <button type="button" onclick="closePhaseThreeModal('rejectModal')"
+                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
+                    <button type="submit"
+                        class="rounded-lg bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="candidateDeleteModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
         <div class="w-full max-w-md rounded-lg bg-white shadow-2xl">
             <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
@@ -408,6 +615,50 @@
                 }, 3800);
             }
         });
+
+        function openPhaseThreeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        function closePhaseThreeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function openShortlistModal(id, candidateName) {
+            document.getElementById('shortlistCandidateName').textContent = candidateName;
+            document.getElementById('shortlistForm').action =
+                "<?= base_url('Recruitment/applications/shortlist/') ?>" + id;
+            openPhaseThreeModal('shortlistModal');
+        }
+
+        function openScheduleModal(id, candidateName) {
+            document.getElementById('scheduleCandidateName').textContent = candidateName;
+            document.getElementById('scheduleForm').action =
+                "<?= base_url('Recruitment/applications/schedule/') ?>" + id;
+            openPhaseThreeModal('scheduleModal');
+        }
+
+        function openEvaluateModal(id, candidateName) {
+            document.getElementById('evaluateCandidateName').textContent = candidateName;
+            document.getElementById('evaluateForm').action =
+                "<?= base_url('Recruitment/applications/evaluate/') ?>" + id;
+            openPhaseThreeModal('evaluateModal');
+        }
+
+        function openRejectModal(id, candidateName) {
+            document.getElementById('rejectCandidateName').textContent = candidateName;
+            document.getElementById('rejectForm').action =
+                "<?= base_url('Recruitment/applications/reject/') ?>" + id;
+            openPhaseThreeModal('rejectModal');
+        }
 
         function openCandidateDeleteModal(id, candidateName, roleName) {
             document.getElementById('deleteCandidateName').textContent = candidateName;

@@ -117,8 +117,11 @@
                 {
                     return match ($status) {
                         'Applied', 'Sent' => 'bg-purple-500 text-white font-semibold',
+                        'Shortlisted' => 'bg-emerald-500 text-white font-semibold',
                         'Scheduled' => 'bg-pink-500 text-white font-semibold',
+                        'Interview Scheduled' => 'bg-pink-500 text-white font-semibold',
                         'Interviewed' => 'bg-blue-500 text-white font-semibold',
+                        'Selected' => 'bg-green-500 text-white font-semibold',
                         'Offered' => 'bg-yellow-500 text-white font-semibold',
                         'Hired' => 'bg-green-500 text-white font-semibold',
                         'Rejected' => 'bg-red-500 text-white font-semibold',

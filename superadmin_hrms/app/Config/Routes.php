@@ -125,6 +125,10 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
     $routes->post('submit-application', 'Recruitment\JobApplicationController::submitApplication');
     $routes->get('applications/resume/(:num)', 'Recruitment\JobApplicationController::viewResume/$1');
     $routes->get('applications/resume-download/(:num)', 'Recruitment\JobApplicationController::downloadResume/$1');
+    $routes->post('applications/shortlist/(:num)', 'Recruitment\RecruitmentController::shortlistCandidateApplication/$1');
+    $routes->post('applications/reject/(:num)', 'Recruitment\RecruitmentController::rejectCandidateApplication/$1');
+    $routes->post('applications/schedule/(:num)', 'Recruitment\RecruitmentController::scheduleCandidateInterview/$1');
+    $routes->post('applications/evaluate/(:num)', 'Recruitment\RecruitmentController::evaluateCandidateApplication/$1');
     $routes->post('applications/delete/(:num)', 'Recruitment\RecruitmentController::deleteCandidateApplication/$1');
 
 

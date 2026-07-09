@@ -115,11 +115,9 @@
 
                 $columns = [
                     'Applied' => ['dot' => 'bg-purple-500'],
-                    'Sent' => ['dot' => 'bg-purple-500'],
-                    'Scheduled' => ['dot' => 'bg-pink-500'],
-                    'Interviewed' => ['dot' => 'bg-blue-500'],
-                    'Offered' => ['dot' => 'bg-yellow-400'],
-                    'Hired' => ['dot' => 'bg-green-500'],
+                    'Shortlisted' => ['dot' => 'bg-emerald-500'],
+                    'Interview Scheduled' => ['dot' => 'bg-pink-500'],
+                    'Selected' => ['dot' => 'bg-green-500'],
                     'Rejected' => ['dot' => 'bg-red-500'],
                 ];
 
