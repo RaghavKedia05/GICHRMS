@@ -261,6 +261,31 @@ class RecruitmentController extends BaseController
         ]);
     }
 
+    public function evaluation()
+    {
+        $applications = $this->getCandidateApplications();
+
+        return view('/Recruitment/evaluation', [
+            'applications' => $applications,
+            'stats' => $this->getEvaluationStats($applications),
+        ]);
+    }
+
+    public function candidateProfile($id)
+    {
+        $application = $this->jobApplicationModel->getApplicationWithDetails((int) $id);
+
+        if (!$application) {
+            return redirect()->to('/Recruitment/evaluation')
+                ->with('error', 'Candidate application not found.');
+        }
+
+        return view('/Recruitment/candidate_profile', [
+            'application' => $application,
+            'isAdmin' => $this->canManageCandidates(),
+        ]);
+    }
+
     public function deleteCandidateApplication($id)
     {
         if (session('role') !== 'admin') {
@@ -340,7 +365,8 @@ class RecruitmentController extends BaseController
         }
 
         $interviewDate = $this->request->getPost('interview_date');
-        $formattedDate = !empty($interviewDate) ? date('Y-m-d H:i:s', strtotime($interviewDate)) : null;
+        $interviewTimestamp = !empty($interviewDate) ? strtotime($interviewDate) : false;
+        $formattedDate = $interviewTimestamp ? date('Y-m-d H:i:s', $interviewTimestamp) : null;
 
         if (!$formattedDate) {
             return redirect()->back()->with('error', 'Please select a valid interview date and time.');
@@ -404,7 +430,7 @@ class RecruitmentController extends BaseController
 
     private function canManageCandidates(): bool
     {
-        return session('role') === 'admin';
+        return in_array(session('role'), ['admin', 'hr'], true);
     }
 
     private function redirectCandidateAccessDenied()
@@ -416,6 +442,26 @@ class RecruitmentController extends BaseController
     private function boundedScore($score): int
     {
         return max(0, min(100, (int) $score));
+    }
+
+    private function getEvaluationStats(array $applications): array
+    {
+        $stats = [
+            'Applied' => 0,
+            'Shortlisted' => 0,
+            'Interview Scheduled' => 0,
+            'Selected' => 0,
+            'Rejected' => 0,
+        ];
+
+        foreach ($applications as $application) {
+            $status = $application['application_status'] ?? 'Applied';
+            if (isset($stats[$status])) {
+                $stats[$status]++;
+            }
+        }
+
+        return $stats;
     }
 
 }

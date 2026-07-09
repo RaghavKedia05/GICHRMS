@@ -232,6 +232,11 @@
                                     </div>
 
                                     <div class="mt-4 flex gap-2">
+                                        <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
+                                            class="inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md bg-slate-900 text-xs font-semibold text-white hover:bg-slate-700">
+                                            <i data-lucide="folder-open" class="w-4 h-4"></i>
+                                            Profile
+                                        </a>
                                         <a href="<?= $hasResume ? base_url('Recruitment/applications/resume/' . $application['application_id']) : '#' ?>"
                                             target="_blank"
                                             class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md border text-xs font-semibold">

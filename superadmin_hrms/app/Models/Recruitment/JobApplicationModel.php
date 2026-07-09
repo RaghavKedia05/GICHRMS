@@ -75,6 +75,29 @@ class JobApplicationModel extends Model
             ->findAll();
     }
 
+    public function getApplicationWithDetails(int $applicationId): ?array
+    {
+        return $this->select(
+                'job_applications.*,
+                job_applications.id AS application_id,
+                job_applications.status AS application_status,
+                users.employee_id,
+                users.name,
+                users.email,
+                job_requisitions.requisition_no,
+                job_requisitions.job_title,
+                job_requisitions.department,
+                job_requisitions.location,
+                job_requisitions.employment_type,
+                job_requisitions.experience,
+                job_requisitions.education'
+            )
+            ->join('users', 'users.id = job_applications.user_id')
+            ->join('job_requisitions', 'job_requisitions.id = job_applications.requisition_id')
+            ->where('job_applications.id', $applicationId)
+            ->first();
+    }
+
     public function hasApplied(int $requisitionId, int $userId): bool
     {
         return $this->where('requisition_id', $requisitionId)

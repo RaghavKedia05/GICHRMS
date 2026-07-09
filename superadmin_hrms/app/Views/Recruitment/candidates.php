@@ -168,7 +168,7 @@
 
                                         <th class="px-6 py-4 text-left font-semibold w-44">Status</th>
 
-                                        <th class="text-center font-semibold w-44">Actions</th>
+                                        <th class="text-center font-semibold w-72">Actions</th>
 
                                     </tr>
 
@@ -265,38 +265,48 @@
 
                                             <td>
 
-                                                <div class="flex justify-center gap-3">
+                                                <div class="flex flex-wrap justify-center gap-2">
 
                                                     <?php if ($isAdmin): ?>
+                                                        <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
+                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-200 px-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+                                                            <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                                                            Open Profile
+                                                        </a>
                                                         <button type="button"
                                                             onclick="openShortlistModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="text-slate-400 hover:text-emerald-600"
+                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-emerald-200 px-2.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-50"
                                                             title="Shortlist candidate">
-                                                            <i data-lucide="user-check" class="w-4 h-4"></i>
+                                                            <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+                                                            Shortlist
                                                         </button>
                                                         <button type="button"
                                                             onclick="openScheduleModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="text-slate-400 hover:text-pink-600"
+                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-pink-200 px-2.5 text-xs font-semibold text-pink-700 hover:bg-pink-50"
                                                             title="Schedule interview">
-                                                            <i data-lucide="calendar-clock" class="w-4 h-4"></i>
+                                                            <i data-lucide="calendar-clock" class="w-3.5 h-3.5"></i>
+                                                            Schedule
                                                         </button>
                                                         <button type="button"
                                                             onclick="openEvaluateModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="text-slate-400 hover:text-blue-600"
+                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-blue-200 px-2.5 text-xs font-semibold text-blue-700 hover:bg-blue-50"
                                                             title="Save interview evaluation">
-                                                            <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+                                                            <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
+                                                            Evaluate
                                                         </button>
                                                         <button type="button"
                                                             onclick="openRejectModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="text-slate-400 hover:text-rose-600"
+                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-rose-200 px-2.5 text-xs font-semibold text-rose-700 hover:bg-rose-50"
                                                             title="Reject candidate">
-                                                            <i data-lucide="user-x" class="w-4 h-4"></i>
+                                                            <i data-lucide="user-x" class="w-3.5 h-3.5"></i>
+                                                            Reject
                                                         </button>
                                                         <button type="button"
                                                             onclick="openCandidateDeleteModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>', '<?= esc($application['job_title'] ?? '-', 'js') ?>')"
-                                                            class="text-slate-400 hover:text-red-500"
+                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-200 px-2.5 text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-red-600"
                                                             title="Delete candidate application">
-                                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                                            Delete
                                                         </button>
                                                     <?php else: ?>
                                                         <button class="text-slate-300" disabled title="Admin only">

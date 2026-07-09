@@ -268,6 +268,11 @@
                                                     <?= esc($application['application_source'] ?? 'Internal Career Portal') ?>
                                                 </p>
                                                 <div class="mt-3 flex gap-2">
+                                                    <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
+                                                        class="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md bg-slate-900 text-[12px] font-semibold text-white hover:bg-slate-700">
+                                                        <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                                                        Profile
+                                                    </a>
                                                     <a href="<?= $hasResume ? base_url('Recruitment/applications/resume/' . $application['application_id']) : '#' ?>"
                                                         target="_blank"
                                                         class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border text-[12px] font-semibold">

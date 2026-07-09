@@ -60,6 +60,7 @@ $routes->get('/Recruitment/jobs-grid', 'Recruitment\RecruitmentController::jobsG
 $routes->get('/Recruitment/candidates', 'Recruitment\RecruitmentController::candidates');
 $routes->get('/Recruitment/candidates-grid', 'Recruitment\RecruitmentController::candidatesGrid');
 $routes->get('/Recruitment/candidates-kanban', 'Recruitment\RecruitmentController::candidatesKanban');
+$routes->get('/Recruitment/evaluation', 'Recruitment\RecruitmentController::evaluation', ['filter' => 'auth']);
 $routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1');
 $routes->get('/Recruitment/employee-jobs', 'Recruitment\RecruitmentController::employeeJobs', ['filter' => 'auth']);
 $routes->get('/Recruitment/employee-jobs-grid', 'Recruitment\RecruitmentController::employeeJobsGrid', ['filter' => 'auth']);
@@ -125,6 +126,7 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
     $routes->post('submit-application', 'Recruitment\JobApplicationController::submitApplication');
     $routes->get('applications/resume/(:num)', 'Recruitment\JobApplicationController::viewResume/$1');
     $routes->get('applications/resume-download/(:num)', 'Recruitment\JobApplicationController::downloadResume/$1');
+    $routes->get('applications/profile/(:num)', 'Recruitment\RecruitmentController::candidateProfile/$1');
     $routes->post('applications/shortlist/(:num)', 'Recruitment\RecruitmentController::shortlistCandidateApplication/$1');
     $routes->post('applications/reject/(:num)', 'Recruitment\RecruitmentController::rejectCandidateApplication/$1');
     $routes->post('applications/schedule/(:num)', 'Recruitment\RecruitmentController::scheduleCandidateInterview/$1');
