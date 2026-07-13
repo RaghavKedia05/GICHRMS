@@ -58,6 +58,7 @@ class JobApplicationModel extends Model
 
     public function getApplicationsWithDetails(): array
     {
+        // Candidate screens need application, employee, and job data in one row.
         return $this->select(
                 'job_applications.*,
                 job_applications.id AS application_id,
@@ -77,6 +78,7 @@ class JobApplicationModel extends Model
 
     public function getApplicationWithDetails(int $applicationId): ?array
     {
+        // The profile page uses one complete joined record for the Phase 3 workflow.
         return $this->select(
                 'job_applications.*,
                 job_applications.id AS application_id,

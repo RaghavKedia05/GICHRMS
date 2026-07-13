@@ -50,6 +50,10 @@
 </head>
 
 <body class="bg-slate-100 text-slate-900">
+    <?php
+    $toastErrors = session()->getFlashdata('errors') ?? [];
+    $toastSuccess = session()->getFlashdata('success');
+    ?>
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden">
     </div>
@@ -135,28 +139,6 @@
                             class="requisition-form">
 
                             <?= csrf_field(); ?>
-
-                            <?php if (session()->getFlashdata('errors')): ?>
-                                <div class="mx-4 mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 sm:mx-6">
-                                    <div class="flex gap-3">
-                                        <i data-lucide="circle-alert" class="mt-0.5 h-5 w-5 shrink-0"></i>
-                                        <ul class="list-disc space-y-1 pl-4">
-                                            <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                                                <li><?= esc($error) ?></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if (session()->getFlashdata('success')): ?>
-                                <div class="mx-4 mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700 sm:mx-6">
-                                    <div class="flex items-center gap-3">
-                                        <i data-lucide="circle-check" class="h-5 w-5 shrink-0"></i>
-                                        <?= session()->getFlashdata('success') ?>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
 
                             <?php $selectedDepartment = old('department', $departments[0]['department_name'] ?? ''); ?>
 
@@ -403,7 +385,7 @@
                                                     Minimum Salary
                                                 </label>
                                                 <div class="relative">
-                                                    <span class="absolute left-3 top-3 text-sm font-semibold text-slate-500">₹</span>
+                                                    <span class="absolute left-3 top-3 text-sm font-semibold text-slate-500">Rs.</span>
                                                     <input type="number" name="salary_from"
                                                         value="<?= old('salary_from') ?>"
                                                         class="pl-9 w-full border rounded-lg px-4 py-3">
@@ -415,7 +397,7 @@
                                                     Maximum Salary
                                                 </label>
                                                 <div class="relative">
-                                                    <span class="absolute left-3 top-3 text-sm font-semibold text-slate-500">₹</span>
+                                                    <span class="absolute left-3 top-3 text-sm font-semibold text-slate-500">Rs.</span>
                                                     <input type="number" name="salary_to"
                                                         value="<?= old('salary_to') ?>"
                                                         class="pl-9 w-full border rounded-lg px-4 py-3">
@@ -562,6 +544,11 @@
         </div>
 
     </div>
+
+    <?= view('partials/flash_toast', [
+        'toastSuccess' => $toastSuccess,
+        'toastErrors' => $toastErrors,
+    ]) ?>
 
     <script>
         lucide.createIcons();

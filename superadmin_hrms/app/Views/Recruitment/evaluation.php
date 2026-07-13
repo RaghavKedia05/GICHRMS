@@ -19,6 +19,7 @@
     $stats = $stats ?? [];
     $successMessage = session()->getFlashdata('success');
     $errorMessage = session()->getFlashdata('error');
+    $canManageCandidates = in_array(session('role'), ['admin', 'hr'], true);
 
     function evaluationBadge($status)
     {
@@ -65,12 +66,6 @@
                         </a>
                     </div>
                 </div>
-
-                <?php if ($successMessage || $errorMessage): ?>
-                    <div class="mb-5 rounded-md border px-4 py-3 text-sm font-semibold <?= $successMessage ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-rose-200 bg-rose-50 text-rose-700' ?>">
-                        <?= esc($successMessage ?: $errorMessage) ?>
-                    </div>
-                <?php endif; ?>
 
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-5">
                     <?php foreach (['Applied', 'Shortlisted', 'Interview Scheduled', 'Selected', 'Rejected'] as $status): ?>
@@ -143,12 +138,27 @@
                                                     <?= esc($status) ?>
                                                 </span>
                                             </td>
-                                            <td class="px-5 py-4 text-right">
-                                                <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
-                                                    class="inline-flex h-9 items-center gap-2 rounded-md bg-slate-900 px-3 text-xs font-semibold text-white hover:bg-slate-700">
-                                                    <i data-lucide="folder-open" class="h-4 w-4"></i>
-                                                    Open Profile
-                                                </a>
+                                            <td class="px-5 py-4">
+                                                <div class="flex flex-wrap justify-end gap-2">
+                                                    <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
+                                                        class="inline-flex h-9 items-center gap-2 rounded-md bg-slate-900 px-3 text-xs font-semibold text-white hover:bg-slate-700">
+                                                        <i data-lucide="folder-open" class="h-4 w-4"></i>
+                                                        Open Profile
+                                                    </a>
+
+                                                    <?php if ($canManageCandidates && $status !== 'Rejected'): ?>
+                                                        <button type="button"
+                                                            data-application-id="<?= (int) $application['application_id'] ?>"
+                                                            data-candidate-name="<?= esc($candidateName, 'attr') ?>"
+                                                            data-job-title="<?= esc($application['job_title'] ?? '-', 'attr') ?>"
+                                                            onclick="openEvaluationRejectModal(this)"
+                                                            class="inline-flex h-9 items-center gap-2 rounded-md border border-rose-200 bg-white px-3 text-xs font-semibold text-rose-700 transition hover:bg-rose-50"
+                                                            title="Reject candidate and send notification email">
+                                                            <i data-lucide="user-x" class="h-4 w-4"></i>
+                                                            Reject
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -165,8 +175,109 @@
         </div>
     </div>
 
+    <div id="evaluationRejectModal"
+        class="fixed inset-0 z-[70] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="evaluationRejectTitle">
+        <div class="w-full max-w-lg overflow-hidden rounded-xl border border-white/20 bg-white shadow-2xl">
+            <div class="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-5 sm:px-6">
+                <div class="flex items-start gap-3">
+                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-rose-600">
+                        <i data-lucide="user-x" class="h-5 w-5"></i>
+                    </span>
+                    <div>
+                        <h2 id="evaluationRejectTitle" class="text-lg font-semibold text-slate-950">Reject Candidate</h2>
+                        <p class="mt-1 text-sm text-slate-500">This removes the candidate from the evaluation pipeline.</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeEvaluationRejectModal()" aria-label="Close rejection dialog"
+                    class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+
+            <form id="evaluationRejectForm" method="post">
+                <?= csrf_field() ?>
+
+                <div class="space-y-5 px-5 py-5 sm:px-6">
+                    <div class="rounded-lg border border-rose-200 bg-rose-50 p-4">
+                        <p id="evaluationRejectCandidate" class="font-semibold text-rose-950">Candidate</p>
+                        <p id="evaluationRejectRole" class="mt-1 text-sm text-rose-700">Applied role</p>
+                    </div>
+
+                    <div class="flex gap-3 rounded-lg border border-sky-200 bg-sky-50 p-4 text-sm text-sky-800">
+                        <i data-lucide="mail" class="mt-0.5 h-5 w-5 shrink-0 text-sky-600"></i>
+                        <p class="leading-6">
+                            Once confirmed, the candidate will be marked as rejected and a rejection email will be sent automatically.
+                        </p>
+                    </div>
+
+                    <div>
+                        <label for="evaluationRejectionReason" class="block text-sm font-semibold text-slate-700">
+                            Rejection reason <span class="text-rose-500">*</span>
+                        </label>
+                        <textarea id="evaluationRejectionReason" name="rejection_reason" rows="4" required
+                            placeholder="Add concise, professional feedback for the candidate..."
+                            class="mt-2 w-full resize-y rounded-lg border border-slate-300 px-3.5 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10"></textarea>
+                        <p class="mt-2 text-xs text-slate-500">This feedback will be included in the candidate's email.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50 px-5 py-4 sm:flex-row sm:justify-end sm:px-6">
+                    <button type="button" onclick="closeEvaluationRejectModal()"
+                        class="inline-flex h-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-rose-600 px-4 text-sm font-semibold text-white shadow-sm hover:bg-rose-700">
+                        <i data-lucide="mail-x" class="h-4 w-4"></i>
+                        Reject & Send Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <?= view('partials/flash_toast', [
+        'toastSuccess' => $successMessage,
+        'toastError' => $errorMessage,
+    ]) ?>
+
     <script>
         lucide.createIcons();
+
+        function openEvaluationRejectModal(button) {
+            const modal = document.getElementById('evaluationRejectModal');
+            const form = document.getElementById('evaluationRejectForm');
+
+            form.action = "<?= base_url('Recruitment/applications/reject/') ?>" + button.dataset.applicationId;
+            document.getElementById('evaluationRejectCandidate').textContent = button.dataset.candidateName;
+            document.getElementById('evaluationRejectRole').textContent = button.dataset.jobTitle;
+            document.getElementById('evaluationRejectionReason').value = '';
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+            document.getElementById('evaluationRejectionReason').focus();
+        }
+
+        function closeEvaluationRejectModal() {
+            const modal = document.getElementById('evaluationRejectModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        document.getElementById('evaluationRejectModal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closeEvaluationRejectModal();
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeEvaluationRejectModal();
+            }
+        });
 
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');

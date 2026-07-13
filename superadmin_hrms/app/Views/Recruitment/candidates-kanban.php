@@ -18,10 +18,7 @@
         }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Graph JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -164,12 +161,6 @@
 
                                     </div>
 
-                                    <button>
-
-                                        <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
-
-                                    </button>
-
                                 </div>
 
                                 <!-- Cards -->
@@ -185,7 +176,7 @@
                                         $hasResume = !empty($application['resume_file']);
                                         ?>
 
-                                        <div class="candidate-card bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-200 cursor-move p-4"
+                                        <div class="candidate-card bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-200 p-4"
                                             data-id="<?= esc($application['application_id'] ?? '') ?>">
 
                                             <!-- Header -->
@@ -195,10 +186,6 @@
                                                     class="inline-flex items-center bg-orange-50 text-orange-500 text-[10px] font-medium px-2 py-1 rounded">
                                                     <?= esc($application['application_id'] ?? 'N/A') ?>
                                                 </span>
-
-                                                <button type="button">
-                                                    <i data-lucide="more-vertical" class="w-4 h-4 text-slate-500"></i>
-                                                </button>
 
                                             </div>
 
@@ -329,24 +316,7 @@
                 });
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
         <script>
-            document.querySelectorAll('.kanban-column').forEach(column => {
-
-                new Sortable(column, {
-                    group: 'candidates',
-                    animation: 200,
-                    ghostClass: 'bg-orange-100',
-                    dragClass: 'shadow-xl',
-
-                    onEnd: function () {
-                        updateKanbanCounts();
-
-                    }
-                });
-
-            });
-
             function updateKanbanCounts() {
                 document.querySelectorAll(".kanban-column").forEach(column => {
                     const status = column.dataset.status;
@@ -362,26 +332,7 @@
                 });
             }
 
-            
-
-            // Initial count on page load
             updateKanbanCounts();
         </script>
-
-        <style>
-            .drag-ghost {
-                opacity: .45;
-                transform: rotate(2deg);
-            }
-
-            .dragging {
-                transform: rotate(3deg);
-                box-shadow: 0 15px 35px rgba(0, 0, 0, .18);
-            }
-
-            .drag-chosen {
-                cursor: grabbing;
-            }
-        </style>
 
 </body>

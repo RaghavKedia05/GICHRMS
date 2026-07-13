@@ -308,6 +308,7 @@ class RecruitmentController extends BaseController
 
     public function shortlistCandidateApplication($id)
     {
+        // Phase 3 begins when HR accepts the resume screening.
         if (!$this->canManageCandidates()) {
             return $this->redirectCandidateAccessDenied();
         }
@@ -316,6 +317,11 @@ class RecruitmentController extends BaseController
 
         if (!$application) {
             return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+
+        if (!in_array($application['status'] ?? '', ['Applied', 'Shortlisted'], true)) {
+            return redirect()->back()
+                ->with('error', 'Only newly applied candidates can be shortlisted.');
         }
 
         $this->jobApplicationModel->update((int) $id, [
@@ -341,19 +347,34 @@ class RecruitmentController extends BaseController
             return redirect()->back()->with('error', 'Candidate application not found.');
         }
 
-        $this->jobApplicationModel->update((int) $id, [
+        $rejectionReason = trim((string) $this->request->getPost('rejection_reason'));
+        $applicationDetails = $this->jobApplicationModel->getApplicationWithDetails((int) $id) ?? $application;
+
+        $updated = $this->jobApplicationModel->update((int) $id, [
             'status' => 'Rejected',
             'screening_decision' => 'Rejected',
             'evaluation_status' => 'Rejected',
-            'rejection_reason' => $this->request->getPost('rejection_reason'),
+            'rejection_reason' => $rejectionReason !== '' ? $rejectionReason : null,
             'evaluated_at' => date('Y-m-d H:i:s'),
         ]);
 
-        return redirect()->back()->with('success', 'Candidate rejected and moved out of the interview flow.');
+        if (!$updated) {
+            return redirect()->back()->with('error', 'The candidate could not be rejected. Please try again.');
+        }
+
+        $emailSent = $this->sendCandidateRejectionEmail($applicationDetails, $rejectionReason);
+
+        if (!$emailSent) {
+            return redirect()->back()
+                ->with('error', 'Candidate rejected, but the rejection email could not be delivered. Check the email configuration and try again.');
+        }
+
+        return redirect()->back()->with('success', 'Candidate rejected and the rejection email was sent.');
     }
 
     public function scheduleCandidateInterview($id)
     {
+        // Keep interview scheduling on the application row for a simple audit trail.
         if (!$this->canManageCandidates()) {
             return $this->redirectCandidateAccessDenied();
         }
@@ -362,6 +383,11 @@ class RecruitmentController extends BaseController
 
         if (!$application) {
             return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+
+        if (!in_array($application['status'] ?? '', ['Shortlisted', 'Interview Scheduled'], true)) {
+            return redirect()->back()
+                ->with('error', 'Shortlist the candidate before scheduling an interview.');
         }
 
         $interviewDate = $this->request->getPost('interview_date');
@@ -386,6 +412,7 @@ class RecruitmentController extends BaseController
 
     public function evaluateCandidateApplication($id)
     {
+        // Scores are stored as 0-100 values and averaged for the final score.
         if (!$this->canManageCandidates()) {
             return $this->redirectCandidateAccessDenied();
         }
@@ -396,13 +423,26 @@ class RecruitmentController extends BaseController
             return redirect()->back()->with('error', 'Candidate application not found.');
         }
 
+        if (!in_array($application['status'] ?? '', ['Interview Scheduled', 'Selected', 'Rejected'], true)) {
+            return redirect()->back()
+                ->with('error', 'Schedule an interview before saving the evaluation result.');
+        }
+
         $technicalScore = $this->boundedScore($this->request->getPost('technical_score'));
         $communicationScore = $this->boundedScore($this->request->getPost('communication_score'));
         $cultureScore = $this->boundedScore($this->request->getPost('culture_score'));
         $totalScore = (int) round(($technicalScore + $communicationScore + $cultureScore) / 3);
         $decision = $this->request->getPost('evaluation_status') === 'Selected' ? 'Selected' : 'Rejected';
 
-        $this->jobApplicationModel->update((int) $id, [
+        $wasRejected = ($application['status'] ?? '') === 'Rejected';
+        $rejectionReason = $decision === 'Rejected'
+            ? trim((string) $this->request->getPost('rejection_reason'))
+            : '';
+        $applicationDetails = $decision === 'Rejected' && !$wasRejected
+            ? ($this->jobApplicationModel->getApplicationWithDetails((int) $id) ?? $application)
+            : [];
+
+        $updated = $this->jobApplicationModel->update((int) $id, [
             'status' => $decision,
             'technical_score' => $technicalScore,
             'communication_score' => $communicationScore,
@@ -410,10 +450,26 @@ class RecruitmentController extends BaseController
             'total_score' => $totalScore,
             'evaluation_status' => $decision,
             'interview_notes' => $this->request->getPost('interview_notes'),
-            'rejection_reason' => $decision === 'Rejected' ? $this->request->getPost('rejection_reason') : null,
+            'rejection_reason' => $decision === 'Rejected' && $rejectionReason !== '' ? $rejectionReason : null,
             'evaluated_at' => date('Y-m-d H:i:s'),
             'selected_at' => $decision === 'Selected' ? date('Y-m-d H:i:s') : null,
         ]);
+
+        if (!$updated) {
+            return redirect()->back()->with('error', 'The candidate evaluation could not be saved. Please try again.');
+        }
+
+        if ($decision === 'Rejected' && !$wasRejected) {
+            $emailSent = $this->sendCandidateRejectionEmail($applicationDetails, $rejectionReason);
+
+            if (!$emailSent) {
+                return redirect()->back()
+                    ->with('error', 'Candidate evaluation saved as rejected, but the rejection email could not be delivered. Check the email configuration.');
+            }
+
+            return redirect()->back()
+                ->with('success', 'Candidate evaluation saved and the rejection email was sent.');
+        }
 
         return redirect()->back()->with('success', 'Candidate evaluation saved successfully.');
     }
@@ -436,12 +492,78 @@ class RecruitmentController extends BaseController
     private function redirectCandidateAccessDenied()
     {
         return redirect()->to('/Recruitment/candidates')
-            ->with('error', 'Only admins can manage candidate evaluations.');
+            ->with('error', 'Only admins and HR can manage candidate evaluations.');
     }
 
     private function boundedScore($score): int
     {
         return max(0, min(100, (int) $score));
+    }
+
+    private function sendCandidateRejectionEmail(array $application, string $rejectionReason = ''): bool
+    {
+        $recipientEmail = trim((string) ($application['candidate_email'] ?? $application['email'] ?? ''));
+
+        if (!filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
+            log_message('warning', 'Rejection email skipped for application {id}: invalid candidate email address.', [
+                'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
+            ]);
+            return false;
+        }
+
+        $emailConfig = config('Email');
+        $smtpUser = trim((string) $emailConfig->SMTPUser);
+        $smtpPassword = trim((string) $emailConfig->SMTPPass);
+        $transportEmail = $smtpUser !== '' ? $smtpUser : trim((string) $emailConfig->fromEmail);
+        $companyName = trim((string) $emailConfig->fromName) ?: 'Transportation ERP Recruitment';
+        $rejectorEmail = trim((string) session('email'));
+        $rejectorName = trim((string) session('name')) ?: 'Recruitment Team';
+        $rejectorRole = ucwords(str_replace('_', ' ', (string) session('role')));
+
+        if (!filter_var($transportEmail, FILTER_VALIDATE_EMAIL) || $smtpPassword === '') {
+            log_message('error', 'Rejection email skipped: Gmail SMTP user or app password is not configured.');
+            return false;
+        }
+
+        $candidateName = trim((string) ($application['candidate_name'] ?? $application['name'] ?? 'Candidate'));
+        $jobTitle = trim((string) ($application['job_title'] ?? 'the position'));
+
+        try {
+            $email = service('email');
+            $email->clear(true);
+            $email->setFrom($transportEmail, $rejectorName . ' via ' . $companyName);
+
+            if (filter_var($rejectorEmail, FILTER_VALIDATE_EMAIL) && strcasecmp($rejectorEmail, $transportEmail) !== 0) {
+                $email->setReplyTo($rejectorEmail, $rejectorName);
+            }
+
+            $email->setTo($recipientEmail);
+            $email->setSubject('Update on your application for ' . $jobTitle);
+            $email->setMailType('html');
+            $email->setMessage(view('emails/candidate_rejection', [
+                'candidateName' => $candidateName !== '' ? $candidateName : 'Candidate',
+                'jobTitle' => $jobTitle !== '' ? $jobTitle : 'the position',
+                'rejectionReason' => $rejectionReason,
+                'companyName' => $companyName,
+                'senderName' => $rejectorName,
+                'senderRole' => $rejectorRole !== '' ? $rejectorRole : 'Recruitment Team',
+            ]));
+
+            if (!$email->send()) {
+                log_message('error', 'Failed to send rejection email for application {id}.', [
+                    'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
+                ]);
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $e) {
+            log_message('error', 'Rejection email failed for application {id}: {message}', [
+                'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
+                'message' => $e->getMessage(),
+            ]);
+            return false;
+        }
     }
 
     private function getEvaluationStats(array $applications): array

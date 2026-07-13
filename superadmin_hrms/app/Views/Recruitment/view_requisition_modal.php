@@ -1,4 +1,4 @@
-﻿<div class="bg-white rounded-3xl shadow-xl border border-slate-200 max-w-6xl mx-auto">
+<div class="bg-white rounded-3xl shadow-xl border border-slate-200 max-w-6xl mx-auto">
 
     <!-- Header -->
     <div class="px-8 py-6 bg-slate-50 border-b border-slate-200">
@@ -54,7 +54,7 @@
         </div>
         <div class="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center">
             <p class="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">Salary Range</p>
-            <p class="text-3xl font-semibold text-slate-900">₹<?= number_format($requisition['salary_from']) ?> - ₹<?= number_format($requisition['salary_to']) ?></p>
+            <p class="text-3xl font-semibold text-slate-900">Rs. <?= number_format($requisition['salary_from']) ?> - Rs. <?= number_format($requisition['salary_to']) ?></p>
         </div>
     </div>
 

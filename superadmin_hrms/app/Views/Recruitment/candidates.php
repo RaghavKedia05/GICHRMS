@@ -18,16 +18,12 @@
         }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Graph JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body class="bg-[#f8fafc]">
     <?php
-    $isAdmin = session('role') === 'admin';
     $successMessage = session()->getFlashdata('success');
     $errorMessage = session()->getFlashdata('error');
     ?>
@@ -97,7 +93,7 @@
                 </div>
 
                 <!-- Candidates List -->
-                <div class="bg-white border border-slate-200 rounded-md shadow-sm">
+                <div class="bg-white border border-slate-200 rounded-md shadow-sm overflow-hidden">
 
                     <!-- Header -->
                     <div class="p-5 border-b">
@@ -108,7 +104,6 @@
 
                     </div>
 
-                    <!-- Table -->
                     <?php
                     $applications = $applications ?? [];
 
@@ -139,36 +134,30 @@
 
                     ?>
 
-                    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                    <div class="bg-white">
 
-                        <div class="overflow-x-auto">
+                        <div class="w-full overflow-x-auto overscroll-x-contain">
 
-                            <table class="w-full text-sm">
+                            <table class="w-full min-w-[1100px] table-auto text-sm">
 
                                 <thead class="bg-slate-100 text-slate-700">
 
                                     <tr>
 
-                                        <th class="px-5 py-4 w-10">
-                                            <input type="checkbox" class="rounded border-slate-300">
-                                        </th>
+                                        <th class="whitespace-nowrap px-5 py-4 text-left font-semibold">Cand ID</th>
 
-                                        <th class="text-left font-semibold">Cand ID</th>
+                                        <th class="min-w-64 px-5 py-4 text-left font-semibold">Candidate</th>
 
-                                        <th class="text-left font-semibold">Candidate</th>
+                                        <th class="min-w-48 px-5 py-4 text-left font-semibold">Applied Role</th>
 
-                                        <th class="text-left font-semibold">Applied Role</th>
+                                        <th class="min-w-64 px-5 py-4 text-left font-semibold">Candidate Email</th>
 
-                                        <th class="text-left font-semibold">Candidate Email</th>
-
-                                        <th class="text-left font-semibold">Applied Date</th>
-                                        <th class="text-left font-semibold">Source</th>
+                                        <th class="whitespace-nowrap px-5 py-4 text-left font-semibold">Applied Date</th>
+                                        <th class="min-w-52 px-5 py-4 text-left font-semibold">Source</th>
                                 
-                                        <th class="text-center font-semibold">Resume</th>
+                                        <th class="whitespace-nowrap px-5 py-4 text-center font-semibold">Resume</th>
 
-                                        <th class="px-6 py-4 text-left font-semibold w-44">Status</th>
-
-                                        <th class="text-center font-semibold w-72">Actions</th>
+                                        <th class="w-44 whitespace-nowrap px-5 py-4 text-left font-semibold">Status</th>
 
                                     </tr>
 
@@ -187,29 +176,25 @@
 
                                         <tr class="hover:bg-slate-50 transition">
 
-                                            <td class="px-5 py-4">
-                                                <input type="checkbox" class="rounded border-slate-300">
-                                            </td>
-
-                                            <td class="font-medium text-slate-600">
+                                            <td class="whitespace-nowrap px-5 py-4 align-middle font-medium text-slate-600">
                                                 <?= esc($application['application_id'] ?? 'N/A') ?>
                                             </td>
 
-                                            <td>
+                                            <td class="px-5 py-4 align-middle">
 
                                                 <div class="flex items-center gap-3">
 
-                                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                                                    <div class="w-10 h-10 shrink-0 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
                                                         <?= esc(substr($candidateName, 0, 1)) ?>
                                                     </div>
 
-                                                    <div>
+                                                    <div class="min-w-0">
 
                                                         <h4 class="font-semibold text-slate-800">
                                                             <?= esc($candidateName) ?>
                                                         </h4>
 
-                                                        <p class="text-slate-500">
+                                                        <p class="max-w-56 truncate text-slate-500" title="<?= esc($candidateEmail) ?>">
                                                             <?= esc($candidateEmail) ?>
                                                         </p>
 
@@ -219,23 +204,23 @@
 
                                             </td>
 
-                                            <td class="text-slate-600">
+                                            <td class="px-5 py-4 align-middle text-slate-600">
                                                 <?= esc($application['job_title'] ?? '-') ?>
                                             </td>
 
-                                            <td class="text-slate-600">
+                                            <td class="break-all px-5 py-4 align-middle text-slate-600">
                                                 <?= esc($candidateEmail) ?>
                                             </td>
 
-                                            <td class="text-slate-600">
+                                            <td class="whitespace-nowrap px-5 py-4 align-middle text-slate-600">
                                                 <?= !empty($application['applied_at']) ? date('d M Y', strtotime($application['applied_at'])) : 'N/A' ?>
                                             </td>
 
-                                            <td class="text-slate-600">
+                                            <td class="px-5 py-4 align-middle text-slate-600">
                                                 <?= esc($application['application_source'] ?? 'Internal Career Portal') ?>
                                             </td>
 
-                                            <td>
+                                            <td class="px-5 py-4 align-middle">
 
                                                 <div class="flex justify-center gap-3">
 
@@ -256,66 +241,11 @@
 
                                             </td>
 
-                                            <td class="px-6 py-4 w-44">
+                                            <td class="w-44 whitespace-nowrap px-5 py-4 align-middle">
                                                 <span
                                                     class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium <?= statusBadge($applicationStatus) ?>">
                                                     &bull; <?= esc($applicationStatus) ?>
                                                 </span>
-                                            </td>
-
-                                            <td>
-
-                                                <div class="flex flex-wrap justify-center gap-2">
-
-                                                    <?php if ($isAdmin): ?>
-                                                        <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
-                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-200 px-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
-                                                            <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
-                                                            Open Profile
-                                                        </a>
-                                                        <button type="button"
-                                                            onclick="openShortlistModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-emerald-200 px-2.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-50"
-                                                            title="Shortlist candidate">
-                                                            <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
-                                                            Shortlist
-                                                        </button>
-                                                        <button type="button"
-                                                            onclick="openScheduleModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-pink-200 px-2.5 text-xs font-semibold text-pink-700 hover:bg-pink-50"
-                                                            title="Schedule interview">
-                                                            <i data-lucide="calendar-clock" class="w-3.5 h-3.5"></i>
-                                                            Schedule
-                                                        </button>
-                                                        <button type="button"
-                                                            onclick="openEvaluateModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-blue-200 px-2.5 text-xs font-semibold text-blue-700 hover:bg-blue-50"
-                                                            title="Save interview evaluation">
-                                                            <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
-                                                            Evaluate
-                                                        </button>
-                                                        <button type="button"
-                                                            onclick="openRejectModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>')"
-                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-rose-200 px-2.5 text-xs font-semibold text-rose-700 hover:bg-rose-50"
-                                                            title="Reject candidate">
-                                                            <i data-lucide="user-x" class="w-3.5 h-3.5"></i>
-                                                            Reject
-                                                        </button>
-                                                        <button type="button"
-                                                            onclick="openCandidateDeleteModal(<?= (int) $application['application_id'] ?>, '<?= esc($candidateName, 'js') ?>', '<?= esc($application['job_title'] ?? '-', 'js') ?>')"
-                                                            class="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-200 px-2.5 text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-red-600"
-                                                            title="Delete candidate application">
-                                                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                                                            Delete
-                                                        </button>
-                                                    <?php else: ?>
-                                                        <button class="text-slate-300" disabled title="Admin only">
-                                                            <i data-lucide="lock" class="w-4 h-4"></i>
-                                                        </button>
-                                                    <?php endif; ?>
-
-                                                </div>
-
                                             </td>
 
                                         </tr>
@@ -323,7 +253,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="10" class="px-5 py-8 text-center text-slate-500">
+                                            <td colspan="8" class="px-5 py-8 text-center text-slate-500">
                                                 No candidates have applied yet.
                                             </td>
                                         </tr>
@@ -335,30 +265,8 @@
 
                         </div>
 
-                        <div class="flex items-center justify-between px-6 py-4 border-t text-sm">
-
-                            <p class="text-slate-500">
-                                Showing 1 - <?= count($applications) ?> of <?= count($applications) ?> entries
-                            </p>
-
-                            <div class="flex items-center gap-2">
-
-                                <button
-                                    class="w-8 h-8 rounded-full border hover:bg-slate-100 flex items-center justify-center">
-                                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                                </button>
-
-                                <button class="w-8 h-8 rounded-full bg-orange-500 text-white">
-                                    1
-                                </button>
-
-                                <button
-                                    class="w-8 h-8 rounded-full border hover:bg-slate-100 flex items-center justify-center">
-                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                                </button>
-
-                            </div>
-
+                        <div class="border-t px-4 py-4 text-sm text-slate-500 sm:px-5">
+                            Showing <?= count($applications) ?> candidate application<?= count($applications) === 1 ? '' : 's' ?>
                         </div>
 
                     </div> <!-- Table End -->
@@ -369,327 +277,13 @@
         </div>
     </div>
 
-    <?php if ($successMessage || $errorMessage): ?>
-        <div id="candidateToast"
-            class="fixed right-4 top-5 z-[70] w-[calc(100%-2rem)] max-w-md translate-x-[120%] opacity-0 transition-all duration-500 ease-out sm:right-6">
-            <div class="flex items-center gap-3 rounded-lg px-5 py-4 shadow-2xl <?= $successMessage ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' ?>">
-                <i data-lucide="<?= $successMessage ? 'check-circle' : 'alert-circle' ?>" class="h-5 w-5 shrink-0"></i>
-                <p class="text-sm font-semibold">
-                    <?= esc($successMessage ?: $errorMessage) ?>
-                </p>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <div id="shortlistModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
-        <div class="w-full max-w-lg rounded-lg bg-white shadow-2xl">
-            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-950">Shortlist Candidate</h2>
-                    <p class="mt-1 text-sm text-slate-500" id="shortlistCandidateName">Candidate</p>
-                </div>
-                <button type="button" onclick="closePhaseThreeModal('shortlistModal')"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
-                    <i data-lucide="x" class="h-5 w-5"></i>
-                </button>
-            </div>
-            <form id="shortlistForm" method="post">
-                <?= csrf_field() ?>
-                <div class="px-6 py-5">
-                    <label class="block text-sm font-semibold text-slate-700">Screening notes</label>
-                    <textarea name="screening_notes" rows="4"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100"
-                        placeholder="Add HR screening remarks, resume match, or shortlist reason."></textarea>
-                </div>
-                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
-                    <button type="button" onclick="closePhaseThreeModal('shortlistModal')"
-                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-                    <button type="submit"
-                        class="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">Shortlist</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="scheduleModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
-        <div class="w-full max-w-2xl rounded-lg bg-white shadow-2xl">
-            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-950">Schedule Interview</h2>
-                    <p class="mt-1 text-sm text-slate-500" id="scheduleCandidateName">Candidate</p>
-                </div>
-                <button type="button" onclick="closePhaseThreeModal('scheduleModal')"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
-                    <i data-lucide="x" class="h-5 w-5"></i>
-                </button>
-            </div>
-            <form id="scheduleForm" method="post">
-                <?= csrf_field() ?>
-                <div class="grid gap-4 px-6 py-5 sm:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Round</label>
-                        <select name="interview_round"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
-                            <option>Round 1 - HR Screening</option>
-                            <option>Round 2 - Technical Evaluation</option>
-                            <option>Round 3 - Management Round</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Date and time</label>
-                        <input type="datetime-local" name="interview_date" required
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Mode</label>
-                        <select name="interview_mode"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
-                            <option>Online</option>
-                            <option>In Person</option>
-                            <option>Phone</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Interviewer</label>
-                        <input type="text" name="interviewer_name"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100">
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-semibold text-slate-700">Schedule notes</label>
-                        <textarea name="interview_notes" rows="3"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-100"></textarea>
-                    </div>
-                </div>
-                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
-                    <button type="button" onclick="closePhaseThreeModal('scheduleModal')"
-                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-                    <button type="submit"
-                        class="rounded-lg bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-pink-700">Schedule</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="evaluateModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
-        <div class="w-full max-w-2xl rounded-lg bg-white shadow-2xl">
-            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-950">Interview Evaluation</h2>
-                    <p class="mt-1 text-sm text-slate-500" id="evaluateCandidateName">Candidate</p>
-                </div>
-                <button type="button" onclick="closePhaseThreeModal('evaluateModal')"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
-                    <i data-lucide="x" class="h-5 w-5"></i>
-                </button>
-            </div>
-            <form id="evaluateForm" method="post">
-                <?= csrf_field() ?>
-                <div class="grid gap-4 px-6 py-5 sm:grid-cols-3">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Technical</label>
-                        <input type="number" name="technical_score" min="0" max="100" required
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Communication</label>
-                        <input type="number" name="communication_score" min="0" max="100" required
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700">Culture</label>
-                        <input type="number" name="culture_score" min="0" max="100" required
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
-                    </div>
-                    <div class="sm:col-span-3">
-                        <label class="block text-sm font-semibold text-slate-700">Decision</label>
-                        <select name="evaluation_status"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
-                            <option>Selected</option>
-                            <option>Rejected</option>
-                        </select>
-                    </div>
-                    <div class="sm:col-span-3">
-                        <label class="block text-sm font-semibold text-slate-700">Evaluation notes</label>
-                        <textarea name="interview_notes" rows="3"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"></textarea>
-                    </div>
-                    <div class="sm:col-span-3">
-                        <label class="block text-sm font-semibold text-slate-700">Rejection reason</label>
-                        <textarea name="rejection_reason" rows="2"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"></textarea>
-                    </div>
-                </div>
-                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
-                    <button type="button" onclick="closePhaseThreeModal('evaluateModal')"
-                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-                    <button type="submit"
-                        class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">Save Evaluation</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="rejectModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
-        <div class="w-full max-w-lg rounded-lg bg-white shadow-2xl">
-            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-950">Reject Candidate</h2>
-                    <p class="mt-1 text-sm text-slate-500" id="rejectCandidateName">Candidate</p>
-                </div>
-                <button type="button" onclick="closePhaseThreeModal('rejectModal')"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
-                    <i data-lucide="x" class="h-5 w-5"></i>
-                </button>
-            </div>
-            <form id="rejectForm" method="post">
-                <?= csrf_field() ?>
-                <div class="px-6 py-5">
-                    <label class="block text-sm font-semibold text-slate-700">Rejection reason</label>
-                    <textarea name="rejection_reason" rows="4"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-100"
-                        placeholder="Add a concise reason for the rejection email/log."></textarea>
-                </div>
-                <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
-                    <button type="button" onclick="closePhaseThreeModal('rejectModal')"
-                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-                    <button type="submit"
-                        class="rounded-lg bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">Reject</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="candidateDeleteModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 p-4">
-        <div class="w-full max-w-md rounded-lg bg-white shadow-2xl">
-            <div class="flex items-start justify-between border-b border-slate-200 px-6 py-5">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-950">Delete Candidate</h2>
-                    <p class="mt-1 text-sm text-slate-500">This application row will be permanently removed.</p>
-                </div>
-                <button type="button" onclick="closeCandidateDeleteModal()"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
-                    <i data-lucide="x" class="h-5 w-5"></i>
-                </button>
-            </div>
-
-            <div class="px-6 py-5">
-                <div class="rounded-lg border border-rose-200 bg-rose-50 p-4">
-                    <div class="flex gap-3">
-                        <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-rose-600">
-                            <i data-lucide="trash-2" class="h-4 w-4"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold text-rose-900" id="deleteCandidateName">Candidate</p>
-                            <p class="mt-1 text-sm text-rose-700" id="deleteCandidateRole">Applied role</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-end gap-3 border-t border-slate-200 px-6 py-5">
-                <button type="button" onclick="closeCandidateDeleteModal()"
-                    class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-                    Cancel
-                </button>
-                <form id="candidateDeleteForm" method="post">
-                    <?= csrf_field() ?>
-                    <button type="submit"
-                        class="rounded-lg bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">
-                        Delete Permanently
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    <?= view('partials/flash_toast', [
+        'toastSuccess' => $successMessage,
+        'toastError' => $errorMessage,
+    ]) ?>
 
     <script>
         lucide.createIcons();
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const toast = document.getElementById('candidateToast');
-
-            if (toast) {
-                setTimeout(() => {
-                    toast.classList.remove('translate-x-[120%]', 'opacity-0');
-                    toast.classList.add('translate-x-0', 'opacity-100');
-                }, 100);
-
-                setTimeout(() => {
-                    toast.classList.remove('translate-x-0', 'opacity-100');
-                    toast.classList.add('translate-x-[120%]', 'opacity-0');
-                }, 3200);
-
-                setTimeout(() => {
-                    toast.remove();
-                }, 3800);
-            }
-        });
-
-        function openPhaseThreeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-        }
-
-        function closePhaseThreeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-        }
-
-        function openShortlistModal(id, candidateName) {
-            document.getElementById('shortlistCandidateName').textContent = candidateName;
-            document.getElementById('shortlistForm').action =
-                "<?= base_url('Recruitment/applications/shortlist/') ?>" + id;
-            openPhaseThreeModal('shortlistModal');
-        }
-
-        function openScheduleModal(id, candidateName) {
-            document.getElementById('scheduleCandidateName').textContent = candidateName;
-            document.getElementById('scheduleForm').action =
-                "<?= base_url('Recruitment/applications/schedule/') ?>" + id;
-            openPhaseThreeModal('scheduleModal');
-        }
-
-        function openEvaluateModal(id, candidateName) {
-            document.getElementById('evaluateCandidateName').textContent = candidateName;
-            document.getElementById('evaluateForm').action =
-                "<?= base_url('Recruitment/applications/evaluate/') ?>" + id;
-            openPhaseThreeModal('evaluateModal');
-        }
-
-        function openRejectModal(id, candidateName) {
-            document.getElementById('rejectCandidateName').textContent = candidateName;
-            document.getElementById('rejectForm').action =
-                "<?= base_url('Recruitment/applications/reject/') ?>" + id;
-            openPhaseThreeModal('rejectModal');
-        }
-
-        function openCandidateDeleteModal(id, candidateName, roleName) {
-            document.getElementById('deleteCandidateName').textContent = candidateName;
-            document.getElementById('deleteCandidateRole').textContent = roleName;
-            document.getElementById('candidateDeleteForm').action =
-                "<?= base_url('Recruitment/applications/delete/') ?>" + id;
-
-            const modal = document.getElementById('candidateDeleteModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-        }
-
-        function closeCandidateDeleteModal() {
-            const modal = document.getElementById('candidateDeleteModal');
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-        }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

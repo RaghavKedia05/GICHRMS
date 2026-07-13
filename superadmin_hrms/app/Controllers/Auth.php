@@ -118,7 +118,19 @@ class Auth extends BaseController
 
     public function logout()
     {
-        session()->destroy();
-        return redirect()->to('/login');
+        $session = session();
+
+        // Avoid session()->destroy() here because Windows can lock the session file
+        // and make CodeIgniter's unlink() fail during logout.
+        $session->remove([
+            'user_id',
+            'name',
+            'email',
+            'role',
+            'logged_in',
+        ]);
+
+        return redirect()->to('/login')
+            ->with('success', 'Logged out successfully.');
     }
 }

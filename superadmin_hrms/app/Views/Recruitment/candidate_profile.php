@@ -62,12 +62,6 @@
                     </div>
                 </div>
 
-                <?php if ($successMessage || $errorMessage): ?>
-                    <div class="mb-5 rounded-md border px-4 py-3 text-sm font-semibold <?= $successMessage ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-rose-200 bg-rose-50 text-rose-700' ?>">
-                        <?= esc($successMessage ?: $errorMessage) ?>
-                    </div>
-                <?php endif; ?>
-
                 <div class="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_380px]">
                     <section class="space-y-5">
                         <div class="rounded-md border border-slate-200 bg-white shadow-sm">
@@ -238,6 +232,11 @@
             </main>
         </div>
     </div>
+
+    <?= view('partials/flash_toast', [
+        'toastSuccess' => $successMessage,
+        'toastError' => $errorMessage,
+    ]) ?>
 
     <script>
         lucide.createIcons();

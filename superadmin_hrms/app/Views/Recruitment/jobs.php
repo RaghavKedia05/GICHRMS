@@ -18,10 +18,7 @@
         }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Graph JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -115,14 +112,14 @@
                                         <?php foreach ($jobs as $job): ?>
                                             <?php
                                             $salaryRange = (!empty($job['salary_from']) && !empty($job['salary_to']))
-                                                ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                                ? 'Rs. ' . number_format($job['salary_from']) . ' - Rs. ' . number_format($job['salary_to'])
                                                 : 'Not set';
                                             ?>
                                             <tr class="hover:bg-slate-50">
                                                 <td class="px-5 py-4">
                                                     <div class="font-semibold text-slate-950"><?= esc($job['job_title']) ?></div>
                                                     <div class="mt-1 text-xs text-slate-500">
-                                                        <?= esc($job['requisition_no'] ?? 'N/A') ?> · <?= esc($job['vacancies'] ?? 1) ?> openings
+                                                        <?= esc($job['requisition_no'] ?? 'N/A') ?> - <?= esc($job['vacancies'] ?? 1) ?> openings
                                                     </div>
                                                 </td>
                                                 <td class="px-5 py-4"><?= esc($job['department']) ?></td>
@@ -255,7 +252,7 @@
                             <tbody class="divide-y divide-slate-100 text-sm text-slate-700">
                                 <?php if (!empty($jobs)): ?>
                                     <?php foreach ($jobs as $job): ?>
-                                        <?php $salaryRange = !empty($job['salary_from']) && !empty($job['salary_to']) ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to']) : 'Not set'; ?>
+                                        <?php $salaryRange = !empty($job['salary_from']) && !empty($job['salary_to']) ? 'Rs. ' . number_format($job['salary_from']) . ' - Rs. ' . number_format($job['salary_to']) : 'Not set'; ?>
                                         <tr class="hover:bg-slate-50">
                                             <td class="px-4 py-4"><?= esc($job['requisition_no'] ?? 'N/A') ?></td>
                                             <td class="px-4 py-4">
@@ -291,29 +288,10 @@
 
                         </table>
 
-                        <!-- Pagination -->
-                        <div class="flex items-center justify-between p-3 border-t">
-
+                        <div class="p-3 border-t">
                             <p class="text-sm text-slate-600">
-                                Showing 1 - 8 of 8 entries
+                                Showing <?= count($jobs ?? []) ?> published job<?= count($jobs ?? []) === 1 ? '' : 's' ?>
                             </p>
-
-                            <div class="flex items-center justify-center gap-4">
-
-                                <button>
-                                    <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
-                                </button>
-
-                                <button class="w-6 h-6 rounded-full bg-orange-500 text-white text-xs">
-                                    1
-                                </button>
-
-                                <button>
-                                    <i data-lucide="chevron-right" class="text-slate-500 w-4 h-4"></i>
-                                </button>
-
-                            </div>
-
                         </div>
                     </div>
                 </div>

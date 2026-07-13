@@ -9,7 +9,7 @@ $statusClass = match ($status) {
 };
 
 $salaryRange = (!empty($requisition['salary_from']) && !empty($requisition['salary_to']))
-    ? '&#8377;' . number_format((float) $requisition['salary_from']) . ' - &#8377;' . number_format((float) $requisition['salary_to'])
+    ? 'Rs. ' . number_format((float) $requisition['salary_from']) . ' - Rs. ' . number_format((float) $requisition['salary_to'])
     : 'Not set';
 $publishedAt = !empty($requisition['published_at']) ? date('d M Y', strtotime($requisition['published_at'])) : 'Not published';
 $targetHireDate = !empty($requisition['target_hire_date']) && $requisition['target_hire_date'] !== '0000-00-00'

@@ -18,10 +18,7 @@
         }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Graph JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -90,7 +87,7 @@
                             <?php foreach ($jobs as $job): ?>
                                 <?php
                                 $salary = (!empty($job['salary_from']) && !empty($job['salary_to']))
-                                    ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                    ? 'Rs. ' . number_format($job['salary_from']) . ' - Rs. ' . number_format($job['salary_to'])
                                     : 'Not set';
                                 $hasApplied = in_array($job['id'], $appliedIds ?? []);
                                 ?>
@@ -221,11 +218,11 @@
                         <?php foreach ($jobs as $job): ?>
                             <?php
                             $applicants = !empty($job['vacancies']) ? $job['vacancies'] . ' Openings' : '1 Openings';
-                            $salary = '₹0 - ₹0';
+                            $salary = 'Rs. 0 - Rs. 0';
                             if (!empty($job['salary_from']) && !empty($job['salary_to'])) {
-                                $salary = '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to']);
+                                $salary = 'Rs. ' . number_format($job['salary_from']) . ' - Rs. ' . number_format($job['salary_to']);
                             } elseif (!empty($job['salary_from'])) {
-                                $salary = '₹' . number_format($job['salary_from']);
+                                $salary = 'Rs. ' . number_format($job['salary_from']);
                             }
                             $jobTitle = $job['job_title'] ?? $job['title'] ?? 'Untitled Job';
                             ?>

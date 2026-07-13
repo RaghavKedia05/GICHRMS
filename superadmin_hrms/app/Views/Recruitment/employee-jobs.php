@@ -18,10 +18,7 @@
         }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Graph JS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -115,7 +112,7 @@
                                         <?php foreach ($jobs as $job): ?>
                                             <?php
                                             $salaryRange = (!empty($job['salary_from']) && !empty($job['salary_to']))
-                                                ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                                ? 'Rs. ' . number_format($job['salary_from']) . ' - Rs. ' . number_format($job['salary_to'])
                                                 : 'Not set';
                                             $hasApplied = in_array($job['id'], $appliedIds ?? []);
                                             ?>
@@ -123,7 +120,7 @@
                                                 <td class="px-5 py-4">
                                                     <div class="font-semibold text-slate-950"><?= esc($job['job_title']) ?></div>
                                                     <div class="mt-1 text-xs text-slate-500">
-                                                        <?= esc($job['requisition_no'] ?? 'N/A') ?> · <?= esc($job['vacancies'] ?? 1) ?> openings
+                                                        <?= esc($job['requisition_no'] ?? 'N/A') ?> - <?= esc($job['vacancies'] ?? 1) ?> openings
                                                     </div>
                                                 </td>
                                                 <td class="px-5 py-4"><?= esc($job['department']) ?></td>
@@ -267,7 +264,7 @@
 
                                         <?php
                                         $salaryRange = (!empty($job['salary_from']) && !empty($job['salary_to']))
-                                            ? '₹' . number_format($job['salary_from']) . ' - ₹' . number_format($job['salary_to'])
+                                            ? 'Rs. ' . number_format($job['salary_from']) . ' - Rs. ' . number_format($job['salary_to'])
                                             : 'Not set';
                                         ?>
 
@@ -369,29 +366,10 @@
 
                         </table>
 
-                        <!-- Pagination -->
-                        <div class="flex items-center justify-between p-3 border-t">
-
+                        <div class="p-3 border-t">
                             <p class="text-sm text-slate-600">
-                                Showing 1 - 8 of 8 entries
+                                Showing <?= count($jobs ?? []) ?> career opportunit<?= count($jobs ?? []) === 1 ? 'y' : 'ies' ?>
                             </p>
-
-                            <div class="flex items-center justify-center gap-4">
-
-                                <button>
-                                    <i data-lucide="chevron-left" class="text-slate-500 w-4 h-4"></i>
-                                </button>
-
-                                <button class="w-6 h-6 rounded-full bg-orange-500 text-white text-xs">
-                                    1
-                                </button>
-
-                                <button>
-                                    <i data-lucide="chevron-right" class="text-slate-500 w-4 h-4"></i>
-                                </button>
-
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -401,59 +379,10 @@
         </div>
     </div>
 
-    <?php if (session()->getFlashdata('success')): ?>
-
-        <div id="successToast" class="fixed top-6 right-6 z-50
-           translate-x-[120%]
-           transition-transform duration-500 ease-in-out">
-
-            <div class="flex items-center gap-3 bg-emerald-600 text-white px-6 py-4 rounded-xl shadow-xl">
-
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-
-                </svg>
-
-                <span class="font-medium">
-
-                    <?= session()->getFlashdata('success') ?>
-
-                </span>
-
-            </div>
-
-        </div>
-
-        <script>
-
-            document.addEventListener("DOMContentLoaded", function () {
-
-                const toast = document.getElementById("successToast");
-
-                // Slide In
-                setTimeout(() => {
-                    toast.classList.remove("translate-x-[120%]");
-                    toast.classList.add("translate-x-0");
-                }, 100);
-
-                // Slide Out
-                setTimeout(() => {
-                    toast.classList.remove("translate-x-0");
-                    toast.classList.add("translate-x-[120%]");
-                }, 3000);
-
-                // Remove from DOM
-                setTimeout(() => {
-                    toast.remove();
-                }, 3500);
-
-            });
-
-        </script>
-
-    <?php endif; ?>
+    <?= view('partials/flash_toast', [
+        'toastSuccess' => session()->getFlashdata('success'),
+        'toastError' => session()->getFlashdata('error'),
+    ]) ?>
 
 
     <script>

@@ -75,10 +75,31 @@ class JobApplicationController extends BaseController
                 ->with('error', 'You have already applied for this job.');
         }
 
+        if (!$resume || in_array($resume->getError(), [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Resume must be 5 MB or smaller.');
+        }
+
         if (!$resume->isValid()) {
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Please upload a valid resume.');
+        }
+
+        $allowedExtensions = ['pdf', 'doc', 'docx'];
+        $extension = strtolower((string) $resume->getClientExtension());
+
+        if (!in_array($extension, $allowedExtensions, true)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Resume must be a PDF, DOC, or DOCX file.');
+        }
+
+        if ($resume->getSizeByUnit('mb') > 5) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Resume must be 5 MB or smaller.');
         }
 
         $newName = $resume->getRandomName();

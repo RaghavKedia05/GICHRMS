@@ -23,6 +23,26 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
     exit(1);
 }
 
+// PHP parses multipart bodies before CodeIgniter boots. Reject oversized resume
+// submissions here so an upload warning cannot send output before the session
+// filter configures its cookie and save path.
+$requestPath = strtolower((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH));
+$contentLength = (int) ($_SERVER['CONTENT_LENGTH'] ?? 0);
+$maxApplicationRequestBytes = 6 * 1024 * 1024;
+
+if (
+    ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST'
+    && str_ends_with($requestPath, '/recruitment/submit-application')
+    && $contentLength > $maxApplicationRequestBytes
+) {
+    if (! headers_sent()) {
+        http_response_code(413);
+        header('Content-Type: text/plain; charset=UTF-8');
+    }
+
+    exit('The resume upload is too large. Please upload a PDF, DOC, or DOCX file no larger than 5 MB.');
+}
+
 /*
  *---------------------------------------------------------------
  * SET THE CURRENT DIRECTORY

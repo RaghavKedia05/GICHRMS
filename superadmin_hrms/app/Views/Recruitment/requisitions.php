@@ -370,25 +370,10 @@
 
     </div>
 
-    <!-- Toast Notification -->
-    <?php if (session()->getFlashdata('success')): ?>
-
-        <div id="toast"
-            class="fixed top-6 right-6 translate-x-[120%] opacity-0 transition-all duration-500 ease-in-out z-50">
-
-            <div class="bg-green-600 text-white px-5 py-4 rounded-lg shadow-2xl flex items-center gap-3 min-w-[340px]">
-
-                <i data-lucide="check-circle" class="w-6 h-6"></i>
-
-                <span class="font-medium">
-                    <?= session()->getFlashdata('success') ?>
-                </span>
-
-            </div>
-
-        </div>
-
-    <?php endif; ?>
+    <?= view('partials/flash_toast', [
+        'toastSuccess' => session()->getFlashdata('success'),
+        'toastError' => session()->getFlashdata('error'),
+    ]) ?>
 
     <div id="publishModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
         <div class="bg-white rounded-lg w-full max-w-lg shadow-xl">
@@ -454,36 +439,9 @@
     <?= $this->include('Recruitment/delete_requisition_modal') ?>
 
     <script>
-
         document.addEventListener("DOMContentLoaded", function () {
-
-            // Initialize Lucide Icons
             lucide.createIcons();
-
-            const toast = document.getElementById("toast");
-
-            if (toast) {
-
-                // Slide In
-                setTimeout(() => {
-
-                    toast.classList.remove("translate-x-[120%]");
-                    toast.classList.remove("opacity-0");
-
-                }, 100);
-
-                // Slide Out
-                setTimeout(() => {
-
-                    toast.classList.add("translate-x-[120%]");
-                    toast.classList.add("opacity-0");
-
-                }, 3000);
-
-            }
-
         });
-
     </script>
 
     <div id="viewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
@@ -515,20 +473,26 @@
 
     </div>
 
-    <div id="editModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
+    <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-3 backdrop-blur-sm sm:p-5">
 
-        <div class="bg-white rounded-lg w-full max-w-5xl max-h-[90vh] overflow-y-auto p-6 shadow-xl">
+        <div class="flex max-h-[94vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-slate-50 shadow-2xl">
 
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex shrink-0 items-start justify-between gap-4 border-b border-slate-200 bg-white px-4 py-4 sm:px-6 sm:py-5">
 
-                <h2 class="text-2xl font-bold">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                            <i data-lucide="square-pen" class="h-5 w-5"></i>
+                        </span>
+                        <div>
+                            <h2 class="text-lg font-semibold text-slate-950 sm:text-xl">Edit Job Requisition</h2>
+                            <p class="mt-0.5 text-sm text-slate-500">Review and update the hiring request details.</p>
+                        </div>
+                    </div>
+                </div>
 
-                    Edit Requisition
-
-                </h2>
-
-                <button onclick="closeEditModal()"
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+                <button type="button" onclick="closeEditModal()" aria-label="Close edit requisition"
+                    class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900">
 
                     <i data-lucide="x" class="h-5 w-5"></i>
 
@@ -536,7 +500,7 @@
 
             </div>
 
-            <div id="editContent" class="text-center py-10 text-slate-500">
+            <div id="editContent" class="overflow-y-auto p-4 text-center text-slate-500 sm:p-6">
                 Loading...
             </div>
 

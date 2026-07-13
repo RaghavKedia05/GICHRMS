@@ -22,6 +22,7 @@
 </head>
 
 <body class="bg-slate-50">
+    <?php $toastError = session()->getFlashdata('error'); ?>
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
 
@@ -56,21 +57,12 @@
 
                     </div>
 
-                    <?php if (session()->getFlashdata('error')): ?>
-
-                        <div class="mb-6 bg-red-100 border border-red-300 text-red-700 rounded-lg p-4">
-
-                            <?= session()->getFlashdata('error') ?>
-
-                        </div>
-
-                    <?php endif; ?>
-
-
-                    <form action="<?= base_url('Recruitment/submit-application') ?>" method="post"
+                    <form id="jobApplicationForm" action="<?= base_url('Recruitment/submit-application') ?>" method="post"
                         enctype="multipart/form-data">
 
                         <?= csrf_field() ?>
+
+                        <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
 
                         <input type="hidden" name="requisition_id" value="<?= $job['id'] ?>">
                         <input type="hidden" name="application_source" value="Internal Career Portal">
@@ -290,8 +282,10 @@
 
                                 </label>
 
-                                <input type="file" name="resume" accept=".pdf,.doc,.docx" required
+                                <input id="resumeFile" type="file" name="resume" accept=".pdf,.doc,.docx" required
                                     class="w-full rounded-lg border px-4 py-3">
+                                <p class="mt-2 text-sm text-slate-500">Maximum file size: 5 MB.</p>
+                                <p id="resumeFileError" class="mt-2 hidden text-sm font-medium text-rose-600" role="alert"></p>
 
                             </div>
 
@@ -325,8 +319,55 @@
 
     </div>
 
+    <?= view('partials/flash_toast', [
+        'toastError' => $toastError,
+    ]) ?>
+
     <script>
         lucide.createIcons();
+
+        const applicationForm = document.getElementById('jobApplicationForm');
+        const resumeFile = document.getElementById('resumeFile');
+        const resumeFileError = document.getElementById('resumeFileError');
+        const maxResumeBytes = 5 * 1024 * 1024;
+        const allowedResumeExtensions = ['pdf', 'doc', 'docx'];
+
+        function validateResumeFile() {
+            const file = resumeFile.files[0];
+            resumeFileError.classList.add('hidden');
+            resumeFileError.textContent = '';
+            resumeFile.classList.remove('border-rose-500', 'ring-2', 'ring-rose-100');
+
+            if (!file) {
+                return true;
+            }
+
+            const extension = file.name.split('.').pop().toLowerCase();
+            let message = '';
+
+            if (!allowedResumeExtensions.includes(extension)) {
+                message = 'Please upload a PDF, DOC, or DOCX resume.';
+            } else if (file.size > maxResumeBytes) {
+                message = 'The resume must be 5 MB or smaller.';
+            }
+
+            if (!message) {
+                return true;
+            }
+
+            resumeFileError.textContent = message;
+            resumeFileError.classList.remove('hidden');
+            resumeFile.classList.add('border-rose-500', 'ring-2', 'ring-rose-100');
+            return false;
+        }
+
+        resumeFile.addEventListener('change', validateResumeFile);
+        applicationForm.addEventListener('submit', function (event) {
+            if (!validateResumeFile()) {
+                event.preventDefault();
+                resumeFile.focus();
+            }
+        });
     </script>
 
 </body>
