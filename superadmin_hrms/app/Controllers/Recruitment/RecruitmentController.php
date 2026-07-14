@@ -370,6 +370,7 @@ class RecruitmentController extends BaseController
             'evaluation_status' => 'Rejected',
             'rejection_reason' => $rejectionReason !== '' ? $rejectionReason : null,
             'evaluated_at' => date('Y-m-d H:i:s'),
+            'decision_viewed_at' => null,
         ]);
 
         if (!$updated) {
@@ -469,6 +470,7 @@ class RecruitmentController extends BaseController
             'interview_notes' => $this->request->getPost('interview_notes'),
             'rejection_reason' => $decision === 'Rejected' && $rejectionReason !== '' ? $rejectionReason : null,
             'evaluated_at' => date('Y-m-d H:i:s'),
+            'decision_viewed_at' => null,
             'selected_at' => $decision === 'Selected' ? date('Y-m-d H:i:s') : null,
         ]);
 
@@ -488,7 +490,42 @@ class RecruitmentController extends BaseController
                 ->with('success', 'Candidate evaluation saved and the rejection email was sent.');
         }
 
+        if ($decision === 'Selected') {
+            $emailSent = $this->sendCandidateSelectionEmail($application);
+
+            if (!$emailSent) {
+                return redirect()->back()
+                    ->with('error', 'Candidate selected and their in-app notification is ready, but the email could not be delivered. Verify Settings > Company Email.');
+            }
+
+            return redirect()->back()
+                ->with('success', 'Candidate selected. An in-app notification and selection email were sent.');
+        }
+
         return redirect()->back()->with('success', 'Candidate evaluation saved successfully.');
+    }
+
+    public function viewApplicationDecision($id)
+    {
+        $application = $this->jobApplicationModel
+            ->where('id', (int) $id)
+            ->where('user_id', (int) session('user_id'))
+            ->first();
+
+        if (!$application || !in_array($application['status'] ?? '', ['Selected', 'Rejected'], true)) {
+            return redirect()->to('/Recruitment/employee-jobs')
+                ->with('error', 'Application decision notification not found.');
+        }
+
+        $this->jobApplicationModel->update((int) $id, ['decision_viewed_at' => date('Y-m-d H:i:s')]);
+
+        if (($application['status'] ?? '') === 'Selected') {
+            return redirect()->to('/Recruitment/offers/' . (int) $id)
+                ->with('success', 'Congratulations! You have been selected for this position.');
+        }
+
+        return redirect()->to('/Recruitment/employee-jobs')
+            ->with('info', 'Your application status has been updated.');
     }
 
     private function getCandidateApplications(): array
@@ -561,6 +598,52 @@ class RecruitmentController extends BaseController
 
         if (!$sent) {
             log_message('error', 'Rejection email failed for application {id}: {message}', [
+                'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
+                'message' => $emailService->getLastError(),
+            ]);
+        }
+
+        return $sent;
+    }
+
+    private function sendCandidateSelectionEmail(array $application): bool
+    {
+        $recipientEmail = trim((string) ($application['candidate_email'] ?? $application['email'] ?? ''));
+        $companyId = (int) ($application['company_id'] ?? session('company_id'));
+        $company = (new CompanyModel())->find($companyId);
+
+        if (!filter_var($recipientEmail, FILTER_VALIDATE_EMAIL) || $companyId <= 0 || !$company) {
+            log_message('warning', 'Selection email skipped for application {id}: invalid recipient or company.', [
+                'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
+            ]);
+            return false;
+        }
+
+        $candidateName = trim((string) ($application['candidate_name'] ?? $application['name'] ?? 'Candidate'));
+        $jobTitle = trim((string) ($application['job_title'] ?? 'the position'));
+        $senderName = trim((string) session('name')) ?: 'Recruitment Team';
+        $senderEmail = trim((string) session('email'));
+        $senderRole = ucwords(str_replace('_', ' ', (string) session('role')));
+        $emailService = new CompanyEmailService();
+
+        $sent = $emailService->sendForCompany(
+            $companyId,
+            $recipientEmail,
+            'Congratulations - selected for ' . $jobTitle,
+            view('emails/candidate_selection', [
+                'candidateName' => $candidateName !== '' ? $candidateName : 'Candidate',
+                'jobTitle' => $jobTitle !== '' ? $jobTitle : 'the position',
+                'companyName' => trim((string) ($company['name'] ?? 'Recruitment Team')),
+                'senderName' => $senderName,
+                'senderRole' => $senderRole !== '' ? $senderRole : 'Recruitment Team',
+                'applicationUrl' => base_url('Recruitment/applications/decision/' . (int) ($application['application_id'] ?? $application['id'] ?? 0)),
+            ]),
+            $senderEmail,
+            $senderName
+        );
+
+        if (!$sent) {
+            log_message('error', 'Selection email failed for application {id}: {message}', [
                 'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
                 'message' => $emailService->getLastError(),
             ]);

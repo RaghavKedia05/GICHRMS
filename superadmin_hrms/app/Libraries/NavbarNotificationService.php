@@ -29,7 +29,8 @@ class NavbarNotificationService
 
         $items = array_merge(
             $this->chatNotifications($userId),
-            $this->approvalNotifications($role)
+            $this->approvalNotifications($role),
+            $this->applicationDecisionNotifications($userId, $role)
         );
 
         usort($items, static function (array $first, array $second): int {
@@ -40,6 +41,41 @@ class NavbarNotificationService
             'count' => array_sum(array_column($items, 'count')),
             'items' => array_slice($items, 0, 8),
         ];
+    }
+
+    private function applicationDecisionNotifications(int $userId, string $role): array
+    {
+        if ($role !== 'employee' || !$this->db->fieldExists('decision_viewed_at', 'job_applications')) {
+            return [];
+        }
+
+        $rows = $this->db->table('job_applications ja')
+            ->select('ja.id, ja.status, ja.evaluated_at, ja.selected_at, jr.job_title')
+            ->join('job_requisitions jr', 'jr.id = ja.requisition_id')
+            ->where('ja.user_id', $userId)
+            ->whereIn('ja.status', ['Selected', 'Rejected'])
+            ->where('ja.decision_viewed_at', null)
+            ->orderBy('COALESCE(ja.selected_at, ja.evaluated_at)', 'DESC', false)
+            ->limit(5)
+            ->get()
+            ->getResultArray();
+
+        return array_map(static function (array $row): array {
+            $selected = ($row['status'] ?? '') === 'Selected';
+
+            return [
+                'type' => 'application_decision',
+                'icon' => $selected ? 'badge-check' : 'circle-x',
+                'title' => $row['job_title'] ?: 'Job application',
+                'message' => $selected
+                    ? 'Congratulations! You have been selected for this position.'
+                    : 'Your application was not selected for this position.',
+                'url' => 'Recruitment/applications/decision/' . (int) $row['id'],
+                'date' => $row['selected_at'] ?: ($row['evaluated_at'] ?? ''),
+                'count' => 1,
+                'tone' => $selected ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600',
+            ];
+        }, $rows);
     }
 
     private function chatNotifications(int $userId): array

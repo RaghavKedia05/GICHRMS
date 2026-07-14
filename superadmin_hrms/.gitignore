@@ -86,6 +86,10 @@ php_errors.log
 #-------------------------
 vendor/
 
+# Candidate uploads contain personal information and must remain local.
+/public/uploads/resumes/*
+!/public/uploads/resumes/.gitkeep
+
 #-------------------------
 # IDE / Development Files
 #-------------------------

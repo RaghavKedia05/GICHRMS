@@ -1,6 +1,6 @@
-# GIC ERP HRMS
+# GICHRMS
 
-This directory contains the active CodeIgniter 4 HRMS application for the Transportation ERP repository.
+This directory contains the active CodeIgniter 4 application for GICHRMS.
 
 It includes company-scoped staff management, a four-phase recruitment workflow, attendance, performance reviews, chat, profile management, and encrypted company email settings.
 

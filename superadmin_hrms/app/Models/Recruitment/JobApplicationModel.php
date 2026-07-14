@@ -42,6 +42,7 @@ class JobApplicationModel extends Model
         'evaluation_status',
         'rejection_reason',
         'evaluated_at',
+        'decision_viewed_at',
         'selected_at',
         'offered_salary',
         'salary_notes',

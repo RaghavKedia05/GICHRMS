@@ -145,6 +145,7 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
     $routes->post('applications/reject/(:num)', 'Recruitment\RecruitmentController::rejectCandidateApplication/$1');
     $routes->post('applications/schedule/(:num)', 'Recruitment\RecruitmentController::scheduleCandidateInterview/$1');
     $routes->post('applications/evaluate/(:num)', 'Recruitment\RecruitmentController::evaluateCandidateApplication/$1');
+    $routes->get('applications/decision/(:num)', 'Recruitment\RecruitmentController::viewApplicationDecision/$1');
     $routes->post('applications/delete/(:num)', 'Recruitment\RecruitmentController::deleteCandidateApplication/$1');
     $routes->get('offers', 'Recruitment\OfferController::index');
     $routes->get('offers/(:num)', 'Recruitment\OfferController::show/$1');
