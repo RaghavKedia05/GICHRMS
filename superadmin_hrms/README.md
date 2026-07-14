@@ -1,4 +1,4 @@
-# Transportation ERP HRMS
+# GIC ERP HRMS
 
 This directory contains the active CodeIgniter 4 HRMS application for the Transportation ERP repository.
 
