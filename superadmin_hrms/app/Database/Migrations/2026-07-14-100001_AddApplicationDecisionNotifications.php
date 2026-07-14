@@ -9,11 +9,7 @@ class AddApplicationDecisionNotifications extends Migration
     public function up()
     {
         $this->forge->addColumn('job_applications', [
-            'decision_viewed_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-                'after' => 'evaluated_at',
-            ],
+            'decision_viewed_at' => ['type' => 'DATETIME', 'null' => true, 'after' => 'evaluated_at'],
         ]);
     }
 

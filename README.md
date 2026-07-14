@@ -44,6 +44,7 @@ The primary application is located in [`superadmin_hrms`](superadmin_hrms/). Sta
 - Multi-company data isolation for staff and recruitment records
 - Role-based access for admins, HR, department heads, hiring managers, and employees
 - Four-phase recruitment workflow from requisition through onboarding
+- Public `/careers` portal for external candidates, with job search and account-free applications
 - Resume and onboarding-document storage with guarded access
 - Company-specific SMTP configuration and recruitment notifications
 - Live attendance punching, breaks, calculations, filters, and CSV export
@@ -96,6 +97,7 @@ At the screening, evaluation, document-verification, and offer-response stages, 
 2. A department head approves or rejects the request.
 3. HR approves the posting and chooses internal or external publication.
 4. An employee candidate submits an application and resume.
+   External candidates can instead browse `/careers` and apply without creating an employee account.
 5. HR screens, schedules, evaluates, selects, or rejects the candidate.
 6. HR records the package and requests verification documents.
 7. The candidate uploads BGV and experience files.

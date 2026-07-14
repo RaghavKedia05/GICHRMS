@@ -16,6 +16,12 @@ $routes->post('/register', 'Auth::saveUser');
 
 $routes->get('/logout', 'Auth::logout');
 
+// Public careers portal (no employee account required).
+$routes->get('/careers', 'Recruitment\CareerPortalController::index');
+$routes->get('/careers/jobs/(:num)', 'Recruitment\CareerPortalController::show/$1');
+$routes->post('/careers/jobs/(:num)/apply', 'Recruitment\CareerPortalController::apply/$1');
+$routes->get('/careers/application-received', 'Recruitment\CareerPortalController::success');
+
 
 
 $routes->get('/dashboard', 'DashboardController::index', ['filter' => 'auth']);

@@ -95,7 +95,7 @@ class JobApplicationModel extends Model
                 job_requisitions.department,
                 job_requisitions.location'
             )
-            ->join('users', 'users.id = job_applications.user_id')
+            ->join('users', 'users.id = job_applications.user_id', 'left')
             ->join('job_requisitions', 'job_requisitions.id = job_applications.requisition_id');
 
         if ($companyId !== null) {
@@ -124,7 +124,7 @@ class JobApplicationModel extends Model
                 job_requisitions.experience,
                 job_requisitions.education'
             )
-            ->join('users', 'users.id = job_applications.user_id')
+            ->join('users', 'users.id = job_applications.user_id', 'left')
             ->join('job_requisitions', 'job_requisitions.id = job_applications.requisition_id')
             ->where('job_applications.id', $applicationId);
 
@@ -139,6 +139,13 @@ class JobApplicationModel extends Model
     {
         return $this->where('requisition_id', $requisitionId)
             ->where('user_id', $userId)
+            ->countAllResults() > 0;
+    }
+
+    public function hasExternalApplied(int $requisitionId, string $email): bool
+    {
+        return $this->where('requisition_id', $requisitionId)
+            ->where('LOWER(candidate_email)', strtolower(trim($email)))
             ->countAllResults() > 0;
     }
 

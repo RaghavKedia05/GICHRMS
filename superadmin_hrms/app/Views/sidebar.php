@@ -45,6 +45,13 @@ $sections = [
                 'icon' => 'briefcase-business',
                 'active' => $firstSegment === 'recruitment' && in_array($currentPage, ['jobs', 'jobs-grid'], true),
             ],
+            ...($canManagePeople ? [[
+                'label' => 'External Careers Portal',
+                'path' => 'careers',
+                'icon' => 'external-link',
+                'active' => false,
+                'newTab' => true,
+            ]] : []),
             [
                 'label' => 'Candidates',
                 'path' => 'Recruitment/candidates',
@@ -202,11 +209,15 @@ $reportLinks = [
                     <?php foreach ($section['items'] as $item): ?>
                         <a href="<?= base_url($item['path']) ?>"
                             class="group flex min-h-10 items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition <?= $linkClass((bool) $item['active']) ?>"
+                            <?= !empty($item['newTab']) ? 'target="_blank" rel="noopener noreferrer"' : '' ?>
                             <?= $item['active'] ? 'aria-current="page"' : '' ?>>
                             <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg <?= $item['active'] ? 'bg-indigo-100 text-indigo-700' : 'text-slate-400 group-hover:bg-white group-hover:text-slate-700' ?>">
                                 <i data-lucide="<?= esc($item['icon']) ?>" class="h-4 w-4"></i>
                             </span>
                             <span class="min-w-0 flex-1 truncate"><?= esc($item['label']) ?></span>
+                            <?php if (!empty($item['newTab'])): ?>
+                                <i data-lucide="arrow-up-right" class="h-3.5 w-3.5 shrink-0 text-slate-400"></i>
+                            <?php endif; ?>
                             <?php if ($item['active']): ?>
                                 <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-600"></span>
                             <?php endif; ?>
