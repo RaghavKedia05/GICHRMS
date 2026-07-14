@@ -19,8 +19,9 @@ if (!$toastMessage && !empty($toastItems)) {
 
 <?php if ($toastMessage): ?>
     <div id="flashToast"
-        class="fixed right-4 top-5 z-[80] w-[calc(100%-2rem)] max-w-md translate-x-[120%] opacity-0 transition-all duration-500 ease-out sm:right-6">
-        <div class="rounded-lg px-5 py-4 shadow-2xl <?= $toastType === 'success' ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' ?>">
+        role="status" aria-live="polite"
+        class="pointer-events-none fixed right-4 top-5 z-[9999] w-[calc(100%-2rem)] max-w-md translate-x-[120%] opacity-0 transition-all duration-500 ease-out sm:right-6">
+        <div class="pointer-events-auto rounded-lg px-5 py-4 shadow-2xl ring-1 ring-black/5 <?= $toastType === 'success' ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' ?>">
             <div class="flex items-start gap-3">
                 <i data-lucide="<?= $toastType === 'success' ? 'check-circle' : 'alert-circle' ?>" class="mt-0.5 h-5 w-5 shrink-0"></i>
                 <div class="min-w-0">

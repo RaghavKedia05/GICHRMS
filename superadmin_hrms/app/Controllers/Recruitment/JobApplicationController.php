@@ -24,6 +24,7 @@ class JobApplicationController extends BaseController
         if (!$userId) {
             return redirect()->to('/login');
         }
+        if (session('role') !== 'employee') return redirect()->back()->with('error', 'Only employee candidates can apply for jobs.');
 
         $job = $this->requisitionModel
             ->where('id', $id)
@@ -54,6 +55,7 @@ class JobApplicationController extends BaseController
         if (!$userId) {
             return redirect()->to('/login');
         }
+        if (session('role') !== 'employee') return redirect()->back()->with('error', 'Only employee candidates can apply for jobs.');
 
         $resume = $this->request->getFile('resume');
         $requisitionId = (int) $this->request->getPost('requisition_id');
@@ -146,10 +148,18 @@ class JobApplicationController extends BaseController
 
     private function serveResume(int $applicationId, bool $download)
     {
-        $application = $this->jobApplicationModel->find($applicationId);
+        $application = $this->jobApplicationModel->getApplicationWithDetails($applicationId);
 
         if (!$application || empty($application['resume_file'])) {
             return redirect()->back()->with('error', 'Resume not found.');
+        }
+
+        $isOwner = (int) ($application['user_id'] ?? 0) === (int) session('user_id');
+        $isCompanyRecruiter = in_array(session('role'), ['admin', 'hr'], true)
+            && (int) ($application['company_id'] ?? 0) === (int) session('company_id');
+
+        if (!$isOwner && !$isCompanyRecruiter) {
+            return redirect()->back()->with('error', 'You do not have access to this resume.');
         }
 
         $fileName = basename($application['resume_file']);

@@ -19,16 +19,19 @@ class RequisitionController extends BaseController
     {
         $role = session('role');
         $userId = session('user_id');
+        $companyId = $this->currentCompanyId();
 
         switch ($role) {
             case 'admin':
                 $data['requisitions'] = $this->requisitionModel
+                    ->where('company_id', $companyId)
                     ->orderBy('id', 'DESC')
                     ->findAll();
                 break;
 
             case 'hiring_manager':
                 $data['requisitions'] = $this->requisitionModel
+                    ->where('company_id', $companyId)
                     ->where('requested_by', $userId)
                     ->orderBy('id', 'DESC')
                     ->findAll();
@@ -36,6 +39,7 @@ class RequisitionController extends BaseController
 
             case 'department_head':
                 $data['requisitions'] = $this->requisitionModel
+                    ->where('company_id', $companyId)
                     ->where('status', 'Pending Approval')
                     ->where('hod_status', 'Pending')
                     ->orderBy('id', 'DESC')
@@ -44,6 +48,7 @@ class RequisitionController extends BaseController
 
             case 'hr':
                 $data['requisitions'] = $this->requisitionModel
+                    ->where('company_id', $companyId)
                     ->where('hod_status', 'Approved')
                     ->orderBy('id', 'DESC')
                     ->findAll();
@@ -62,6 +67,7 @@ class RequisitionController extends BaseController
         $year = date('Y');
 
         $last = $this->requisitionModel
+            ->where('company_id', $this->currentCompanyId())
             ->like('requisition_no', "REQ-$year-", 'after')
             ->orderBy('id', 'DESC')
             ->first();
@@ -77,6 +83,7 @@ class RequisitionController extends BaseController
     }
     public function create()
     {
+        if (!$this->canCreateRequisition()) return $this->requisitionAccessDenied();
         $departmentModel = new DepartmentModel();
 
         $data['departments'] = $departmentModel
@@ -126,6 +133,7 @@ class RequisitionController extends BaseController
 
     public function saveDraft()
     {
+        if (!$this->canCreateRequisition()) return $this->requisitionAccessDenied();
         if (!$this->validate($this->validationRules())) {
             return redirect()->back()->withInput()
                 ->with('errors', $this->validator->getErrors());
@@ -133,6 +141,7 @@ class RequisitionController extends BaseController
 
         $data = $this->payloadFromRequest();
         $data['status'] = 'Draft';
+        $data['company_id'] = $this->currentCompanyId();
         $data['requested_by'] = session('user_id');
         $data['hod_status'] = 'Pending';
         $data['hr_status'] = 'Pending';
@@ -151,6 +160,7 @@ class RequisitionController extends BaseController
 
     public function submit()
     {
+        if (!$this->canCreateRequisition()) return $this->requisitionAccessDenied();
         if (!$this->validate($this->validationRules())) {
             return redirect()->back()->withInput()
                 ->with('errors', $this->validator->getErrors());
@@ -158,6 +168,7 @@ class RequisitionController extends BaseController
 
         $data = $this->payloadFromRequest();
         $data['status'] = 'Pending Approval';
+        $data['company_id'] = $this->currentCompanyId();
         $data['requested_by'] = session('user_id');
         $data['submitted_at'] = date('Y-m-d H:i:s');
         $data['hod_status'] = 'Pending';
@@ -171,7 +182,7 @@ class RequisitionController extends BaseController
 
     public function getRequisition($id)
     {
-        $requisition = $this->requisitionModel->find($id);
+        $requisition = $this->companyRequisition((int) $id);
 
         if (!$requisition) {
             return $this->response->setStatusCode(404)
@@ -185,26 +196,33 @@ class RequisitionController extends BaseController
 
     public function edit($id)
     {
+        if (!$this->canCreateRequisition()) return $this->requisitionAccessDenied();
         $departmentModel = new DepartmentModel();
 
         $data['departments'] = $departmentModel->where('status', 1)->findAll();
-        $data['requisition'] = $this->requisitionModel->find($id);
+        $data['requisition'] = $this->companyRequisition((int) $id);
 
         if (!$data['requisition']) {
             return $this->response->setStatusCode(404)
                 ->setBody('<div class="text-center text-red-600 p-8">Requisition not found.</div>');
         }
 
+        if (!$this->canModify($data['requisition'])) return $this->requisitionAccessDenied();
         return view('Recruitment/edit_requisition', $data);
     }
 
     public function update($id)
     {
-        $requisition = $this->requisitionModel->find($id);
+        if (!$this->canCreateRequisition()) return $this->requisitionAccessDenied();
+        $requisition = $this->companyRequisition((int) $id);
 
         if (!$requisition) {
             return redirect()->to('/Recruitment/requisitions')
                 ->with('error', 'Requisition not found.');
+        }
+
+        if (!$this->canModify($requisition) || in_array($requisition['status'], ['Approved', 'Published'], true)) {
+            return redirect()->to('/Recruitment/requisitions')->with('error', 'This requisition can no longer be edited.');
         }
 
         if (!$this->validate($this->validationRules())) {
@@ -233,6 +251,15 @@ class RequisitionController extends BaseController
 
     public function delete($id)
     {
+        if (!in_array(session('role'), ['admin', 'hiring_manager'], true)) return $this->requisitionAccessDenied();
+        $requisition = $this->companyRequisition((int) $id);
+        if (!$requisition) {
+            return redirect()->to('/Recruitment/requisitions')->with('error', 'Requisition not found.');
+        }
+        if (!$this->canModify($requisition) || !in_array($requisition['status'], ['Draft', 'Rejected'], true)) {
+            return redirect()->back()->with('error', 'Only draft or rejected requisitions can be deleted.');
+        }
+
         $this->requisitionModel->delete($id);
 
         return redirect()->to('/Recruitment/requisitions')
@@ -242,6 +269,15 @@ class RequisitionController extends BaseController
     // Dormant for phase 1, kept for when department_head step is reactivated
     public function hodApprove($id)
     {
+        if (!in_array(session('role'), ['admin', 'department_head'], true)) return $this->requisitionAccessDenied();
+        $requisition = $this->companyRequisition((int) $id);
+        if (!$requisition) {
+            return redirect()->back()->with('error', 'Requisition not found.');
+        }
+        if (($requisition['status'] ?? '') !== 'Pending Approval' || ($requisition['hod_status'] ?? '') !== 'Pending') {
+            return redirect()->back()->with('error', 'This requisition is not awaiting HOD approval.');
+        }
+
         $this->requisitionModel->update($id, [
             'hod_status' => 'Approved',
             'status' => 'Pending Approval',
@@ -253,6 +289,15 @@ class RequisitionController extends BaseController
 
     public function hodReject($id)
     {
+        if (!in_array(session('role'), ['admin', 'department_head'], true)) return $this->requisitionAccessDenied();
+        $requisition = $this->companyRequisition((int) $id);
+        if (!$requisition) {
+            return redirect()->back()->with('error', 'Requisition not found.');
+        }
+        if (($requisition['status'] ?? '') !== 'Pending Approval' || ($requisition['hod_status'] ?? '') !== 'Pending') {
+            return redirect()->back()->with('error', 'This requisition is not awaiting HOD approval.');
+        }
+
         $this->requisitionModel->update($id, [
             'hod_status' => 'Rejected',
             'status' => 'Rejected',
@@ -265,13 +310,14 @@ class RequisitionController extends BaseController
 
     public function hrApprove($id)
     {
-        $requisition = $this->requisitionModel->find($id);
+        if (!in_array(session('role'), ['admin', 'hr'], true)) return $this->requisitionAccessDenied();
+        $requisition = $this->companyRequisition((int) $id);
 
         if (!$requisition) {
             return redirect()->back()->with('error', 'Requisition not found.');
         }
 
-        if ($requisition['hod_status'] !== 'Approved') {
+        if ($requisition['hod_status'] !== 'Approved' || ($requisition['hr_status'] ?? '') !== 'Pending' || ($requisition['status'] ?? '') !== 'Pending Approval') {
             return redirect()->back()
                 ->with('error', 'HOD approval is required before HR can publish this job.');
         }
@@ -298,6 +344,15 @@ class RequisitionController extends BaseController
 
     public function hrReject($id)
     {
+        if (!in_array(session('role'), ['admin', 'hr'], true)) return $this->requisitionAccessDenied();
+        $requisition = $this->companyRequisition((int) $id);
+        if (!$requisition) {
+            return redirect()->back()->with('error', 'Requisition not found.');
+        }
+        if (($requisition['hod_status'] ?? '') !== 'Approved' || ($requisition['hr_status'] ?? '') !== 'Pending') {
+            return redirect()->back()->with('error', 'This requisition is not awaiting HR approval.');
+        }
+
         $this->requisitionModel->update($id, [
             'hr_status' => 'Rejected',
             'status' => 'Rejected',
@@ -305,5 +360,33 @@ class RequisitionController extends BaseController
         ]);
 
         return redirect()->back()->with('success', 'Requisition rejected by HR.');
+    }
+
+    private function currentCompanyId(): int
+    {
+        return (int) session('company_id');
+    }
+
+    private function companyRequisition(int $id): ?array
+    {
+        return $this->requisitionModel
+            ->where('company_id', $this->currentCompanyId())
+            ->where('id', $id)
+            ->first();
+    }
+
+    private function canCreateRequisition(): bool
+    {
+        return in_array(session('role'), ['admin', 'hiring_manager'], true);
+    }
+
+    private function canModify(array $requisition): bool
+    {
+        return session('role') === 'admin' || (int) ($requisition['requested_by'] ?? 0) === (int) session('user_id');
+    }
+
+    private function requisitionAccessDenied()
+    {
+        return redirect()->to('/Recruitment/requisitions')->with('error', 'You are not authorized to perform this requisition action.');
     }
 }

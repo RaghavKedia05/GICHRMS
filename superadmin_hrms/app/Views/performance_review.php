@@ -1,15 +1,3 @@
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
-        <?= session()->getFlashdata('success') ?>
-    </div>
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('error')): ?>
-    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
-        <?= session()->getFlashdata('error') ?>
-    </div>
-<?php endif; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +16,13 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+        main input, main select, main textarea { transition: border-color .15s, box-shadow .15s; }
+        main input:focus, main select:focus, main textarea:focus { outline: none; border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,.12); }
+        main section { border-radius: 14px !important; border-color: #e2e8f0 !important; }
+        main section > div:first-child { text-align: left !important; padding: 18px 24px !important; background: linear-gradient(90deg,#f8fafc,#fff); }
+        main section > div:first-child h2 { color: #0f172a !important; font-size: 17px !important; }
+        main section > div:first-child p { display: none; }
+        main table thead tr { background: #f1f5f9 !important; }
     </style>
 
     <!-- Lucide Icons -->
@@ -50,7 +45,7 @@
             <!-- Navbar -->
             <?php include __DIR__ . '/navbar.php'; ?>
 
-            <div class="flex-1 overflow-y-auto p-4 md:p-6">
+            <main class="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-6">
 
                 <!-- Header -->
                 <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-6">
@@ -67,7 +62,7 @@
 
                             <i data-lucide="chevron-right" class="w-4 h-4"></i>
 
-                            <span>Super Admin</span>
+                            <span>People</span>
 
                             <i data-lucide="chevron-right" class="w-4 h-4"></i>
 
@@ -81,26 +76,17 @@
 
                     <div class="flex flex-wrap gap-3">
 
-                        <button
-                            class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-sm">
-
-                            <i data-lucide="file-down" class="w-4 h-4"></i>
-                            Export
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-                        </button>
-
-                        <button
-                            class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-md">
-                            <i data-lucide="chevrons-up" class="w-4 h-4"></i>
-                        </button>
+                        <div class="rounded-xl border bg-white px-4 py-2 shadow-sm"><span class="text-xs text-slate-500">Company reviews</span><strong class="ml-2 text-indigo-600"><?= (int) $reviewCount ?></strong></div>
 
                     </div>
 
                 </div>
 
+                <div class="mb-6 grid gap-4 md:grid-cols-3"><div class="rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 p-5 text-white shadow"><p class="text-xs font-semibold uppercase tracking-wider text-indigo-100">Reviews completed</p><p class="mt-2 text-3xl font-bold"><?= (int) $reviewCount ?></p></div><div class="rounded-xl border bg-white p-5 shadow-sm"><p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Active employees</p><p class="mt-2 text-3xl font-bold text-slate-900"><?= count($employees) ?></p></div><div class="rounded-xl border bg-white p-5 shadow-sm"><p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Reviewer</p><p class="mt-2 font-semibold text-slate-900"><?= esc(session('name')) ?></p><p class="text-sm capitalize text-slate-500"><?= esc(session('role')) ?></p></div></div>
+
                 <!-- 1. Employee Basic Information -->
                 <form action="<?= base_url('performance_review/save') ?>" method="POST">
+                    <?= csrf_field() ?>
                     <section class="bg-white rounded-lg border border-gray-200 shadow-sm mb-6">
                         <div class="text-center py-5 border-b border-gray-100">
                             <h2 class="text-xl font-bold text-[#16365c]">Employee Basic Information</h2>
@@ -108,26 +94,35 @@
                         </div>
                         <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-5">
 
+                            <div class="md:col-span-3 rounded-xl border border-indigo-100 bg-indigo-50 p-4">
+                                <label class="block text-sm font-semibold text-indigo-950 mb-1.5">Select Employee</label>
+                                <select id="employeeSelect" name="employee_user_id" required class="w-full rounded-lg border border-indigo-200 bg-white px-3 py-2.5 text-sm">
+                                    <option value="">Choose an active employee...</option>
+                                    <?php foreach ($employees as $employee): ?><option value="<?= (int) $employee['id'] ?>" data-name="<?= esc($employee['name'], 'attr') ?>" data-employee-id="<?= esc($employee['employee_id'], 'attr') ?>" data-department="<?= esc($employee['department_name'] ?? '', 'attr') ?>" data-position="<?= esc($employee['position'] ?? '', 'attr') ?>" data-joining="<?= esc($employee['date_of_joining'] ?? '', 'attr') ?>"><?= esc($employee['name']) ?> · <?= esc($employee['employee_id'] ?: 'No ID') ?></option><?php endforeach; ?>
+                                </select>
+                                <p class="mt-2 text-xs text-indigo-700">Employee identity is loaded from the staff directory and cannot be substituted during submission.</p>
+                            </div>
+
                             <div>
                                 <label class="block text-sm font-semibold text-gray-800 mb-1.5">Name</label>
-                                <input type="text" name="name"
+                                <input id="reviewEmployeeName" type="text" name="name" readonly
                                     class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-400">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-800 mb-1.5">Emp ID</label>
-                                <input type="text" name="emp_id" value="DGT-009"
+                                <input id="reviewEmployeeId" type="text" name="emp_id" readonly
                                     class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-400">
                             </div>
                             <div></div>
 
                             <div>
                                 <label class="block text-sm font-semibold text-gray-800 mb-1.5">Department</label>
-                                <input type="text" name="department"
+                                <input id="reviewDepartment" type="text" name="department" readonly
                                     class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-400">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-800 mb-1.5">Date of Join</label>
-                                <input type="date" name="date_of_join"
+                                <input id="reviewJoiningDate" type="date" name="date_of_join" readonly
                                     class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-400">
                             </div>
                             <div>
@@ -138,7 +133,7 @@
 
                             <div>
                                 <label class="block text-sm font-semibold text-gray-800 mb-1.5">Designation</label>
-                                <input type="text" name="designation"
+                                <input id="reviewDesignation" type="text" name="designation" readonly
                                     class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-200 focus:border-blue-400">
                             </div>
                             <div>
@@ -1299,13 +1294,13 @@
                     <div class="flex justify-end mt-8">
                         <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
 
-                            Save Draft
+                            Save Performance Review
 
                         </button>
                     </div>
                 </form>
 
-            </div>
+            </main>
 
         </div>
 
@@ -1637,6 +1632,16 @@
     </script>
     <script>
         lucide.createIcons();
+
+        const employeeSelect = document.getElementById('employeeSelect');
+        employeeSelect?.addEventListener('change', function () {
+            const option = this.options[this.selectedIndex];
+            document.getElementById('reviewEmployeeName').value = option.dataset.name || '';
+            document.getElementById('reviewEmployeeId').value = option.dataset.employeeId || '';
+            document.getElementById('reviewDepartment').value = option.dataset.department || '';
+            document.getElementById('reviewDesignation').value = option.dataset.position || '';
+            document.getElementById('reviewJoiningDate').value = option.dataset.joining || '';
+        });
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

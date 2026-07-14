@@ -90,7 +90,7 @@
                                 </span>
                                 <div>
                                     <h2 class="text-base font-semibold text-slate-950">Personal Details</h2>
-                                    <p class="text-sm text-slate-500">Name, email, phone, and login credentials.</p>
+                                    <p class="text-sm text-slate-500">Name, email, and contact information.</p>
                                 </div>
                             </div>
 
@@ -110,10 +110,6 @@
                                     <input type="tel" name="phone" value="<?= esc(old('phone', $staff['phone'] ?? '')) ?>" class="field-control">
                                 </div>
 
-                                <div>
-                                    <label class="mb-2 block text-sm font-semibold text-slate-700">New Password</label>
-                                    <input type="password" name="password" class="field-control" placeholder="Leave blank to keep current password">
-                                </div>
                             </div>
                         </section>
 

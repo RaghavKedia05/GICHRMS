@@ -3,6 +3,8 @@
 namespace App\Controllers\Recruitment;
 
 use App\Controllers\BaseController;
+use App\Libraries\CompanyEmailService;
+use App\Models\CompanyModel;
 use App\Models\Recruitment\JobApplicationModel;
 use App\Models\Recruitment\RequisitionModel;
 
@@ -26,6 +28,10 @@ class RecruitmentController extends BaseController
 
         if ($channel === 'internal') {
             $query->where('publish_internal', 1);
+
+            if ((int) session('company_id') > 0) {
+                $query->where('company_id', (int) session('company_id'));
+            }
         }
 
         if ($channel === 'external') {
@@ -273,13 +279,13 @@ class RecruitmentController extends BaseController
 
     public function candidateProfile($id)
     {
-        $application = $this->jobApplicationModel->getApplicationWithDetails((int) $id);
+        if (!$this->canManageCandidates()) return $this->redirectCandidateAccessDenied();
+        $application = $this->companyApplication((int) $id);
 
         if (!$application) {
             return redirect()->to('/Recruitment/evaluation')
                 ->with('error', 'Candidate application not found.');
         }
-
         return view('/Recruitment/candidate_profile', [
             'application' => $application,
             'isAdmin' => $this->canManageCandidates(),
@@ -293,11 +299,15 @@ class RecruitmentController extends BaseController
                 ->with('error', 'Only admins can delete candidate applications.');
         }
 
-        $application = $this->jobApplicationModel->find((int) $id);
+        $application = $this->companyApplication((int) $id);
 
         if (!$application) {
             return redirect()->to('/Recruitment/candidates')
                 ->with('error', 'Candidate application not found.');
+        }
+
+        if (in_array($application['application_status'] ?? '', ['Selected', 'Documents Requested', 'Documents Submitted', 'Offer Sent', 'Offer Accepted', 'Offer Declined', 'Hired'], true)) {
+            return redirect()->back()->with('error', 'Applications in selection or onboarding cannot be deleted.');
         }
 
         $this->jobApplicationModel->delete((int) $id);
@@ -313,7 +323,7 @@ class RecruitmentController extends BaseController
             return $this->redirectCandidateAccessDenied();
         }
 
-        $application = $this->jobApplicationModel->find((int) $id);
+        $application = $this->companyApplication((int) $id);
 
         if (!$application) {
             return redirect()->back()->with('error', 'Candidate application not found.');
@@ -341,14 +351,18 @@ class RecruitmentController extends BaseController
             return $this->redirectCandidateAccessDenied();
         }
 
-        $application = $this->jobApplicationModel->find((int) $id);
+        $application = $this->companyApplication((int) $id);
 
         if (!$application) {
             return redirect()->back()->with('error', 'Candidate application not found.');
         }
 
+        if (in_array($application['application_status'] ?? '', ['Rejected', 'Selected', 'Documents Requested', 'Documents Submitted', 'Offer Sent', 'Offer Accepted', 'Offer Declined', 'Hired'], true)) {
+            return redirect()->back()->with('error', 'This application is already in a terminal or onboarding state.');
+        }
+
         $rejectionReason = trim((string) $this->request->getPost('rejection_reason'));
-        $applicationDetails = $this->jobApplicationModel->getApplicationWithDetails((int) $id) ?? $application;
+        $applicationDetails = $application;
 
         $updated = $this->jobApplicationModel->update((int) $id, [
             'status' => 'Rejected',
@@ -366,7 +380,7 @@ class RecruitmentController extends BaseController
 
         if (!$emailSent) {
             return redirect()->back()
-                ->with('error', 'Candidate rejected, but the rejection email could not be delivered. Check the email configuration and try again.');
+                ->with('error', 'Candidate rejected, but the email could not be delivered. Verify Settings > Company Email and send a test email.');
         }
 
         return redirect()->back()->with('success', 'Candidate rejected and the rejection email was sent.');
@@ -379,10 +393,13 @@ class RecruitmentController extends BaseController
             return $this->redirectCandidateAccessDenied();
         }
 
-        $application = $this->jobApplicationModel->find((int) $id);
+        $application = $this->companyApplication((int) $id);
 
         if (!$application) {
             return redirect()->back()->with('error', 'Candidate application not found.');
+        }
+        if (in_array($application['application_status'] ?? '', ['Rejected', 'Selected', 'Documents Requested', 'Documents Submitted', 'Offer Sent', 'Offer Accepted', 'Offer Declined', 'Hired'], true)) {
+            return redirect()->back()->with('error', 'This application is already in a terminal or onboarding state.');
         }
 
         if (!in_array($application['status'] ?? '', ['Shortlisted', 'Interview Scheduled'], true)) {
@@ -417,13 +434,13 @@ class RecruitmentController extends BaseController
             return $this->redirectCandidateAccessDenied();
         }
 
-        $application = $this->jobApplicationModel->find((int) $id);
+        $application = $this->companyApplication((int) $id);
 
         if (!$application) {
             return redirect()->back()->with('error', 'Candidate application not found.');
         }
 
-        if (!in_array($application['status'] ?? '', ['Interview Scheduled', 'Selected', 'Rejected'], true)) {
+        if (($application['status'] ?? '') !== 'Interview Scheduled') {
             return redirect()->back()
                 ->with('error', 'Schedule an interview before saving the evaluation result.');
         }
@@ -439,7 +456,7 @@ class RecruitmentController extends BaseController
             ? trim((string) $this->request->getPost('rejection_reason'))
             : '';
         $applicationDetails = $decision === 'Rejected' && !$wasRejected
-            ? ($this->jobApplicationModel->getApplicationWithDetails((int) $id) ?? $application)
+            ? $application
             : [];
 
         $updated = $this->jobApplicationModel->update((int) $id, [
@@ -464,7 +481,7 @@ class RecruitmentController extends BaseController
 
             if (!$emailSent) {
                 return redirect()->back()
-                    ->with('error', 'Candidate evaluation saved as rejected, but the rejection email could not be delivered. Check the email configuration.');
+                    ->with('error', 'Candidate evaluation saved as rejected, but the email could not be delivered. Verify Settings > Company Email.');
             }
 
             return redirect()->back()
@@ -477,7 +494,7 @@ class RecruitmentController extends BaseController
     private function getCandidateApplications(): array
     {
         try {
-            return $this->jobApplicationModel->getApplicationsWithDetails();
+            return $this->jobApplicationModel->getApplicationsWithDetails((int) session('company_id'));
         } catch (\Throwable $e) {
             log_message('error', 'Failed to load job applications: ' . $e->getMessage());
             return [];
@@ -511,59 +528,53 @@ class RecruitmentController extends BaseController
             return false;
         }
 
-        $emailConfig = config('Email');
-        $smtpUser = trim((string) $emailConfig->SMTPUser);
-        $smtpPassword = trim((string) $emailConfig->SMTPPass);
-        $transportEmail = $smtpUser !== '' ? $smtpUser : trim((string) $emailConfig->fromEmail);
-        $companyName = trim((string) $emailConfig->fromName) ?: 'Transportation ERP Recruitment';
+        $companyId = (int) ($application['company_id'] ?? session('company_id'));
+        $company = (new CompanyModel())->find($companyId);
+        $companyName = trim((string) ($company['name'] ?? 'Recruitment Team'));
         $rejectorEmail = trim((string) session('email'));
         $rejectorName = trim((string) session('name')) ?: 'Recruitment Team';
         $rejectorRole = ucwords(str_replace('_', ' ', (string) session('role')));
-
-        if (!filter_var($transportEmail, FILTER_VALIDATE_EMAIL) || $smtpPassword === '') {
-            log_message('error', 'Rejection email skipped: Gmail SMTP user or app password is not configured.');
-            return false;
-        }
-
         $candidateName = trim((string) ($application['candidate_name'] ?? $application['name'] ?? 'Candidate'));
         $jobTitle = trim((string) ($application['job_title'] ?? 'the position'));
 
-        try {
-            $email = service('email');
-            $email->clear(true);
-            $email->setFrom($transportEmail, $rejectorName . ' via ' . $companyName);
+        if ($companyId <= 0 || !$company) {
+            log_message('error', 'Rejection email skipped: application is not linked to a valid company.');
+            return false;
+        }
 
-            if (filter_var($rejectorEmail, FILTER_VALIDATE_EMAIL) && strcasecmp($rejectorEmail, $transportEmail) !== 0) {
-                $email->setReplyTo($rejectorEmail, $rejectorName);
-            }
-
-            $email->setTo($recipientEmail);
-            $email->setSubject('Update on your application for ' . $jobTitle);
-            $email->setMailType('html');
-            $email->setMessage(view('emails/candidate_rejection', [
+        $emailService = new CompanyEmailService();
+        $sent = $emailService->sendForCompany(
+            $companyId,
+            $recipientEmail,
+            'Update on your application for ' . $jobTitle,
+            view('emails/candidate_rejection', [
                 'candidateName' => $candidateName !== '' ? $candidateName : 'Candidate',
                 'jobTitle' => $jobTitle !== '' ? $jobTitle : 'the position',
                 'rejectionReason' => $rejectionReason,
                 'companyName' => $companyName,
                 'senderName' => $rejectorName,
                 'senderRole' => $rejectorRole !== '' ? $rejectorRole : 'Recruitment Team',
-            ]));
+            ]),
+            $rejectorEmail,
+            $rejectorName
+        );
 
-            if (!$email->send()) {
-                log_message('error', 'Failed to send rejection email for application {id}.', [
-                    'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
-                ]);
-                return false;
-            }
-
-            return true;
-        } catch (\Throwable $e) {
+        if (!$sent) {
             log_message('error', 'Rejection email failed for application {id}: {message}', [
                 'id' => $application['application_id'] ?? $application['id'] ?? 'unknown',
-                'message' => $e->getMessage(),
+                'message' => $emailService->getLastError(),
             ]);
-            return false;
         }
+
+        return $sent;
+    }
+
+    private function companyApplication(int $applicationId): ?array
+    {
+        return $this->jobApplicationModel->getApplicationWithDetails(
+            $applicationId,
+            (int) session('company_id')
+        );
     }
 
     private function getEvaluationStats(array $applications): array

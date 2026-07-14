@@ -1,496 +1,295 @@
 <?php
-$firstSegment = service('uri')->getSegment(1);
-$currentPage = service('uri')->getSegment(2);
+$firstSegment = strtolower((string) service('uri')->getSegment(1));
+$secondSegment = strtolower((string) service('uri')->getSegment(2));
+$currentPage = $secondSegment !== '' ? $secondSegment : ($firstSegment !== '' ? $firstSegment : 'dashboard');
+$role = (string) session('role');
 
-if (empty($currentPage)) {
-    $currentPage = $firstSegment;
-}
-
-if (empty($currentPage)) {
-    $currentPage = 'dashboard';
-}
-
+$canManageRecruitment = in_array($role, ['admin', 'hr', 'hiring_manager', 'department_head'], true);
+$canManagePeople = in_array($role, ['admin', 'hr'], true);
+$canViewReports = in_array($role, ['admin', 'hr'], true);
+$isAdmin = $role === 'admin';
 $isStaffPage = $firstSegment === 'staff';
-$canManageStaff = in_array(session('role'), ['hr', 'admin'], true);
+$isSettingsPage = $firstSegment === 'settings';
+$isReportPage = $firstSegment === 'reports';
+
+$linkClass = static fn(bool $active): string => $active
+    ? 'bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-100'
+    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950';
+
+$sections = [
+    [
+        'label' => 'Overview',
+        'visible' => true,
+        'items' => [
+            [
+                'label' => 'Dashboard',
+                'path' => 'dashboard',
+                'icon' => 'layout-dashboard',
+                'active' => $currentPage === 'dashboard',
+            ],
+        ],
+    ],
+    [
+        'label' => 'Recruitment',
+        'visible' => $canManageRecruitment,
+        'items' => [
+            [
+                'label' => 'Job Requisitions',
+                'path' => 'Recruitment/requisitions',
+                'icon' => 'file-plus-2',
+                'active' => $firstSegment === 'recruitment' && in_array($currentPage, ['requisitions', 'view-job'], true),
+            ],
+            [
+                'label' => 'Job Openings',
+                'path' => 'Recruitment/jobs',
+                'icon' => 'briefcase-business',
+                'active' => $firstSegment === 'recruitment' && in_array($currentPage, ['jobs', 'jobs-grid'], true),
+            ],
+            [
+                'label' => 'Candidates',
+                'path' => 'Recruitment/candidates',
+                'icon' => 'users-round',
+                'active' => $firstSegment === 'recruitment' && in_array($currentPage, ['candidates', 'candidates-grid', 'candidates-kanban', 'applications'], true),
+            ],
+            [
+                'label' => 'Evaluations',
+                'path' => 'Recruitment/evaluation',
+                'icon' => 'clipboard-check',
+                'active' => $firstSegment === 'recruitment' && $currentPage === 'evaluation',
+            ],
+            [
+                'label' => 'Offers & Onboarding',
+                'path' => 'Recruitment/offers',
+                'icon' => 'handshake',
+                'active' => $firstSegment === 'recruitment' && $currentPage === 'offers',
+            ],
+        ],
+    ],
+    [
+        'label' => 'My Workspace',
+        'visible' => true,
+        'items' => [
+            ...(!$canManageRecruitment ? [[
+                'label' => 'My Offers',
+                'path' => 'Recruitment/offers',
+                'icon' => 'file-signature',
+                'active' => $firstSegment === 'recruitment' && $currentPage === 'offers',
+            ]] : []),
+            [
+                'label' => 'Career Opportunities',
+                'path' => 'Recruitment/employee-jobs',
+                'icon' => 'search-check',
+                'active' => $firstSegment === 'recruitment' && in_array($currentPage, ['employee-jobs', 'employee-jobs-grid', 'apply-job'], true),
+            ],
+            [
+                'label' => 'Attendance',
+                'path' => 'employee_attendance',
+                'icon' => 'calendar-days',
+                'active' => $currentPage === 'employee_attendance',
+            ],
+            ...($canManagePeople ? [[
+                'label' => 'Performance Reviews',
+                'path' => 'performance_review',
+                'icon' => 'chart-no-axes-combined',
+                'active' => $currentPage === 'performance_review',
+            ]] : []),
+        ],
+    ],
+    [
+        'label' => 'People',
+        'visible' => $canManagePeople,
+        'items' => [
+            [
+                'label' => 'Staff Directory',
+                'path' => 'staff',
+                'icon' => 'contact-round',
+                'active' => $isStaffPage && $currentPage !== 'create',
+            ],
+            [
+                'label' => 'Add Staff',
+                'path' => 'staff/create',
+                'icon' => 'user-round-plus',
+                'active' => $isStaffPage && $currentPage === 'create',
+            ],
+            [
+                'label' => 'Company Email',
+                'path' => 'settings/email',
+                'icon' => 'mail',
+                'active' => $isSettingsPage && $currentPage === 'email',
+            ],
+        ],
+    ],
+    [
+        'label' => 'Organization',
+        'visible' => $isAdmin,
+        'items' => [
+            [
+                'label' => 'Companies',
+                'path' => 'companies',
+                'icon' => 'building-2',
+                'active' => $currentPage === 'companies',
+            ],
+        ],
+    ],
+    [
+        'label' => 'Finance & Billing',
+        'visible' => $isAdmin,
+        'items' => [
+            [
+                'label' => 'Subscriptions',
+                'path' => 'subscriptions',
+                'icon' => 'crown',
+                'active' => $currentPage === 'subscriptions',
+            ],
+            [
+                'label' => 'Transactions',
+                'path' => 'purchase_transaction',
+                'icon' => 'credit-card',
+                'active' => $currentPage === 'purchase_transaction',
+            ],
+            [
+                'label' => 'Packages',
+                'path' => 'packages',
+                'icon' => 'package-check',
+                'active' => in_array($currentPage, ['packages', 'package-grid'], true),
+            ],
+            [
+                'label' => 'Invoices',
+                'path' => 'invoice',
+                'icon' => 'receipt-text',
+                'active' => in_array($currentPage, ['invoice', 'invoice-details'], true),
+            ],
+        ],
+    ],
+];
+
+$reportLinks = [
+    ['label' => 'Expense Report', 'path' => 'Reports/expense_report', 'page' => 'expense_report'],
+    ['label' => 'Invoice Report', 'path' => 'Reports/invoice_report', 'page' => 'invoice_report'],
+    ['label' => 'User Report', 'path' => 'Reports/user_report', 'page' => 'user_report'],
+    ['label' => 'Employee Report', 'path' => 'Reports/employee_report', 'page' => 'employee_report'],
+    ['label' => 'Payslip Report', 'path' => 'Reports/payslip_report', 'page' => 'payslip_report'],
+    ['label' => 'Attendance Report', 'path' => 'Reports/attendance_report', 'page' => 'attendance_report'],
+    ['label' => 'Leave Report', 'path' => 'Reports/leave_report', 'page' => 'leave_report'],
+    ['label' => 'Daily Report', 'path' => 'Reports/daily_report', 'page' => 'daily_report'],
+];
 ?>
 
-<aside id="sidebar" class="
-    fixed lg:static
-    top-0 left-0
-    z-50
-    w-[260px] lg:w-[240px]
-    h-screen
-    bg-white
-    border-r border-slate-200
-    shadow-xl lg:shadow-none
-    flex flex-col
-    transition-transform duration-300
-    -translate-x-full
-    lg:translate-x-0">
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-50 flex h-screen w-[272px] -translate-x-full flex-col border-r border-slate-200 bg-white shadow-2xl transition-transform duration-300 lg:static lg:w-[248px] lg:translate-x-0 lg:shadow-none">
+    <div class="flex h-[72px] shrink-0 items-center justify-between border-b border-slate-200 px-5">
+        <a href="<?= base_url('dashboard') ?>" class="flex items-center gap-2" aria-label="GIC HRMS dashboard">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-sm font-bold text-white shadow-sm">G</span>
+            <span class="text-xl font-bold tracking-tight text-slate-950">
+                GIC<span class="text-indigo-600">HRMS</span>
+            </span>
+        </a>
 
-    <!-- Header -->
-    <a href="/dashboard" class="h-[72px] flex items-center px-3 lg:px-4 border-b border-slate-200">
+        <button type="button" onclick="toggleSidebar()" class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 lg:hidden" aria-label="Close sidebar">
+            <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+    </div>
 
-        <h2 class="text-3xl lg:text-4xl font-bold text-blue-500">
-            GIC<span class="text-slate-800">HRMS</span>
-        </h2>
+    <nav class="min-h-0 flex-1 space-y-6 overflow-y-auto px-3 py-5 [scrollbar-width:thin] [scrollbar-color:#cbd5e1_transparent]">
+        <?php foreach ($sections as $section): ?>
+            <?php if (!$section['visible']) continue; ?>
 
-    </a>
+            <section>
+                <h2 class="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                    <?= esc($section['label']) ?>
+                </h2>
 
-    <!-- Navigation -->
-    <nav
-        class="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-2 lg:px-3 py-3">
-
-        <?php if (in_array(session('role'), ['admin', 'hiring_manager', 'department_head', 'hr'])): ?>
-            <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-                Recruitment
-            </h6>
-
-
-
-            <a href="/Recruitment/requisitions" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'requisitions')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-                <div class="flex items-center gap-2 lg:gap-2.5">
-                    <i data-lucide="user-round-plus" class="w-4 h-4"></i>
-                    <span class="text-xs lg:text-[13px] font-semibold">
-                        Job Requesitions
-                    </span>
+                <div class="space-y-1">
+                    <?php foreach ($section['items'] as $item): ?>
+                        <a href="<?= base_url($item['path']) ?>"
+                            class="group flex min-h-10 items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition <?= $linkClass((bool) $item['active']) ?>"
+                            <?= $item['active'] ? 'aria-current="page"' : '' ?>>
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg <?= $item['active'] ? 'bg-indigo-100 text-indigo-700' : 'text-slate-400 group-hover:bg-white group-hover:text-slate-700' ?>">
+                                <i data-lucide="<?= esc($item['icon']) ?>" class="h-4 w-4"></i>
+                            </span>
+                            <span class="min-w-0 flex-1 truncate"><?= esc($item['label']) ?></span>
+                            <?php if ($item['active']): ?>
+                                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-600"></span>
+                            <?php endif; ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
+            </section>
+        <?php endforeach; ?>
 
-                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        <?php if ($canViewReports): ?>
+            <section>
+                <h2 class="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Analytics</h2>
 
-            </a>
-
-
-
-            <a href="/Recruitment/jobs" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'jobs')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-                <div class="flex items-center gap-2 lg:gap-2.5">
-                    <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
-                    <span class="text-xs lg:text-[13px] font-semibold">
-                        Job Openings
+                <button type="button" onclick="toggleReportMenu()" aria-controls="reportMenu" aria-expanded="<?= $isReportPage ? 'true' : 'false' ?>"
+                    class="group flex min-h-10 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition <?= $linkClass($isReportPage) ?>">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg <?= $isReportPage ? 'bg-indigo-100 text-indigo-700' : 'text-slate-400 group-hover:bg-white group-hover:text-slate-700' ?>">
+                        <i data-lucide="chart-column-big" class="h-4 w-4"></i>
                     </span>
+                    <span class="min-w-0 flex-1 truncate">Reports</span>
+                    <i id="reportArrow" data-lucide="chevron-down" class="h-4 w-4 shrink-0 transition-transform duration-200 <?= $isReportPage ? 'rotate-180' : '' ?>"></i>
+                </button>
+
+                <div id="reportMenu" class="<?= $isReportPage ? '' : 'hidden' ?> ml-6 mt-1 space-y-0.5 border-l border-slate-200 pl-3">
+                    <?php foreach ($reportLinks as $report): ?>
+                        <?php $reportActive = $isReportPage && $currentPage === $report['page']; ?>
+                        <a href="<?= base_url($report['path']) ?>"
+                            class="block rounded-lg px-3 py-2 text-xs font-medium transition <?= $reportActive ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900' ?>"
+                            <?= $reportActive ? 'aria-current="page"' : '' ?>>
+                            <?= esc($report['label']) ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
-
-                <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-            </a>
-
-
-
-            <a href="/Recruitment/candidates" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'candidates')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-                <div class="flex items-center gap-2 lg:gap-2.5">
-                    <i data-lucide="user-round" class="w-4 h-4"></i>
-                    <span class="text-xs lg:text-[13px] font-semibold">
-                        Candidates Info
-                    </span>
-                </div>
-
-                <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-            </a>
-
-            <a href="/Recruitment/evaluation" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'evaluation')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-                <div class="flex items-center gap-2 lg:gap-2.5">
-                    <i data-lucide="clipboard-check" class="w-4 h-4"></i>
-                    <span class="text-xs lg:text-[13px] font-semibold">
-                        Evaluation
-                    </span>
-                </div>
-
-                <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-            </a>
+            </section>
         <?php endif; ?>
 
-
-
-        <a href="/Recruitment/employee-jobs" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'employee-jobs')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="user-round" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Carrer Opportunities
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-
-
-
-        <!-- Dashboard -->
-        <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Dashboard
-        </h6>
-
-        <a href="/dashboard" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'dashboard')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="home" class="w-3.5 h-3.5"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Dashboards
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-
-        <!-- Companies -->
-        <h6 class="px-1 mt-6 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Companies
-        </h6>
-
-        <a href="/companies" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'companies')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="building-2" class="w-3.5 h-3.5"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Companies
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-
-        <!-- Staff -->
-        <h6 class="px-1 mt-6 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Staff
-        </h6>
-
-        <a href="/staff" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($isStaffPage && $currentPage != 'create')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="users" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Staff Directory
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <?php if ($canManageStaff): ?>
-        <a href="/staff/create" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($isStaffPage && $currentPage == 'create')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="user-plus" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Add Staff
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-        <?php endif; ?>
-
-
-        <!-- Finance -->
-        <h6 class="px-2 mt-6 mb-2 text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Finance
-        </h6>
-
-        <!-- Subscriptions -->
-        <a href="/subscriptions" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'subscriptions')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="crown" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Subscriptions
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <!-- Purchase Transaction -->
-        <a href="/purchase_transaction" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'purchase_transaction')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Purchase Transaction
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <!-- Packages -->
-        <a href="/packages" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'packages')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="gem" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Packages
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <!-- Suport Ticket -->
-        <a href="/support_ticket" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'support_ticket')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="ticket" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Support Ticket
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <!-- Reports -->
-        <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Reports
-        </h6>
-        <div class="mt-4">
-
-            <?php
-            $isReportPage =
-                $currentPage == 'expense_report' ||
-                $currentPage == 'invoice_report' ||
-                $currentPage == 'user_report' ||
-                $currentPage == 'employee_report' ||
-                $currentPage == 'payslip_report' ||
-                $currentPage == 'attendance_report' ||
-                $currentPage == 'leave_report' ||
-                $currentPage == 'daily_report';
-            ?>
-
-            <!-- Parent Menu -->
-            <button onclick="toggleReportMenu()" class="w-full flex items-center justify-between px-4 py-3 rounded-md
-        <?= $isReportPage
-            ? 'bg-slate-200 text-slate-800'
-            : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-                <div class="flex items-center gap-2 lg:gap-2.5">
-                    <i data-lucide="file-text" class="w-4 h-4"></i>
-
-                    <span class="text-xs lg:text-[13px] font-semibold">
-                        Reports
+        <section>
+            <h2 class="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Support</h2>
+            <div class="space-y-1">
+                <a href="<?= base_url('chat') ?>" class="group flex min-h-10 items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition <?= $linkClass($currentPage === 'chat') ?>">
+                    <span class="flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 group-hover:bg-white group-hover:text-slate-700">
+                        <i data-lucide="messages-square" class="h-4 w-4"></i>
                     </span>
-                </div>
-
-                <i id="reportArrow" data-lucide="chevron-down"
-                    class="w-4 h-4 transition-transform duration-300 <?= $isReportPage ? 'rotate-180' : ''; ?>">
-                </i>
-
-            </button>
-
-            <!-- Sub Menu -->
-            <div id="reportMenu" class="<?= $isReportPage ? '' : 'hidden'; ?> ml-7 mt-2 border-l border-slate-200">
-
-                <a href="/Reports/expense_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'expense_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Expense Report
+                    <span class="flex-1">Team Chat</span>
                 </a>
 
-                <a href="/Reports/invoice_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'invoice_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Invoice Report
+                <a href="<?= base_url('support_ticket') ?>" class="group flex min-h-10 items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-semibold transition <?= $linkClass($currentPage === 'support_ticket') ?>">
+                    <span class="flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 group-hover:bg-white group-hover:text-slate-700">
+                        <i data-lucide="life-buoy" class="h-4 w-4"></i>
+                    </span>
+                    <span class="flex-1">Support Tickets</span>
                 </a>
-
-                <a href="/Reports/user_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'user_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    User Report
-                </a>
-
-                <a href="/Reports/employee_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'employee_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Employee Report
-                </a>
-
-                <a href="/Reports/payslip_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'payslip_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Payslip Report
-                </a>
-
-                <a href="/Reports/attendance_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'attendance_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Attendance Report
-                </a>
-
-                <a href="/Reports/leave_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'leave_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Leave Report
-                </a>
-
-                <a href="/Reports/daily_report" class="block pl-4 py-2 text-xs
-            <?= ($currentPage == 'daily_report')
-                ? 'text-orange-500 font-medium'
-                : 'text-slate-600 hover:text-orange-500'; ?>">
-                    Daily Report
-                </a>
-
             </div>
-
-        </div>
-
-        <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Billing
-        </h6>
-
-        <a href="/invoice" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'invoice')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="receipt" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Invoice
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Support
-        </h6>
-
-        <a href="/chat" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'chat')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Chat
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <h6 class="px-1 mt-4 mb-2 text-[10px] lg:text-[11px] font-medium tracking-wider uppercase text-slate-400">
-            Attendance
-        </h6>
-
-        <a href="/employee_attendance" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'employee_attendance')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Employee Attendance
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-        <a href="/performance_review" class="group flex items-center justify-between gap-3 px-4 py-3 rounded-md mt-4
-            <?= ($currentPage == 'performance_review')
-                ? 'bg-slate-200 text-slate-800'
-                : 'text-slate-800 hover:bg-slate-200'; ?>">
-
-            <div class="flex items-center gap-2 lg:gap-2.5">
-                <i data-lucide="user-check" class="w-4 h-4"></i>
-                <span class="text-xs lg:text-[13px] font-semibold">
-                    Performance Review
-                </span>
-            </div>
-
-            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-
-        </a>
-
-
-
-
-
-
-
+        </section>
     </nav>
+
+    <div class="shrink-0 border-t border-slate-200 bg-slate-50 px-4 py-3">
+        <div class="flex items-center gap-3">
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700">
+                <?= esc(strtoupper(substr((string) session('name'), 0, 1))) ?>
+            </span>
+            <div class="min-w-0 flex-1">
+                <p class="truncate text-xs font-semibold text-slate-900"><?= esc(session('name')) ?></p>
+                <p class="truncate text-[11px] capitalize text-slate-500"><?= esc(str_replace('_', ' ', $role)) ?></p>
+            </div>
+            <a href="<?= base_url('logout') ?>" class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 hover:bg-rose-50 hover:text-rose-600" title="Logout" aria-label="Logout">
+                <i data-lucide="log-out" class="h-4 w-4"></i>
+            </a>
+        </div>
+    </div>
 
     <script>
         function toggleReportMenu() {
             const menu = document.getElementById('reportMenu');
             const arrow = document.getElementById('reportArrow');
+            const button = document.querySelector('[aria-controls="reportMenu"]');
 
-            menu.classList.toggle('hidden');
+            if (!menu || !arrow || !button) return;
 
-            arrow.classList.toggle('rotate-180');
-
+            const isOpening = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', !isOpening);
+            arrow.classList.toggle('rotate-180', isOpening);
+            button.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
             lucide.createIcons();
         }
     </script>
-
 </aside>

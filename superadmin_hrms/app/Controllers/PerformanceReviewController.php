@@ -2,18 +2,33 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class PerformanceReviewController extends BaseController
 {
     public function performance_review()
     {
-        return view('performance_review');
+        if (!$this->canManageReviews()) return $this->accessDenied();
+        $companyId = (int) session('company_id');
+        $db = db_connect();
+        return view('performance_review', [
+            'employees' => (new UserModel())->select('users.*, departments.department_name')->join('departments', 'departments.id = users.department_id', 'left')->where('users.company_id', $companyId)->where('users.is_active', 1)->orderBy('users.name')->findAll(),
+            'reviewCount' => $db->table('performance_reviews')->where('company_id', $companyId)->countAllResults(),
+            'recentReviews' => $db->table('performance_reviews')->where('company_id', $companyId)->orderBy('created_at', 'DESC')->limit(5)->get()->getResultArray(),
+        ]);
     }
 
     public function save()
     {
+        if (!$this->canManageReviews()) return $this->accessDenied();
         try {
 
             $db = \Config\Database::connect();
+            $employeeId = (int) $this->request->getPost('employee_user_id');
+            $employee = (new UserModel())->where('company_id', (int) session('company_id'))->where('is_active', 1)->find($employeeId);
+            if (!$employee) return redirect()->back()->withInput()->with('error', 'Select a valid employee from your company.');
+            $department = !empty($employee['department_id']) ? $db->table('departments')->select('department_name')->where('id', $employee['department_id'])->get()->getRowArray() : null;
+            $db->transStart();
 
             /*
             |--------------------------------------------------------------------------
@@ -22,12 +37,16 @@ class PerformanceReviewController extends BaseController
             */
 
             $reviewData = [
-                'emp_id' => $this->request->getPost('emp_id'),
-                'name' => $this->request->getPost('name'),
-                'department' => $this->request->getPost('department'),
-                'designation' => $this->request->getPost('designation'),
+                'company_id' => (int) session('company_id'),
+                'employee_user_id' => $employeeId,
+                'reviewed_by' => (int) session('user_id'),
+                'status' => 'Completed',
+                'emp_id' => $employee['employee_id'],
+                'name' => $employee['name'],
+                'department' => $department['department_name'] ?? '',
+                'designation' => $employee['position'],
                 'qualification' => $this->request->getPost('qualification'),
-                'date_of_join' => $this->request->getPost('date_of_join'),
+                'date_of_join' => $employee['date_of_joining'],
                 'date_of_confirmation' => $this->request->getPost('date_of_confirmation'),
                 'previous_experience' => $this->request->getPost('previous_experience'),
                 'ro_name' => $this->request->getPost('ro_name'),
@@ -555,14 +574,28 @@ class PerformanceReviewController extends BaseController
                 ]);
             }
 
+            $db->transComplete();
+            if (!$db->transStatus()) throw new \RuntimeException('The performance review could not be saved.');
+
             return redirect()
                 ->to('/performance_review')
                 ->with('success', 'Performance Review Saved Successfully');
         } catch (\Exception $e) {
+            if (isset($db)) $db->transRollback();
 
             return redirect()
                 ->to('/performance_review')
                 ->with('error', $e->getMessage());
         }
+    }
+
+    private function canManageReviews(): bool
+    {
+        return in_array(session('role'), ['admin', 'hr'], true);
+    }
+
+    private function accessDenied()
+    {
+        return redirect()->to('/dashboard')->with('error', 'Only HR and administrators can access performance reviews.');
     }
 }

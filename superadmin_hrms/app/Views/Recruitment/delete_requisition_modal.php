@@ -66,11 +66,10 @@
 
                 </button>
 
-                <a id="confirmDeleteBtn" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg">
-
-                    Delete Permanently
-
-                </a>
+                <form id="confirmDeleteForm" method="post">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg">Delete Permanently</button>
+                </form>
 
             </div>
 
@@ -93,7 +92,7 @@
                 document.getElementById("deleteJobTitle").textContent =
                     data.job_title ?? "--";
 
-                document.getElementById("confirmDeleteBtn").href =
+                document.getElementById("confirmDeleteForm").action =
                     "<?= base_url('Recruitment/requisitions/delete/') ?>" + id;
 
                 const modal = document.getElementById("deleteModal");

@@ -121,7 +121,13 @@
 
                                 <div>
                                     <label class="mb-2 block text-sm font-semibold text-slate-700">Password</label>
-                                    <input type="password" name="password" class="field-control" required>
+                                    <input type="password" name="password" class="field-control" minlength="8" autocomplete="new-password" required>
+                                    <p class="mt-2 text-xs leading-5 text-slate-500">Use uppercase, lowercase, number, and special characters.</p>
+                                </div>
+
+                                <div>
+                                    <label class="mb-2 block text-sm font-semibold text-slate-700">Confirm Password</label>
+                                    <input type="password" name="confirm_password" class="field-control" minlength="8" autocomplete="new-password" required>
                                 </div>
                             </div>
                         </section>

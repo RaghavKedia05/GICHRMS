@@ -18,7 +18,7 @@ $routes->get('/logout', 'Auth::logout');
 
 
 
-$routes->get('/dashboard', 'DashboardController::index');
+$routes->get('/dashboard', 'DashboardController::index', ['filter' => 'auth']);
 
 $routes->get('/companies', 'DashboardController::companies');
 $routes->get('/subscriptions', 'DashboardController::subscriptions');
@@ -45,15 +45,30 @@ $routes->get('/chat/(:num)', 'ChatController::conversation/$1', ['filter' => 'au
 $routes->post('/chat/send', 'ChatController::send', ['filter' => 'auth']);
 $routes->get('/chat/messages/(:num)', 'ChatController::messages/$1', ['filter' => 'auth']);
 
-$routes->get('/employee_attendance', 'DashboardController::employee_attendance');
+$routes->group('settings', ['filter' => 'auth'], function ($routes) {
+    $routes->get('profile', 'Settings\ProfileController::index');
+    $routes->post('profile/update', 'Settings\ProfileController::update');
+    $routes->get('email', 'Settings\EmailSettingsController::index');
+    $routes->post('email/save', 'Settings\EmailSettingsController::save');
+    $routes->post('email/test', 'Settings\EmailSettingsController::test');
+});
+
+$routes->group('employee_attendance', ['filter' => 'auth'], function ($routes) {
+    $routes->get('', 'Attendance\AttendanceController::index');
+    $routes->post('punch', 'Attendance\AttendanceController::punch');
+    $routes->post('break', 'Attendance\AttendanceController::toggleBreak');
+    $routes->get('export', 'Attendance\AttendanceController::export');
+});
 $routes->get('/staff', 'Employee\EmployeeController::staff', ['filter' => 'auth']);
 $routes->get('/staff/create', 'Employee\EmployeeController::createStaff', ['filter' => 'auth']);
 $routes->post('/staff/store', 'Employee\EmployeeController::storeStaff', ['filter' => 'auth']);
 $routes->get('/staff/edit/(:num)', 'Employee\EmployeeController::editStaff/$1', ['filter' => 'auth']);
 $routes->post('/staff/update/(:num)', 'Employee\EmployeeController::updateStaff/$1', ['filter' => 'auth']);
+$routes->post('/staff/credentials/save/(:num)', 'Employee\EmployeeController::saveLoginCredentials/$1', ['filter' => 'auth']);
+$routes->post('/staff/credentials/delete/(:num)', 'Employee\EmployeeController::deleteLoginCredentials/$1', ['filter' => 'auth']);
 
-$routes->get('/performance_review', 'PerformanceReviewController::performance_review');
-$routes->post('performance_review/save', 'PerformanceReviewController::save');
+$routes->get('/performance_review', 'PerformanceReviewController::performance_review', ['filter' => 'auth']);
+$routes->post('performance_review/save', 'PerformanceReviewController::save', ['filter' => 'auth']);
 
 $routes->get('/Recruitment/jobs', 'Recruitment\RecruitmentController::jobs');
 $routes->get('/Recruitment/jobs-grid', 'Recruitment\RecruitmentController::jobsGrid');
@@ -64,7 +79,6 @@ $routes->get('/Recruitment/evaluation', 'Recruitment\RecruitmentController::eval
 $routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1');
 $routes->get('/Recruitment/employee-jobs', 'Recruitment\RecruitmentController::employeeJobs', ['filter' => 'auth']);
 $routes->get('/Recruitment/employee-jobs-grid', 'Recruitment\RecruitmentController::employeeJobsGrid', ['filter' => 'auth']);
-$routes->post('/Recruitment/apply-job', 'Recruitment\RecruitmentController::applyJob', ['filter' => 'auth']);
 
 // =========================
 // Recruitment - Requisitions
@@ -96,7 +110,7 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
         'Recruitment\RequisitionController::update/$1'
     );
 
-    $routes->get(
+    $routes->post(
         'requisitions/delete/(:num)',
         'Recruitment\RequisitionController::delete/$1'
     );
@@ -132,6 +146,16 @@ $routes->group('Recruitment', ['filter' => 'auth'], function ($routes) {
     $routes->post('applications/schedule/(:num)', 'Recruitment\RecruitmentController::scheduleCandidateInterview/$1');
     $routes->post('applications/evaluate/(:num)', 'Recruitment\RecruitmentController::evaluateCandidateApplication/$1');
     $routes->post('applications/delete/(:num)', 'Recruitment\RecruitmentController::deleteCandidateApplication/$1');
+    $routes->get('offers', 'Recruitment\OfferController::index');
+    $routes->get('offers/(:num)', 'Recruitment\OfferController::show/$1');
+    $routes->get('offers/(:num)/letter', 'Recruitment\OfferController::letter/$1');
+    $routes->post('offers/(:num)/request-documents', 'Recruitment\OfferController::requestDocuments/$1');
+    $routes->post('offers/(:num)/upload-documents', 'Recruitment\OfferController::uploadDocuments/$1');
+    $routes->get('offers/(:num)/document/(:segment)', 'Recruitment\OfferController::document/$1/$2');
+    $routes->post('offers/(:num)/verify', 'Recruitment\OfferController::verify/$1');
+    $routes->post('offers/(:num)/send', 'Recruitment\OfferController::sendOffer/$1');
+    $routes->post('offers/(:num)/respond', 'Recruitment\OfferController::respond/$1');
+    $routes->post('offers/(:num)/hire', 'Recruitment\OfferController::hire/$1');
 
 
 });

@@ -574,7 +574,7 @@
             document.getElementById("deleteReqNo").textContent = requisitionNo;
             document.getElementById("deleteJobTitle").textContent = jobTitle;
 
-            document.getElementById("confirmDeleteBtn").href =
+            document.getElementById("confirmDeleteForm").action =
                 "<?= base_url('Recruitment/requisitions/delete/') ?>" + id;
 
             const modal = document.getElementById("deleteModal");

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\CompanyModel;
 use App\Models\UserModel;
 
 class Auth extends BaseController
@@ -43,9 +44,15 @@ class Auth extends BaseController
         }
 
         $userModel = new UserModel();
+        $defaultCompany = (new CompanyModel())
+            ->where('is_active', 1)
+            ->orderBy('id', 'ASC')
+            ->first();
         $employeeId = 'EMP' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
 
         $userModel->insert([
+
+            'company_id' => $defaultCompany['id'] ?? null,
 
             'employee_id' => $employeeId,
 
@@ -57,6 +64,8 @@ class Auth extends BaseController
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
+
+            'login_enabled' => 1,
 
             'role' => 'employee',
 
@@ -86,7 +95,14 @@ class Auth extends BaseController
                 ->with('error', 'Invalid email. Please enter a valid email address.');
         }
 
-        if (!password_verify($password, $user['password'])) {
+        if (!(int) ($user['login_enabled'] ?? 1) || empty($user['password'])) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Login access has not been enabled for this employee. Please contact HR or an administrator.');
+        }
+
+        if (!password_verify($password, (string) $user['password'])) {
 
             return redirect()->back()
                 ->withInput()
@@ -102,6 +118,8 @@ class Auth extends BaseController
         session()->set([
 
             'user_id' => $user['id'],
+
+            'company_id' => $user['company_id'] ?? null,
 
             'name' => $user['name'],
 
@@ -124,6 +142,7 @@ class Auth extends BaseController
         // and make CodeIgniter's unlink() fail during logout.
         $session->remove([
             'user_id',
+            'company_id',
             'name',
             'email',
             'role',

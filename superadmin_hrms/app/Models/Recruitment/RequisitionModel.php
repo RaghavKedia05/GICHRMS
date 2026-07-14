@@ -13,6 +13,7 @@ class RequisitionModel extends Model
     protected $returnType = 'array';
 
     protected $allowedFields = [
+        'company_id',
         'requisition_no',
         'job_title',
         'department',

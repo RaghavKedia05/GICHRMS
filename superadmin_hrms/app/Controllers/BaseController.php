@@ -39,6 +39,26 @@ abstract class BaseController extends Controller
         // Caution: Do not edit this line.
         parent::initController($request, $response, $logger);
 
+        // Backfill company context for sessions created before multi-company support.
+        if (session('user_id') && !session('company_id')) {
+            try {
+                $db = db_connect();
+                if ($db->fieldExists('company_id', 'users')) {
+                    $user = $db->table('users')
+                        ->select('company_id')
+                        ->where('id', (int) session('user_id'))
+                        ->get()
+                        ->getRowArray();
+
+                    if (!empty($user['company_id'])) {
+                        session()->set('company_id', (int) $user['company_id']);
+                    }
+                }
+            } catch (\Throwable $e) {
+                log_message('warning', 'Could not restore company session context: ' . $e->getMessage());
+            }
+        }
+
         // Preload any models, libraries, etc, here.
         // $this->session = service('session');
     }

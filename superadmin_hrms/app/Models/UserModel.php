@@ -11,10 +11,12 @@ class UserModel extends Model
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
+        'company_id',
         'employee_id',
         'name',
         'email',
         'password',
+        'login_enabled',
         'role',
         'position',
         'phone',
