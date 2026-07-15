@@ -73,13 +73,6 @@ class JobApplicationModel extends Model
 
     protected $useTimestamps = false;
 
-    public function getApplicationsByUser(int $userId)
-    {
-        return $this->where('user_id', $userId)
-            ->orderBy('applied_at', 'DESC')
-            ->findAll();
-    }
-
     public function getApplicationsWithDetails(?int $companyId = null): array
     {
         // Candidate screens need application, employee, and job data in one row.
@@ -149,9 +142,8 @@ class JobApplicationModel extends Model
             ->countAllResults() > 0;
     }
 
-    public function getAppliedJobIds($userId)
+    public function getAppliedJobIds(int $userId): array
     {
-        return $this->where('user_id', $userId)
-            ->findColumn('requisition_id');
+        return $this->where('user_id', $userId)->findColumn('requisition_id') ?? [];
     }
 }

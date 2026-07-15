@@ -3,6 +3,7 @@
 namespace App\Controllers\Recruitment;
 
 use App\Controllers\BaseController;
+use App\Libraries\RecruitmentResumeService;
 use App\Models\Recruitment\JobApplicationModel;
 use App\Models\Recruitment\RequisitionModel;
 
@@ -24,7 +25,9 @@ class JobApplicationController extends BaseController
         if (!$userId) {
             return redirect()->to('/login');
         }
-        if (session('role') !== 'employee') return redirect()->back()->with('error', 'Only employee candidates can apply for jobs.');
+        if (session('role') !== 'employee') {
+            return redirect()->back()->with('error', 'Only employee candidates can apply for jobs.');
+        }
 
         $job = $this->requisitionModel
             ->where('id', $id)
@@ -57,7 +60,6 @@ class JobApplicationController extends BaseController
         }
         if (session('role') !== 'employee') return redirect()->back()->with('error', 'Only employee candidates can apply for jobs.');
 
-        $resume = $this->request->getFile('resume');
         $requisitionId = (int) $this->request->getPost('requisition_id');
 
         $job = $this->requisitionModel
@@ -77,43 +79,12 @@ class JobApplicationController extends BaseController
                 ->with('error', 'You have already applied for this job.');
         }
 
-        if (!$resume || in_array($resume->getError(), [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Resume must be 5 MB or smaller.');
+        $upload = (new RecruitmentResumeService())->store($this->request->getFile('resume'));
+        if (isset($upload['error'])) {
+            return redirect()->back()->withInput()->with('error', $upload['error']);
         }
 
-        if (!$resume->isValid()) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Please upload a valid resume.');
-        }
-
-        $allowedExtensions = ['pdf', 'doc', 'docx'];
-        $extension = strtolower((string) $resume->getClientExtension());
-
-        if (!in_array($extension, $allowedExtensions, true)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Resume must be a PDF, DOC, or DOCX file.');
-        }
-
-        if ($resume->getSizeByUnit('mb') > 5) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Resume must be 5 MB or smaller.');
-        }
-
-        $newName = $resume->getRandomName();
-        $uploadPath = ROOTPATH . 'public/uploads/resumes';
-
-        if (!is_dir($uploadPath)) {
-            mkdir($uploadPath, 0775, true);
-        }
-
-        $resume->move($uploadPath, $newName);
-
-        $this->jobApplicationModel->insert([
+        $applicationId = $this->jobApplicationModel->insert([
             'requisition_id' => $requisitionId,
             'user_id' => $userId,
             'candidate_name' => $this->request->getPost('candidate_name'),
@@ -125,12 +96,17 @@ class JobApplicationController extends BaseController
             'linkedin_url' => $this->request->getPost('linkedin_url'),
             'portfolio_url' => $this->request->getPost('portfolio_url'),
             'cover_letter' => $this->request->getPost('cover_letter'),
-            'resume_file' => $newName,
-            'resume_original_name' => $resume->getClientName(),
+            'resume_file' => $upload['stored_name'],
+            'resume_original_name' => $upload['original_name'],
             'application_source' => $this->request->getPost('application_source') ?: 'Internal Career Portal',
             'status' => 'Applied',
             'applied_at' => date('Y-m-d H:i:s'),
-        ]);
+        ], true);
+
+        if (!$applicationId) {
+            unlink($upload['path']);
+            return redirect()->back()->withInput()->with('error', 'Your application could not be submitted. Please try again.');
+        }
 
         return redirect()->to('/Recruitment/employee-jobs')
             ->with('success', 'Application submitted successfully.');

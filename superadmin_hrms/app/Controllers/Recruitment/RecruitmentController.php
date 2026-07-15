@@ -158,7 +158,7 @@ class RecruitmentController extends BaseController
             'filterSort' => $jobs['filterSort'],
             'searchQuery' => $jobs['searchQuery'],
 
-            'appliedIds' => $appliedIds ?? []
+            'appliedIds' => $appliedIds
 
         ]);
     }
@@ -172,58 +172,9 @@ class RecruitmentController extends BaseController
         }
 
         $jobs = $this->getPublishedJobFilters('internal');
-        $jobs['appliedIds'] = $this->jobApplicationModel->getAppliedJobIds($userId) ?? [];
+        $jobs['appliedIds'] = $this->jobApplicationModel->getAppliedJobIds($userId);
 
         return view('Recruitment/employee-jobs-grid', $jobs);
-    }
-
-    public function applyJob()
-    {
-        if ($this->request->getMethod() !== 'post') {
-            return redirect()->back();
-        }
-
-        $userId = session('user_id');
-        $userRole = session('role');
-
-        if (!$userId || $userRole !== 'employee') {
-            return redirect()->back()
-                ->with('error', 'Only employees can submit job applications.');
-        }
-
-        $requisitionId = (int) $this->request->getPost('requisition_id');
-
-        if (!$userId || !$requisitionId) {
-            return redirect()->back()
-                ->with('error', 'Unable to submit application.');
-        }
-
-        $requisition = $this->requisitionModel
-            ->where('id', $requisitionId)
-            ->where('status', 'Published')
-            ->where('hod_status', 'Approved')
-            ->where('hr_status', 'Approved')
-            ->first();
-
-        if (!$requisition) {
-            return redirect()->back()
-                ->with('error', 'Job not available for application.');
-        }
-
-        if ($this->jobApplicationModel->hasApplied($requisitionId, $userId)) {
-            return redirect()->back()
-                ->with('error', 'You have already applied for this job.');
-        }
-
-        $this->jobApplicationModel->insert([
-            'requisition_id' => $requisitionId,
-            'user_id' => $userId,
-            'status' => 'Applied',
-            'applied_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        return redirect()->back()
-            ->with('success', 'Your application has been submitted.');
     }
 
     public function viewJobModal($id)

@@ -76,13 +76,13 @@ $routes->post('/staff/credentials/delete/(:num)', 'Employee\EmployeeController::
 $routes->get('/performance_review', 'PerformanceReviewController::performance_review', ['filter' => 'auth']);
 $routes->post('performance_review/save', 'PerformanceReviewController::save', ['filter' => 'auth']);
 
-$routes->get('/Recruitment/jobs', 'Recruitment\RecruitmentController::jobs');
-$routes->get('/Recruitment/jobs-grid', 'Recruitment\RecruitmentController::jobsGrid');
+$routes->get('/Recruitment/jobs', 'Recruitment\RecruitmentController::jobs', ['filter' => 'auth']);
+$routes->get('/Recruitment/jobs-grid', 'Recruitment\RecruitmentController::jobsGrid', ['filter' => 'auth']);
 $routes->get('/Recruitment/candidates', 'Recruitment\RecruitmentController::candidates', ['filter' => 'auth']);
 $routes->get('/Recruitment/candidates-grid', 'Recruitment\RecruitmentController::candidatesGrid', ['filter' => 'auth']);
 $routes->get('/Recruitment/candidates-kanban', 'Recruitment\RecruitmentController::candidatesKanban', ['filter' => 'auth']);
 $routes->get('/Recruitment/evaluation', 'Recruitment\RecruitmentController::evaluation', ['filter' => 'auth']);
-$routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1');
+$routes->get('/Recruitment/view-job-modal/(:num)', 'Recruitment\RecruitmentController::viewJobModal/$1', ['filter' => 'auth']);
 $routes->get('/Recruitment/employee-jobs', 'Recruitment\RecruitmentController::employeeJobs', ['filter' => 'auth']);
 $routes->get('/Recruitment/employee-jobs-grid', 'Recruitment\RecruitmentController::employeeJobsGrid', ['filter' => 'auth']);
 

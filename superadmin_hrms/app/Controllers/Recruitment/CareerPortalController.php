@@ -3,6 +3,7 @@
 namespace App\Controllers\Recruitment;
 
 use App\Controllers\BaseController;
+use App\Libraries\RecruitmentResumeService;
 use App\Models\Recruitment\JobApplicationModel;
 use App\Models\Recruitment\RequisitionModel;
 
@@ -26,9 +27,11 @@ class CareerPortalController extends BaseController
         if ($search !== '') {
             $query->groupStart()->like('job_title', $search)->orLike('description', $search)->orLike('mandatory_skills', $search)->groupEnd();
         }
-        if ($department !== '') $query->where('department', $department);
-        if ($location !== '') $query->where('location', $location);
-        if ($type !== '') $query->where('employment_type', $type);
+        foreach (['department' => $department, 'location' => $location, 'employment_type' => $type] as $column => $value) {
+            if ($value !== '') {
+                $query->where($column, $value);
+            }
+        }
 
         return view('careers/index', [
             'jobs' => $query->orderBy('published_at', 'DESC')->findAll(100),
@@ -42,14 +45,19 @@ class CareerPortalController extends BaseController
     public function show($id)
     {
         $job = $this->findExternalJob((int) $id);
-        if (!$job) return redirect()->to('/careers')->with('error', 'This job is no longer available.');
+        if (!$job) {
+            return redirect()->to('/careers')->with('error', 'This job is no longer available.');
+        }
+
         return view('careers/show', ['job' => $job]);
     }
 
     public function apply($id)
     {
         $job = $this->findExternalJob((int) $id);
-        if (!$job) return redirect()->to('/careers')->with('error', 'This job is no longer accepting applications.');
+        if (!$job) {
+            return redirect()->to('/careers')->with('error', 'This job is no longer accepting applications.');
+        }
 
         $rules = [
             'candidate_name' => 'required|min_length[2]|max_length[120]',
@@ -71,45 +79,32 @@ class CareerPortalController extends BaseController
             return redirect()->back()->withInput()->with('error', 'An application for this job has already been submitted with this email address.');
         }
 
-        $resume = $this->request->getFile('resume');
-        if (!$resume || !$resume->isValid() || $resume->getSizeByUnit('mb') > 5) {
-            return redirect()->back()->withInput()->with('error', 'Please upload a valid resume no larger than 5 MB.');
+        $upload = (new RecruitmentResumeService())->store($this->request->getFile('resume'));
+        if (isset($upload['error'])) {
+            return redirect()->back()->withInput()->with('error', $upload['error']);
         }
 
-        $extension = strtolower((string) $resume->getClientExtension());
-        $allowedMimes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/octet-stream'];
-        if (!in_array($extension, ['pdf', 'doc', 'docx'], true) || !in_array($resume->getMimeType(), $allowedMimes, true)) {
-            return redirect()->back()->withInput()->with('error', 'Resume must be a PDF, DOC, or DOCX file.');
-        }
-
-        $uploadPath = ROOTPATH . 'public/uploads/resumes';
-        if (!is_dir($uploadPath) && !mkdir($uploadPath, 0775, true) && !is_dir($uploadPath)) {
-            return redirect()->back()->withInput()->with('error', 'Resume storage is temporarily unavailable.');
-        }
-
-        $storedName = $resume->getRandomName();
-        $resume->move($uploadPath, $storedName);
         $applicationId = $this->applications->insert([
             'requisition_id' => (int) $id,
             'user_id' => null,
             'candidate_name' => trim((string) $this->request->getPost('candidate_name')),
             'candidate_email' => $email,
             'phone' => trim((string) $this->request->getPost('phone')),
-            'current_company' => trim((string) $this->request->getPost('current_company')) ?: null,
+            'current_company' => $this->nullablePost('current_company'),
             'experience_years' => $this->request->getPost('experience_years') !== '' ? $this->request->getPost('experience_years') : null,
             'current_location' => trim((string) $this->request->getPost('current_location')),
-            'linkedin_url' => trim((string) $this->request->getPost('linkedin_url')) ?: null,
-            'portfolio_url' => trim((string) $this->request->getPost('portfolio_url')) ?: null,
-            'cover_letter' => trim((string) $this->request->getPost('cover_letter')) ?: null,
-            'resume_file' => $storedName,
-            'resume_original_name' => basename($resume->getClientName()),
+            'linkedin_url' => $this->nullablePost('linkedin_url'),
+            'portfolio_url' => $this->nullablePost('portfolio_url'),
+            'cover_letter' => $this->nullablePost('cover_letter'),
+            'resume_file' => $upload['stored_name'],
+            'resume_original_name' => $upload['original_name'],
             'application_source' => 'External Careers Portal',
             'status' => 'Applied',
             'applied_at' => date('Y-m-d H:i:s'),
         ], true);
 
         if (!$applicationId) {
-            @unlink($uploadPath . DIRECTORY_SEPARATOR . $storedName);
+            unlink($upload['path']);
             return redirect()->back()->withInput()->with('error', 'Your application could not be submitted. Please try again.');
         }
 
@@ -121,7 +116,10 @@ class CareerPortalController extends BaseController
     public function success()
     {
         $reference = session()->getFlashdata('application_reference');
-        if (!$reference) return redirect()->to('/careers');
+        if (!$reference) {
+            return redirect()->to('/careers');
+        }
+
         return view('careers/success', ['reference' => $reference, 'jobTitle' => session()->getFlashdata('application_job')]);
     }
 
@@ -132,6 +130,7 @@ class CareerPortalController extends BaseController
 
     private function externalJobs(): RequisitionModel
     {
+        // Keep the publication and company checks centralized so no public action can expose a draft or disabled-company job.
         return (new RequisitionModel())
             ->join('companies', 'companies.id = job_requisitions.company_id')
             ->where('job_requisitions.status', 'Published')
@@ -144,5 +143,11 @@ class CareerPortalController extends BaseController
     private function distinctValues(string $column): array
     {
         return array_column($this->externalJobs()->select($column)->where($column . ' !=', '')->groupBy($column)->orderBy($column)->findAll(), $column);
+    }
+
+    private function nullablePost(string $field): ?string
+    {
+        $value = trim((string) $this->request->getPost($field));
+        return $value !== '' ? $value : null;
     }
 }
