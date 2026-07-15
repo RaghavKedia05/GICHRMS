@@ -19,7 +19,7 @@ GICHRMS centralizes employee administration, recruitment, attendance, performanc
 | Company email | Operational | Encrypted SMTP settings, test delivery, and recruitment notifications |
 | Automated checks | Available | PHPUnit unit checks and database-backed workflow verification |
 
-The primary application is located in [`superadmin_hrms`](superadmin_hrms/). Start there for installation and local development.
+The primary application is located in [`gichrms`](gichrms/). Start there for installation and local development.
 
 ## Contents
 
@@ -165,15 +165,15 @@ Controller-level checks enforce sensitive permissions even when a route is calle
 
 | Layer | Location | Responsibility |
 | --- | --- | --- |
-| Routes | `superadmin_hrms/app/Config/Routes.php` | Maps HTTP methods and URLs to controllers; attaches authentication filters |
-| Filters | `superadmin_hrms/app/Filters/` | Rejects unauthenticated, inactive, or login-disabled sessions |
-| Controllers | `superadmin_hrms/app/Controllers/` | Validates roles, workflow state, input, files, and redirects |
-| Models | `superadmin_hrms/app/Models/` | Encapsulates company-scoped database access and allowed fields |
-| Libraries | `superadmin_hrms/app/Libraries/` | Provides encrypted company SMTP delivery |
-| Views | `superadmin_hrms/app/Views/` | Renders responsive PHP/Tailwind pages and email templates |
-| Migrations | `superadmin_hrms/app/Database/Migrations/` | Creates and evolves the application schema |
-| Public storage | `superadmin_hrms/public/uploads/` | Stores randomized resume files accessed through guarded routes |
-| Private storage | `superadmin_hrms/writable/uploads/` | Stores verification documents outside the public web root |
+| Routes | `gichrms/app/Config/Routes.php` | Maps HTTP methods and URLs to controllers; attaches authentication filters |
+| Filters | `gichrms/app/Filters/` | Rejects unauthenticated, inactive, or login-disabled sessions |
+| Controllers | `gichrms/app/Controllers/` | Validates roles, workflow state, input, files, and redirects |
+| Models | `gichrms/app/Models/` | Encapsulates company-scoped database access and allowed fields |
+| Libraries | `gichrms/app/Libraries/` | Provides encrypted company SMTP delivery |
+| Views | `gichrms/app/Views/` | Renders responsive PHP/Tailwind pages and email templates |
+| Migrations | `gichrms/app/Database/Migrations/` | Creates and evolves the application schema |
+| Public storage | `gichrms/public/uploads/` | Stores randomized resume files accessed through guarded routes |
+| Private storage | `gichrms/writable/uploads/` | Stores verification documents outside the public web root |
 
 ### Design decisions
 
@@ -211,7 +211,7 @@ Migrations are the source of truth for schema changes. Apply them in timestamp o
 
 ```text
 GICHRMS/
-|-- superadmin_hrms/          # Active HRMS application
+|-- gichrms/                  # Active HRMS application
 |   |-- app/
 |   |   |-- Config/           # Routes and framework configuration
 |   |   |-- Controllers/      # HTTP and workflow controllers
@@ -222,7 +222,6 @@ GICHRMS/
 |   |-- public/               # Web root and public uploads
 |   |-- tests/                # PHPUnit tests
 |   `-- writable/             # Logs, sessions, cache, private uploads
-|-- transporterp/             # Legacy/earlier CodeIgniter application
 `-- README.md
 ```
 
@@ -241,7 +240,7 @@ For the complete PHPUnit starter suite, enable `sqlite3`; application unit tests
 
 ```bash
 git clone https://github.com/RaghavKedia05/GICHRMS.git
-cd GICHRMS/superadmin_hrms
+cd GICHRMS/gichrms
 ```
 
 ### 2. Install dependencies
@@ -294,7 +293,7 @@ php spark migrate:status
 php spark serve --host 127.0.0.1 --port 8080
 ```
 
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080). For Apache or Nginx, point the document root to `superadmin_hrms/public`, not the application directory.
+Open [http://127.0.0.1:8080](http://127.0.0.1:8080). For Apache or Nginx, point the document root to `gichrms/public`, not the application directory.
 
 ## First-time configuration
 
@@ -402,7 +401,7 @@ The default starter database tests use SQLite and require the PHP `sqlite3` exte
 
 ## Known scope and limitations
 
-- The active, maintained application is `superadmin_hrms`; `transporterp` is retained as a legacy application.
+- The active, maintained application is `gichrms`.
 - Several broad ERP/report pages are presentation scaffolds and are not described as operational modules here.
 - External job-board publication is represented by posting configuration; direct third-party job-board API integrations are not included.
 - Offer acceptance uses a consent-backed typed electronic signature and audit metadata. It is not a DocuSign integration.
@@ -424,4 +423,4 @@ Do not commit `.env`, generated session files, logs, uploaded candidate document
 
 ## Current scope
 
-`superadmin_hrms` is the active application documented here. The `transporterp` directory is retained as an earlier transportation-focused CodeIgniter application and is not required to run the HRMS module.
+`gichrms` is the active application documented here.
