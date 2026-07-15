@@ -248,7 +248,7 @@
 
                                                 <tbody class="divide-y divide-slate-200">
 
-                                                    <?php
+<?php
                                                     $items = [
                                                         ['UX Strategy', '1', '$500', '$100', '$500'],
                                                         ['Design System', '1', '$5000', '$100', '$5000'],

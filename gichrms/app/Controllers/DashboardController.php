@@ -45,7 +45,7 @@ class DashboardController extends BaseController
             'invoiceId' => $invoiceId
         ];
 
-        return view('invoice-details', $data);
+        return view('invoice_details', $data);
     }
 
     public function addInvoice()
