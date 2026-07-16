@@ -53,10 +53,4 @@ class DashboardController extends BaseController
         return view('add_invoice');
     }
 
-    public function employee_attendance()
-    {
-        return view('employee_attendance');
-    }
-
-    
 }
