@@ -107,6 +107,12 @@ $sections = [
         'visible' => $canManagePeople,
         'items' => [
             [
+                'label' => 'Departments',
+                'path' => 'departments',
+                'icon' => 'network',
+                'active' => $firstSegment === 'departments',
+            ],
+            [
                 'label' => 'Staff Directory',
                 'path' => 'staff',
                 'icon' => 'contact-round',

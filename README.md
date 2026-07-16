@@ -251,7 +251,15 @@ composer install
 
 ### 3. Create the environment file
 
-CodeIgniter applications normally ship with an `env` template. If one is available, copy it to `.env`; otherwise create `.env` locally. Never commit real credentials or encryption keys.
+Copy the committed environment template, then edit only your local `.env`. Never commit real credentials or encryption keys.
+
+```bash
+# Windows PowerShell
+Copy-Item env .env
+
+# macOS/Linux
+cp env .env
+```
 
 ```dotenv
 CI_ENVIRONMENT = development
@@ -297,9 +305,17 @@ Open [http://127.0.0.1:8080](http://127.0.0.1:8080). For Apache or Nginx, point 
 
 ## First-time configuration
 
-1. Register or create the initial user.
-2. Assign the appropriate role and company in the database or through an existing admin account.
-3. Add departments and staff members.
+Create the first administrator through the supported application command. This avoids editing roles or users directly in MySQL.
+
+```bash
+php spark app:bootstrap-admin --email manager@example.com --name "Manager Name" --company "Company Name"
+```
+
+The command prints a randomly generated temporary password once. Store it securely, sign in, and change it immediately. After the first administrator exists:
+
+1. Sign in at `http://127.0.0.1:8080/login`.
+2. Add departments and staff members.
+3. Create login credentials and assign roles from the Staff screen.
 4. Open **Settings > Company Email** to configure SMTP.
 5. Send a test email before using candidate notifications.
 
@@ -358,8 +374,11 @@ php spark migrate:status
 # Clear framework caches
 php spark cache:clear
 
-# Run tests
+# Run tests that work with the required PHP extensions
 composer test
+
+# Run all starter tests (also requires the optional sqlite3 extension)
+composer test:all
 
 # Run the non-database unit tests
 vendor/bin/phpunit tests/unit

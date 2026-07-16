@@ -36,6 +36,18 @@ class ProfileController extends BaseController
             'address' => 'permit_empty|max_length[1000]',
         ];
 
+        $changePassword = trim((string) $this->request->getPost('new_password')) !== ''
+            || trim((string) $this->request->getPost('current_password')) !== ''
+            || trim((string) $this->request->getPost('confirm_password')) !== '';
+
+        if ($changePassword) {
+            $rules += [
+                'current_password' => 'required',
+                'new_password' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/]',
+                'confirm_password' => 'required|matches[new_password]',
+            ];
+        }
+
         if (!$this->validate($rules)) {
             return redirect()->back()
                 ->withInput()
@@ -49,6 +61,16 @@ class ProfileController extends BaseController
             'address' => trim((string) $this->request->getPost('address')) ?: null,
         ];
 
+        if ($changePassword) {
+            if (! password_verify((string) $this->request->getPost('current_password'), (string) $profile['password'])) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('errors', ['current_password' => 'The current password is incorrect.']);
+            }
+
+            $payload['password'] = password_hash((string) $this->request->getPost('new_password'), PASSWORD_DEFAULT);
+        }
+
         (new UserModel())->update($userId, $payload);
 
         session()->set([
@@ -57,7 +79,7 @@ class ProfileController extends BaseController
         ]);
 
         return redirect()->to('/settings/profile')
-            ->with('success', 'Your profile was updated successfully.');
+            ->with('success', $changePassword ? 'Your profile and password were updated successfully.' : 'Your profile was updated successfully.');
     }
 
     private function currentProfile(): ?array

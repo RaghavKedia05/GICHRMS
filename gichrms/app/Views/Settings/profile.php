@@ -112,6 +112,27 @@
                                     <textarea id="profileAddress" name="address" rows="4" maxlength="1000"
                                         class="field-control mt-2 resize-y"><?= esc(old('address', $profile['address'] ?? '')) ?></textarea>
                                 </div>
+
+                                <div class="sm:col-span-2 border-t border-slate-200 pt-5">
+                                    <h3 class="text-sm font-semibold text-slate-900">Change password</h3>
+                                    <p class="mt-1 text-xs text-slate-500">Leave these fields empty to keep your current password.</p>
+                                </div>
+
+                                <div>
+                                    <label for="currentPassword" class="block text-sm font-semibold text-slate-700">Current password</label>
+                                    <input id="currentPassword" name="current_password" type="password" autocomplete="current-password" class="field-control mt-2">
+                                </div>
+
+                                <div>
+                                    <label for="newPassword" class="block text-sm font-semibold text-slate-700">New password</label>
+                                    <input id="newPassword" name="new_password" type="password" minlength="8" autocomplete="new-password" class="field-control mt-2">
+                                    <p class="mt-2 text-xs text-slate-500">Use uppercase, lowercase, a number, and a special character.</p>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label for="confirmPassword" class="block text-sm font-semibold text-slate-700">Confirm new password</label>
+                                    <input id="confirmPassword" name="confirm_password" type="password" minlength="8" autocomplete="new-password" class="field-control mt-2">
+                                </div>
                             </div>
 
                             <div class="flex justify-end border-t border-slate-200 bg-slate-50 px-5 py-4 sm:px-7">

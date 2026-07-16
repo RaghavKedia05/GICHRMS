@@ -1,0 +1,15 @@
+# Copy this file to .env and edit the local values. Never commit .env.
+
+CI_ENVIRONMENT = development
+
+app.baseURL = 'http://127.0.0.1:8080/'
+
+database.default.hostname = localhost
+database.default.database = hrms
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+database.default.port = 3306
+
+# Generate this after copying the file with: php spark key:generate
+encryption.key =

@@ -72,6 +72,9 @@ $routes->get('/staff/edit/(:num)', 'Employee\EmployeeController::editStaff/$1', 
 $routes->post('/staff/update/(:num)', 'Employee\EmployeeController::updateStaff/$1', ['filter' => 'auth']);
 $routes->post('/staff/credentials/save/(:num)', 'Employee\EmployeeController::saveLoginCredentials/$1', ['filter' => 'auth']);
 $routes->post('/staff/credentials/delete/(:num)', 'Employee\EmployeeController::deleteLoginCredentials/$1', ['filter' => 'auth']);
+$routes->get('/departments', 'DepartmentController::index', ['filter' => 'auth']);
+$routes->post('/departments/store', 'DepartmentController::store', ['filter' => 'auth']);
+$routes->post('/departments/toggle/(:num)', 'DepartmentController::toggle/$1', ['filter' => 'auth']);
 
 $routes->get('/performance_review', 'PerformanceReviewController::performance_review', ['filter' => 'auth']);
 $routes->post('performance_review/save', 'PerformanceReviewController::save', ['filter' => 'auth']);
