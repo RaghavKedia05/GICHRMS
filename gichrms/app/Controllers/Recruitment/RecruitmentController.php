@@ -6,17 +6,20 @@ use App\Controllers\BaseController;
 use App\Libraries\CompanyEmailService;
 use App\Models\CompanyModel;
 use App\Models\Recruitment\JobApplicationModel;
+use App\Models\Recruitment\InterviewRoundEvaluationModel;
 use App\Models\Recruitment\RequisitionModel;
 
 class RecruitmentController extends BaseController
 {
     protected $requisitionModel;
     protected $jobApplicationModel;
+    protected $roundEvaluationModel;
 
     public function __construct()
     {
         $this->requisitionModel = new RequisitionModel();
         $this->jobApplicationModel = new JobApplicationModel();
+        $this->roundEvaluationModel = new InterviewRoundEvaluationModel();
     }
 
     private function publishedJobsQuery(?string $channel = null): RequisitionModel
@@ -221,10 +224,16 @@ class RecruitmentController extends BaseController
     public function evaluation()
     {
         $applications = $this->getCandidateApplications();
+        $roundScores = [];
+        foreach ($applications as $application) {
+            $applicationId = (int) ($application['application_id'] ?? 0);
+            $roundScores[$applicationId] = $this->roundEvaluationModel->forApplication($applicationId);
+        }
 
         return view('/Recruitment/evaluation', [
             'applications' => $applications,
             'stats' => $this->getEvaluationStats($applications),
+            'roundScores' => $roundScores,
         ]);
     }
 
@@ -240,12 +249,13 @@ class RecruitmentController extends BaseController
         return view('/Recruitment/candidate_profile', [
             'application' => $application,
             'isAdmin' => $this->canManageCandidates(),
+            'roundEvaluations' => $this->roundEvaluationModel->forApplication((int) $id),
         ]);
     }
 
     public function deleteCandidateApplication($id)
     {
-        if (session('role') !== 'admin') {
+        if (!in_array(session('role'), ['superadmin', 'admin'], true)) {
             return redirect()->to('/Recruitment/candidates')
                 ->with('error', 'Only admins can delete candidate applications.');
         }
@@ -401,7 +411,9 @@ class RecruitmentController extends BaseController
         $communicationScore = $this->boundedScore($this->request->getPost('communication_score'));
         $cultureScore = $this->boundedScore($this->request->getPost('culture_score'));
         $totalScore = (int) round(($technicalScore + $communicationScore + $cultureScore) / 3);
-        $decision = $this->request->getPost('evaluation_status') === 'Selected' ? 'Selected' : 'Rejected';
+        $requestedDecision = (string) $this->request->getPost('evaluation_status');
+        $decision = in_array($requestedDecision, ['Advanced', 'Selected'], true) ? $requestedDecision : 'Rejected';
+        $applicationStatus = $decision === 'Advanced' ? 'Shortlisted' : $decision;
 
         $wasRejected = ($application['status'] ?? '') === 'Rejected';
         $rejectionReason = $decision === 'Rejected'
@@ -411,8 +423,15 @@ class RecruitmentController extends BaseController
             ? $application
             : [];
 
+        $roundName = trim((string) ($application['interview_round'] ?? 'Round 1')) ?: 'Round 1';
+        preg_match('/Round\s+(\d+)/i', $roundName, $roundMatch);
+        $roundNumber = max(1, (int) ($roundMatch[1] ?? 1));
+        $evaluatedAt = date('Y-m-d H:i:s');
+
+        $db = db_connect();
+        $db->transStart();
         $updated = $this->jobApplicationModel->update((int) $id, [
-            'status' => $decision,
+            'status' => $applicationStatus,
             'technical_score' => $technicalScore,
             'communication_score' => $communicationScore,
             'culture_score' => $cultureScore,
@@ -420,12 +439,34 @@ class RecruitmentController extends BaseController
             'evaluation_status' => $decision,
             'interview_notes' => $this->request->getPost('interview_notes'),
             'rejection_reason' => $decision === 'Rejected' && $rejectionReason !== '' ? $rejectionReason : null,
-            'evaluated_at' => date('Y-m-d H:i:s'),
+            'evaluated_at' => $evaluatedAt,
             'decision_viewed_at' => null,
             'selected_at' => $decision === 'Selected' ? date('Y-m-d H:i:s') : null,
         ]);
 
-        if (!$updated) {
+        $existingRound = $this->roundEvaluationModel
+            ->where('application_id', (int) $id)
+            ->where('round_number', $roundNumber)
+            ->first();
+        $roundPayload = [
+            'application_id' => (int) $id,
+            'round_number' => $roundNumber,
+            'round_name' => $roundName,
+            'technical_score' => $technicalScore,
+            'communication_score' => $communicationScore,
+            'culture_score' => $cultureScore,
+            'total_score' => $totalScore,
+            'decision' => $decision,
+            'notes' => $this->request->getPost('interview_notes'),
+            'evaluated_by' => (int) session('user_id') ?: null,
+            'evaluated_at' => $evaluatedAt,
+        ];
+        $existingRound
+            ? $this->roundEvaluationModel->update((int) $existingRound['id'], $roundPayload)
+            : $this->roundEvaluationModel->insert($roundPayload);
+        $db->transComplete();
+
+        if (!$updated || !$db->transStatus()) {
             return redirect()->back()->with('error', 'The candidate evaluation could not be saved. Please try again.');
         }
 
@@ -451,6 +492,10 @@ class RecruitmentController extends BaseController
 
             return redirect()->back()
                 ->with('success', 'Candidate selected. An in-app notification and selection email were sent.');
+        }
+
+        if ($decision === 'Advanced') {
+            return redirect()->back()->with('success', 'Round score saved. The candidate can now be scheduled for the next round.');
         }
 
         return redirect()->back()->with('success', 'Candidate evaluation saved successfully.');
@@ -491,7 +536,7 @@ class RecruitmentController extends BaseController
 
     private function canManageCandidates(): bool
     {
-        return in_array(session('role'), ['admin', 'hr'], true);
+        return in_array(session('role'), ['superadmin', 'admin', 'hr'], true);
     }
 
     private function redirectCandidateAccessDenied()

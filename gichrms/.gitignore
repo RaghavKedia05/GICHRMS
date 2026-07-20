@@ -60,6 +60,13 @@ Vagrantfile
 /writable/uploads/*
 !/writable/uploads/index.html
 
+/public/uploads/company-icons/*
+!/public/uploads/company-icons/.gitkeep
+
+# Local database snapshots may contain credentials and personal data.
+/writable/database-backups/*
+!/writable/database-backups/index.html
+
 /writable/debugbar/*
 !/writable/debugbar/index.html
 

@@ -316,7 +316,7 @@
         </div>
     </div>
 
-    <div id="credentialModal" class="fixed inset-0 z-[140] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="credentialModalTitle">
+    <div id="credentialModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="credentialModalTitle">
         <div class="w-full max-w-lg overflow-hidden rounded-2xl border border-white/20 bg-white shadow-2xl">
             <div class="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-5 sm:px-6">
                 <div class="flex items-start gap-3">
@@ -365,7 +365,7 @@
         </div>
     </div>
 
-    <div id="removeCredentialModal" class="fixed inset-0 z-[140] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="removeCredentialTitle">
+    <div id="removeCredentialModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="removeCredentialTitle">
         <div class="w-full max-w-md overflow-hidden rounded-2xl border border-white/20 bg-white shadow-2xl">
             <div class="px-5 py-6 text-center sm:px-6">
                 <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-600">

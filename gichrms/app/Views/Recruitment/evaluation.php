@@ -17,6 +17,7 @@
     <?php
     $applications = $applications ?? [];
     $stats = $stats ?? [];
+    $roundScores = $roundScores ?? [];
     $successMessage = session()->getFlashdata('success');
     $errorMessage = session()->getFlashdata('error');
     $canManageCandidates = in_array(session('role'), ['admin', 'hr'], true);
@@ -129,9 +130,19 @@
                                                 </p>
                                             </td>
                                             <td class="px-5 py-4">
-                                                <span class="text-sm font-semibold text-slate-900">
-                                                    <?= isset($application['total_score']) && $application['total_score'] !== null ? esc($application['total_score']) . '/100' : '-' ?>
-                                                </span>
+                                                <?php $candidateRounds = $roundScores[(int) $application['application_id']] ?? []; ?>
+                                                <?php if ($candidateRounds): ?>
+                                                    <div class="space-y-1.5">
+                                                        <?php foreach ($candidateRounds as $roundScore): ?>
+                                                            <div class="flex min-w-[190px] items-center justify-between gap-3 rounded-md bg-slate-50 px-2.5 py-1.5">
+                                                                <span class="truncate text-xs font-medium text-slate-600" title="<?= esc($roundScore['round_name'], 'attr') ?>"><?= esc($roundScore['round_name']) ?></span>
+                                                                <span class="shrink-0 text-xs font-bold text-indigo-700"><?= (int) $roundScore['total_score'] ?>/100</span>
+                                                            </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <span class="text-sm font-semibold text-slate-400">Not evaluated</span>
+                                                <?php endif; ?>
                                             </td>
                                             <td class="px-5 py-4">
                                                 <span class="inline-flex rounded-md border px-3 py-1 text-xs font-semibold <?= evaluationBadge($status) ?>">
@@ -176,7 +187,7 @@
     </div>
 
     <div id="evaluationRejectModal"
-        class="fixed inset-0 z-[70] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+        class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
         role="dialog" aria-modal="true" aria-labelledby="evaluationRejectTitle">
         <div class="w-full max-w-lg overflow-hidden rounded-xl border border-white/20 bg-white shadow-2xl">
             <div class="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-5 sm:px-6">

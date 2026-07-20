@@ -180,7 +180,10 @@ class OfferController extends BaseController
         if (!$application || ($application['offer_status'] ?? '') !== 'Accepted') return redirect()->back()->with('error', 'The candidate must accept the offer before hiring.');
         $db = db_connect();
         $db->transStart();
-        $department = (new DepartmentModel())->where('department_name', $application['department'])->first();
+        $department = (new DepartmentModel())
+            ->where('company_id', (int) session('company_id'))
+            ->where('department_name', $application['department'])
+            ->first();
         (new UserModel())->update((int) $application['user_id'], [
             'company_id' => (int) session('company_id'), 'name' => $application['candidate_name'] ?: $application['name'],
             'email' => $application['candidate_email'] ?: $application['email'], 'phone' => $application['phone'],
@@ -198,7 +201,7 @@ class OfferController extends BaseController
         return redirect()->back()->with('success', 'Candidate hired, converted to an employee profile, and moved to pre-onboarding.' . ($emailed ? ' A welcome email was sent.' : ' Email delivery was unavailable.'));
     }
 
-    private function canManage(): bool { return in_array(session('role'), ['admin', 'hr'], true); }
+    private function canManage(): bool { return in_array(session('role'), ['superadmin', 'admin', 'hr'], true); }
     private function companyApplication(int $id): ?array { return $this->applications->getApplicationWithDetails($id, (int) session('company_id')); }
     private function ownedApplication(int $id): ?array { $a = $this->companyApplication($id); return $a && (int) $a['user_id'] === (int) session('user_id') ? $a : null; }
     private function accessibleApplication(int $id): ?array { return $this->canManage() ? $this->companyApplication($id) : $this->ownedApplication($id); }

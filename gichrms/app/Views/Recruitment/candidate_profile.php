@@ -89,6 +89,39 @@
                         </div>
 
                         <div class="rounded-md border border-slate-200 bg-white shadow-sm">
+                            <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+                                <div>
+                                    <h2 class="text-lg font-semibold text-slate-900">Round-by-Round Scores</h2>
+                                    <p class="mt-1 text-xs text-slate-500">Saved evaluation results for every completed interview round</p>
+                                </div>
+                                <span class="rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-indigo-700"><?= count($roundEvaluations ?? []) ?> completed</span>
+                            </div>
+                            <div class="space-y-3 p-5">
+                                <?php if (!empty($roundEvaluations)): ?>
+                                    <?php foreach ($roundEvaluations as $roundEvaluation): ?>
+                                        <article class="rounded-lg border border-slate-200 p-4">
+                                            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                                                <div>
+                                                    <h3 class="font-semibold text-slate-900"><?= esc($roundEvaluation['round_name']) ?></h3>
+                                                    <p class="mt-1 text-xs text-slate-500"><?= date('d M Y, h:i A', strtotime($roundEvaluation['evaluated_at'])) ?> · <?= esc($roundEvaluation['decision']) ?></p>
+                                                </div>
+                                                <span class="text-2xl font-bold text-indigo-700"><?= (int) $roundEvaluation['total_score'] ?><span class="text-sm text-slate-400">/100</span></span>
+                                            </div>
+                                            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+                                                <?php foreach ([['Technical', 'technical_score'], ['Communication', 'communication_score'], ['Culture', 'culture_score']] as [$label, $field]): ?>
+                                                    <div class="rounded-md bg-slate-50 p-3"><p class="text-xs text-slate-500"><?= $label ?></p><p class="mt-1 font-bold text-slate-900"><?= (int) $roundEvaluation[$field] ?></p></div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <?php if (!empty($roundEvaluation['notes'])): ?><p class="mt-3 text-sm leading-6 text-slate-600"><?= nl2br(esc($roundEvaluation['notes'])) ?></p><?php endif; ?>
+                                        </article>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="rounded-lg bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">No interview rounds have been evaluated yet.</div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="rounded-md border border-slate-200 bg-white shadow-sm">
                             <div class="border-b border-slate-200 px-5 py-4">
                                 <h2 class="text-lg font-semibold text-slate-900">Applied Role</h2>
                             </div>
@@ -209,6 +242,7 @@
                                 <div>
                                     <label class="block text-sm font-semibold text-slate-700">Decision</label>
                                     <select name="evaluation_status" class="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+                                        <option value="Advanced">Advance to Next Round</option>
                                         <option <?= ($application['evaluation_status'] ?? '') === 'Selected' ? 'selected' : '' ?>>Selected</option>
                                         <option <?= ($application['evaluation_status'] ?? '') === 'Rejected' ? 'selected' : '' ?>>Rejected</option>
                                     </select>

@@ -13,6 +13,7 @@ class DepartmentModel extends Model
     protected $returnType = 'array';
 
     protected $allowedFields = [
+        'company_id',
         'department_name',
         'department_code',
         'hod_id',

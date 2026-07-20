@@ -34,6 +34,7 @@ class EmployeeController extends BaseController
 
         return view('Employee/create_staff', [
             'departments' => $departmentModel
+                ->where('company_id', (int) session('company_id'))
                 ->where('status', 1)
                 ->orderBy('department_name')
                 ->findAll(),
@@ -110,6 +111,7 @@ class EmployeeController extends BaseController
         return view('Employee/edit_staff', [
             'staff' => $staff,
             'departments' => $departmentModel
+                ->where('company_id', (int) session('company_id'))
                 ->where('status', 1)
                 ->orderBy('department_name')
                 ->findAll(),
@@ -247,7 +249,7 @@ class EmployeeController extends BaseController
 
     private function canManageStaff(): bool
     {
-        return in_array(session('role'), ['hr', 'admin'], true);
+        return in_array(session('role'), ['superadmin', 'hr', 'admin'], true);
     }
 
     private function companyStaff(int $id): ?array
@@ -260,11 +262,11 @@ class EmployeeController extends BaseController
 
     private function canManageCredentialsFor(array $staff): bool
     {
-        if (session('role') === 'admin') {
+        if (in_array(session('role'), ['superadmin', 'admin'], true)) {
             return true;
         }
 
         return session('role') === 'hr'
-            && !in_array($staff['role'] ?? '', ['admin', 'hr'], true);
+            && !in_array($staff['role'] ?? '', ['superadmin', 'admin', 'hr'], true);
     }
 }

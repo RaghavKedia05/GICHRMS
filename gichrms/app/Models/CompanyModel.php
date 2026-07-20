@@ -13,6 +13,9 @@ class CompanyModel extends Model
     protected $allowedFields = [
         'name',
         'slug',
+        'tenant_database',
+        'icon',
+        'setup_completed',
         'is_active',
     ];
 }

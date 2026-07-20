@@ -199,6 +199,14 @@ class Database extends Config
         // we don't overwrite live data on accident.
         if (ENVIRONMENT === 'testing') {
             $this->defaultGroup = 'tests';
+            return;
+        }
+
+        // Authentication uses the central database. After login, the session
+        // selects the physically isolated database provisioned for that company.
+        $tenantDatabase = service('session')->get('tenant_database');
+        if (is_string($tenantDatabase) && preg_match('/^[a-zA-Z0-9_]+$/', $tenantDatabase)) {
+            $this->default['database'] = $tenantDatabase;
         }
     }
 }

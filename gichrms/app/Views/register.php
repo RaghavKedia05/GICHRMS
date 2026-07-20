@@ -17,11 +17,11 @@
             <div class="text-center mb-8">
 
                 <h1 class="text-3xl font-bold text-gray-800">
-                    Create Account
+                    Register Your Company
                 </h1>
 
                 <p class="text-gray-500 mt-2">
-                    Register to access the HRMS platform
+                    Create the owner account, then set up your workspace
                 </p>
 
             </div>
@@ -45,12 +45,18 @@
                 <?= csrf_field() ?>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                    <input type="text" name="company_name" placeholder="Enter your company name" value="<?= esc(old('company_name'), 'attr') ?>" required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+
+                <div>
 
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Full Name
                     </label>
 
-                    <input type="text" name="name" placeholder="Enter your full name" value="<?= old('name') ?>"
+                    <input type="text" name="name" placeholder="Enter your full name" value="<?= esc(old('name'), 'attr') ?>"
                         required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
 
@@ -62,7 +68,7 @@
                         Email
                     </label>
 
-                    <input type="email" name="email" placeholder="Enter your email" value="<?= old('email') ?>" required
+                    <input type="email" name="email" placeholder="Enter your work email" value="<?= esc(old('email'), 'attr') ?>" required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
 
                 </div>
@@ -113,7 +119,7 @@
                 <button type="submit"
                     class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">
 
-                    Create Account
+                    Register Company
 
                 </button>
 

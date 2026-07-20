@@ -190,7 +190,7 @@ $userInitial = strtoupper(substr($userName, 0, 1));
                 </div>
 
                 <div class="p-2">
-                    <?php if (in_array(session('role'), ['admin', 'hr'], true)): ?>
+                    <?php if (in_array(session('role'), ['superadmin', 'admin', 'hr'], true)): ?>
                         <a href="<?= base_url('settings/email') ?>" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-indigo-50 hover:text-indigo-700">
                             <i data-lucide="mail" class="h-4 w-4"></i>
                             Company Email

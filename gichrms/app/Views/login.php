@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light">
     <title>Sign in | GICHRMS</title>
+    <link rel="stylesheet" href="<?= base_url('css/login.css') ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,8 +63,8 @@
 
                 <div class="mb-8">
                     <p class="text-sm font-semibold text-indigo-600">Welcome back</p>
-                    <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-950">Sign in to your account</h2>
-                    <p class="mt-3 text-sm leading-6 text-slate-500">Enter your company credentials to continue to the HRMS dashboard.</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-950">Employee login</h2>
+                    <p class="mt-3 text-sm leading-6 text-slate-500">Use the credentials provided by your company to continue.</p>
                 </div>
 
                 <?php if ($message = session()->getFlashdata('success')): ?>
@@ -105,8 +106,9 @@
                     </button>
                 </form>
 
-                <div class="mt-7 border-t border-slate-200 pt-6 text-center">
-                    <p class="text-sm text-slate-500">New employee? <a href="<?= base_url('register') ?>" class="font-semibold text-indigo-600 transition hover:text-indigo-800">Create an account</a></p>
+                <div class="mt-7 rounded-xl border border-slate-200 bg-white p-4 text-center">
+                    <p class="text-sm text-slate-600">New to GICHRMS?</p>
+                    <a href="<?= base_url('register') ?>" class="mt-3 inline-flex items-center justify-center text-sm font-semibold text-indigo-600 transition hover:text-indigo-800">Register as a new company</a>
                 </div>
 
                 <div class="mt-8 flex items-center justify-center gap-2 text-xs text-slate-400">

@@ -3,11 +3,13 @@ $firstSegment = strtolower((string) service('uri')->getSegment(1));
 $secondSegment = strtolower((string) service('uri')->getSegment(2));
 $currentPage = $secondSegment !== '' ? $secondSegment : ($firstSegment !== '' ? $firstSegment : 'dashboard');
 $role = (string) session('role');
+$companyName = trim((string) session('company_name')) ?: 'GICHRMS';
+$companyIcon = trim((string) session('company_icon'));
 
-$canManageRecruitment = in_array($role, ['admin', 'hr', 'hiring_manager', 'department_head'], true);
-$canManagePeople = in_array($role, ['admin', 'hr'], true);
-$canViewReports = in_array($role, ['admin', 'hr'], true);
-$isAdmin = $role === 'admin';
+$canManageRecruitment = in_array($role, ['superadmin', 'admin', 'hr', 'hiring_manager', 'department_head'], true);
+$canManagePeople = in_array($role, ['superadmin', 'admin', 'hr'], true);
+$canViewReports = in_array($role, ['superadmin', 'admin', 'hr'], true);
+$isAdmin = in_array($role, ['superadmin', 'admin'], true);
 $isStaffPage = $firstSegment === 'staff';
 $isSettingsPage = $firstSegment === 'settings';
 $isReportPage = $firstSegment === 'reports';
@@ -190,11 +192,13 @@ $reportLinks = [
 
 <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 flex h-screen w-[272px] -translate-x-full flex-col border-r border-slate-200 bg-white shadow-2xl transition-transform duration-300 lg:static lg:w-[248px] lg:translate-x-0 lg:shadow-none">
     <div class="flex h-[72px] shrink-0 items-center justify-between border-b border-slate-200 px-5">
-        <a href="<?= base_url('dashboard') ?>" class="flex items-center gap-2" aria-label="GIC HRMS dashboard">
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-sm font-bold text-white shadow-sm">G</span>
-            <span class="text-xl font-bold tracking-tight text-slate-950">
-                GIC<span class="text-indigo-600">HRMS</span>
-            </span>
+        <a href="<?= base_url('dashboard') ?>" class="flex min-w-0 items-center gap-2" aria-label="<?= esc($companyName, 'attr') ?> dashboard">
+            <?php if ($companyIcon !== ''): ?>
+                <img src="<?= base_url($companyIcon) ?>" alt="<?= esc($companyName, 'attr') ?>" class="h-10 w-10 shrink-0 rounded-xl object-contain">
+            <?php else: ?>
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-sm font-bold text-white shadow-sm"><?= esc(strtoupper(substr($companyName, 0, 1))) ?></span>
+            <?php endif; ?>
+            <span class="truncate text-base font-bold tracking-tight text-slate-950"><?= esc($companyName) ?></span>
         </a>
 
         <button type="button" onclick="toggleSidebar()" class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 lg:hidden" aria-label="Close sidebar">

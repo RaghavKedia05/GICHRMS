@@ -1,4 +1,4 @@
-<div id="deleteModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+<div id="deleteModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[200]">
 
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md">
 

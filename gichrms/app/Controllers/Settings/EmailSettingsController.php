@@ -179,7 +179,7 @@ class EmailSettingsController extends BaseController
 
     private function canManageEmailSettings(): bool
     {
-        return in_array(session('role'), ['admin', 'hr'], true);
+        return in_array(session('role'), ['superadmin', 'admin', 'hr'], true);
     }
 
     private function accessDenied()

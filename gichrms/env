@@ -2,7 +2,7 @@
 
 CI_ENVIRONMENT = development
 
-app.baseURL = 'http://127.0.0.1:8080/'
+app.baseURL = 'http://localhost:8080/'
 
 database.default.hostname = localhost
 database.default.database = hrms

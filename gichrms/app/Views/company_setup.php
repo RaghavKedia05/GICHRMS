@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set up your company | GICHRMS</title><script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-900">
+<main class="mx-auto max-w-5xl px-5 py-10">
+    <div class="mb-8"><p class="text-sm font-semibold text-indigo-600">Company onboarding</p><h1 class="mt-2 text-3xl font-bold">Build your workspace</h1><p class="mt-2 text-slate-600">Add your organization details now. You can manage staff and departments later too.</p></div>
+    <?php if ($errors = session()->getFlashdata('errors')): ?><div class="mb-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800"><?php foreach ($errors as $error): ?><p><?= esc($error) ?></p><?php endforeach ?></div><?php endif ?>
+    <?php if ($message = session()->getFlashdata('success')): ?><div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800"><?= esc($message) ?></div><?php endif ?>
+    <form action="<?= base_url('company/setup') ?>" method="post" enctype="multipart/form-data" class="space-y-6"><?= csrf_field() ?>
+        <section class="rounded-2xl bg-white p-6 shadow-sm"><h2 class="text-lg font-bold">Company profile</h2><div class="mt-4 grid gap-4 md:grid-cols-2"><label class="text-sm font-semibold">Company name<input name="company_name" required value="<?= esc(old('company_name', $company['name'] ?? ''), 'attr') ?>" class="mt-2 h-11 w-full rounded-lg border border-slate-300 px-3 font-normal"></label><label class="text-sm font-semibold">Company icon <span class="font-normal text-slate-500">(max 2 MB)</span><input type="file" name="company_icon" accept=".png,.jpg,.jpeg,.webp" class="mt-2 block w-full text-sm"></label></div></section>
+        <section class="rounded-2xl bg-white p-6 shadow-sm"><div class="flex items-center justify-between"><div><h2 class="text-lg font-bold">Departments and heads</h2><p class="text-sm text-slate-500">Head accounts are created pending login activation.</p></div><button type="button" id="addDepartment" class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Add department</button></div><div id="departments" class="mt-4 space-y-3"><div class="grid gap-3 rounded-xl border border-slate-200 p-4 md:grid-cols-4"><input name="department_name[]" placeholder="Department name" class="h-11 rounded-lg border px-3"><input name="department_code[]" placeholder="Code" class="h-11 rounded-lg border px-3"><input name="head_name[]" placeholder="Head name" class="h-11 rounded-lg border px-3"><input type="email" name="head_email[]" placeholder="Head email" class="h-11 rounded-lg border px-3"></div></div></section>
+        <section class="grid gap-6 md:grid-cols-2"><label class="rounded-2xl bg-white p-6 font-bold shadow-sm">Roles <span class="block text-sm font-normal text-slate-500">One per line or comma-separated</span><textarea name="roles" rows="7" placeholder="Project Manager&#10;Accountant&#10;Recruiter" class="mt-4 w-full rounded-lg border border-slate-300 p-3 font-normal"><?= esc(old('roles')) ?></textarea></label><label class="rounded-2xl bg-white p-6 font-bold shadow-sm">Employee emails <span class="block text-sm font-normal text-slate-500">Pending accounts will be created</span><textarea name="employee_emails" rows="7" placeholder="employee@company.com" class="mt-4 w-full rounded-lg border border-slate-300 p-3 font-normal"><?= esc(old('employee_emails')) ?></textarea></label></section>
+        <div class="flex justify-end"><button class="rounded-xl bg-indigo-600 px-7 py-3 font-semibold text-white hover:bg-indigo-700">Finish company setup</button></div>
+    </form>
+</main>
+<script>document.getElementById('addDepartment').addEventListener('click',()=>{const row=document.querySelector('#departments>div').cloneNode(true);row.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('departments').appendChild(row);});</script>
+</body></html>

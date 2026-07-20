@@ -19,7 +19,7 @@
 
 <body>
     <!-- Add Plan Modal -->
-    <div id="addPlanModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+    <div id="addPlanModal" class="fixed inset-0 bg-black/50 z-[200] hidden items-center justify-center">
 
         <div class="bg-white w-[90%] max-w-3xl max-h-[95vh] overflow-y-auto rounded shadow-xl scrollbar-hide">
 

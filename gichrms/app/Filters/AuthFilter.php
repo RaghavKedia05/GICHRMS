@@ -30,6 +30,9 @@ class AuthFilter implements FilterInterface
                 'name',
                 'email',
                 'role',
+                'tenant_database',
+                'company_name',
+                'company_icon',
                 'logged_in',
             ]);
 

@@ -177,7 +177,7 @@
                                                             <i data-lucide="eye" class="h-4 w-4"></i>
                                                         </button>
 
-                                                        <?php if ($role === 'hiring_manager' && $row['status'] === 'Draft'): ?>
+                                                        <?php if (in_array($role, ['hiring_manager', 'department_head'], true) && (int) ($row['requested_by'] ?? 0) === (int) session('user_id') && $row['status'] === 'Draft'): ?>
                                                             <button type="button" onclick="openEditModal(<?= $row['id'] ?>)"
                                                                 class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-amber-200 hover:bg-amber-50 hover:text-amber-600"
                                                                 title="Edit">
@@ -295,7 +295,7 @@
                                                 View
                                             </button>
 
-                                            <?php if (($role === 'hiring_manager' && $row['status'] === 'Draft') || $role === 'admin'): ?>
+                                            <?php if ((in_array($role, ['hiring_manager', 'department_head'], true) && (int) ($row['requested_by'] ?? 0) === (int) session('user_id') && $row['status'] === 'Draft') || $role === 'admin'): ?>
                                                 <button type="button" onclick="openEditModal(<?= $row['id'] ?>)"
                                                     class="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-amber-200 px-3 text-sm font-semibold text-amber-700 hover:bg-amber-50">
                                                     <i data-lucide="square-pen" class="h-4 w-4"></i>
@@ -375,7 +375,7 @@
         'toastError' => session()->getFlashdata('error'),
     ]) ?>
 
-    <div id="publishModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+    <div id="publishModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[200] p-4">
         <div class="bg-white rounded-lg w-full max-w-lg shadow-xl">
             <div class="flex items-start justify-between border-b px-6 py-5">
                 <div>
@@ -444,7 +444,7 @@
         });
     </script>
 
-    <div id="viewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
+    <div id="viewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-[200] p-4">
 
         <div class="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 shadow-xl">
 
@@ -473,7 +473,7 @@
 
     </div>
 
-    <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-3 backdrop-blur-sm sm:p-5">
+    <div id="editModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-3 backdrop-blur-sm sm:p-5">
 
         <div class="flex max-h-[94vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-slate-50 shadow-2xl">
 

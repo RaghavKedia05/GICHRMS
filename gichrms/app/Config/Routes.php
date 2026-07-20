@@ -13,6 +13,8 @@ $routes->post('/login', 'Auth::authenticate');
 
 $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::saveUser');
+$routes->get('/company/setup', 'CompanySetupController::index', ['filter' => 'auth']);
+$routes->post('/company/setup', 'CompanySetupController::save', ['filter' => 'auth']);
 
 $routes->get('/logout', 'Auth::logout');
 

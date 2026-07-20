@@ -131,7 +131,7 @@ class JobApplicationController extends BaseController
         }
 
         $isOwner = (int) ($application['user_id'] ?? 0) === (int) session('user_id');
-        $isCompanyRecruiter = in_array(session('role'), ['admin', 'hr'], true)
+        $isCompanyRecruiter = in_array(session('role'), ['superadmin', 'admin', 'hr'], true)
             && (int) ($application['company_id'] ?? 0) === (int) session('company_id');
 
         if (!$isOwner && !$isCompanyRecruiter) {

@@ -591,7 +591,7 @@ class PerformanceReviewController extends BaseController
 
     private function canManageReviews(): bool
     {
-        return in_array(session('role'), ['admin', 'hr'], true);
+        return in_array(session('role'), ['superadmin', 'admin', 'hr'], true);
     }
 
     private function accessDenied()

@@ -22,6 +22,7 @@ class RequisitionController extends BaseController
         $companyId = $this->currentCompanyId();
 
         switch ($role) {
+            case 'superadmin':
             case 'admin':
                 $data['requisitions'] = $this->requisitionModel
                     ->where('company_id', $companyId)
@@ -40,8 +41,13 @@ class RequisitionController extends BaseController
             case 'department_head':
                 $data['requisitions'] = $this->requisitionModel
                     ->where('company_id', $companyId)
-                    ->where('status', 'Pending Approval')
-                    ->where('hod_status', 'Pending')
+                    ->groupStart()
+                        ->where('requested_by', $userId)
+                        ->orGroupStart()
+                            ->where('status', 'Pending Approval')
+                            ->where('hod_status', 'Pending')
+                        ->groupEnd()
+                    ->groupEnd()
                     ->orderBy('id', 'DESC')
                     ->findAll();
                 break;
@@ -87,6 +93,7 @@ class RequisitionController extends BaseController
         $departmentModel = new DepartmentModel();
 
         $data['departments'] = $departmentModel
+            ->where('company_id', $this->currentCompanyId())
             ->where('status', 1)
             ->orderBy('department_name')
             ->findAll();
@@ -171,8 +178,11 @@ class RequisitionController extends BaseController
         $data['company_id'] = $this->currentCompanyId();
         $data['requested_by'] = session('user_id');
         $data['submitted_at'] = date('Y-m-d H:i:s');
-        $data['hod_status'] = 'Pending';
+        $data['hod_status'] = session('role') === 'department_head' ? 'Approved' : 'Pending';
         $data['hr_status'] = 'Pending';
+        if (session('role') === 'department_head') {
+            $data['approved_by'] = session('user_id');
+        }
 
         $this->requisitionModel->insert($data);
 
@@ -199,7 +209,7 @@ class RequisitionController extends BaseController
         if (!$this->canCreateRequisition()) return $this->requisitionAccessDenied();
         $departmentModel = new DepartmentModel();
 
-        $data['departments'] = $departmentModel->where('status', 1)->findAll();
+        $data['departments'] = $departmentModel->where('company_id', $this->currentCompanyId())->where('status', 1)->findAll();
         $data['requisition'] = $this->companyRequisition((int) $id);
 
         if (!$data['requisition']) {
@@ -236,9 +246,12 @@ class RequisitionController extends BaseController
 
         if ($status === 'Pending Approval' || $action === 'submit') {
             $payload['status'] = 'Pending Approval';
-            $payload['hod_status'] = 'Pending';
+            $payload['hod_status'] = session('role') === 'department_head' ? 'Approved' : 'Pending';
             $payload['hr_status'] = 'Pending';
             $payload['submitted_at'] = date('Y-m-d H:i:s');
+            if (session('role') === 'department_head') {
+                $payload['approved_by'] = session('user_id');
+            }
         } elseif ($action === 'draft') {
             $payload['status'] = 'Draft';
         }
@@ -251,7 +264,7 @@ class RequisitionController extends BaseController
 
     public function delete($id)
     {
-        if (!in_array(session('role'), ['admin', 'hiring_manager'], true)) return $this->requisitionAccessDenied();
+        if (!in_array(session('role'), ['superadmin', 'admin', 'hiring_manager', 'department_head'], true)) return $this->requisitionAccessDenied();
         $requisition = $this->companyRequisition((int) $id);
         if (!$requisition) {
             return redirect()->to('/Recruitment/requisitions')->with('error', 'Requisition not found.');
@@ -269,7 +282,7 @@ class RequisitionController extends BaseController
     // Dormant for phase 1, kept for when department_head step is reactivated
     public function hodApprove($id)
     {
-        if (!in_array(session('role'), ['admin', 'department_head'], true)) return $this->requisitionAccessDenied();
+        if (!in_array(session('role'), ['superadmin', 'admin', 'department_head'], true)) return $this->requisitionAccessDenied();
         $requisition = $this->companyRequisition((int) $id);
         if (!$requisition) {
             return redirect()->back()->with('error', 'Requisition not found.');
@@ -289,7 +302,7 @@ class RequisitionController extends BaseController
 
     public function hodReject($id)
     {
-        if (!in_array(session('role'), ['admin', 'department_head'], true)) return $this->requisitionAccessDenied();
+        if (!in_array(session('role'), ['superadmin', 'admin', 'department_head'], true)) return $this->requisitionAccessDenied();
         $requisition = $this->companyRequisition((int) $id);
         if (!$requisition) {
             return redirect()->back()->with('error', 'Requisition not found.');
@@ -310,7 +323,7 @@ class RequisitionController extends BaseController
 
     public function hrApprove($id)
     {
-        if (!in_array(session('role'), ['admin', 'hr'], true)) return $this->requisitionAccessDenied();
+        if (!in_array(session('role'), ['superadmin', 'admin', 'hr'], true)) return $this->requisitionAccessDenied();
         $requisition = $this->companyRequisition((int) $id);
 
         if (!$requisition) {
@@ -344,7 +357,7 @@ class RequisitionController extends BaseController
 
     public function hrReject($id)
     {
-        if (!in_array(session('role'), ['admin', 'hr'], true)) return $this->requisitionAccessDenied();
+        if (!in_array(session('role'), ['superadmin', 'admin', 'hr'], true)) return $this->requisitionAccessDenied();
         $requisition = $this->companyRequisition((int) $id);
         if (!$requisition) {
             return redirect()->back()->with('error', 'Requisition not found.');
@@ -377,12 +390,12 @@ class RequisitionController extends BaseController
 
     private function canCreateRequisition(): bool
     {
-        return in_array(session('role'), ['admin', 'hiring_manager'], true);
+        return in_array(session('role'), ['superadmin', 'admin', 'hiring_manager', 'department_head'], true);
     }
 
     private function canModify(array $requisition): bool
     {
-        return session('role') === 'admin' || (int) ($requisition['requested_by'] ?? 0) === (int) session('user_id');
+        return in_array(session('role'), ['superadmin', 'admin'], true) || (int) ($requisition['requested_by'] ?? 0) === (int) session('user_id');
     }
 
     private function requisitionAccessDenied()

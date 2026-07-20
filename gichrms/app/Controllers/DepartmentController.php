@@ -13,7 +13,7 @@ class DepartmentController extends BaseController
         }
 
         return view('departments', [
-            'departments' => (new DepartmentModel())->orderBy('department_name')->findAll(),
+            'departments' => (new DepartmentModel())->where('company_id', (int) session('company_id'))->orderBy('department_name')->findAll(),
         ]);
     }
 
@@ -24,8 +24,8 @@ class DepartmentController extends BaseController
         }
 
         $rules = [
-            'department_name' => 'required|min_length[2]|max_length[100]|is_unique[departments.department_name]',
-            'department_code' => 'permit_empty|max_length[20]|is_unique[departments.department_code]',
+            'department_name' => 'required|min_length[2]|max_length[100]',
+            'department_code' => 'permit_empty|max_length[20]',
         ];
 
         if (! $this->validate($rules)) {
@@ -33,6 +33,7 @@ class DepartmentController extends BaseController
         }
 
         (new DepartmentModel())->insert([
+            'company_id' => (int) session('company_id'),
             'department_name' => trim((string) $this->request->getPost('department_name')),
             'department_code' => strtoupper(trim((string) $this->request->getPost('department_code'))) ?: null,
             'status' => 1,
@@ -48,7 +49,7 @@ class DepartmentController extends BaseController
         }
 
         $model = new DepartmentModel();
-        $department = $model->find($id);
+        $department = $model->where('company_id', (int) session('company_id'))->find($id);
         if (! $department) {
             return redirect()->to('/departments')->with('error', 'Department not found.');
         }
@@ -60,6 +61,6 @@ class DepartmentController extends BaseController
 
     private function canManage(): bool
     {
-        return in_array(session('role'), ['admin', 'hr'], true);
+        return in_array(session('role'), ['superadmin', 'admin', 'hr'], true);
     }
 }
