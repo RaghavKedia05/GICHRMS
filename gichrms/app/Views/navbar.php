@@ -80,7 +80,7 @@ $userInitial = strtoupper(substr($userName, 0, 1));
             <i data-lucide="menu" class="h-5 w-5"></i>
         </button>
 
-        <div class="min-w-0">
+        <div class="min-w-0" data-tour="page-title">
             <div class="hidden items-center gap-1.5 text-[11px] font-medium text-slate-400 sm:flex">
                 <span><?= esc($pageSection) ?></span>
                 <i data-lucide="chevron-right" class="h-3 w-3"></i>
@@ -91,8 +91,16 @@ $userInitial = strtoupper(substr($userName, 0, 1));
     </div>
 
     <div class="ml-3 flex shrink-0 items-center gap-1.5 sm:gap-2.5">
+        <button id="startTourButton" type="button"
+            class="inline-flex h-10 items-center justify-center gap-2 rounded-xl px-2.5 text-slate-500 transition hover:bg-indigo-50 hover:text-indigo-700 sm:px-3"
+            aria-label="Start page tour" title="Take a tour">
+            <i data-lucide="circle-help" class="h-5 w-5"></i>
+            <span class="hidden text-xs font-semibold xl:inline">Tour</span>
+        </button>
+
         <div class="relative z-[110]">
             <button id="notificationButton" type="button" onclick="toggleNotificationMenu()"
+                data-tour="notifications"
                 class="relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-indigo-700"
                 aria-label="Open notifications" aria-expanded="false" aria-controls="notificationMenu">
                 <i data-lucide="bell" class="h-5 w-5"></i>
@@ -174,6 +182,7 @@ $userInitial = strtoupper(substr($userName, 0, 1));
 
         <div class="relative z-[110]">
             <button id="settingsButton" type="button" onclick="toggleSettingsMenu()"
+                data-tour="account"
                 class="inline-flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-indigo-700"
                 aria-label="Open account settings" aria-expanded="false" aria-controls="settingsMenu">
                 <i data-lucide="settings" class="h-5 w-5"></i>
@@ -217,6 +226,53 @@ $userInitial = strtoupper(substr($userName, 0, 1));
             </div>
         </div>
     </div>
+
+    <style>
+        #productTourBackdrop { background: transparent; }
+        #productTourSpotlight {
+            position: fixed;
+            z-index: 1001;
+            border: 3px solid rgb(129 140 248);
+            border-radius: 1rem;
+            pointer-events: none;
+            box-shadow: 0 0 0 9999px rgba(15, 23, 42, .58), 0 0 0 7px rgba(129, 140, 248, .22);
+            opacity: 0;
+            transition: left .38s ease, top .38s ease, width .38s ease, height .38s ease, opacity .2s ease;
+        }
+        #productTourCard {
+            box-shadow: 0 24px 70px rgba(15, 23, 42, .28);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px) scale(.98);
+            transition: left .38s ease, top .38s ease, opacity .22s ease, transform .22s ease, visibility .22s;
+        }
+        #productTourCard.product-tour-visible,
+        #productTourSpotlight.product-tour-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+    </style>
+
+    <div id="productTourBackdrop" class="fixed inset-0 z-[90] hidden" aria-hidden="true"></div>
+    <div id="productTourSpotlight" aria-hidden="true"></div>
+    <section id="productTourCard" class="fixed z-[1003] w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-slate-200 bg-white p-5" role="dialog" aria-modal="true" aria-labelledby="productTourTitle">
+        <div class="mb-4 flex items-start justify-between gap-4">
+            <span id="productTourProgress" class="rounded-full bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-700"></span>
+            <button id="productTourClose" type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700" aria-label="Close tour">
+                <i data-lucide="x" class="h-4 w-4"></i>
+            </button>
+        </div>
+        <h2 id="productTourTitle" class="text-lg font-bold text-slate-950"></h2>
+        <p id="productTourText" class="mt-2 text-sm leading-6 text-slate-600"></p>
+        <div class="mt-5 flex items-center justify-between gap-3">
+            <button id="productTourBack" type="button" class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100">Back</button>
+            <div class="flex items-center gap-2">
+                <button id="productTourSkip" type="button" class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800">Skip</button>
+                <button id="productTourNext" type="button" class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Next</button>
+            </div>
+        </div>
+    </section>
 
     <script>
         function closeNavbarMenus(exceptMenuId = null) {
@@ -272,7 +328,148 @@ $userInitial = strtoupper(substr($userName, 0, 1));
         });
 
         document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') closeNavbarMenus();
+            if (event.key === 'Escape') {
+                closeNavbarMenus();
+                if (window.productTour) window.productTour.finish();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const card = document.getElementById('productTourCard');
+            const backdrop = document.getElementById('productTourBackdrop');
+            const spotlight = document.getElementById('productTourSpotlight');
+            const title = document.getElementById('productTourTitle');
+            const text = document.getElementById('productTourText');
+            const progress = document.getElementById('productTourProgress');
+            const back = document.getElementById('productTourBack');
+            const next = document.getElementById('productTourNext');
+            const storageKey = 'gichrms-tour-complete-v1-<?= (int) session('user_id') ?>';
+            let index = 0;
+            let highlighted = null;
+            let tourOpenedSidebar = false;
+
+            const steps = [
+                { selector: '[data-tour="page-title"]', title: 'Know where you are', text: 'The page title and breadcrumb show your current section and screen.' },
+                { selector: '[data-tour="navigation"]', title: 'Find every workspace', text: 'Use the sidebar to move between recruitment, attendance, people, reports, billing, and support. Items are tailored to your role.' },
+                { selector: '[data-tour="notifications"]', title: 'Stay up to date', text: 'Notifications bring approvals, candidate updates, and unread messages together.' },
+                { selector: '[data-tour="account"]', title: 'Manage your account', text: 'Open settings to update your profile, configure company email when permitted, or securely sign out.' },
+                { selector: 'main', title: 'Your working area', text: 'This is where page actions, filters, forms, tables, and reports appear. Look near the top-right of each page for primary actions.' },
+                { selector: '#startTourButton', title: 'You are ready!', text: 'Select the Tour button anytime you want to see this guide again.' }
+            ];
+
+            function positionTour(target, animate = true) {
+                const rect = target.getBoundingClientRect();
+                const padding = 7;
+                const spotLeft = Math.max(5, rect.left - padding);
+                const spotTop = Math.max(5, rect.top - padding);
+                const spotRight = Math.min(window.innerWidth - 5, rect.right + padding);
+                const spotBottom = Math.min(window.innerHeight - 5, rect.bottom + padding);
+                if (!animate) spotlight.style.transition = 'none';
+                spotlight.style.left = spotLeft + 'px';
+                spotlight.style.top = spotTop + 'px';
+                spotlight.style.width = Math.max(20, spotRight - spotLeft) + 'px';
+                spotlight.style.height = Math.max(20, spotBottom - spotTop) + 'px';
+
+                const width = Math.min(352, window.innerWidth - 32);
+                const height = card.offsetHeight;
+                const gap = 18;
+                const spaces = {
+                    right: window.innerWidth - rect.right,
+                    left: rect.left,
+                    bottom: window.innerHeight - rect.bottom,
+                    top: rect.top
+                };
+                let left;
+                let top;
+
+                if (spaces.right >= width + gap) {
+                    left = rect.right + gap;
+                    top = Math.max(16, Math.min(rect.top, window.innerHeight - height - 16));
+                } else if (spaces.left >= width + gap) {
+                    left = rect.left - width - gap;
+                    top = Math.max(16, Math.min(rect.top, window.innerHeight - height - 16));
+                } else if (spaces.bottom >= height + gap) {
+                    left = Math.max(16, Math.min(rect.left, window.innerWidth - width - 16));
+                    top = rect.bottom + gap;
+                } else if (spaces.top >= height + gap) {
+                    left = Math.max(16, Math.min(rect.left, window.innerWidth - width - 16));
+                    top = rect.top - height - gap;
+                } else {
+                    left = Math.max(16, (window.innerWidth - width) / 2);
+                    top = Math.max(16, window.innerHeight - height - 24);
+                }
+                card.style.left = left + 'px';
+                card.style.top = top + 'px';
+                if (!animate) requestAnimationFrame(function () { spotlight.style.transition = ''; });
+            }
+
+            function showStep() {
+                const step = steps[index];
+                const target = document.querySelector(step.selector);
+                if (!target) { index = Math.min(index + 1, steps.length - 1); return showStep(); }
+                const sidebar = document.getElementById('sidebar');
+                if (window.innerWidth < 1024 && sidebar) {
+                    if (step.selector === '[data-tour="navigation"]') {
+                        sidebar.classList.add('translate-x-0');
+                        tourOpenedSidebar = true;
+                    } else if (tourOpenedSidebar) {
+                        sidebar.classList.remove('translate-x-0');
+                        tourOpenedSidebar = false;
+                    }
+                }
+                highlighted = target;
+                target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                title.textContent = step.title;
+                text.textContent = step.text;
+                progress.textContent = 'Step ' + (index + 1) + ' of ' + steps.length;
+                back.disabled = index === 0;
+                back.classList.toggle('invisible', index === 0);
+                next.textContent = index === steps.length - 1 ? 'Finish' : 'Next';
+                window.setTimeout(function () { positionTour(target); }, step.selector === '[data-tour="navigation"]' ? 320 : 100);
+            }
+
+            function start() {
+                index = 0;
+                closeNavbarMenus();
+                backdrop.classList.remove('hidden');
+                backdrop.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                showStep();
+                window.setTimeout(function () {
+                    card.classList.add('product-tour-visible');
+                    spotlight.classList.add('product-tour-visible');
+                }, 120);
+                document.getElementById('productTourClose').focus();
+            }
+
+            function finish() {
+                if (!card.classList.contains('product-tour-visible')) return;
+                highlighted = null;
+                const sidebar = document.getElementById('sidebar');
+                if (tourOpenedSidebar && sidebar) sidebar.classList.remove('translate-x-0');
+                tourOpenedSidebar = false;
+                card.classList.remove('product-tour-visible');
+                spotlight.classList.remove('product-tour-visible');
+                backdrop.classList.add('hidden');
+                backdrop.setAttribute('aria-hidden', 'true');
+                card.classList.add('hidden');
+                document.body.style.overflow = '';
+                try { localStorage.setItem(storageKey, '1'); } catch (error) {}
+                document.getElementById('startTourButton').focus();
+            }
+
+            window.productTour = { start: start, finish: finish };
+            document.getElementById('startTourButton').addEventListener('click', start);
+            document.getElementById('productTourClose').addEventListener('click', finish);
+            document.getElementById('productTourSkip').addEventListener('click', finish);
+            backdrop.addEventListener('click', finish);
+            back.addEventListener('click', function () { if (index > 0) { index--; showStep(); } });
+            next.addEventListener('click', function () { if (index < steps.length - 1) { index++; showStep(); } else finish(); });
+            window.addEventListener('resize', function () { if (highlighted) positionTour(highlighted, false); });
+
+            let completed = false;
+            try { completed = localStorage.getItem(storageKey) === '1'; } catch (error) {}
+            if (!completed) window.setTimeout(start, 650);
         });
     </script>
 </nav>

@@ -190,7 +190,7 @@ $reportLinks = [
 ];
 ?>
 
-<aside id="sidebar" class="fixed inset-y-0 left-0 z-50 flex h-screen w-[272px] -translate-x-full flex-col border-r border-slate-200 bg-white shadow-2xl transition-transform duration-300 lg:static lg:w-[248px] lg:translate-x-0 lg:shadow-none">
+<aside id="sidebar" data-tour="navigation" class="fixed inset-y-0 left-0 z-50 flex h-screen w-[272px] -translate-x-full flex-col border-r border-slate-200 bg-white shadow-2xl transition-transform duration-300 lg:static lg:w-[248px] lg:translate-x-0 lg:shadow-none">
     <div class="flex h-[72px] shrink-0 items-center justify-between border-b border-slate-200 px-5">
         <a href="<?= base_url('dashboard') ?>" class="flex min-w-0 items-center gap-2" aria-label="<?= esc($companyName, 'attr') ?> dashboard">
             <?php if ($companyIcon !== ''): ?>
