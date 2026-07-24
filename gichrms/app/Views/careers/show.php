@@ -6,17 +6,19 @@
     <title><?= esc($job['job_title']) ?> | GICHRMS Careers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>body{font-family:Inter,system-ui,sans-serif}</style>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900">
     <header class="border-b border-slate-200 bg-white">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="<?= base_url('careers') ?>" class="flex items-center gap-3 font-bold">
-                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white">
-                    <i data-lucide="building-2" class="h-5 w-5"></i>
+            <a href="<?= base_url('careers') ?>" class="flex items-center gap-3 font-extrabold">
+                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white">
+                    <i data-lucide="briefcase-business" class="h-5 w-5"></i>
                 </span>
                 GICHRMS Careers
             </a>
-            <a href="<?= base_url('careers') ?>" class="text-sm font-semibold text-slate-600 hover:text-indigo-700">← All jobs</a>
+            <a href="<?= base_url('careers') ?>" class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-blue-700"><i data-lucide="arrow-left" class="h-4 w-4"></i> All jobs</a>
         </div>
     </header>
 
@@ -24,8 +26,8 @@
         <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_25rem]">
             <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
                 <div class="border-b border-slate-200 pb-6">
-                    <p class="text-sm font-bold uppercase tracking-wider text-indigo-600">Candidate details</p>
-                    <h1 class="mt-2 text-3xl font-bold tracking-tight">Apply for <?= esc($job['job_title']) ?></h1>
+                    <p class="text-xs font-extrabold uppercase tracking-[.16em] text-blue-600">Candidate details</p>
+                    <h1 class="mt-2 text-3xl font-black tracking-tight">Apply for <?= esc($job['job_title']) ?></h1>
                     <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-500">Complete your profile below. Fields marked * are required, and your information is shared only with the recruitment team.</p>
                 </div>
 
@@ -54,7 +56,7 @@
                                 <label class="block text-sm font-semibold text-slate-700">
                                     <?= esc($label) ?>
                                     <input name="<?= esc($name) ?>" type="<?= esc($type) ?>" value="<?= esc(old($name), 'attr') ?>"
-                                        class="mt-2 h-12 w-full rounded-xl border border-slate-300 px-4 font-normal outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                                        class="mt-2 h-12 w-full rounded-xl border border-slate-300 px-4 font-normal outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
                                 </label>
                             <?php endforeach; ?>
                         </div>
@@ -73,7 +75,7 @@
                                     <?= esc($label) ?>
                                     <input name="<?= esc($name) ?>" type="<?= esc($type) ?>" value="<?= esc(old($name), 'attr') ?>"
                                         <?= $name === 'experience_years' ? 'min="0" max="60" step="0.1"' : '' ?>
-                                        class="mt-2 h-12 w-full rounded-xl border border-slate-300 px-4 font-normal outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                                        class="mt-2 h-12 w-full rounded-xl border border-slate-300 px-4 font-normal outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
                                 </label>
                             <?php endforeach; ?>
                         </div>
@@ -84,7 +86,7 @@
                         <div class="mt-4 grid gap-5 sm:grid-cols-2">
                             <label class="block text-sm font-semibold text-slate-700 sm:col-span-2">
                                 Cover letter
-                                <textarea name="cover_letter" rows="5" maxlength="5000" class="mt-2 w-full rounded-xl border border-slate-300 p-4 font-normal outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100"><?= esc(old('cover_letter')) ?></textarea>
+                                <textarea name="cover_letter" rows="5" maxlength="5000" class="mt-2 w-full rounded-xl border border-slate-300 p-4 font-normal outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100"><?= esc(old('cover_letter')) ?></textarea>
                             </label>
                             <label class="block text-sm font-semibold text-slate-700 sm:col-span-2">
                                 Resume *
@@ -98,10 +100,10 @@
 
                     <div class="border-t border-slate-200 pt-6">
                         <label class="flex gap-3 text-sm leading-6 text-slate-600">
-                            <input type="checkbox" required class="mt-1 h-4 w-4 rounded border-slate-300 text-indigo-600">
+                            <input type="checkbox" required class="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600">
                             <span>I confirm the information provided is accurate and consent to its use for recruitment.</span>
                         </label>
-                        <button class="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 font-bold text-white shadow-lg shadow-indigo-100 transition hover:bg-indigo-700 sm:w-auto">
+                        <button class="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-6 font-extrabold text-white shadow-lg shadow-blue-100 transition hover:from-blue-700 hover:to-blue-800 sm:w-auto">
                             Submit application <i data-lucide="send" class="h-4 w-4"></i>
                         </button>
                     </div>
@@ -110,8 +112,8 @@
 
             <aside class="lg:sticky lg:top-6">
                 <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <p class="text-xs font-bold uppercase tracking-wider text-indigo-600"><?= esc($job['company_name']) ?></p>
-                    <h2 class="mt-2 text-2xl font-bold tracking-tight"><?= esc($job['job_title']) ?></h2>
+                    <p class="text-xs font-extrabold uppercase tracking-wider text-blue-600"><?= esc($job['company_name']) ?></p>
+                    <h2 class="mt-2 text-2xl font-black tracking-tight"><?= esc($job['job_title']) ?></h2>
 
                     <div class="mt-5 grid gap-2 text-sm text-slate-600">
                         <?php foreach ([
@@ -121,7 +123,7 @@
                             ['laptop', $job['work_mode'] ?: 'On-site'],
                         ] as [$icon, $text]): ?>
                             <span class="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2.5">
-                                <i data-lucide="<?= esc($icon) ?>" class="h-4 w-4 text-indigo-600"></i><?= esc($text) ?>
+                                <i data-lucide="<?= esc($icon) ?>" class="h-4 w-4 text-blue-600"></i><?= esc($text) ?>
                             </span>
                         <?php endforeach; ?>
                     </div>

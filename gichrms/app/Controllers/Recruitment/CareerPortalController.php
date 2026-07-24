@@ -35,6 +35,7 @@ class CareerPortalController extends BaseController
 
         return view('careers/index', [
             'jobs' => $query->orderBy('published_at', 'DESC')->findAll(100),
+            'appliedIds' => array_map('intval', (array) session('external_applied_job_ids')),
             'departments' => $this->distinctValues('department'),
             'locations' => $this->distinctValues('location'),
             'types' => $this->distinctValues('employment_type'),
@@ -44,6 +45,10 @@ class CareerPortalController extends BaseController
 
     public function show($id)
     {
+        if (in_array((int) $id, array_map('intval', (array) session('external_applied_job_ids')), true)) {
+            return redirect()->to('/careers')->with('info', 'You have already applied for this position.');
+        }
+
         $job = $this->findExternalJob((int) $id);
         if (!$job) {
             return redirect()->to('/careers')->with('error', 'This job is no longer available.');
@@ -54,6 +59,10 @@ class CareerPortalController extends BaseController
 
     public function apply($id)
     {
+        if (in_array((int) $id, array_map('intval', (array) session('external_applied_job_ids')), true)) {
+            return redirect()->to('/careers')->with('info', 'You have already applied for this position.');
+        }
+
         $job = $this->findExternalJob((int) $id);
         if (!$job) {
             return redirect()->to('/careers')->with('error', 'This job is no longer accepting applications.');
@@ -76,7 +85,8 @@ class CareerPortalController extends BaseController
 
         $email = strtolower(trim((string) $this->request->getPost('candidate_email')));
         if ($this->applications->hasExternalApplied((int) $id, $email)) {
-            return redirect()->back()->withInput()->with('error', 'An application for this job has already been submitted with this email address.');
+            $this->rememberAppliedJob((int) $id);
+            return redirect()->to('/careers')->with('info', 'You have already applied for this position with that email address.');
         }
 
         $upload = (new RecruitmentResumeService())->store($this->request->getFile('resume'));
@@ -108,6 +118,7 @@ class CareerPortalController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Your application could not be submitted. Please try again.');
         }
 
+        $this->rememberAppliedJob((int) $id);
         session()->setFlashdata('application_reference', 'GIC-' . str_pad((string) $applicationId, 6, '0', STR_PAD_LEFT));
         session()->setFlashdata('application_job', $job['job_title']);
         return redirect()->to('/careers/application-received');
@@ -149,5 +160,12 @@ class CareerPortalController extends BaseController
     {
         $value = trim((string) $this->request->getPost($field));
         return $value !== '' ? $value : null;
+    }
+
+    private function rememberAppliedJob(int $jobId): void
+    {
+        $appliedIds = array_map('intval', (array) session('external_applied_job_ids'));
+        $appliedIds[] = $jobId;
+        session()->set('external_applied_job_ids', array_values(array_unique($appliedIds)));
     }
 }
