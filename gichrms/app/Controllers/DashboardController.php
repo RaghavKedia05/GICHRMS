@@ -2,11 +2,28 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class DashboardController extends BaseController
 {
     public function index()
     {
-        return view('dashboard');
+        $completed = true;
+        try {
+            $db = db_connect();
+            if ($db->fieldExists('onboarding_completed', 'users')) {
+                $user = (new UserModel())->select('onboarding_completed')->find((int) session('user_id'));
+                $completed = (bool) ($user['onboarding_completed'] ?? true);
+                session()->set('onboarding_completed', $completed);
+            }
+        } catch (\Throwable $e) {
+            log_message('warning', 'Could not load onboarding status: ' . $e->getMessage());
+        }
+
+        return view('dashboard', [
+            'startProductTour' => ! $completed,
+            'replayProductTour' => $this->request->getGet('tour') === 'replay',
+        ]);
     }
 
     public function companies()

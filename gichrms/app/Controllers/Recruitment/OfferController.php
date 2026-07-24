@@ -52,6 +52,63 @@ class OfferController extends BaseController
         return view('Recruitment/offer_letter', ['application' => $application, 'companyName' => $company['name'] ?? 'Company']);
     }
 
+    public function publicOffer(string $token)
+    {
+        $application = $this->applicationForOfferToken($token);
+        if (! $application) {
+            return $this->response->setStatusCode(404)->setBody(view('Recruitment/offer_response_result', [
+                'state' => 'invalid',
+            ]));
+        }
+
+        $company = (new CompanyModel())->find((int) $application['company_id']);
+        return view('Recruitment/public_offer_response', [
+            'application' => $application,
+            'companyName' => $company['name'] ?? 'Company',
+        ]);
+    }
+
+    public function publicRespond(string $token)
+    {
+        $application = $this->applicationForOfferToken($token);
+        if (! $application) {
+            return $this->response->setStatusCode(404)->setBody(view('Recruitment/offer_response_result', ['state' => 'invalid']));
+        }
+
+        $decision = (string) $this->request->getPost('decision');
+        if (! in_array($decision, ['accept', 'decline'], true)) {
+            return redirect()->back()->withInput()->with('error', 'Choose either Accept or Decline.');
+        }
+        $accept = $decision === 'accept';
+        $signature = trim((string) $this->request->getPost('signature_name'));
+        $declineReason = trim((string) $this->request->getPost('offer_decline_reason'));
+        if ($accept && ($signature === '' || ! $this->request->getPost('consent'))) {
+            return redirect()->back()->withInput()->with('error', 'Type your legal name and confirm the electronic-signature consent.');
+        }
+        if (! $accept && $declineReason === '') {
+            return redirect()->back()->withInput()->with('error', 'Please provide a reason for declining the offer.');
+        }
+
+        $db = db_connect();
+        $db->table('job_applications')
+            ->where('id', (int) $application['application_id'])
+            ->where('offer_status', 'Sent')
+            ->update([
+                'status' => $accept ? 'Offer Accepted' : 'Offer Declined',
+                'offer_status' => $accept ? 'Accepted' : 'Declined',
+                'offer_responded_at' => date('Y-m-d H:i:s'),
+                'signature_name' => $accept ? $signature : null,
+                'signature_ip' => $accept ? $this->request->getIPAddress() : null,
+                'offer_decline_reason' => $accept ? null : $declineReason,
+            ]);
+
+        if ($db->affectedRows() !== 1) {
+            return $this->response->setStatusCode(409)->setBody(view('Recruitment/offer_response_result', ['state' => 'invalid']));
+        }
+
+        return view('Recruitment/offer_response_result', ['state' => $accept ? 'accepted' : 'declined']);
+    }
+
     public function requestDocuments($id)
     {
         if (!$this->canManage()) return $this->denied();
@@ -150,16 +207,41 @@ class OfferController extends BaseController
         if (!$this->canManage()) return $this->denied();
         $application = $this->companyApplication((int) $id);
         if (!$application || ($application['verification_status'] ?? '') !== 'Verified' || ($application['application_status'] ?? '') !== 'Documents Submitted' || !empty($application['offer_status'])) return redirect()->back()->with('error', 'A verified, unsent offer is required before issuing the letter.');
-        $this->applications->update((int) $id, ['status' => 'Offer Sent', 'offer_status' => 'Sent', 'offer_sent_at' => date('Y-m-d H:i:s')]);
-        $emailed = $this->notifyCandidate($application, 'Employment offer for ' . $application['job_title'], 'Your offer letter is ready', '<p>We are pleased to offer you the position of <strong>' . esc($application['job_title']) . '</strong>. Review the offer letter and provide your digitally signed response in the candidate portal.</p>');
-        return redirect()->back()->with('success', 'Offer letter issued to the candidate portal.' . ($emailed ? ' The candidate was notified.' : ' Email delivery was unavailable.'));
+        $token = $this->createOfferToken((int) $id, strtotime('+14 days'));
+        if ($token === null) {
+            return redirect()->back()->with('error', 'The offer link could not be secured because the application encryption key is not configured.');
+        }
+        $responseUrl = base_url('offer-response/' . rawurlencode($token));
+        $sentAt = date('Y-m-d H:i:s');
+        if (! $this->applications->update((int) $id, [
+            'status' => 'Offer Sent', 'offer_status' => 'Sent', 'offer_sent_at' => $sentAt,
+        ])) {
+            return redirect()->back()->with('error', 'The offer could not be prepared for delivery. Please try again.');
+        }
+        $emailed = $this->notifyCandidate(
+            $application,
+            'Employment offer for ' . $application['job_title'],
+            'Your offer letter is ready',
+            '<p>We are pleased to offer you the position of <strong>' . esc($application['job_title']) . '</strong>. Use the secure link below to review the offer letter and accept or decline it. This link expires in 14 days and can only be used once.</p>',
+            $responseUrl,
+            'Review and Respond to Offer'
+        );
+        if (! $emailed) {
+            $this->applications->update((int) $id, [
+                'status' => 'Documents Submitted', 'offer_status' => null, 'offer_sent_at' => null,
+            ]);
+            return redirect()->back()->with('error', 'The offer was not issued because email delivery failed. Check the company email settings and try again.');
+        }
+        return redirect()->back()->with('success', 'Offer letter emailed successfully. The candidate can securely accept or decline from the email link.');
     }
 
     public function respond($id)
     {
         $application = $this->ownedApplication((int) $id);
         if (!$application || ($application['offer_status'] ?? '') !== 'Sent') return redirect()->back()->with('error', 'This offer is not awaiting a response.');
-        $accept = $this->request->getPost('decision') === 'accept';
+        $decision = (string) $this->request->getPost('decision');
+        if (!in_array($decision, ['accept', 'decline'], true)) return redirect()->back()->with('error', 'Choose either Accept or Decline.');
+        $accept = $decision === 'accept';
         $signature = trim((string) $this->request->getPost('signature_name'));
         $declineReason = trim((string) $this->request->getPost('offer_decline_reason'));
         if ($accept && ($signature === '' || !$this->request->getPost('consent'))) return redirect()->back()->with('error', 'Type your legal name and confirm the electronic-signature consent.');
@@ -212,7 +294,29 @@ class OfferController extends BaseController
         foreach ($paths as $path) if (is_file($path)) unlink($path);
     }
 
-    private function notifyCandidate(array $application, string $subject, string $heading, string $message): bool
+    private function applicationForOfferToken(string $token): ?array
+    {
+        $parts = explode('.', $token);
+        if (count($parts) !== 3 || !ctype_digit($parts[0]) || !ctype_digit($parts[1]) || !preg_match('/^[a-f0-9]{64}$/', $parts[2])) return null;
+        [$applicationId, $expiresAt, $providedSignature] = $parts;
+        if ((int) $expiresAt < time()) return null;
+        $key = trim((string) config('Encryption')->key);
+        if ($key === '') return null;
+        $expectedSignature = hash_hmac('sha256', $applicationId . '|' . $expiresAt, $key);
+        if (! hash_equals($expectedSignature, $providedSignature)) return null;
+        $application = $this->applications->getApplicationWithDetails((int) $applicationId);
+        return $application && ($application['offer_status'] ?? '') === 'Sent' ? $application : null;
+    }
+
+    private function createOfferToken(int $applicationId, int $expiresAt): ?string
+    {
+        $key = trim((string) config('Encryption')->key);
+        if ($key === '') return null;
+        $payload = $applicationId . '|' . $expiresAt;
+        return $applicationId . '.' . $expiresAt . '.' . hash_hmac('sha256', $payload, $key);
+    }
+
+    private function notifyCandidate(array $application, string $subject, string $heading, string $message, ?string $portalUrl = null, string $actionLabel = 'Open candidate portal'): bool
     {
         $email = trim((string) ($application['candidate_email'] ?: $application['email']));
         $company = (new CompanyModel())->find((int) $application['company_id']);
@@ -221,7 +325,8 @@ class OfferController extends BaseController
             (int) $application['company_id'], $email, $subject,
             view('emails/recruitment_update', [
                 'heading' => $heading, 'candidateName' => $application['candidate_name'] ?: $application['name'],
-                'message' => $message, 'portalUrl' => base_url('Recruitment/offers/' . $application['application_id']),
+                'message' => $message, 'portalUrl' => $portalUrl ?: base_url('Recruitment/offers/' . $application['application_id']),
+                'actionLabel' => $actionLabel,
                 'companyName' => $company['name'],
             ]),
             session('email'), session('name')

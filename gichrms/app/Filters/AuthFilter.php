@@ -34,6 +34,7 @@ class AuthFilter implements FilterInterface
                 'company_name',
                 'company_icon',
                 'logged_in',
+                'onboarding_completed',
             ]);
 
             return redirect()->to('/login')

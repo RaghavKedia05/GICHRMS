@@ -17,6 +17,7 @@ class UserModel extends Model
         'email',
         'password',
         'login_enabled',
+        'onboarding_completed',
         'role',
         'position',
         'phone',

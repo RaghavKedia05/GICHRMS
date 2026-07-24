@@ -23,10 +23,13 @@ $routes->get('/careers', 'Recruitment\CareerPortalController::index');
 $routes->get('/careers/jobs/(:num)', 'Recruitment\CareerPortalController::show/$1');
 $routes->post('/careers/jobs/(:num)/apply', 'Recruitment\CareerPortalController::apply/$1');
 $routes->get('/careers/application-received', 'Recruitment\CareerPortalController::success');
+$routes->get('/offer-response/(:segment)', 'Recruitment\OfferController::publicOffer/$1');
+$routes->post('/offer-response/(:segment)', 'Recruitment\OfferController::publicRespond/$1');
 
 
 
 $routes->get('/dashboard', 'DashboardController::index', ['filter' => 'auth']);
+$routes->post('/onboarding/complete', 'OnboardingController::complete', ['filter' => 'auth']);
 
 $routes->get('/companies', 'DashboardController::companies');
 $routes->get('/subscriptions', 'DashboardController::subscriptions');

@@ -17,6 +17,7 @@
             font-family: 'Poppins', sans-serif;
         }
     </style>
+    <link rel="stylesheet" href="<?= base_url('css/product-tour.css') ?>">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -122,7 +123,7 @@
                         <!-- Right Buttons -->
                         <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
 
-                            <button class="bg-slate-900 text-white px-5 py-2 rounded-md font-medium w-full sm:w-auto">
+                            <button data-tour="create-button" class="bg-slate-900 text-white px-5 py-2 rounded-md font-medium w-full sm:w-auto">
                                 Companies
                             </button>
 
@@ -137,7 +138,7 @@
                 </div>
 
                 <!-- Stats Cards Section-->
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6 m-4 lg:m-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6 m-4 lg:m-6" data-tour="dashboard-overview">
 
                     <!-- Card 1 -->
                     <div class="bg-white rounded-md p-6 min-h-[150px] border border-gray-200 shadow-md">
@@ -1244,5 +1245,35 @@
             });
     </script>
 
+    <script src="<?= base_url('js/product-tour-config.js') ?>"></script>
+    <script src="<?= base_url('js/product-tour.js') ?>"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let shouldStart = <?= !empty($startProductTour) ? 'true' : 'false' ?>;
+            const shouldReplay = <?= !empty($replayProductTour) ? 'true' : 'false' ?>;
+            const tour = new ProductTour({
+                steps: GicProductTourSteps({ appName: <?= json_encode((string) (session('company_name') ?: 'GICHRMS')) ?> }),
+                onComplete: async function () {
+                    shouldStart = false;
+                    try {
+                        const response = await fetch(<?= json_encode(base_url('onboarding/complete')) ?>, {
+                            method: 'POST',
+                            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+                        });
+                        if (!response.ok) throw new Error('Onboarding status could not be saved.');
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            });
+            window.productTour = tour;
+
+            // Dashboard charts and responsive layout finish after DOMContentLoaded.
+            window.setTimeout(function () {
+                if (shouldReplay) tour.start(true);
+                else if (shouldStart) tour.start(false);
+            }, 700);
+        });
+    </script>
 </body>
 

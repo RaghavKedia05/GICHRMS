@@ -249,6 +249,8 @@ cd GICHRMS/gichrms
 composer install
 ```
 
+If `composer` is not recognized, install Composer and make sure the PHP 8.2+ executable used by Composer is on your `PATH`.
+
 ### 3. Create the environment file
 
 Copy the committed environment template, then edit only your local `.env`. Never commit real credentials or encryption keys.
@@ -261,10 +263,12 @@ Copy-Item env .env
 cp env .env
 ```
 
+Do not rename `.env.example` to `env`. The committed `env` file is the CodeIgniter template; `.env` is the machine-specific copy read by the application.
+
 ```dotenv
 CI_ENVIRONMENT = development
 
-app.baseURL = 'http://127.0.0.1:8080/'
+app.baseURL = 'http://localhost:8080/'
 
 database.default.hostname = localhost
 database.default.database = hrms
@@ -274,10 +278,13 @@ database.default.DBDriver = MySQLi
 database.default.port = 3306
 ```
 
-### 4. Create the database
+### 4. Create the central database and provisioning user
 
 ```sql
 CREATE DATABASE hrms CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'gichrms'@'localhost' IDENTIFIED BY 'replace-with-a-strong-password';
+GRANT ALL PRIVILEGES ON *.* TO 'gichrms'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
 ### 5. Generate an encryption key
@@ -291,17 +298,30 @@ php spark key:generate
 ### 6. Run migrations
 
 ```bash
-php spark migrate
+php check-requirements.php
+php spark migrate --all
 php spark migrate:status
 ```
+
+The requirements check reports the exact PHP extension, writable-directory, dependency, MySQL connection, or database-provisioning privilege preventing startup. It never prints the configured database password. The configured database is the central directory; every company registered afterward receives an isolated database automatically.
 
 ### 7. Start the development server
 
 ```bash
-php spark serve --host 127.0.0.1 --port 8080
+php spark serve
 ```
 
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080). For Apache or Nginx, point the document root to `gichrms/public`, not the application directory.
+Open [http://localhost:8080](http://localhost:8080). For Apache or Nginx, point the document root to `gichrms/public`, not the application directory.
+
+### Troubleshooting another computer
+
+- Run every command from the cloned repository's `gichrms` directory (the directory containing `spark` and `composer.json`).
+- Run `php check-requirements.php` first and resolve every item it reports.
+- Confirm `php -v` reports PHP 8.2 or newer and `composer check-platform-reqs` succeeds.
+- Start MySQL before migrating. Create the central database named in `.env`; the configured user also needs global `CREATE` permission to provision isolated company databases.
+- If MySQL says `Access denied`, correct `database.default.username` and `database.default.password` in `.env`; an empty password only works when that MySQL installation permits it.
+- If port 8080 is occupied, use another port in both `app.baseURL` and `php spark serve --port ...`.
+- On Apache/XAMPP, serve `gichrms/public`; serving the repository root will not start CodeIgniter correctly.
 
 ## First-time configuration
 

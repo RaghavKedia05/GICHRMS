@@ -76,6 +76,7 @@ class Auth extends BaseController
             'email' => strtolower(trim((string) $this->request->getPost('email'))),
             'password' => password_hash((string) $this->request->getPost('password'), PASSWORD_DEFAULT),
             'login_enabled' => 1,
+            'onboarding_completed' => 0,
             'role' => 'superadmin',
             'position' => 'Company Owner',
             'is_active' => 1,
@@ -102,6 +103,7 @@ class Auth extends BaseController
             'email' => strtolower(trim((string) $this->request->getPost('email'))),
             'role' => 'superadmin', 'tenant_database' => $tenantDatabase,
             'company_name' => $companyName, 'company_icon' => null, 'logged_in' => true,
+            'onboarding_completed' => false,
         ]);
 
         return redirect()->to('/company/setup')->with('success', 'Company registered. Complete your workspace setup.');
@@ -178,7 +180,9 @@ class Auth extends BaseController
 
             'company_icon' => $company['icon'] ?? null,
 
-            'logged_in' => true
+            'logged_in' => true,
+
+            'onboarding_completed' => (bool) ($user['onboarding_completed'] ?? true),
 
         ]);
 
@@ -207,6 +211,7 @@ class Auth extends BaseController
             'company_name',
             'company_icon',
             'logged_in',
+            'onboarding_completed',
         ]);
 
         return redirect()->to('/login')
