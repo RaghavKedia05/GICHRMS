@@ -8,9 +8,11 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>body{font-family:Inter,system-ui,sans-serif}</style>
 </head>
 
-<body class="bg-slate-100">
+<body class="bg-slate-50">
 
     <div class="flex h-screen overflow-hidden">
 
@@ -57,12 +59,13 @@
             };
             ?>
 
-            <main class="flex-1 overflow-auto bg-slate-100 p-4 sm:p-6 lg:p-8">
+            <main class="flex-1 overflow-auto bg-slate-50 p-4 sm:p-6 lg:p-8">
                 <div class="mx-auto max-w-7xl space-y-6">
                     <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                         <div>
+                            <p class="mb-2 text-xs font-extrabold uppercase tracking-[.16em] text-blue-600">Recruitment</p>
                             <div class="flex flex-wrap items-center gap-3">
-                                <h1 class="text-2xl font-semibold text-slate-950 sm:text-3xl">
+                                <h1 class="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
                                     Job Requisitions
                                 </h1>
                                 <span
@@ -77,7 +80,7 @@
 
                         <?php if (in_array($role, ['hiring_manager', 'admin', 'department_head'])): ?>
                             <a href="<?= base_url('Recruitment/requisitions/create') ?>"
-                                class="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-indigo-600 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700">
+                                class="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-5 text-sm font-extrabold text-white shadow-lg shadow-blue-100 hover:from-blue-700 hover:to-blue-800">
                                 <i data-lucide="plus" class="h-4 w-4"></i>
                                 Create Requisition
                             </a>
@@ -85,28 +88,28 @@
                     </div>
 
                     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-slate-500">Total</p>
                                 <i data-lucide="files" class="h-5 w-5 text-slate-400"></i>
                             </div>
                             <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $totalRequisitions ?></p>
                         </div>
-                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-slate-500">Drafts</p>
                                 <i data-lucide="file-pen-line" class="h-5 w-5 text-amber-500"></i>
                             </div>
                             <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $draftCount ?></p>
                         </div>
-                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-slate-500">In Review</p>
                                 <i data-lucide="timer" class="h-5 w-5 text-sky-500"></i>
                             </div>
                             <p class="mt-3 text-3xl font-semibold text-slate-950"><?= $pendingCount ?></p>
                         </div>
-                        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-slate-500">Published</p>
                                 <i data-lucide="badge-check" class="h-5 w-5 text-emerald-500"></i>
@@ -115,7 +118,7 @@
                         </div>
                     </div>
 
-                    <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
+                    <section class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                         <div class="flex flex-col gap-4 border-b border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
                             <div>
                                 <h2 class="text-base font-semibold text-slate-950">Requisition Pipeline</h2>
@@ -172,7 +175,7 @@
                                                         ?>
 
                                                         <button type="button" onclick="openViewModal(<?= $row['id'] ?>)"
-                                                            class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
+                                                            class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
                                                             title="View">
                                                             <i data-lucide="eye" class="h-4 w-4"></i>
                                                         </button>
@@ -257,7 +260,7 @@
                                     $deleteReq = esc($row['requisition_no'], 'js');
                                     $deleteTitle = esc($row['job_title'], 'js');
                                     ?>
-                                    <article class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                                    <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
                                         <div class="flex items-start justify-between gap-3">
                                             <div class="min-w-0">
                                                 <p class="truncate text-base font-semibold text-slate-950"><?= esc($row['job_title']) ?></p>
@@ -375,8 +378,8 @@
         'toastError' => session()->getFlashdata('error'),
     ]) ?>
 
-    <div id="publishModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[200] p-4">
-        <div class="bg-white rounded-lg w-full max-w-lg shadow-xl">
+    <div id="publishModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm">
+        <div class="w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
             <div class="flex items-start justify-between border-b px-6 py-5">
                 <div>
                     <h2 class="text-xl font-semibold text-slate-900">Publish Job Posting</h2>
@@ -391,18 +394,18 @@
             <form id="publishForm" method="post">
                 <?= csrf_field() ?>
                 <div class="space-y-5 px-6 py-5">
-                    <label class="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
+                    <label class="flex items-start gap-3 rounded-xl border border-slate-200 p-4 hover:border-blue-200 hover:bg-blue-50/50">
                         <input type="checkbox" name="publish_internal" value="1" checked
-                            class="mt-1 rounded border-slate-300 text-indigo-600">
+                            class="mt-1 rounded border-slate-300 text-blue-600">
                         <span>
                             <span class="block text-sm font-semibold text-slate-900">Internal career portal</span>
                             <span class="block text-sm text-slate-500">Visible in employee job opportunities.</span>
                         </span>
                     </label>
 
-                    <label class="flex items-start gap-3 rounded-lg border border-slate-200 p-4">
+                    <label class="flex items-start gap-3 rounded-xl border border-slate-200 p-4 hover:border-blue-200 hover:bg-blue-50/50">
                         <input type="checkbox" name="publish_external" value="1" checked
-                            class="mt-1 rounded border-slate-300 text-indigo-600">
+                            class="mt-1 rounded border-slate-300 text-blue-600">
                         <span>
                             <span class="block text-sm font-semibold text-slate-900">External public portal</span>
                             <span class="block text-sm text-slate-500">Visible in the published jobs board.</span>
@@ -412,23 +415,23 @@
                     <div>
                         <label class="text-sm font-medium text-slate-700">External boards</label>
                         <input type="text" name="external_boards" placeholder="LinkedIn, Naukri, Indeed"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            class="mt-2 w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
                     </div>
 
                     <div>
                         <label class="text-sm font-medium text-slate-700">Posting notes</label>
                         <textarea name="posting_notes" rows="3"
-                            class="mt-2 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                            class="mt-2 w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"></textarea>
                     </div>
                 </div>
 
                 <div class="flex justify-end gap-3 border-t px-6 py-5">
                     <button type="button" onclick="closePublishModal()"
-                        class="rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                        class="rounded-xl border border-slate-300 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50">
                         Cancel
                     </button>
                     <button type="submit"
-                        class="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">
+                        class="rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-2.5 text-sm font-extrabold text-white hover:from-blue-700 hover:to-blue-800">
                         Publish Posting
                     </button>
                 </div>
@@ -444,9 +447,9 @@
         });
     </script>
 
-    <div id="viewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-[200] p-4">
+    <div id="viewModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm">
 
-        <div class="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 shadow-xl">
+        <div class="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-4 shadow-2xl sm:p-6">
 
             <div class="flex justify-between items-center mb-6">
 
@@ -481,7 +484,7 @@
 
                 <div>
                     <div class="flex items-center gap-3">
-                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                             <i data-lucide="square-pen" class="h-5 w-5"></i>
                         </span>
                         <div>

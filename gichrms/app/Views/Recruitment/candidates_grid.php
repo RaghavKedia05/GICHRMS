@@ -4,17 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperAdmin HRMS</title>
+    <title>Candidates | GICHRMS</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
         }
     </style>
 
@@ -40,47 +39,36 @@
 
 
             <!-- Page Content -->
-            <div class="flex-1 overflow-y-auto p-4 sm:p-5">
+            <div class="flex-1 overflow-y-auto p-4 lg:p-6">
                 <!-- Page Header -->
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
 
                     <div>
-                        <h1 class="text-2xl sm:text-[28px] font-semibold text-slate-800">
+                        <p class="mb-2 text-xs font-extrabold uppercase tracking-[.16em] text-blue-600">Recruitment</p>
+                        <h1 class="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
                             Candidates
                         </h1>
 
-                        <div class="flex flex-wrap items-center gap-2 mt-2 text-xs sm:text-sm text-slate-500">
-                            <i data-lucide="house" class="w-4 h-4"></i>
-
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-
-                            <span>Recruitment</span>
-
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-
-                            <span class="text-slate-700">
-                                Candidates List
-                            </span>
-                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Scan candidate profiles, application sources, and current status.</p>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-2">
+                    <div class="inline-flex self-start rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
 
                         <!-- Kanban View -->
                         <a href="<?= base_url('Recruitment/candidates-kanban') ?>"
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
+                            class="flex h-9 w-9 items-center justify-center rounded-md text-slate-500 hover:bg-slate-50">
                             <i data-lucide="kanban" class="w-4 h-4"></i>
                         </a>
 
                         <!-- List View -->
                         <a href="<?= base_url('Recruitment/candidates') ?>"
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
+                            class="flex h-9 w-9 items-center justify-center rounded-md text-slate-500 hover:bg-slate-50">
                             <i data-lucide="list" class="w-4 h-4"></i>
                         </a>
 
                         <!-- Grid View -->
                         <a href="<?= base_url('Recruitment/candidates-grid') ?>"
-                            class="w-10 h-10 bg-orange-500 rounded-md flex items-center justify-center text-white">
+                            class="flex h-9 w-9 items-center justify-center rounded-md bg-blue-600 text-white">
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>
 
@@ -91,14 +79,14 @@
 
 
                 <!-- Candidates List -->
-                <div class="bg-white border border-slate-200 rounded-md shadow-sm">
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
                     <!-- Header -->
                     <div class="p-5 border-b">
 
 
                         <h3 class="text-l font-semibold text-slate-800">
-                            Candidate Grid
+                            Candidate Cards
                         </h3>
 
                     </div>
@@ -113,16 +101,14 @@
                 function statusBadge($status)
                 {
                     return match ($status) {
-                        'Applied', 'Sent' => 'bg-purple-500 text-white font-semibold',
-                        'Shortlisted' => 'bg-emerald-500 text-white font-semibold',
-                        'Scheduled' => 'bg-pink-500 text-white font-semibold',
-                        'Interview Scheduled' => 'bg-pink-500 text-white font-semibold',
-                        'Interviewed' => 'bg-blue-500 text-white font-semibold',
-                        'Selected' => 'bg-green-500 text-white font-semibold',
-                        'Offered' => 'bg-yellow-500 text-white font-semibold',
-                        'Hired' => 'bg-green-500 text-white font-semibold',
-                        'Rejected' => 'bg-red-500 text-white font-semibold',
-                        default => 'bg-slate-500 text-white font-semibold'
+                        'Applied', 'Sent' => 'border border-violet-200 bg-violet-50 text-violet-700 font-bold',
+                        'Shortlisted' => 'border border-emerald-200 bg-emerald-50 text-emerald-700 font-bold',
+                        'Scheduled', 'Interview Scheduled' => 'border border-pink-200 bg-pink-50 text-pink-700 font-bold',
+                        'Interviewed' => 'border border-blue-200 bg-blue-50 text-blue-700 font-bold',
+                        'Selected', 'Hired' => 'border border-green-200 bg-green-50 text-green-700 font-bold',
+                        'Offered' => 'border border-amber-200 bg-amber-50 text-amber-700 font-bold',
+                        'Rejected' => 'border border-red-200 bg-red-50 text-red-700 font-bold',
+                        default => 'border border-slate-200 bg-slate-50 text-slate-700 font-bold'
                         
                     };
                 }
@@ -142,12 +128,12 @@
                             ?>
 
                         <div
-                            class="bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                            class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-lg">
 
                             <!-- Card Header -->
                             <div class="flex items-start gap-3 p-5">
 
-                                <div class="w-10 h-10 rounded bg-orange-50 text-orange-500 border border-orange-100 flex items-center justify-center font-semibold shrink-0">
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 font-bold text-blue-600">
                                     <?= esc(substr($candidateName, 0, 1)) ?>
                                 </div>
 
@@ -160,7 +146,7 @@
                                         </h3>
 
                                         <span
-                                            class="bg-orange-50 text-orange-500 text-[10px] px-2 py-0.5 rounded font-medium">
+                                            class="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold text-blue-600">
                                             <?= esc($application['application_id'] ?? 'N/A') ?>
                                         </span>
 
@@ -230,18 +216,18 @@
 
                                     <div class="mt-4 flex gap-2">
                                         <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
-                                            class="inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md bg-slate-900 text-xs font-semibold text-white hover:bg-slate-700">
+                                            class="inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-lg bg-blue-600 text-xs font-bold text-white hover:bg-blue-700">
                                             <i data-lucide="folder-open" class="w-4 h-4"></i>
                                             Profile
                                         </a>
                                         <a href="<?= $hasResume ? base_url('Recruitment/applications/resume/' . $application['application_id']) : '#' ?>"
                                             target="_blank"
-                                            class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md border text-xs font-semibold">
+                                            class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-slate-50' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-lg border text-xs font-bold">
                                             <i data-lucide="file-text" class="w-4 h-4"></i>
                                             View
                                         </a>
                                         <a href="<?= $hasResume ? base_url('Recruitment/applications/resume-download/' . $application['application_id']) : '#' ?>"
-                                            class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-md border text-xs font-semibold">
+                                            class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-slate-50' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 flex-1 items-center justify-center gap-2 rounded-lg border text-xs font-bold">
                                             <i data-lucide="download" class="w-4 h-4"></i>
                                             Download
                                         </a>
@@ -255,7 +241,7 @@
 
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="col-span-1 md:col-span-2 xl:col-span-4 bg-white border border-slate-200 rounded-md p-8 text-center text-slate-500">
+                        <div class="col-span-1 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center text-slate-500 md:col-span-2 xl:col-span-4">
                             No candidates have applied yet.
                         </div>
                     <?php endif; ?>

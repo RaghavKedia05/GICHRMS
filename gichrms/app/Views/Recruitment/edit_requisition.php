@@ -1,5 +1,5 @@
 <?php
-$fieldClass = 'w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10';
+$fieldClass = 'w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10';
 $labelClass = 'mb-2 block text-sm font-semibold text-slate-700';
 $employmentTypes = ['Full Time', 'Part Time', 'Contract', 'Internship'];
 $workModes = ['On-site', 'Remote', 'Hybrid'];
@@ -8,7 +8,7 @@ $educationLevels = ["Bachelor's Degree", "Master's Degree", 'Diploma', 'Certific
 $status = $requisition['status'] ?? 'Draft';
 $statusClass = $status === 'Draft'
     ? 'border-amber-200 bg-amber-50 text-amber-700'
-    : 'border-indigo-200 bg-indigo-50 text-indigo-700';
+    : 'border-blue-200 bg-blue-50 text-blue-700';
 ?>
 
 <form method="post" action="<?= base_url('Recruitment/requisitions/update/' . $requisition['id']) ?>"
@@ -33,14 +33,14 @@ $statusClass = $status === 'Draft'
                 </p>
             </div>
             <div class="flex shrink-0 items-center gap-2 text-xs font-medium text-slate-500">
-                <i data-lucide="info" class="h-4 w-4 text-indigo-500"></i>
+                <i data-lucide="info" class="h-4 w-4 text-blue-500"></i>
                 Fields marked <span class="font-bold text-rose-500">*</span> are required
             </div>
         </div>
 
         <section class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
             <div class="mb-6 flex items-start gap-3 border-b border-slate-200 pb-4">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                     <i data-lucide="briefcase-business" class="h-5 w-5"></i>
                 </span>
                 <div>
@@ -143,10 +143,10 @@ $statusClass = $status === 'Draft'
                     <legend class="<?= $labelClass ?>">Reason for hire</legend>
                     <div class="grid gap-3 sm:grid-cols-2">
                         <?php foreach (['New Headcount', 'Replacement'] as $reason): ?>
-                            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-indigo-300 hover:bg-indigo-50/50">
+                            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-blue-300 hover:bg-blue-50/50">
                                 <input type="radio" name="reason_for_hire" value="<?= esc($reason) ?>"
                                     <?= $reason === ($requisition['reason_for_hire'] ?? '') ? 'checked' : '' ?>
-                                    class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                                    class="h-4 w-4 border-slate-300 text-blue-600 focus:ring-blue-500">
                                 <span class="text-sm font-semibold text-slate-700"><?= esc($reason) ?></span>
                             </label>
                         <?php endforeach; ?>
@@ -276,7 +276,7 @@ $statusClass = $status === 'Draft'
                 </button>
 
                 <button type="submit" name="action" value="submit"
-                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/20">
+                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-blue-100 transition hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-500/20">
                     <i data-lucide="send" class="h-4 w-4"></i>
                     Submit for Approval
                 </button>

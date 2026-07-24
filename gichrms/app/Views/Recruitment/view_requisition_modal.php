@@ -1,11 +1,11 @@
-<div class="bg-white rounded-3xl shadow-xl border border-slate-200 max-w-6xl mx-auto">
+<div class="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
 
     <!-- Header -->
-    <div class="px-8 py-6 bg-slate-50 border-b border-slate-200">
+    <div class="border-b border-slate-200 bg-gradient-to-r from-blue-50 to-white px-6 py-6 sm:px-8">
         <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
             <div class="space-y-3">
-                <p class="text-xs uppercase tracking-[0.3em] text-slate-400">Requisition Overview</p>
-                <h1 class="text-3xl font-semibold text-slate-900 leading-tight"><?= esc($requisition['job_title']) ?></h1>
+                <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-blue-600">Requisition Overview</p>
+                <h1 class="text-3xl font-black leading-tight tracking-tight text-slate-950"><?= esc($requisition['job_title']) ?></h1>
                 <div class="flex flex-wrap items-center gap-3 text-sm text-slate-500">
                     <span class="font-semibold text-slate-700"><?= esc($requisition['requisition_no']) ?></span>
                     <span class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-slate-400"></span><?= esc($requisition['department']) ?></span>
@@ -113,7 +113,7 @@
                             $skill = trim($skill);
                             if ($skill === '') continue;
                         ?>
-                            <span class="rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700">
+                            <span class="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700">
                                 <?= esc($skill) ?>
                             </span>
                         <?php endforeach; ?>
@@ -153,8 +153,8 @@
                 <?php if (($requisition['status'] ?? '') === 'Published'): ?>
                     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                         <div class="flex items-center gap-3 mb-5">
-                            <div class="w-11 h-11 rounded-2xl bg-indigo-100 flex items-center justify-center">
-                                <i data-lucide="radio-tower" class="w-5 h-5 text-indigo-600"></i>
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100">
+                                <i data-lucide="radio-tower" class="h-5 w-5 text-blue-600"></i>
                             </div>
                             <div>
                                 <p class="text-sm uppercase tracking-[0.25em] text-slate-400">Posting Channels</p>
@@ -188,7 +188,7 @@
                     <form action="<?= base_url('Recruitment/requisitions/update/' . $requisition['id']) ?>" method="post" class="w-full sm:w-auto">
                         <input type="hidden" name="status" value="Pending Approval">
                         <button type="submit"
-                            class="w-full rounded-2xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700">
+                            class="w-full rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-sm font-extrabold text-white transition hover:from-blue-700 hover:to-blue-800">
                             <i data-lucide="send" class="w-4 h-4 inline mr-2"></i>
                             Submit For Approval
                         </button>

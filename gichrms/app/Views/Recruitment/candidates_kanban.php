@@ -4,17 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperAdmin HRMS</title>
+    <title>Candidate Pipeline | GICHRMS</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
         }
     </style>
 
@@ -40,47 +39,36 @@
 
 
             <!-- Page Content -->
-            <div class="flex-1 overflow-y-auto p-4 sm:p-5">
+            <div class="flex-1 overflow-y-auto p-4 lg:p-6">
                 <!-- Page Header -->
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
 
                     <div>
-                        <h1 class="text-2xl sm:text-[28px] font-semibold text-slate-800">
+                        <p class="mb-2 text-xs font-extrabold uppercase tracking-[.16em] text-blue-600">Recruitment</p>
+                        <h1 class="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
                             Candidates
                         </h1>
 
-                        <div class="flex flex-wrap items-center gap-2 mt-2 text-xs sm:text-sm text-slate-500">
-                            <i data-lucide="house" class="w-4 h-4"></i>
-
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-
-                            <span>Recruitment</span>
-
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-
-                            <span class="text-slate-700">
-                                Candidates List
-                            </span>
-                        </div>
+                        <p class="mt-2 text-sm text-slate-500">See the full candidate journey grouped by recruitment stage.</p>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-2">
+                    <div class="inline-flex self-start rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
 
                         <!-- Kanban View -->
                         <a href="<?= base_url('Recruitment/candidates-kanban') ?>"
-                            class="w-10 h-10 bg-orange-500 rounded-md flex items-center justify-center text-white">
+                            class="flex h-9 w-9 items-center justify-center rounded-md bg-blue-600 text-white">
                             <i data-lucide="kanban" class="w-4 h-4"></i>
                         </a>
 
                         <!-- List View -->
                         <a href="<?= base_url('Recruitment/candidates') ?>"
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
+                            class="flex h-9 w-9 items-center justify-center rounded-md text-slate-500 hover:bg-slate-50">
                             <i data-lucide="list" class="w-4 h-4"></i>
                         </a>
 
                         <!-- Grid View -->
                         <a href="<?= base_url('Recruitment/candidates-grid') ?>"
-                            class="w-8 h-8 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500">
+                            class="flex h-9 w-9 items-center justify-center rounded-md text-slate-500 hover:bg-slate-50">
                             <i data-lucide="grid-2x2" class="w-4 h-4"></i>
                         </a>
 
@@ -91,14 +79,14 @@
 
 
                 <!-- Candidates List -->
-                <div class="bg-white border border-slate-200 rounded-md shadow-sm">
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
                     <!-- Header -->
                     <div class="p-5 border-b">
 
 
                         <h3 class="text-l font-semibold text-slate-800">
-                            Candidate Kanban
+                            Candidate Pipeline
                         </h3>
 
                     </div>
@@ -127,9 +115,9 @@
 
                 ?>
 
-                <div class="overflow-x-auto pb-5">
+                <div class="overflow-x-auto pb-5 [scrollbar-color:#cbd5e1_transparent] [scrollbar-width:thin]">
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                    <div class="flex min-w-max items-start gap-4">
 
                         <?php foreach ($columns as $status => $style): ?>
 
@@ -140,10 +128,10 @@
                             $count = count($columnApplications);
                             ?>
 
-                            <div class="bg-slate-100 rounded-lg p-3 min-w-0">
+                            <div class="w-[290px] shrink-0 rounded-2xl border border-slate-200 bg-slate-100/70 p-3 sm:w-[310px]">
 
                                 <!-- Column Header -->
-                                <div class="bg-white rounded-md px-4 py-3 flex items-center justify-between shadow-sm mb-3">
+                                <div class="mb-3 flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
 
                                     <div class="flex items-center gap-2">
 
@@ -176,14 +164,14 @@
                                         $hasResume = !empty($application['resume_file']);
                                         ?>
 
-                                        <div class="candidate-card bg-white border border-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-200 p-4"
+                                        <div class="candidate-card rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
                                             data-id="<?= esc($application['application_id'] ?? '') ?>">
 
                                             <!-- Header -->
                                             <div class="flex items-center justify-between">
 
                                                 <span
-                                                    class="inline-flex items-center bg-orange-50 text-orange-500 text-[10px] font-medium px-2 py-1 rounded">
+                                                    class="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold text-blue-600">
                                                     <?= esc($application['application_id'] ?? 'N/A') ?>
                                                 </span>
 
@@ -192,9 +180,9 @@
                                             <div class="border-t border-slate-200 my-3"></div>
 
                                             <!-- Candidate -->
-                                            <div class="flex items-start gap-3 min-w-0">
+                                            <div class="flex min-w-0 items-start gap-3">
 
-                                                <div class="w-10 h-10 rounded bg-orange-50 text-orange-500 border border-orange-100 flex items-center justify-center font-semibold shrink-0">
+                                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 font-bold text-blue-600">
                                                     <?= esc(substr($candidateName, 0, 1)) ?>
                                                 </div>
 
@@ -206,7 +194,7 @@
 
                                                     </h4>
 
-                                                    <p class="text-[13px] text-slate-500 leading-tight break-words">
+                                                    <p class="mt-1 break-all text-[12px] leading-4 text-slate-500">
 
                                                         <?= esc($candidateEmail) ?>
 
@@ -218,30 +206,30 @@
 
                                             <!-- Footer -->
 
-                                            <div class="grid grid-cols-2 gap-4 mt-5">
+                                            <div class="mt-5 grid grid-cols-2 gap-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-50/60">
 
                                                 <!-- Applied Role -->
-                                                <div class="border-r border-slate-200 pr-4">
+                                                <div class="min-w-0 border-r border-slate-200 p-3">
 
-                                                    <p class="text-[12px] text-slate-500 whitespace-nowrap">
+                                                    <p class="whitespace-nowrap text-[11px] font-medium text-slate-500">
                                                         Applied Role
                                                     </p>
 
                                                     <p
-                                                        class="text-[13px] font-semibold text-slate-800 mt-2 leading-5 whitespace-normal break-normal overflow-wrap-anywhere">
+                                                        class="mt-1.5 break-words text-[13px] font-bold leading-5 text-slate-800">
                                                         <?= esc($application['job_title'] ?? '-') ?>
                                                     </p>
 
                                                 </div>
 
                                                 <!-- Applied Date -->
-                                                <div class="pl-1">
+                                                <div class="min-w-0 p-3">
 
-                                                    <p class="text-[12px] text-slate-500 whitespace-nowrap">
+                                                    <p class="whitespace-nowrap text-[11px] font-medium text-slate-500">
                                                         Applied Date
                                                     </p>
 
-                                                    <p class="text-[13px] font-semibold text-slate-800 mt-2 whitespace-nowrap">
+                                                    <p class="mt-1.5 whitespace-nowrap text-[13px] font-bold text-slate-800">
                                                         <?= esc($appliedDate) ?>
                                                     </p>
 
@@ -249,25 +237,25 @@
 
                                             </div>
 
-                                            <div class="mt-4 rounded-md bg-slate-50 p-3">
+                                            <div class="mt-4 rounded-xl bg-slate-50 p-3">
                                                 <p class="text-[12px] text-slate-500">Source</p>
-                                                <p class="mt-1 text-[13px] font-semibold text-slate-800">
+                                                <p class="mt-1 break-words text-[13px] font-bold leading-5 text-slate-800">
                                                     <?= esc($application['application_source'] ?? 'Internal Career Portal') ?>
                                                 </p>
-                                                <div class="mt-3 flex gap-2">
+                                                <div class="mt-3 grid grid-cols-2 gap-2">
                                                     <a href="<?= base_url('Recruitment/applications/profile/' . $application['application_id']) ?>"
-                                                        class="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md bg-slate-900 text-[12px] font-semibold text-white hover:bg-slate-700">
+                                                        class="col-span-2 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-blue-600 text-[12px] font-bold text-white hover:bg-blue-700">
                                                         <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
                                                         Profile
                                                     </a>
                                                     <a href="<?= $hasResume ? base_url('Recruitment/applications/resume/' . $application['application_id']) : '#' ?>"
                                                         target="_blank"
-                                                        class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border text-[12px] font-semibold">
+                                                        class="<?= $hasResume ? 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-lg border text-[12px] font-bold">
                                                         <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
                                                         View
                                                     </a>
                                                     <a href="<?= $hasResume ? base_url('Recruitment/applications/resume-download/' . $application['application_id']) : '#' ?>"
-                                                        class="<?= $hasResume ? 'border-slate-200 text-slate-700 hover:bg-white' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-md border text-[12px] font-semibold">
+                                                        class="<?= $hasResume ? 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700' : 'pointer-events-none border-slate-100 text-slate-300' ?> inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-lg border text-[12px] font-bold">
                                                         <i data-lucide="download" class="w-3.5 h-3.5"></i>
                                                         Download
                                                     </a>

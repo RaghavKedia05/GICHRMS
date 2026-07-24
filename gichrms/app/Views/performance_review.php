@@ -9,16 +9,16 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <!-- Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
         main input, main select, main textarea { transition: border-color .15s, box-shadow .15s; }
-        main input:focus, main select:focus, main textarea:focus { outline: none; border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,.12); }
-        main section { border-radius: 14px !important; border-color: #e2e8f0 !important; }
+        main input:focus, main select:focus, main textarea:focus { outline: none; border-color: #2563eb !important; box-shadow: 0 0 0 3px rgba(37,99,235,.10); }
+        main section { border-radius: 18px !important; border-color: #e2e8f0 !important; overflow: hidden; }
         main section > div:first-child { text-align: left !important; padding: 18px 24px !important; background: linear-gradient(90deg,#f8fafc,#fff); }
         main section > div:first-child h2 { color: #0f172a !important; font-size: 17px !important; }
         main section > div:first-child p { display: none; }
@@ -52,7 +52,8 @@
 
                     <div>
 
-                        <h1 class="text-2xl font-semibold text-slate-800">
+                        <p class="mb-2 text-xs font-bold uppercase tracking-[.18em] text-blue-600">People &amp; Culture</p>
+                        <h1 class="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">
                             Performance Review
                         </h1>
 
@@ -76,7 +77,7 @@
 
                     <div class="flex flex-wrap gap-3">
 
-                        <div class="rounded-xl border bg-white px-4 py-2 shadow-sm"><span class="text-xs text-slate-500">Company reviews</span><strong class="ml-2 text-indigo-600"><?= (int) $reviewCount ?></strong></div>
+                        <div class="rounded-xl border border-slate-200 bg-white px-4 py-2 shadow-sm"><span class="text-xs text-slate-500">Company reviews</span><strong class="ml-2 text-blue-600"><?= (int) $reviewCount ?></strong></div>
 
                     </div>
 

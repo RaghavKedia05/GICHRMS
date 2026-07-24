@@ -1,12 +1,12 @@
-<div id="deleteModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[200]">
+<div id="deleteModal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm">
 
-    <div class="bg-white rounded-xl shadow-xl w-full max-w-md">
+    <div class="w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
 
         <div class="p-6">
 
             <div class="flex items-center gap-4">
 
-                <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center">
+                <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100">
 
                     <i data-lucide="trash-2" class="text-red-600 w-7 h-7"></i>
 
@@ -14,7 +14,7 @@
 
                 <div>
 
-                    <h2 class="text-xl font-bold">
+                    <h2 class="text-xl font-extrabold text-slate-950">
 
                         Delete Requisition
 
@@ -30,7 +30,7 @@
 
             </div>
 
-            <div class="mt-6 bg-slate-50 rounded-lg p-4">
+            <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
 
                 <p class="text-sm text-slate-500">
 
@@ -60,7 +60,7 @@
 
             <div class="flex justify-end gap-3 mt-8">
 
-                <button onclick="closeDeleteModal()" class="px-5 py-3 border rounded-lg">
+                <button onclick="closeDeleteModal()" class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50">
 
                     Cancel
 
@@ -68,7 +68,7 @@
 
                 <form id="confirmDeleteForm" method="post">
                     <?= csrf_field() ?>
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg">Delete Permanently</button>
+                    <button type="submit" class="rounded-xl bg-red-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-red-700">Delete Permanently</button>
                 </form>
 
             </div>

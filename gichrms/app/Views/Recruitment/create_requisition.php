@@ -8,7 +8,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
     <style>
@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
         }
 
         .requisition-form input:not([type="radio"]),
@@ -35,8 +35,8 @@
         .requisition-form input:not([type="radio"]):focus,
         .requisition-form select:focus,
         .requisition-form textarea:focus {
-            border-color: rgb(79 70 229);
-            box-shadow: 0 0 0 4px rgb(79 70 229 / 0.12);
+            border-color: rgb(37 99 235);
+            box-shadow: 0 0 0 4px rgb(37 99 235 / 0.12);
         }
 
         .requisition-form input[readonly],
@@ -49,7 +49,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="bg-slate-100 text-slate-900">
+<body class="bg-slate-50 text-slate-900">
     <?php
     $toastErrors = session()->getFlashdata('errors') ?? [];
     $toastSuccess = session()->getFlashdata('success');
@@ -70,15 +70,16 @@
                 <div class="max-w-7xl mx-auto">
 
                     <a href="<?= base_url('/Recruitment/requisitions') ?>"
-                        class="inline-flex items-center gap-2 text-sm font-semibold mb-4 text-slate-600 hover:text-indigo-600">
+                        class="inline-flex items-center gap-2 text-sm font-bold mb-4 text-slate-600 hover:text-blue-700">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
                         Requisitions
                     </a>
 
                     <div class="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                         <div>
+                            <p class="mb-2 text-xs font-extrabold uppercase tracking-[.16em] text-blue-600">Recruitment</p>
                             <div class="flex flex-wrap items-center gap-3">
-                                <h1 class="text-2xl sm:text-3xl font-semibold text-slate-950">
+                                <h1 class="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
                                     Create Job Requisition
                                 </h1>
                                 <span
@@ -93,13 +94,13 @@
                         </div>
 
                         <div class="grid grid-cols-2 gap-3 sm:flex">
-                            <div class="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                            <div class="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
                                 <p class="text-xs font-medium text-slate-500">Requisition ID</p>
                                 <p class="mt-1 text-sm font-semibold text-slate-900">
                                     <?= esc(old('requisition_no', $requisition_id)) ?>
                                 </p>
                             </div>
-                            <div class="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                            <div class="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
                                 <p class="text-xs font-medium text-slate-500">Requested By</p>
                                 <p class="mt-1 max-w-36 truncate text-sm font-semibold text-slate-900">
                                     <?= esc(session()->get('name')) ?>
@@ -110,25 +111,25 @@
 
                     <div class="space-y-5">
 
-                        <div class="sticky top-0 z-20 rounded-lg border border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur sm:px-6">
+                        <div class="sticky top-0 z-20 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur sm:px-6">
                             <nav class="flex gap-2 overflow-x-auto text-sm font-semibold">
                                 <a href="#request-details"
-                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-700">
                                     <i data-lucide="file-text" class="w-4 h-4"></i>
                                     Request
                                 </a>
                                 <a href="#position"
-                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-700">
                                     <i data-lucide="briefcase-business" class="w-4 h-4"></i>
                                     Position
                                 </a>
                                 <a href="#budget"
-                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-700">
                                     <i data-lucide="wallet" class="w-4 h-4"></i>
                                     Budget
                                 </a>
                                 <a href="#skills"
-                                    class="inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-indigo-600">
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-700">
                                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                                     Skills
                                 </a>
@@ -144,10 +145,10 @@
 
                             <div class="p-4 space-y-6 sm:p-6 lg:p-8">
 
-                                <div id="request-details" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                <div id="request-details" class="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
                                     <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
                                         <span
-                                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                                            class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                                             <i data-lucide="file-text" class="h-5 w-5"></i>
                                         </span>
                                         <div>
@@ -212,7 +213,7 @@
                                     </div>
                                 </div>
 
-                                <div id="position" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                <div id="position" class="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
                                     <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
                                         <span
                                             class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600">
@@ -313,7 +314,7 @@
                                     </div>
                                 </div>
 
-                                <div id="budget" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                <div id="budget" class="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
                                     <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
                                         <span
                                             class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
@@ -337,20 +338,20 @@
 
                                             <div class="grid gap-3 sm:grid-cols-2">
                                                 <label
-                                                    class="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-indigo-300 hover:bg-indigo-50/70">
+                                                    class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-blue-300 hover:bg-blue-50/70">
                                                     <input type="radio" name="reason_for_hire" value="New Headcount"
                                                         <?= old('reason_for_hire') === 'New Headcount' ? 'checked' : '' ?>
                                                         onclick="toggleReplacement(false)"
-                                                        class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                                                        class="h-4 w-4 border-slate-300 text-blue-600 focus:ring-blue-500">
                                                     <span class="font-medium text-slate-800">New Headcount</span>
                                                 </label>
 
                                                 <label
-                                                    class="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-indigo-300 hover:bg-indigo-50/70">
+                                                    class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-blue-300 hover:bg-blue-50/70">
                                                     <input type="radio" name="reason_for_hire" value="Replacement"
                                                         <?= old('reason_for_hire') === 'Replacement' ? 'checked' : '' ?>
                                                         onclick="toggleReplacement(true)"
-                                                        class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                                                        class="h-4 w-4 border-slate-300 text-blue-600 focus:ring-blue-500">
                                                     <span class="font-medium text-slate-800">Replacement</span>
                                                 </label>
                                             </div>
@@ -415,7 +416,7 @@
                                     </div>
                                 </div>
 
-                                <div id="skills" class="scroll-mt-24 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+                                <div id="skills" class="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
                                     <div class="mb-5 flex items-center gap-3 border-b border-slate-200 pb-4">
                                         <span
                                             class="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
@@ -502,16 +503,16 @@
                             </div>
 
                             <div
-                                class="sticky bottom-4 z-20 rounded-lg border border-slate-200 bg-white/95 p-4 shadow-[0_-8px_30px_rgba(15,23,42,0.10)] backdrop-blur sm:p-5">
+                                class="sticky bottom-4 z-20 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-[0_-8px_30px_rgba(15,23,42,0.10)] backdrop-blur sm:p-5">
                                 <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                                 <button type="submit"
-                                    class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                                    class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">
                                     <i data-lucide="save" class="h-4 w-4"></i>
                                     Save Draft
                                 </button>
 
                                 <button formaction="<?= base_url('Recruitment/requisitions/submit') ?>" type="submit"
-                                    class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700">
+                                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-blue-100 hover:from-blue-700 hover:to-blue-800">
                                     <i data-lucide="send" class="h-4 w-4"></i>
                                     Submit For Approval
                                 </button>

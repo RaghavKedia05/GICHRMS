@@ -7,13 +7,13 @@
     <title>Staff Directory</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
@@ -49,7 +49,7 @@
                     <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                         <div>
                             <div class="flex flex-wrap items-center gap-3">
-                                <h1 class="text-2xl font-semibold text-slate-950 sm:text-3xl">Staff Directory</h1>
+                                <h1 class="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Staff Directory</h1>
                                 <span
                                     class="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">
                                     <i data-lucide="users" class="h-3.5 w-3.5"></i>
@@ -63,7 +63,7 @@
 
                         <?php if ($canManageStaff): ?>
                             <a href="<?= base_url('/staff/create') ?>"
-                                class="inline-flex h-11 w-fit items-center justify-center gap-2 rounded-lg bg-indigo-600 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700">
+                                class="inline-flex h-11 w-fit items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm shadow-blue-200 hover:bg-blue-700">
                                 <i data-lucide="user-plus" class="h-4 w-4"></i>
                                 Add Staff
                             </a>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
 
-                    <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
+                    <section class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                         <div class="flex flex-col gap-3 border-b border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
                             <div>
                                 <h2 class="text-base font-semibold text-slate-950">Staff Records</h2>
